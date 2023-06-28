@@ -1,6 +1,3 @@
-# File Name: /opt/intercom-python-sdk/intercom-python-sdk/apis/admins/schemas.py
-# Language ID: python
-
 import marshmallow
 from marshmallow import Schema, fields
 
@@ -54,3 +51,5 @@ class AdminSchema(Schema):
     @marshmallow.post_load
     def make_admin(self, data):
         return Admin(**data)
+    
+    
