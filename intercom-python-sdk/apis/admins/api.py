@@ -25,8 +25,14 @@ from ...core.api_base import APIBase
 class AdminsAPI(APIBase):
     URI = "/admins"
 
+    def __init__(self, config: Configuration):
+        self.config = config 
+        self.config.base_url += AdminsAPI.URI
+        
+        super().__init__(self.config)
+
     @returns(AdminSchema(many=False)) # type: ignore
-    @get(f"{URI}/me")
+    @get("/me")
     def me(self):
         """ Get the current admin user. """
         

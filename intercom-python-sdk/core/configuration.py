@@ -128,3 +128,7 @@ class Configuration:
         """The hooks to be used in the API."""
         return self._hooks
     
+    @base_url.setter
+    def base_url(self, value):
+        self._base_url = value
+    
