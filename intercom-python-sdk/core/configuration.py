@@ -5,9 +5,11 @@ This module contains the Configuration class for the Intercom Python SDK.
 It is used to configure settings for individual API instances, which themselves
 are instances of the `Consumer` class from the Uplink library.
 """
-from typing import Optional as Opt, Union
-from uplink.session import Session
+import requests
+from typing import Optional as Opt, Union, Tuple, Any
 
+from uplink.converters import ConverterFactory
+from uplink.hooks import TransactionHook
 from uplink.auth import (
     BasicAuth, 
     BearerToken, 
@@ -15,6 +17,7 @@ from uplink.auth import (
     ApiTokenParam, 
     ApiTokenHeader
 )
+
 
 from validator_collection import checkers
 from warnings import warn
@@ -34,7 +37,9 @@ class Configuration:
         self,
         auth,
         base_url: str = "https://api.intercom.io",
-        api_version: Opt[Union[str, int]] = None
+        api_version: Opt[Union[str, int]] = None,
+        converters: Union[Tuple[ConverterFactory], Tuple[()]] = (), # Uplink converters
+        hooks: Union[Tuple[TransactionHook], Tuple[()]] = () # Uplink hooks
     ):
         """
         Initializes a new instance of the Configuration class.
@@ -51,6 +56,11 @@ class Configuration:
         self._base_url = base_url
         self._api_version = self.__validate_version(api_version)
         self._headers = {}
+        self._session = requests.Session()
+
+        # For flexibility with uplink
+        self._converters = converters
+        self._hooks = hooks
 
         if self._api_version:
             self._headers["Intercom-Version"] = self._api_version
@@ -102,3 +112,19 @@ class Configuration:
     def headers(self) -> dict:
         """The headers to be used in the API."""
         return self._headers
+    
+    @property
+    def session(self) -> requests.Session:
+        """The session to be used in the API."""
+        return self._session
+    
+    @property
+    def converters(self) -> Union[Tuple[ConverterFactory], Tuple[()]]:
+        """The converters to be used in the API."""
+        return self._converters
+    
+    @property
+    def hooks(self) -> Union[Tuple[TransactionHook], Tuple[()]]:
+        """The hooks to be used in the API."""
+        return self._hooks
+    
