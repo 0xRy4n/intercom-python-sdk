@@ -23,21 +23,23 @@ class APIBase(Consumer):
         Args:
             config: The configuration settings for the API.
         """
-        self.config = config
+        super().__init__(
+            base_url=config.base_url,
+            converters=config.converters,
+            hooks=config.hooks,
+            auth=config.auth,
+            client=config.session
+        )
 
-        # --- Ripped from uplink.Consumer and modified for Configuration object. ---
-        # https://uplink.readthedocs.io/en/stable/_modules/uplink/builder.html#Consumer
-        if isinstance(self.config.hooks, hooks_.TransactionHook):
-            hooks = (self.config.hooks,)
-
-        builder = Builder()
-        builder.base_url = self.config.base_url
-        builder.converters = self.config.converters
-        builder.add_hook(*self.config.hooks)
-        builder.auth = self.config.auth
-        builder.client = self.config.session
-
-        self.__session = session.Session(builder)
-        self.__client = builder.client
-        # --- End rip ---
+    def set_api_client(self):
+        """
+        A wrapper that sets the API client attribute for a returned model object.
+        """
+        def wrap(*args, **kwargs):
+            model = args[0]
+            model.api_client = self
+            return model
+        
+        return wrap
+    
 

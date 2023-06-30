@@ -1,3 +1,16 @@
+"""
+====================
+Admins API Schemas
+====================
+`apis/admins/schemas.py`
+
+This module contains the schema definitions provided by the Intercom API Reference [1].
+These schemas provide serialization/deserialization to and from the models defined in the `apis/admins/models.py` module.
+
+----
+[1] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
+"""
+
 import marshmallow
 from marshmallow import Schema, fields
 
@@ -40,16 +53,18 @@ class AdminSchema(Schema):
     id = fields.Str()
     name = fields.Str()
     email = fields.Str()
+    email_verified = fields.Boolean()
     job_title = fields.Str()
     away_mode_enabled = fields.Boolean()
     away_mode_reassign = fields.Boolean()
     has_inbox_seat = fields.Boolean()
     team_ids = fields.List(fields.Int())
-    avatar = fields.Str()
+    avatar = fields.Dict()
+    app = fields.Dict()
     team_priority_level = fields.Nested(TeamPriorityLevelSchema)
 
     @marshmallow.post_load
-    def make_admin(self, data):
+    def make_admin(self, data, **kwargs):
         return Admin(**data)
     
     

@@ -12,11 +12,10 @@ These models provide object oriented interfaces for the schemas defined in `apis
 [1] https://developers.intercom.com/intercom-api-reference/reference/admins
 """
 
-from .schemas import AdminSchema, TeamPriorityLevelSchema
-from ..models import ModelMeta
+from ..models import ModelBase
 
 
-class TeamPriorityLevel(metaclass=ModelMeta):
+class TeamPriorityLevel(ModelBase):
     """
     Represents a team priority level.
 
@@ -53,7 +52,7 @@ class TeamPriorityLevel(metaclass=ModelMeta):
         return self.__secondary_team_ids
 
 
-class Admin(metaclass=ModelMeta):
+class Admin(ModelBase):
     """
     Represents an admin.
 

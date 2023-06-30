@@ -31,7 +31,7 @@ class AdminsAPI(APIBase):
         
         super().__init__(self.config)
 
-    @returns(AdminSchema(many=False)) # type: ignore
+    @returns(AdminSchema) # type: ignore
     @get("/me")
     def me(self):
         """ Get the current admin user. """
