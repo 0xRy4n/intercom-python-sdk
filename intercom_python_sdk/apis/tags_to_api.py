@@ -12,6 +12,5 @@ class TagsToAPI(dict):
         super().__setitem__(key, value)
 
 
-tags_to_api_dict = TagsToAPI({
-    "admins": AdminsAPI
-})
+tags_to_api_dict = TagsToAPI()
+tags_to_api_dict["admins"] = AdminsAPI

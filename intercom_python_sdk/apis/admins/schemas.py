@@ -29,8 +29,9 @@ class TeamPriorityLevelSchema(Schema):
     secondary_team_ids = fields.List(fields.Int())
 
     @marshmallow.post_load
-    def make_team_priority_level(self, data):
-        return TeamPriorityLevel(**data)
+    def make_team_priority_level(self, data, **kwargs):
+        model = TeamPriorityLevel(**data)
+        return model
     
 class AdminSchema(Schema):
     """
@@ -65,6 +66,7 @@ class AdminSchema(Schema):
 
     @marshmallow.post_load
     def make_admin(self, data, **kwargs):
-        return Admin(**data)
+        model = Admin(**data)
+        return model
     
     

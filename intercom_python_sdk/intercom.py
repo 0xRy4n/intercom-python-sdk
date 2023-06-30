@@ -4,6 +4,7 @@ from warnings import warn
 
 from .apis import tags_to_api_dict
 from .core.configuration import Configuration
+from .core.api_base import create_api_client
 
 class Intercom:
     def __init__(self, api_key: Opt[str] = None, config: Opt[Configuration] = None):
@@ -26,4 +27,4 @@ class Intercom:
 
         
         for tag, api_class in tags_to_api_dict.items():
-            setattr(self, tag, api_class(config))
+            setattr(self, tag, create_api_client(api_class, config))

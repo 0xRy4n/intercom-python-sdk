@@ -12,6 +12,8 @@ It is used to interact with the Intercom Admins API [1] as defined in the Interc
 [2] https://github.com/intercom/Intercom-OpenAPI
 """
 
+import functools
+
 # External Packages
 from uplink import get, returns
 
@@ -21,6 +23,7 @@ from .schemas import AdminSchema, TeamPriorityLevelSchema
 # From Current Package
 from ...core.configuration import Configuration
 from ...core.api_base import APIBase
+from ...core.model_base import ModelBase
 
 class AdminsAPI(APIBase):
     URI = "/admins"
@@ -31,9 +34,7 @@ class AdminsAPI(APIBase):
         
         super().__init__(self.config)
 
-    @returns(AdminSchema) # type: ignore
+    @returns(AdminSchema(many=False)) # type: ignore
     @get("/me")
     def me(self):
         """ Get the current admin user. """
-        
-

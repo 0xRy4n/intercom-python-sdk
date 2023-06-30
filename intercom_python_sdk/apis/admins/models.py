@@ -12,7 +12,7 @@ These models provide object oriented interfaces for the schemas defined in `apis
 [1] https://developers.intercom.com/intercom-api-reference/reference/admins
 """
 
-from ..models import ModelBase
+from ...core.model_base import ModelBase
 
 
 class TeamPriorityLevel(ModelBase):

@@ -23,3 +23,13 @@ class ModelBase:
     
     def __getitem__(self, key):
         return getattr(self, key)
+    
+    @property
+    def api_client(self):
+        return getattr(self, "_api_client", None)
+    
+    @api_client.setter
+    def api_client(self, api_client):
+        self._api_client = api_client
+    
+    
