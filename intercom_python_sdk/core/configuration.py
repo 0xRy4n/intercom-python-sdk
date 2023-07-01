@@ -1,13 +1,18 @@
-""" Configuration Module
-`configuration.py`
+""" 
+====================
+Configuration Module
+====================
+`core/configuration.py`
 
 This module contains the Configuration class for the Intercom Python SDK.
 It is used to configure settings for individual API instances, which themselves
 are instances of the `Consumer` class from the Uplink library.
 """
-import requests
+# Built-ins
 from typing import Optional as Opt, Union, Tuple, Any, Dict
 
+# External
+import requests
 from uplink.converters import ConverterFactory
 from uplink.hooks import TransactionHook
 from uplink.auth import (
@@ -17,7 +22,6 @@ from uplink.auth import (
     ApiTokenParam, 
     ApiTokenHeader
 )
-
 from validator_collection import checkers
 from warnings import warn
 

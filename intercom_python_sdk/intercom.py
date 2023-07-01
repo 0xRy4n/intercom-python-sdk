@@ -1,3 +1,12 @@
+"""
+====================
+Intercom Client
+====================
+`intercom.py`
+
+This module contains the Intercom class, which is used to interact with the Intercom API.
+"""
+
 from typing import Optional as Opt
 from uplink.auth import BearerToken
 from warnings import warn

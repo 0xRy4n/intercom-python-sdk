@@ -1,5 +1,8 @@
-""" API Base Module
-`api_base.py`
+""" 
+====================
+API Base Module
+====================
+`core/api_base.py`
 
 Contains the core base classes and methodsfor all API classes in the Intercom Python SDK.
 """
@@ -27,6 +30,9 @@ from .model_base import ModelBase
 
 @json
 class APIBase(Consumer):
+    """
+    The base class for all API classes in the Intercom Python SDK.
+    """
     URI = ""
     def __init__(self, config: Configuration, **kwargs):
         """
@@ -73,12 +79,21 @@ class APIProxyInterface:
         A proxy class that functions as an interface to API client / consumer objects.
     """
     def __init__(self, api_class, config):
+        """ 
+        Set the API object for the API we are proxying 
+
+        Args:
+            api_class: The API class to proxy.
+            config: The configuration settings for the API.
+        """
         self.api_object = api_class(config)
     
     def __dir__(self):
+        """ Proxy the dir() method to the API object. """
         return dir(self.api_object)
     
     def __getattribute__(self, item):
+        """ Proxy all attribute access to the API object (except for api_object itself). """
         api_object = object.__getattribute__(self, 'api_object')
         if item == 'api_object':
             return api_object
@@ -90,6 +105,7 @@ class APIProxyInterface:
             return attr
         
     def __setattr__(self, item, value):
+        """ Proxy all attribute setting to the API object (except for api_object itself). """
         if item == 'api_object':
             return object.__setattr__(self, item, value)
         api_object = object.__getattribute__(self, 'api_object')
@@ -102,6 +118,10 @@ class APIProxyInterface:
         return repr(f"<{object.__getattribute__(self, '__class__').__name__}> - {self.api_object}")
     
     def _wrap_callable(self, method):
+        """
+        Wraps callable method to intercept the result.
+        If the result is a model object, inject the API client into the model object.
+        """
         def wrapped(*args, **kwargs):
             result = method(*args, **kwargs)
             if isinstance(result, ModelBase):
