@@ -25,7 +25,11 @@ from uplink import (
 )
 
 # From Current API
-from .schemas import AdminSchema, TeamPriorityLevelSchema
+from .schemas import (
+    AdminSchema, 
+    AdminListSchema,
+    TeamPriorityLevelSchema
+)
 from .models import Admin, TeamPriorityLevel
 
 # From Current Package
@@ -39,7 +43,7 @@ class AdminsAPI(APIBase):
     URI = "/admins/"
 
     @returns(AdminSchema(many=False)) # type: ignore
-    @get("me")
+    @get("/me") # We are adding a leading slash here because we actually WANT to ignore the /admins URI in this case.
     def me(self):
         """ Get the current admin user. 
         
@@ -64,3 +68,21 @@ class AdminsAPI(APIBase):
             HTTPResponse: The response from the API.
         """
         return self.__set_away_by_id(admin_id, {"away_mode_enabled":away, "away_mode_reassign":reassign})
+    
+    @returns(AdminListSchema(many=False)) # type: ignore
+    @get("")
+    def list_admins(self):
+        """ List all admins. 
+        
+        Returns:
+            List[Admin]: The list of admins.
+        """
+
+    @returns(AdminSchema(many=False)) # type: ignore
+    @get("{admin_id}")
+    def get_admin_by_id(self, admin_id: Union[str, int]):
+        """ Get an admin by ID. 
+        
+        Returns:
+            Admin: The admin.
+        """

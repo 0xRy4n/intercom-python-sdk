@@ -12,7 +12,7 @@ These models provide object oriented interfaces for the schemas defined in `apis
 [1] https://developers.intercom.com/intercom-api-reference/reference/admins
 """
 # Built-ins
-from typing import Union, TYPE_CHECKING, Generic, TypeVar
+from typing import Union, TYPE_CHECKING, List
 
 # From Current Package
 from ...core.model_base import ModelBase
@@ -241,3 +241,47 @@ class Admin(ModelBase):
         enabled = self.away_mode_enabled or True
         self.api_client.set_away_by_id(self.id, away=enabled, reassign=enabled)
         
+
+class AdminList(ModelBase):
+    """
+    Represents a list of admins.
+
+    Attributes:
+        See the `AdminListSchema` definition in `apis/admins/schemas.py` for details.
+
+    Model-Specific Attributes:
+        api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
+    """
+    
+    def __init__(self, *args, **kwargs):
+        self.__admins: List[Admin] = kwargs.get('admins', [])
+        self.__type: str = kwargs.get('type', '')
+
+    @property
+    def admins(self) -> List[Admin]:
+        """
+        Get the admins.
+
+        Returns:
+            List[Admin]: The admins.
+        """
+        return self.__admins
+    
+    @property
+    def type(self) -> str:
+        """
+        Get the type of the admin list.
+
+        Returns:
+            str: The type of the admin list.
+        """
+        return self.__type
+    
+    def __iter__(self):
+        return iter(self.admins)
+    
+    def __getitem__(self, key):
+        return self.admins[key]
+    
+    def __len__(self):
+        return len(self.admins)

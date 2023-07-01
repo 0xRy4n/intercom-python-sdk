@@ -16,7 +16,11 @@ import marshmallow
 from marshmallow import Schema, fields
 
 # From Current API
-from .models import Admin, TeamPriorityLevel
+from .models import (
+    Admin, 
+    AdminList,
+    TeamPriorityLevel
+)
 
 
 class TeamPriorityLevelSchema(Schema):
@@ -69,4 +73,11 @@ class AdminSchema(Schema):
     def make_admin(self, data, **kwargs):
         return Admin(**data)
     
-    
+
+class AdminListSchema(Schema):
+    type = fields.Str()
+    admins = fields.List(fields.Nested(AdminSchema))
+
+    @marshmallow.post_load
+    def make_admin_list(self, data, **kwargs):
+        return AdminList(**data)
