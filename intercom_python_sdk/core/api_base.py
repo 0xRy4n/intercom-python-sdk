@@ -124,12 +124,37 @@ class APIProxyInterface:
         """
         def wrapped(*args, **kwargs):
             result = method(*args, **kwargs)
-            if isinstance(result, ModelBase):
-                # Inject the API client into the model object
-                result.api_client = self.api_object
+            inject_into_instances = object.__getattribute__(self, '_inject_into_instances')
+            inject_into_instances(result, ModelBase, 'api_client', self.api_object)
             return result
         return wrapped
     
+    def _inject_into_instances(self, obj, cls, attribute_name, attribute_value):
+        """
+        Allows us to inject an attribute into all instances of a class, contained
+        within an arbitrary data structure of unknown depth.
+
+        This is useful for injecting the API client instance into Model Objects
+        that may be contained within some nested data structure (like a list of objects).
+        """
+        inject_into_instances_method = object.__getattribute__(self, '_inject_into_instances')
+        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value)
+
+        if isinstance(obj, cls):
+            obj.__setattr__(attribute_name, attribute_value)
+
+        if isinstance(obj, dict):
+            for value in obj.values():
+                inject(value)
+
+        elif isinstance(obj, (list, set, tuple)):
+            for item in obj:
+                inject(item)
+
+        elif hasattr(obj, '__dict__'):
+            for attr in vars(obj).values():
+                inject(attr)
+
 
 def create_api_client(api_class: APIBase, config: Configuration):
     """
