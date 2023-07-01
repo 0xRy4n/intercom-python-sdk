@@ -15,6 +15,7 @@ from uplink import (
     hooks as hooks_, 
     session, 
     returns,
+    json
 )
 from validator_collection import checkers
 from warnings import warn
@@ -23,7 +24,8 @@ from warnings import warn
 from .configuration import Configuration
 from .model_base import ModelBase
 
-    
+
+@json
 class APIBase(Consumer):
     URI = ""
     def __init__(self, config: Configuration, **kwargs):
@@ -39,7 +41,7 @@ class APIBase(Consumer):
         self.config.base_url += self.__class__.URI
 
         print(f"MY CONFIG {self.config.base_url}")
-        
+
         super().__init__(
             base_url=config.base_url,
             converters=config.converters,
@@ -48,7 +50,7 @@ class APIBase(Consumer):
             client=config.session
         )
 
-class APIProxyClass:
+class APIProxyInterface:
     """
     A proxy class that functions as an interface to API client / consumer objects.
     This allows for interception of API calls and modification of the results.
@@ -94,10 +96,10 @@ class APIProxyClass:
         setattr(api_object, item, value)
     
     def __call__(self, *args, **kwargs):
-        raise NotImplementedError("Direct method calls on ProxyClass are not supported. Access methods through api_object.")
+        raise NotImplementedError("Direct method calls on APIProxyInterface are not supported. Access methods through api_object.")
 
     def __repr__(self):
-        return repr(f"<{object.__getattribute__(self, '__class__').__name}> - {self.api_object}")
+        return repr(f"<{object.__getattribute__(self, '__class__').__name__}> - {self.api_object}")
     
     def _wrap_callable(self, method):
         def wrapped(*args, **kwargs):
@@ -120,4 +122,4 @@ def create_api_client(api_class: APIBase, config: Configuration):
     Returns:
         An proxy interface to the instance of the API class with an API client attached to each model object.
     """
-    return APIProxyClass(api_class, config)
+    return APIProxyInterface(api_class, config)
