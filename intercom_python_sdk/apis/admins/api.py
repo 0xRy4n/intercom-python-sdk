@@ -14,7 +14,7 @@ It is used to interact with the Intercom Admins API [1] as defined in the Interc
 
 # Built-ins
 import functools
-from typing import Union
+from typing import Union, cast
 
 # External
 from uplink import (
@@ -30,7 +30,7 @@ from .schemas import (
     AdminListSchema,
     TeamPriorityLevelSchema
 )
-from .models import Admin, TeamPriorityLevel
+from .models import Admin, AdminList
 
 # From Current Package
 from ...core.api_base import APIBase
@@ -75,7 +75,7 @@ class AdminsAPI(APIBase):
         """ List all admins. 
         
         Returns:
-            List[Admin]: The list of admins.
+            AdminList: The list of admins.
         """
 
     @returns(AdminSchema(many=False)) # type: ignore
@@ -86,3 +86,29 @@ class AdminsAPI(APIBase):
         Returns:
             Admin: The admin.
         """
+
+    def get_admin_by_email(self, email: str) -> Union[Admin, None]:
+        """ Get an admin by email. 
+        
+        Returns:
+            Admin: The matching Admin object. None if no match found.
+        """
+        admins_list = self.list_admins()
+        for admin in admins_list.admins: # type: ignore
+            if admin.email == email:
+                return admin
+
+    def get_admins_by_team_id(self, team_id: Union[int, str]) -> AdminList:
+        """ Get all admins by team ID. 
+        
+        Returns:
+            AdminList: The list of admins. None if no match found.
+        """
+        admins_list = self.list_admins()
+
+        # Loop over list in reverse so we can delete from the list as we go.
+        for index, admin in reversed(list(enumerate(admins_list.admins))) # type: ignore
+            if not team_id in admin.team_ids:
+                del admins_list.admins[index]
+        
+        return admins_list
