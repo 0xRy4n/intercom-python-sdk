@@ -56,6 +56,7 @@ class APIBase(Consumer):
             client=config.session
         )
 
+
 class APIProxyInterface:
     """
     A proxy class that functions as an interface to API client / consumer objects.
