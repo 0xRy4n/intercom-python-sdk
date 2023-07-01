@@ -30,8 +30,7 @@ class TeamPriorityLevelSchema(Schema):
 
     @marshmallow.post_load
     def make_team_priority_level(self, data, **kwargs):
-        model = TeamPriorityLevel(**data)
-        return model
+        return TeamPriorityLevel(**data)
     
 class AdminSchema(Schema):
     """
@@ -66,7 +65,6 @@ class AdminSchema(Schema):
 
     @marshmallow.post_load
     def make_admin(self, data, **kwargs):
-        model = Admin(**data)
-        return model
+        return Admin(**data)
     
     

@@ -6,7 +6,7 @@ It is used to configure settings for individual API instances, which themselves
 are instances of the `Consumer` class from the Uplink library.
 """
 import requests
-from typing import Optional as Opt, Union, Tuple, Any
+from typing import Optional as Opt, Union, Tuple, Any, Dict
 
 from uplink.converters import ConverterFactory
 from uplink.hooks import TransactionHook
@@ -17,7 +17,6 @@ from uplink.auth import (
     ApiTokenParam, 
     ApiTokenHeader
 )
-
 
 from validator_collection import checkers
 from warnings import warn
@@ -39,7 +38,8 @@ class Configuration:
         base_url: str = "https://api.intercom.io",
         api_version: Opt[Union[str, int]] = None,
         converters: Union[Tuple[ConverterFactory], Tuple[()]] = (), # Uplink converters
-        hooks: Union[Tuple[TransactionHook], Tuple[()]] = () # Uplink hooks
+        hooks: Union[Tuple[TransactionHook], Tuple[()]] = (), # Uplink hooks
+        proxy: Opt[Dict] = None
     ):
         """
         Initializes a new instance of the Configuration class.
@@ -48,6 +48,7 @@ class Configuration:
             auth: The authentication instance- see the Authentication classes in the Uplink library.
             base_url: The base URL of the API. Default is "https://api.intercom.io".
             api_version: The version of the API. Default is None (will use the version specified in your Intercom instance.)
+            proxy: Optional proxy configuration for debugging. Treat like a requests.Session() proxy argument.
             
         Raises:
             ValueError: If the provided api_version is not valid.
@@ -64,6 +65,15 @@ class Configuration:
 
         if self._api_version:
             self._headers["Intercom-Version"] = self._api_version
+
+        self._headers["Accept"] = "application/json"
+        self._headers["Content-Type"] = "application/json"
+        self._session.headers.update(self._headers)
+
+        if proxy:
+            self._session.proxies = proxy
+            self._session.verify = False
+
 
     def __validate_version(self, api_version: Union[str, int, None]) -> Union[str, None]:
         """

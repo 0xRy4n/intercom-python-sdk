@@ -3,18 +3,29 @@
 
 Contains the core base classes and methodsfor all API classes in the Intercom Python SDK.
 """
+# Built-in Imports
 import functools
 from typing import Optional as Opt, Union
+
+# Third-Party Imports
+import marshmallow.exceptions 
 from uplink.builder import Builder
-from uplink import Consumer, hooks as hooks_, session, returns
+from uplink import (
+    Consumer, 
+    hooks as hooks_, 
+    session, 
+    returns,
+)
 from validator_collection import checkers
 from warnings import warn
 
+# Local Imports
 from .configuration import Configuration
 from .model_base import ModelBase
 
     
 class APIBase(Consumer):
+    URI = ""
     def __init__(self, config: Configuration, **kwargs):
         """
         Initializes a new instance of the APIBase class.
@@ -24,8 +35,11 @@ class APIBase(Consumer):
         Args:
             config: The configuration settings for the API.
         """
-        print(config)
+        self.config = config
+        self.config.base_url += self.__class__.URI
 
+        print(f"MY CONFIG {self.config.base_url}")
+        
         super().__init__(
             base_url=config.base_url,
             converters=config.converters,

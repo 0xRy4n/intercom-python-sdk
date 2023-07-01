@@ -7,13 +7,14 @@ from .core.configuration import Configuration
 from .core.api_base import create_api_client
 
 class Intercom:
-    def __init__(self, api_key: Opt[str] = None, config: Opt[Configuration] = None):
+    def __init__(self, api_key: Opt[str] = None, config: Opt[Configuration] = None, debug=False):
         """
         Initializes a new instance of the Intercom class. Requires either an API key or a Configuration object.
 
         Args:
             api_key: The API key to use for authentication. If not provided, will use the API key from the Configuration object.
             config: The configuration settings for the API. If not provided, will build one using the provided API key.
+            debug: Enable default debug proxy. Use custom config for more control.
         """
         if not api_key and not config:
             raise ValueError("Must provide either an API key or a Configuration object.")
@@ -23,7 +24,14 @@ class Intercom:
         
         if not config:
             auth = BearerToken(api_key)
-            config = Configuration(auth=auth)
+            if debug:
+                proxy = {
+                    "http": "http://localhost:8080",
+                    "https": "http://localhost:8080",
+                }
+            else:
+                proxy = None
+            config = Configuration(auth=auth, proxy=proxy)
 
         
         for tag, api_class in tags_to_api_dict.items():
