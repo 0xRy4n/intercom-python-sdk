@@ -11,9 +11,11 @@ These schemas provide serialization/deserialization to and from the models defin
 [1] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
 """
 
+# External
 import marshmallow
 from marshmallow import Schema, fields
 
+# From Current API
 from .models import Admin, TeamPriorityLevel
 
 
@@ -46,7 +48,7 @@ class AdminSchema(Schema):
         away_mode_reassign (bool): True if the away mode reassign is enabled for the admin user, False otherwise.
         has_inbox_seat (bool): True if the admin user has an inbox seat, False otherwise.
         team_ids (List[int]): The IDs of the teams the admin user belongs to.
-        avatar (str): The URL of the admin user's avatar.
+        avatar (Dict): The URL of the admin user's avatar.
         team_priority_level (TeamPriorityLevelSchema): The priority level of the admin user's team.
     """
     type = fields.Str()
