@@ -107,8 +107,10 @@ class AdminsAPI(APIBase):
         admins_list = self.list_admins()
 
         # Loop over list in reverse so we can delete from the list as we go.
-        for index, admin in reversed(list(enumerate(admins_list.admins))) # type: ignore
-            if not team_id in admin.team_ids:
+        for index, admin in reversed(list(enumerate(admins_list.admins))): # type: ignore
+            if team_id not in admin.team_ids:
                 del admins_list.admins[index]
-        
+
         return admins_list
+    
+    

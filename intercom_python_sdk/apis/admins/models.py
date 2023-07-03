@@ -86,10 +86,6 @@ class Admin(ModelBase):
         """ Get the API Client Instance. """
         return self._api_client
     
-    @api_client.setter
-    def api_client(self, api_client: 'AdminsAPI'):
-        self._api_client = api_client
-    
     @property
     def type(self) -> str:
         """
@@ -201,8 +197,12 @@ class Admin(ModelBase):
         Returns:
             bool: True if the admin's away mode reassign is enabled. None if unset.
         """
-        return self.__away_mode_reassign
     
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: 'AdminsAPI'):
+        self._api_client = api_client
+
     @away_mode_enabled.setter
     def away_mode_enabled(self, value):
         """
@@ -211,8 +211,22 @@ class Admin(ModelBase):
         Args:
             value (bool): The value indicating whether the admin's away mode should be enabled or disabled.
         """
-        pass
-    
+        self.__away_mode_enabled = value
+        self.set_away(enabled=value)
+
+    @away_mode_reassign.setter
+    def away_mode_reassign(self, value):
+        """
+        Set the admin's away mode reassign to enabled or disabled.
+
+        Args:
+            value (bool): The value indicating whether the admin's away mode reassign should be enabled or disabled.
+        """
+        self.__away_mode_reassign = value
+        self.set_reassign(enabled=value)
+
+    # Methods
+
     def set_away(self, enabled: bool = True):
         """
         Set the admin's away mode.
@@ -279,9 +293,6 @@ class AdminList(ModelBase):
     
     def __iter__(self):
         return iter(self.admins)
-    
-    def __getitem__(self, key):
-        return self.admins[key]
     
     def __len__(self):
         return len(self.admins)
