@@ -22,6 +22,7 @@ from ...core.model_base import ModelBase
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
 if TYPE_CHECKING:
     from .api import DataAttributesAPI
+    from .schemas import DataAttributeSchema
 
 
 class DataAttribute(ModelBase):
@@ -50,7 +51,16 @@ class DataAttribute(ModelBase):
         self.__admin_id = kwargs.get('admin_id', None)
 
     # Properties
+    @property
+    def api_client(self) -> 'DataAttributesAPI':
+        """
+        Get the API client used to interact with the data attribute.
 
+        Returns:
+            DataAttributesAPI: The API client used to interact with the data attribute.
+        """
+        return self._api_client
+    
     @property
     def type(self) -> str:
         """
@@ -210,6 +220,102 @@ class DataAttribute(ModelBase):
             str: The admin id of the data attribute.
         """
         return self.__admin_id
+    
+    # Property Setters
+    
+    @api_client.setter
+    def api_client(self, value: 'DataAttributesAPI'):
+        """ Setter for the api_client property """
+        self._api_client = value
+    
+    @type.setter
+    def type(self, value: str):
+        """ Setter for the type property """
+        self.__type = value
+
+    @id.setter
+    def id(self, value: Union[str, None]):
+        """ Setter for the id property """
+        self.__id = value
+    
+    @model.setter
+    def model(self, value: str):
+        """ Setter for the model property """
+        self.__model = value
+    
+    @name.setter
+    def name(self, value: str):
+        """ Setter for the name property """
+        self.__name = value
+    
+    @full_name.setter
+    def full_name(self, value: str):
+        """ Setter for the full_name property """
+        self.__full_name = value
+    
+    @label.setter
+    def label(self, value: str):
+        """ Setter for the label property """
+        self.__label = value
+    
+    @description.setter
+    def description(self, value: str):
+        """ Setter for the description property """
+        self.__description = value
+    
+    @data_type.setter
+    def data_type(self, value: str):
+        """ Setter for the data_type property """
+        self.__data_type = value
+    
+    @options.setter
+    def options(self, value: List[str]):
+        """ Setter for the options property """
+        self.__options = value
+    
+    @api_writable.setter
+    def api_writable(self, value: Union[int, None]):
+        """ Setter for the api_writable property """
+        self.__api_writable = value
+
+    @ui_writable.setter
+    def ui_writable(self, value: Union[int, None]):
+        """ Setter for the ui_writable property """
+        self.__ui_writable = value
+
+    @custom.setter
+    def custom(self, value: Union[int, None]):
+        """ Setter for the custom property """
+        self.__custom = value
+
+    @archived.setter
+    def archived(self, value: Union[int, None]):
+        """ Setter for the archived property """
+        self.__archived = value
+    
+    @created_at.setter
+    def created_at(self, value: Union[int, None]):
+        """ Setter for the created_at property """
+        self.__created_at = value
+    
+    @updated_at.setter
+    def updated_at(self, value: Union[int, None]):
+        """ Setter for the updated_at property """
+        self.__updated_at = value
+    
+    @admin_id.setter
+    def admin_id(self, value: Union[int, None]):
+        """ Setter for the admin_id property """
+        self.__admin_id = value
+
+    # Methods
+    def update(self):
+        """
+        Update the data attribute to match the current object.
+        """
+        data = DataAttributeSchema().dump(self)
+        schema = DataAttributeSchema().load(data, partial=True)
+        self.api_client.update_by_id(self.id, schema)
 
 
 class DataAttributeList(ModelBase):
@@ -245,6 +351,58 @@ class DataAttributeList(ModelBase):
         """
         return self.__data
     
+    # Methods
+
+    def get_attribute_by_id(self, id: str) -> Union[DataAttribute, None]:
+        """
+        Get the data attribute with the specified ID.
+
+        Args:
+            id (str): The ID of the data attribute to get.
+
+        Returns:
+            DataAttribute: The data attribute with the specified ID. None if not found.
+        """
+        return next(
+            (attribute for attribute in self.__data if attribute.id == id), None
+        )
+    
+    def get_attribute_by_name(self, name: str) -> Union[DataAttribute, None]:
+        """
+        Get the data attribute with the specified name.
+
+        Args:
+            name (str): The name of the data attribute to get.
+
+        Returns:
+            DataAttribute: The data attribute with the specified name. None if not found.
+        """
+        return next(
+            (attribute for attribute in self.__data if attribute.name == name),
+            None,
+        )
+    
+    def get_attribute_by_full_name(self, full_name: str) -> Union[DataAttribute, None]:
+        """
+        Get the data attribute with the specified full name.
+
+        Args:
+            full_name (str): The full name of the data attribute to get.
+
+        Returns:
+            DataAttribute: The data attribute with the specified full name. None if not found.
+        """
+        return next(
+            (
+                attribute
+                for attribute in self.__data
+                if attribute.full_name == full_name
+            ),
+            None,
+        )
+    
+    # Dunder Overrides
+
     def __iter__(self):
         """
         Returns an iterator for the data attribute list.
@@ -262,51 +420,4 @@ class DataAttributeList(ModelBase):
             int: The length of the data attribute list.
         """
         return len(self.__data)
-    
-    # Methods
-
-    def get_attribute_by_id(self, id: str) -> Union[DataAttribute, None]:
-        """
-        Get the data attribute with the specified ID.
-
-        Args:
-            id (str): The ID of the data attribute to get.
-
-        Returns:
-            DataAttribute: The data attribute with the specified ID. None if not found.
-        """
-        for attribute in self.__data:
-            if attribute.id == id:
-                return attribute
-        return None
-    
-    def get_attribute_by_name(self, name: str) -> Union[DataAttribute, None]:
-        """
-        Get the data attribute with the specified name.
-
-        Args:
-            name (str): The name of the data attribute to get.
-
-        Returns:
-            DataAttribute: The data attribute with the specified name. None if not found.
-        """
-        for attribute in self.__data:
-            if attribute.name == name:
-                return attribute
-        return None
-    
-    def get_attribute_by_full_name(self, full_name: str) -> Union[DataAttribute, None]:
-        """
-        Get the data attribute with the specified full name.
-
-        Args:
-            full_name (str): The full name of the data attribute to get.
-
-        Returns:
-            DataAttribute: The data attribute with the specified full name. None if not found.
-        """
-        for attribute in self.__data:
-            if attribute.full_name == full_name:
-                return attribute
-        return None
     

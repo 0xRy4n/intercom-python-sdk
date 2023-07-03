@@ -62,9 +62,13 @@ class DataAttributeSchema(Schema):
     created_at = fields.Int()
     updated_at = fields.Int()
 
+    class Meta:
+        unknown = marshmallow.EXCLUDE
+
     @marshmallow.post_load
     def make_data_attribute(self, data, **kwargs):
         return DataAttribute(**data)
+
     
 
 class DataAttributeListSchema(Schema):
@@ -77,8 +81,9 @@ class DataAttributeListSchema(Schema):
         pages (PagesSchema): The pagination information for the Data Attribute list.
     """
     type = fields.Str()
-    data = fields.List(fields.Nested(DataAttributeSchema))
+    data = fields.List(fields.Nested(DataAttributeSchema(unknown = marshmallow.EXCLUDE)))
 
     @marshmallow.post_load
     def make_data_attribute_list(self, data, **kwargs):
+        print(data)
         return DataAttributeList(**data)
