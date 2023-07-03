@@ -44,12 +44,13 @@ class APIBase(Consumer):
             config: The configuration settings for the API.
         """
         self.config = config
-        self.config.base_url += self.__class__.URI
+        
+        self.base_url = config.base_url + self.URI
 
-        print(f"MY CONFIG {self.config.base_url}")
+        print(f"MY CONFIG {self.base_url}")
 
         super().__init__(
-            base_url=config.base_url,
+            base_url=self.base_url,
             converters=config.converters,
             hooks=config.hooks,
             auth=config.auth,

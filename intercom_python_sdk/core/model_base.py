@@ -6,7 +6,7 @@ Model Base Classes
 
 Extensible models applicable to all APIS.
 """
-
+# Built-ins
 from pprint import pformat
 
 class ModelBase:
@@ -16,6 +16,13 @@ class ModelBase:
     Raises:
         NotImplementedError: When setting a property with no setter.
     """
+
+    # set _api_client to None on new instances with __new__
+    def __new__(cls, *args, **kwargs):
+        instance = super().__new__(cls)
+        instance._api_client = None
+        return instance
+    
     def __setattr__(self, name, value):
         prop = getattr(self, name, None)
         if isinstance(prop, property) and not prop.fset:
