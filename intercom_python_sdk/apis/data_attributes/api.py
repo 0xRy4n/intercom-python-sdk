@@ -16,6 +16,7 @@ It is used to interact with the Intercom Data Attributes API [1] as defined in t
 from typing import Union
 
 # External
+import marshmallow
 from uplink import (
     get, put, post, 
     returns, args,
@@ -43,34 +44,20 @@ from ...core.errors import catch_api_error
 class DataAttributesAPI(APIBase):
     URI = "/data_attributes/"
 
-    @returns(DataAttributeListSchema(many=False)) # type: ignore
+    @returns(DataAttributeListSchema()) # type: ignore
     @get("")
-    def list_all(self, include_archived: Query("include_archived", bool) = False): # type: ignore
+    def list_all(self, include_archived: Query("include_archived", bool) = False, model: Query("model", str) = None): # type: ignore
         """ List all data attributes. 
         
         Args:
-            include_archived (bool): Whether or not to include archived data attributes.
+            include_archived (bool): Whether or not to include archived data attributes. Defaults to False. (Optional)
+            model (str): The model to filter by. Valid values are 'contact', 'company', and 'conversation'. (Optional)
 
         Returns:
             DataAttributeList: A list of data attributes.
         """
 
-    @returns(DataAttributeListSchema(many=True)) # type: ignore
-    @get("")
-    def list_all_by_model(self, model: Query("model", str), include_archived: Query("include_archived", bool) = False): # type: ignore
-        """ List all data attributes by model. 
-        
-        Args:
-            model (str): The model to list data attributes for.
-                Options: ["company", "contact", "conversation"]
-        
-        Returns:
-            DataAttributeList: A list of data attributes.
-        """
-        if model not in ["company", "contact", "conversation"]:
-            raise ValueError("Invalid model. Must be one of ['company', 'contact', 'conversation']")
-
-    @returns(DataAttributeSchema(many=False)) # type: ignore
+    @returns(DataAttributeSchema()) # type: ignore
     @post("")
     def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
         """ Create a new data attribute. 
@@ -82,7 +69,8 @@ class DataAttributesAPI(APIBase):
             DataAttribute: The newly created data attribute.
         """
     
-    @returns(DataAttributeSchema(many=False)) # type: ignore
+    @returns(DataAttributeSchema()) # type: ignore
+    @json
     @put("{attribute_id}")
     def update_by_id(self, attribute_id: Union[str, int], attribute: Body(type=DataAttributeSchema)): # type: ignore
         """ Update a data attribute by ID.
@@ -94,6 +82,8 @@ class DataAttributesAPI(APIBase):
         Returns:
             DataAttribute: The updated data attribute.
         """
+
+    # Helper Methods
 
     def get_by_id(self, attribute_id: Union[str, int]) -> Union[DataAttribute, None]:
         """ Get a data attribute by ID. 
@@ -125,3 +115,4 @@ class DataAttributesAPI(APIBase):
         data_attribute.archived = True
         
         return self.update_by_id(attribute_id, data_attribute)
+    

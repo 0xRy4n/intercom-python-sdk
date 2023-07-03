@@ -14,15 +14,16 @@ These models provide object oriented interfaces for the schemas defined in `apis
 # Built-ins
 from typing import Union, TYPE_CHECKING, List
 
+# From Current API
+from . import schemas as da_schemas
+
 # From Current Package
 from ...core.model_base import ModelBase
 
 # Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
-# We can use this to allow for type hinting without causing circular imports.
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
 if TYPE_CHECKING:
     from .api import DataAttributesAPI
-    from .schemas import DataAttributeSchema
 
 
 class DataAttribute(ModelBase):
@@ -313,8 +314,11 @@ class DataAttribute(ModelBase):
         """
         Update the data attribute to match the current object.
         """
-        data = DataAttributeSchema().dump(self)
-        schema = DataAttributeSchema().load(data, partial=True)
+        if not (self.id and self.api_writable):
+            raise ValueError('This data attribute is not writable.')
+        
+        data = da_schemas.DataAttributeSchema().dump(self)
+        schema = da_schemas.DataAttributeSchema().load(data, partial=True)
         self.api_client.update_by_id(self.id, schema)
 
 
@@ -402,6 +406,8 @@ class DataAttributeList(ModelBase):
         )
     
     # Dunder Overrides
+    def __getitem__(self, key: int) -> Union[DataAttribute, None]:
+        return self.__data[key]
 
     def __iter__(self):
         """

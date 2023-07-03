@@ -14,16 +14,16 @@ These schemas provide serialization/deserialization to and from the models defin
 
 # External
 import marshmallow
-from marshmallow import Schema, fields
+from marshmallow import fields
 
 # From Current API
-from .models import (
-    DataAttribute,
-    DataAttributeList,
-)
+from . import models as da_models
+
+# From Current Package
+from ...core.schema_base import SchemaBase
 
 
-class DataAttributeSchema(Schema):
+class DataAttributeSchema(SchemaBase):
     """
     This schema represents a Data Attribute on Intercom.
 
@@ -54,24 +54,20 @@ class DataAttributeSchema(Schema):
     label = fields.Str()
     description = fields.Str()
     options = fields.List(fields.Str())
-    api_writeable = fields.Bool()
-    ui_writeable = fields.Bool()
+    api_writable = fields.Bool()
+    ui_writable = fields.Bool()
     custom = fields.Bool()
     archived = fields.Bool()
     admin_id = fields.Str()
     created_at = fields.Int()
     updated_at = fields.Int()
 
-    class Meta:
-        unknown = marshmallow.EXCLUDE
-
     @marshmallow.post_load
     def make_data_attribute(self, data, **kwargs):
-        return DataAttribute(**data)
+        return da_models.DataAttribute(**data)
 
-    
 
-class DataAttributeListSchema(Schema):
+class DataAttributeListSchema(SchemaBase):
     """
     This schema represents a list of Data Attributes on Intercom.
 
@@ -86,4 +82,4 @@ class DataAttributeListSchema(Schema):
     @marshmallow.post_load
     def make_data_attribute_list(self, data, **kwargs):
         print(data)
-        return DataAttributeList(**data)
+        return da_models.DataAttributeList(**data)
