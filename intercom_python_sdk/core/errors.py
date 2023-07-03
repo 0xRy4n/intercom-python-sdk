@@ -13,16 +13,21 @@ These models/schemas are implemented as defined by the Intercom API Reference [1
 # Built-ins
 import json
 
+from dataclasses import dataclass
+from pprint import pformat
+from typing import Any
+
 # External
 from marshmallow import (
-    Schema, 
     fields, 
     post_load, 
     ValidationError
 )
 
+# From Current Package
+from .schema_base import SchemaBase
 
-class IntercomErrorObjectSchema(Schema):
+class IntercomErrorObjectSchema(SchemaBase):
     """
     Schema for an Intercom error object.
 
@@ -34,12 +39,14 @@ class IntercomErrorObjectSchema(Schema):
     code = fields.Str()
     message = fields.Str()
     field = fields.Str()
+    request_id = fields.Str()
 
     @post_load
     def make_intercom_error_object(self, data, **kwargs):
         return IntercomErrorObject(**data)
 
-class IntercomErrorListSchema(Schema):
+
+class IntercomErrorListSchema(SchemaBase):
     """
     Schema for a list of Intercom error objects.
 
@@ -49,44 +56,47 @@ class IntercomErrorListSchema(Schema):
     """
     type = fields.Str()
     errors = fields.List(fields.Nested(IntercomErrorObjectSchema))
+    request_id = fields.Str()
 
     @post_load
     def make_intercom_error_list(self, data, **kwargs):
         return IntercomErrorList(**data)
 
+
 class IntercomErrorObject:
     """ Custom exception for an Intercom error object. """
-    def __init__(self, code, message, field = None):
-        self.code = code
-        self.message = message
-        self.field = field
+
+    def __init__(self, **kwargs: Any):
+        self.code = kwargs.get("code", "")
+        self.message = kwargs.get("message", "")
+
+        if kwargs.get("field"):
+            self.field = kwargs.get("field")
+
+        if kwargs.get("request_id"):
+            self.request_id = kwargs.get("request_id")
 
     def __str__(self):
-        return f"Code: {self.code}, Message: {self.message}, Field: {self.field}"
+        return f"\n{pformat(self.__dict__)}\n"
+    
+    def __repr__(self):
+        return self.__str__()
 
 
 class IntercomErrorList(Exception):
     """ Custom exception for a list of Intercom error objects. """
-    def __init__(self, type, errors):
-        self.type = type
-        self.errors = errors
-        error_messages = "\n".join([str(error.message) for error in errors])
-        super().__init__(f"Type: {type}\nErrors: {error_messages}")
+    def __init__(self, **kwargs):
+        self.type = kwargs.get("type", "")
+        self.errors = kwargs.get("errors", [])
+        self.request_id = kwargs.get("request_id", None)
 
+        super().__init__(f"Error Response from Intercom API. Request ID: {self.request_id}\n {pformat(self.__dict__)}")
 
-def catch_api_error(response):  # sourcery skip: raise-specific-error
+def catch_api_error(response):  # type: ignore
     """ Catches API errors and raises them as as custom exceptions. """
-    # TODO: Fix IntercomErrorList raising.
     if 200 <= response.status_code < 300:
         return response
-
-    try:
-        data = response.json()
-        parsed_data = IntercomErrorListSchema().load(data)
-
-        raise IntercomErrorList(parsed_data.type, parsed_data.errors) # type: ignore
-
-    except Exception as e:
-        raise Exception(
-            f"Got an unexpected response from the API: {response.text}"
-        ) from e
+    
+    data = response.json()
+    error = IntercomErrorListSchema().load(data) 
+    raise error # type: ignore
