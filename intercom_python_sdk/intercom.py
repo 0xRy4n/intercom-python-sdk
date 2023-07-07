@@ -7,6 +7,8 @@ Intercom Client
 This module contains the Intercom class, which is used to interact with the Intercom API.
 """
 
+import marshmallow 
+
 from typing import Optional as Opt
 from uplink.auth import BearerToken
 from warnings import warn
@@ -14,6 +16,7 @@ from warnings import warn
 from .apis import tags_to_api_dict
 from .core.configuration import Configuration
 from .core.api_base import create_api_client
+
 
 class Intercom:
     def __init__(self, api_key: Opt[str] = None, config: Opt[Configuration] = None, debug=False):
@@ -23,7 +26,8 @@ class Intercom:
         Args:
             api_key: The API key to use for authentication. If not provided, will use the API key from the Configuration object.
             config: The configuration settings for the API. If not provided, will build one using the provided API key.
-            debug: Enable default debug proxy. Use custom config for more control.
+            debug: Enables debugging features. 
+                - Default HTTP proxy configuration enabled. Use custom config for more control.
         """
         if not api_key and not config:
             raise ValueError("Must provide either an API key or a Configuration object.")
@@ -40,6 +44,7 @@ class Intercom:
                 }
             else:
                 proxy = None
+
             config = Configuration(auth=auth, proxy=proxy)
 
         

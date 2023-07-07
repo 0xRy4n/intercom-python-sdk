@@ -13,12 +13,14 @@ These models provide object oriented interfaces for the schemas defined in `apis
 """
 # Built-ins
 from typing import Union, TYPE_CHECKING, List
+import copy
 
 # From Current API
 from . import schemas as da_schemas
 
 # From Current Package
 from ...core.model_base import ModelBase
+from ..admins.api import AdminsAPI as da_AdminsAPI
 
 # Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
@@ -404,6 +406,12 @@ class DataAttributeList(ModelBase):
             ),
             None,
         )
+    
+    def my_fake_function(self):
+        admins_api_client = da_AdminsAPI(self.api_client.config) # type: ignore
+        cur_admin = admins_api_client.me()
+
+        # someshit
     
     # Dunder Overrides
     def __getitem__(self, key: int) -> Union[DataAttribute, None]:

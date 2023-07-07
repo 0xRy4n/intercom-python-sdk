@@ -36,6 +36,9 @@ class ModelBase:
     def __getitem__(self, key):
         return getattr(self, key)
     
+    def __setitem__(self, key, value):
+        setattr(self, key, value)
+    
     @property
     def api_client(self):
         return getattr(self, "_api_client", None)

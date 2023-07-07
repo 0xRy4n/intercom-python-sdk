@@ -28,36 +28,6 @@ from .configuration import Configuration
 from .model_base import ModelBase
 
 
-@json
-class APIBase(Consumer):
-    """
-    The base class for all API classes in the Intercom Python SDK.
-    """
-    URI = ""
-    def __init__(self, config: Configuration, **kwargs):
-        """
-        Initializes a new instance of the APIBase class.
-        Overrides the Consumer class from the Uplink library to 
-        configure the Consumer instance using a Configuration object.
-
-        Args:
-            config: The configuration settings for the API.
-        """
-        self.config = config
-        
-        self.base_url = config.base_url + self.URI
-
-        print(f"MY CONFIG {self.base_url}")
-
-        super().__init__(
-            base_url=self.base_url,
-            converters=config.converters,
-            hooks=config.hooks,
-            auth=config.auth,
-            client=config.session
-        )
-
-
 class APIProxyInterface:
     """
     A proxy class that functions as an interface to API client / consumer objects.
@@ -158,7 +128,7 @@ class APIProxyInterface:
                 inject(attr)
 
 
-def create_api_client(api_class: APIBase, config: Configuration):
+def create_api_client(api_class: 'APIBase', config: Configuration):
     """
     Creates a proxy interface for an API client for the provided API class.
 
@@ -170,3 +140,46 @@ def create_api_client(api_class: APIBase, config: Configuration):
         An proxy interface to the instance of the API class with an API client attached to each model object.
     """
     return APIProxyInterface(api_class, config)
+
+
+@json
+class APIBase(Consumer):
+    """
+    The base class for all API classes in the Intercom Python SDK.
+    """
+    URI = ""
+    def __init__(self, config: Configuration, **kwargs):
+        """
+        Initializes a new instance of the APIBase class.
+        Overrides the Consumer class from the Uplink library to 
+        configure the Consumer instance using a Configuration object.
+
+        Args:
+            config: The configuration settings for the API.
+        """
+        self.config = config
+        
+        self.base_url = config.base_url + self.URI
+
+        print(f"[*] Loaded API Endpoint: {self.base_url}")
+
+        super().__init__(
+            base_url=self.base_url,
+            converters=config.converters,
+            hooks=config.hooks,
+            auth=config.auth,
+            client=config.session
+        )
+
+    def make_subapi(self, api_tag, api_cls, api_config):
+        # api_tag is the name of the subapi
+        # api_cls class
+        # api_config is the config object
+
+        if not hasattr(self, api_tag):
+            # If the subapi has not been created yet, create it
+            setattr(self, api_tag, create_api_client(api_cls, api_config))
+
+        else:
+            # If the subapi has already been created, return it
+            return getattr(self, api_tag)

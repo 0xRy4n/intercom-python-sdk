@@ -13,7 +13,7 @@ These schemas provide serialization/deserialization to and from the models defin
 
 # External
 import marshmallow
-from marshmallow import Schema, fields
+from marshmallow import fields
 
 # From Current API
 from .models import (
@@ -22,8 +22,11 @@ from .models import (
     TeamPriorityLevel
 )
 
+# From Current Package
+from ...core.schema_base import SchemaBase
 
-class TeamPriorityLevelSchema(Schema):
+
+class TeamPriorityLevelSchema(SchemaBase):
     """
     This schema represents a priority level of a team.
     
@@ -38,7 +41,8 @@ class TeamPriorityLevelSchema(Schema):
     def make_team_priority_level(self, data, **kwargs):
         return TeamPriorityLevel(**data)
     
-class AdminSchema(Schema):
+
+class AdminSchema(SchemaBase):
     """
     This schema represents an admin user on Intercom.
     
@@ -74,7 +78,7 @@ class AdminSchema(Schema):
         return Admin(**data)
     
 
-class AdminListSchema(Schema):
+class AdminListSchema(SchemaBase):
     type = fields.Str()
     admins = fields.List(fields.Nested(AdminSchema))
 

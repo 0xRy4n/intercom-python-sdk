@@ -67,7 +67,6 @@ class Admin(ModelBase):
     Model-Specific Attributes:
         api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
     """
-    
     def __init__(self, *args, **kwargs):
         self.__type: str  = kwargs.get('type', '')
         self.__id: str = kwargs.get('id', '')
