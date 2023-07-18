@@ -21,15 +21,17 @@ from uplink import (
     get, put, post,
     returns, args,
     error_handler, response_handler,
-    Field, Body, json, Url, Path, Query
+    Field, Body, json, Url, Path, Query,delete
 )
 
 # From Current API
 from .schemas import (
     ArticleSchema,
-    ArticleStatisticsSchema
+    ArticleStatisticsSchema,
+    CreateArticleSchema,
+    DeletedArticleSchema
 )
-from .models import Article, ArticleStatistics
+from .models import Article, ArticleStatistics, CreateArticle
 
 # From Current Package
 from ...core.api_base import APIBase
@@ -50,6 +52,33 @@ class ArticlesAPI(APIBase):
         Returns:
             Article: The Article with the given ID.
         """
+    
+    @returns(ArticleSchema(many=False)) # type: ignore
+    @post("")
+    def create(self, data: Body(type=CreateArticleSchema)): # type: ignore
 
-        
+        """ Create an Article.
+
+        Args:
+            data (Body(type=CreateArticleSchema)): The data to create the Article with.
+
+        Returns:
+            Article: The created Article.
+        """
+
+
+    @returns(DeletedArticleSchema(many=False)) # type: ignore
+    @delete("{article_id}")
+    def delete_by_id(self, article_id: Union[str, int]):
+        """ Delete an Article by ID.
+
+        Args:
+            article_id (Union[str, int]): The ID of the Article.
+
+        Returns:
+            DeletedArticle: The deleted Article.
+        """
+
+
+
 

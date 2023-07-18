@@ -408,6 +408,175 @@ class Article(ModelBase):
         """
         self.__id = id
 
-    
+class CreateArticle(ModelBase):
+    def __init__(self, *args, **kwargs):
+            self.__title = kwargs.get('title')
+            self.__author_id = kwargs.get('author_id')
 
+    # Properties
+    @property
+    def api_client(self) -> 'ArticlesAPI':
+        """
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        """
+        return self._api_client
+    
+    @property
+    def title(self) -> str:
+        """
+        The title of the Article.
+
+        Returns:
+            str: The title of the Article.
+        """
+        return self.__title
+    
+    @property
+    def author_id(self) -> int:
+            
+            """
+            The ID of the author of the Article.
+    
+            Returns:
+                int: The ID of the author of the Article.
+            """
+            return self.__author_id
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: 'ArticlesAPI'):
+        """
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        """
+        self._api_client = api_client
+
+    @title.setter
+    def title(self, title: str):
+        """
+        The title of the Article.
+
+        Args:
+            title (str): The title of the Article.
+        """
+        self.__title = title
+
+    @author_id.setter
+    def author_id(self, author_id: int):
+        """
+        The ID of the author of the Article.
+
+        Args:
+            author_id (int): The ID of the author of the Article.
+        """
+        self.__author_id = author_id
+
+    
+     
+class DeletedArticle(ModelBase):
+    """
+    This model represents a deleted Article on Intercom.
+
+    Attributes:
+        id (int): The ID of the Article.
+        object (str): The type of the Article.
+        deleted (bool): Whether or not the Article was deleted.
+    """
+    id: Optional[int]
+    object: Optional[str]
+    deleted: Optional[bool]
+
+    def __init__(self, *args, **kwargs):
+            self.__id = kwargs.get('id')
+            self.__object = kwargs.get('object')
+            self.__deleted = kwargs.get('deleted')
+
+    # Properties
+    @property
+    def api_client(self) -> 'ArticlesAPI':
+        """
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        """
+        return self._api_client
+    
+    @property
+    def id(self) -> int:
+        """
+        The ID of the Article.
+
+        Returns:
+            int: The ID of the Article.
+        """
+        return self.__id
+    
+    @property
+    def object(self) -> str:
+        """
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        """
+        return self.__object
+    
+    @property
+    def deleted(self) -> bool:
+        """
+        Whether or not the Article was deleted.
+
+        Returns:
+            bool: Whether or not the Article was deleted.
+        """
+        return self.__deleted
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: 'ArticlesAPI'):
+        """
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        """
+        self._api_client = api_client
+
+    @id.setter
+    def id(self, id: int):
+        """
+        The ID of the Article.
+
+        Args:
+            id (int): The ID of the Article.
+        """
+        self.__id = id
+
+    @object.setter
+    def object(self, object: str):
+        """
+        The type of the Article.
+
+        Args:
+            object (str): The type of the Article.
+        """
+        self.__object = object
+
+    @deleted.setter
+    def deleted(self, deleted: bool):
+        """
+        Whether or not the Article was deleted.
+
+        Args:
+            deleted (bool): Whether or not the Article was deleted.
+        """
+        self.__deleted = deleted
+
+        
 

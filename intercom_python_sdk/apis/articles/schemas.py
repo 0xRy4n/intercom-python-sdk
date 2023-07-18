@@ -88,5 +88,22 @@ class ArticleSchema(SchemaBase):
         return a_models.Article(**data)
     
 
+class CreateArticleSchema(SchemaBase):
+    author_id = fields.Int()
+    title = fields.Str()
 
 
+    @marshmallow.post_load
+    def make_article(self, data, **kwargs):
+        return a_models.CreateArticle(**data)
+
+
+class DeletedArticleSchema(SchemaBase):
+    id = fields.Int()
+    object = fields.Str()
+    deleted = fields.Bool()
+
+    @marshmallow.post_load
+    def make_deleted_article(self, data, **kwargs):
+        return a_models.DeletedArticle(**data)
+    
