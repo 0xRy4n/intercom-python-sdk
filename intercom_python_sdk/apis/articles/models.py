@@ -578,5 +578,123 @@ class DeletedArticle(ModelBase):
         """
         self.__deleted = deleted
 
-        
 
+class ArticleList(ModelBase):
+    """
+    This model represents a list of Articles on Intercom.
+
+    Attributes:
+        type (str): The type of the Article.
+        pages (dict): The pages of the Article.
+        total_count (int): The total count of the Article.
+        data (list): The data of the Article.
+    """
+    def __init__(self, *args, **kwargs):
+            self.__type = kwargs.get('type')
+            self.__pages = kwargs.get('pages')
+            self.__total_count = kwargs.get('total_count')
+            self.__data = kwargs.get('data')
+
+    # Properties
+    @property
+    def api_client(self) -> 'ArticlesAPI':
+        """
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        """
+        return self._api_client
+    
+    @property
+    def type(self) -> str:
+        """
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        """
+        return self.__type
+    
+    @property
+    def pages(self) -> dict:
+        """
+        The pages of the Article.
+
+        Returns:
+            dict: The pages of the Article.
+        """
+        return self.__pages
+    
+    @property
+    def total_count(self) -> int:
+        """
+        The total count of the Article.
+
+        Returns:
+            int: The total count of the Article.
+        """
+        return self.__total_count
+    
+    @property
+    def data(self) -> List[Article]:
+        """
+        The data of the Article.
+
+        Returns:
+            List[Article]: The data of the Article.
+        """
+        return self.__data
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: 'ArticlesAPI'):
+        """
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        """
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        """
+        The type of the Article.
+
+        Args:
+            type (str): The type of the Article.
+        """
+        self.__type = type
+
+    @pages.setter
+    def pages(self, pages: dict):
+        """
+        The pages of the Article.
+
+        Args:
+            pages (dict): The pages of the Article.
+        """
+        self.__pages = pages
+
+    @total_count.setter
+    def total_count(self, total_count: int):
+        """
+        The total count of the Article.
+
+        Args:
+            total_count (int): The total count of the Article.
+        """
+        self.__total_count = total_count
+
+    @data.setter
+    def data(self, data: List[Article]):
+        """
+        The data of the Article.
+
+        Args:
+            data (List[Article]): The data of the Article.
+        """
+        self.__data = data
+    
+    

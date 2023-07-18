@@ -60,9 +60,9 @@ class ArticleSchema(SchemaBase):
         state (str): The state of the Article.
         created_at (int): The timestamp of when the Article was created.
         updated_at (int): The timestamp of when the Article was updated.
-        url (str): The URL of the Article.
-        parent_id (int): The ID of the parent of the Article.
-        parent_type (str): The type of the parent of the Article.
+        url (str): The URL of the Article.can be null if the Article is not published.
+        parent_id (int): The ID of the parent of the Article. can be null if the Article is not a child of another Article.
+        parent_type (str): The type of the parent of the Article. can be null if the Article is not a child of another Article.
         default_locale (str): The default locale of the Article.
         statistics (dict): The statistics of the Article.
     """
@@ -76,14 +76,17 @@ class ArticleSchema(SchemaBase):
     state = fields.Str()
     created_at = fields.Int()
     updated_at = fields.Int()
-    url = fields.Str()
-    parent_id = fields.Int()
-    parent_type = fields.Str()
+    url = fields.Str(allow_none=True)
     default_locale = fields.Str()
     translated_content = fields.Dict()
     statistics = fields.Nested(ArticleStatisticsSchema)
 
+    parent_id = fields.Int(allow_none=True)
+    parent_type = fields.Str(allow_none=True)
+    
+
     @marshmallow.post_load
+
     def make_article(self, data, **kwargs):
         return a_models.Article(**data)
     
@@ -107,3 +110,56 @@ class DeletedArticleSchema(SchemaBase):
     def make_deleted_article(self, data, **kwargs):
         return a_models.DeletedArticle(**data)
     
+    """
+    {
+  "type": "list",
+  "pages": {
+    "type": "pages",
+    "next": "https://api.intercom.io/articles?per_page=25&page=2",
+    "page": 1,
+    "per_page": 25,
+    "total_pages": 6
+  },
+  "total_count": 150,
+  "data": [
+    {
+      "id": "8117054",
+      "type": "article",
+      "workspace_id": "awwxrc0h",
+      "parent_id": 2919918,
+      "parent_type": "section",
+      "title": "Guided Mode For Machines",
+      "description": "Unlocking the Full Experience: Exploring and Mastering Guided Mode",
+      "body": "",
+      "author_id": 6396415,
+      "state": "published",
+      "created_at": 1689086414,
+      "updated_at": 1689161069,
+      "url": "https://help.hackthebox.com/en/articles/8117054-guided-mode-for-machines"
+    },
+    {
+      "id": "8116542",
+      "type": "article",
+      "workspace_id": "awwxrc0h",
+      "parent_id": 2919960,
+      "parent_type": "collection",
+      "title": "HTB Affiliate Program: Program Policy & Guidelines",
+      "description": "Resources, assets, and content to help you make Hack The Box available to your audience, so you can collect more affiliate rewards!",
+      "body": "TEST",
+      "author_id": 5165498,
+      "state": "published",
+      "created_at": 1689081668,
+      "updated_at": 1689088989,
+      "url": "https://help.hackthebox.com/en/articles/8116542-htb-affiliate-program-program-policy-guidelines"
+    },
+    {
+    """
+
+class ArticleListSchema(SchemaBase):
+    pages = fields.Dict()
+    total_count = fields.Int()
+    data = fields.Nested(ArticleSchema, many=True)
+
+    @marshmallow.post_load
+    def make_article_list(self, data, **kwargs):
+        return a_models.ArticleList(**data)

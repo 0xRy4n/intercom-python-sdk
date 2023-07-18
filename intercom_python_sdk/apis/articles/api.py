@@ -29,9 +29,10 @@ from .schemas import (
     ArticleSchema,
     ArticleStatisticsSchema,
     CreateArticleSchema,
-    DeletedArticleSchema
+    DeletedArticleSchema,
+    ArticleListSchema
 )
-from .models import Article, ArticleStatistics, CreateArticle
+from .models import Article, ArticleStatistics, CreateArticle, DeletedArticle, ArticleList
 
 # From Current Package
 from ...core.api_base import APIBase
@@ -80,5 +81,10 @@ class ArticlesAPI(APIBase):
         """
 
 
-
+    @returns(ArticleListSchema(many=False)) # type: ignore
+    @get("")
+    def list_all(self, page: Query("page", int) = 1, per_page: Query("per_page", int) = 50, order: Query("order", str) = None, sort: Query("sort", str) = None, type: Query("type", str) = None, workspace_id: Query("workspace_id", str) = None, parent_id: Query("parent_id", str) = None, parent_type: Query("parent_type", str) = None, tag_id: Query("tag_id", str) = None, query: Query("query", str) = None, label_id: Query("label_id", str) = None, include: Query("include", str) = None, label_type: Query("label_type", str) = None, label_name: Query("label_name", str) = None, label_color: Query("label_color", str) = None, label_parent_id: Query("label_parent_id", str) = None, label_parent_type: Query("label_parent_type", str) = None, label_parent_name: Query("label_parent_name", str) = None, label_parent_color: Query("label_parent_color", str) = None, label_parent_parent_id: Query("label_parent_parent_id", str) = None, label_parent_parent_type: Query("label_parent_parent_type", str) = None, label_parent_parent_name: Query("label_parent_parent_name", str) = None, label_parent_parent_color: Query("label_parent_parent_color", str) = None): # type: ignore
+        """ List all Articles.
+        """
+        
 
