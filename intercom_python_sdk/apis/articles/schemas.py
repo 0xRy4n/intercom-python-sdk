@@ -66,16 +66,16 @@ class ArticleSchema(SchemaBase):
         default_locale (str): The default locale of the Article.
         statistics (dict): The statistics of the Article.
     """
-    id = fields.Int()
+    id = fields.Int(required=True)
     type = fields.Str()
     workspace_id = fields.Str()
     title = fields.Str()
-    description = fields.Str()
+    description = fields.Str(allow_none=True)
     body = fields.Str()
     author_id = fields.Int()
-    state = fields.Str()
-    created_at = fields.Int()
-    updated_at = fields.Int()
+    state = fields.Str(allow_none=True)
+    created_at = fields.Int(allow_none=True)
+    updated_at = fields.Int(allow_none=True)
     url = fields.Str(allow_none=True)
     default_locale = fields.Str()
     translated_content = fields.Dict()

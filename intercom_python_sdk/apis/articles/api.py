@@ -85,6 +85,28 @@ class ArticlesAPI(APIBase):
     @get("")
     def list_all(self, page: Query("page", int) = 1, per_page: Query("per_page", int) = 50, order: Query("order", str) = None, sort: Query("sort", str) = None, type: Query("type", str) = None, workspace_id: Query("workspace_id", str) = None, parent_id: Query("parent_id", str) = None, parent_type: Query("parent_type", str) = None, tag_id: Query("tag_id", str) = None, query: Query("query", str) = None, label_id: Query("label_id", str) = None, include: Query("include", str) = None, label_type: Query("label_type", str) = None, label_name: Query("label_name", str) = None, label_color: Query("label_color", str) = None, label_parent_id: Query("label_parent_id", str) = None, label_parent_type: Query("label_parent_type", str) = None, label_parent_name: Query("label_parent_name", str) = None, label_parent_color: Query("label_parent_color", str) = None, label_parent_parent_id: Query("label_parent_parent_id", str) = None, label_parent_parent_type: Query("label_parent_parent_type", str) = None, label_parent_parent_name: Query("label_parent_parent_name", str) = None, label_parent_parent_color: Query("label_parent_parent_color", str) = None): # type: ignore
         """ List all Articles.
-        """
-        
 
+        Args:
+            page (int): The page number.
+            per_page (int): The number of Articles per page.
+            order (str): The order to sort the Articles by. Valid values are 'asc' and 'desc'. (Optional)
+            sort (str): The field to sort the Articles by. Valid values are 'created_at' and 'updated_at'. (Optional)
+            type (str): The type of Articles to list. Valid values are 'article' and 'folder'. (Optional)
+            workspace_id (str): The ID of the workspace to filter by. (Optional)
+            parent_id (str): The ID of the parent to filter by. (Optional)
+            parent_type (str): The type of the parent to filter by. (Optional)
+
+
+            """
+
+    @returns(ArticleSchema(many=False)) # type: ignore
+    @json
+    @put("{article_id}")
+    def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
+        """ Update an Article by ID.
+
+        Args:
+            article_id (Union[str, int]): The ID of the Article.
+            data (Body(type=ArticleSchema)): The data to update the Article with.
+
+        """
