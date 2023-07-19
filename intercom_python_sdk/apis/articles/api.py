@@ -55,6 +55,7 @@ class ArticlesAPI(APIBase):
         """
     
     @returns(ArticleSchema(many=False)) # type: ignore
+    @json
     @post("")
     def create(self, data: Body(type=CreateArticleSchema)): # type: ignore
 
