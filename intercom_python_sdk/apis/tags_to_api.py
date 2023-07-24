@@ -14,7 +14,7 @@ from uplink.builder import Consumer, ConsumerMeta
 from .admins.api import AdminsAPI
 from .data_attributes.api import DataAttributesAPI
 from .articles.api import ArticlesAPI
-
+from .data_events.api import DataEventsAPI
 
 # From Current Package
 from ..core.api_base import APIBase
@@ -34,3 +34,4 @@ tags_to_api_dict = TagsToAPI()
 tags_to_api_dict["admins"] = AdminsAPI
 tags_to_api_dict["data_attributes"] = DataAttributesAPI
 tags_to_api_dict["articles"] = ArticlesAPI
+tags_to_api_dict["data_events"] = DataEventsAPI
