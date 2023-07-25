@@ -1,7 +1,6 @@
 """
-====================
-Schema Base Classes
-====================
+# Schema Base Classes
+
 `core/schema_base.py`
 
 Extensible schemas applicable to all APIS.

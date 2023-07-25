@@ -1,7 +1,6 @@
 """ 
-====================
-API Base Module
-====================
+# API Base Module
+
 `core/api_base.py`
 
 Contains the core base classes and methodsfor all API classes in the Intercom Python SDK.

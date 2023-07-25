@@ -1,7 +1,6 @@
 """
-====================
-Model Base Classes
-====================
+# Model Base Classes
+
 `core/model_base.py`
 
 Extensible models applicable to all APIS.

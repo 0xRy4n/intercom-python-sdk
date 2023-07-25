@@ -1,7 +1,6 @@
 """ 
-====================
-Configuration Module
-====================
+# Configuration Module
+
 `core/configuration.py`
 
 This module contains the Configuration class for the Intercom Python SDK.
@@ -109,12 +108,12 @@ class Configuration:
 
     @property
     def auth(self):
-        """The authentication instance."""
+        """The authentication instance. See the Authentication classes in the Uplink library. """
         return self._auth
     
     @property
     def base_url(self) -> str:
-        """The base URL of the API."""
+        """The base URL of the API. Example: 'https://api.intercom.io'"""
         return self._base_url
     
     @property
