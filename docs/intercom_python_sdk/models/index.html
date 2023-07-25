@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>intercom_python_sdk.models API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Intercom SDK Models Import Interface …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,11 +22,30 @@
 <h1 class="title">Module <code>intercom_python_sdk.models</code></h1>
 </header>
 <section id="section-intro">
+<h1 id="intercom-sdk-models-import-interface">Intercom SDK Models Import Interface</h1>
+<p>This module serves as an interface for importing all available models from the Intercom Python SDK.</p>
+<p>You can use it to import available models, like so:</p>
+<pre><code class="language-python">from intercom_python_sdk.models import Admin
+from intercom_python_sdk.models import DataAttribute
+</code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from ..apis.admins.models import (
+<pre><code class="python">&#34;&#34;&#34;
+# Intercom SDK Models Import Interface
+
+This module serves as an interface for importing all available models from the Intercom Python SDK.
+
+You can use it to import available models, like so:
+
+```python
+from intercom_python_sdk.models import Admin
+from intercom_python_sdk.models import DataAttribute
+```
+&#34;&#34;&#34;
+
+from ..apis.admins.models import (
     Admin, 
     AdminList
 )
@@ -61,7 +80,9 @@ from ..apis.data_export.models import DataExportJob</code></pre>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#intercom-sdk-models-import-interface">Intercom SDK Models Import Interface</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
