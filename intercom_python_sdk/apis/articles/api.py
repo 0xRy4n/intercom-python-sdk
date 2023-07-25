@@ -6,7 +6,7 @@
 This module contains the ArticlesAPI class, which defines a client for the Articles API.
 It is used to interact with the Intercom Articles API [1] as defined in the Intercom API Reference [2].
 
-----
+---
 [1] https://developers.intercom.com/intercom-api-reference/reference/articles
 [2] https://github.com/intercom/Intercom-OpenAPI
 """

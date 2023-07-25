@@ -1,14 +1,13 @@
 """
-====================
-Articles API Models
-====================
+# Articles API Models
+
 `apis/articles/models.py`
 
 This module contains models used to interact with the Intercom Articles API [1].
 These models provide object oriented interfaces for the schemas defined in `apis/articles/schemas.py`.
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/listarticles
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/listarticles
 """
 
 # External

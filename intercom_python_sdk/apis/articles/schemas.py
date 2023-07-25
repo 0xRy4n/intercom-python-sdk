@@ -1,15 +1,14 @@
 """
-====================
-Articles API Schemas
-====================
+# Articles API Schemas
+
 `apis/articles/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
 These schemas provide serialization/deserialization to and from the models defined in the 
 `apis/data_attributes/models.py` module.
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/the-article-model
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/the-article-model
 """
 
 # External
