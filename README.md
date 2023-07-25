@@ -1,9 +1,11 @@
 # Intercom Python SDK
 
-### Disclaimer:
+### Disclaimer
 
 This is an unofficial Python SDK for interacting with the Intercom API as defined in the [Intercom API Reference](https://developers.intercom.com/intercom-api-reference/reference). This project is in no way associated with Intercom and is provided as-is without warranty. See the `LICENSE` file for more information.
 
+### Docs
+You can read the docs at https://0xry4n.github.io/intercom-python-sdk/
 
 ## Usage
 
