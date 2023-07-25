@@ -100,7 +100,7 @@ class APIProxyInterface:
             return result
         return wrapped
     
-    def _inject_into_instances(self, obj, cls, attribute_name, attribute_value):
+    def _inject_into_instances(self, obj, cls, attribute_name, attribute_value, visited=None):
         """
         Allows us to inject an attribute into all instances of a class, contained
         within an arbitrary data structure of unknown depth.
@@ -108,8 +108,16 @@ class APIProxyInterface:
         This is useful for injecting the API client instance into Model Objects
         that may be contained within some nested data structure (like a list of objects).
         """
+        if visited is None:
+            visited = set()
+
+        if id(obj) in visited:
+            return
+
+        visited.add(id(obj))
+        
         inject_into_instances_method = object.__getattribute__(self, '_inject_into_instances')
-        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value)
+        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value, visited)
 
         if isinstance(obj, cls):
             obj.__setattr__(attribute_name, attribute_value)
