@@ -24,8 +24,14 @@
 <section id="section-intro">
 <h1 id="intercom-admins-api">Intercom Admins API</h1>
 <p>Implements the Intercom Admins API [1].</p>
+<hr>
+<ul>
+<li>[1] <a href="https://developers.intercom.com/intercom-api-reference/reference/admins">https://developers.intercom.com/intercom-api-reference/reference/admins</a></li>
+<li>[2] <a href="https://developers.intercom.com/intercom-api-reference/reference/the-admin-model">https://developers.intercom.com/intercom-api-reference/reference/the-admin-model</a></li>
+</ul>
 <h2 id="example-usage">Example Usage</h2>
-<pre><code class="language-python">
+<pre><code class="language-python">from intercom_python_sdk import Intercom
+
 intercom = Intercom('my_api_key')
 
 admins_list = intercom.admins.list_all() # Returns an AdminsList object
@@ -36,11 +42,6 @@ for admin in admins_list: # We can iterate over the AdminsList object like a lis
 cur_admin = intercom.admins.me() # Returns the current Admin
 cur_admin.set_away() # We can take API actions on the Admin object, as is defined in `apis/admins/models.py`.
 </code></pre>
-<hr>
-<ul>
-<li>[1] <a href="https://developers.intercom.com/intercom-api-reference/reference/admins">https://developers.intercom.com/intercom-api-reference/reference/admins</a></li>
-<li>[2] <a href="https://developers.intercom.com/intercom-api-reference/reference/the-admin-model">https://developers.intercom.com/intercom-api-reference/reference/the-admin-model</a></li>
-</ul>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -50,9 +51,14 @@ cur_admin.set_away() # We can take API actions on the Admin object, as is define
 
 Implements the Intercom Admins API [1].
 
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/admins
+- [2] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
+
 ## Example Usage
 
 ```python
+from intercom_python_sdk import Intercom
 
 intercom = Intercom(&#39;my_api_key&#39;)
 
@@ -64,10 +70,6 @@ for admin in admins_list: # We can iterate over the AdminsList object like a lis
 cur_admin = intercom.admins.me() # Returns the current Admin
 cur_admin.set_away() # We can take API actions on the Admin object, as is defined in `apis/admins/models.py`.
 ```
-
----
-- [1] https://developers.intercom.com/intercom-api-reference/reference/admins
-- [2] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
 
 &#34;&#34;&#34;
 

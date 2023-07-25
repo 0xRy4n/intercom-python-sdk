@@ -457,6 +457,27 @@ class DataAttributeList(ModelBase):
             int: The length of the data attribute list.
         &#34;&#34;&#34;
         return len(self.__data)
+    
+    def __contains__(self, item: Union[DataAttribute, str]) -&gt; bool:
+        &#34;&#34;&#34;
+        Returns True if the data attribute list contains the specified item.
+
+        Args:
+            item (Union[DataAttribute, str]): The item to check for.
+        Returns:
+            bool: True if the data attribute list contains the specified item.
+        &#34;&#34;&#34;
+        if isinstance(item, DataAttribute):
+            return item in self.__data
+        elif isinstance(item, str):
+            return any(
+                attribute.name == item or attribute.full_name == item
+                for attribute in self.__data
+            )
+        else:
+            return False
+    
+
     </code></pre>
 </details>
 </section>
@@ -1307,7 +1328,26 @@ def updated_at(self) -&gt; Union[int, None]:
         Returns:
             int: The length of the data attribute list.
         &#34;&#34;&#34;
-        return len(self.__data)</code></pre>
+        return len(self.__data)
+    
+    def __contains__(self, item: Union[DataAttribute, str]) -&gt; bool:
+        &#34;&#34;&#34;
+        Returns True if the data attribute list contains the specified item.
+
+        Args:
+            item (Union[DataAttribute, str]): The item to check for.
+        Returns:
+            bool: True if the data attribute list contains the specified item.
+        &#34;&#34;&#34;
+        if isinstance(item, DataAttribute):
+            return item in self.__data
+        elif isinstance(item, str):
+            return any(
+                attribute.name == item or attribute.full_name == item
+                for attribute in self.__data
+            )
+        else:
+            return False</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">

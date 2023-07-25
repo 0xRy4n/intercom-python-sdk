@@ -47,7 +47,7 @@ These models provide object oriented interfaces for the schemas defined in `apis
 &#34;&#34;&#34;
 
 # External
-from typing import List, Optional, Union , TYPE_CHECKING
+from typing import Any, List, Optional, Union , TYPE_CHECKING
 
 # From Current API
 from . import schemas as a_schemas
@@ -732,7 +732,39 @@ class ArticleList(ModelBase):
         &#34;&#34;&#34;
         self.__data = data
     
-    </code></pre>
+
+    def __len__(self):
+        &#34;&#34;&#34;
+        The length of the Article.
+
+        Returns:
+            int: The length of the Article.
+        &#34;&#34;&#34;
+        return len(self.data)
+    
+    def __iter__(self):
+        &#34;&#34;&#34;
+        The iterator of the Article.
+
+        Returns:
+            iter: The iterator of the Article.
+        &#34;&#34;&#34;
+        return iter(self.data)
+    
+    def __getitem__(self, index):
+        return super().__getitem__[index]
+    
+    def extend(self, articles: &#39;ArticleList&#39;):
+        &#34;&#34;&#34;
+        Extend the ArticleList with another ArticleList.
+
+        Args:
+            ArticleList (ArticleList): The ArticleList to extend.
+        &#34;&#34;&#34;
+        article_ids = [a.id for a in self]
+        for article in articles:
+            if article.id not in article_ids:
+                self.data.append(article)</code></pre>
 </details>
 </section>
 <section>
@@ -1663,7 +1695,41 @@ def workspace_id(self) -&gt; str:
         Args:
             data (List[Article]): The data of the Article.
         &#34;&#34;&#34;
-        self.__data = data</code></pre>
+        self.__data = data
+    
+
+    def __len__(self):
+        &#34;&#34;&#34;
+        The length of the Article.
+
+        Returns:
+            int: The length of the Article.
+        &#34;&#34;&#34;
+        return len(self.data)
+    
+    def __iter__(self):
+        &#34;&#34;&#34;
+        The iterator of the Article.
+
+        Returns:
+            iter: The iterator of the Article.
+        &#34;&#34;&#34;
+        return iter(self.data)
+    
+    def __getitem__(self, index):
+        return super().__getitem__[index]
+    
+    def extend(self, articles: &#39;ArticleList&#39;):
+        &#34;&#34;&#34;
+        Extend the ArticleList with another ArticleList.
+
+        Args:
+            ArticleList (ArticleList): The ArticleList to extend.
+        &#34;&#34;&#34;
+        article_ids = [a.id for a in self]
+        for article in articles:
+            if article.id not in article_ids:
+                self.data.append(article)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1784,6 +1850,36 @@ def type(self) -&gt; str:
         str: The type of the Article.
     &#34;&#34;&#34;
     return self.__type</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleList.extend"><code class="name flex">
+<span>def <span class="ident">extend</span></span>(<span>self, articles: <a title="intercom_python_sdk.apis.articles.models.ArticleList" href="#intercom_python_sdk.apis.articles.models.ArticleList">ArticleList</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Extend the ArticleList with another ArticleList.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>ArticleList</code></strong> :&ensp;<code><a title="intercom_python_sdk.apis.articles.models.ArticleList" href="#intercom_python_sdk.apis.articles.models.ArticleList">ArticleList</a></code></dt>
+<dd>The ArticleList to extend.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def extend(self, articles: &#39;ArticleList&#39;):
+    &#34;&#34;&#34;
+    Extend the ArticleList with another ArticleList.
+
+    Args:
+        ArticleList (ArticleList): The ArticleList to extend.
+    &#34;&#34;&#34;
+    article_ids = [a.id for a in self]
+    for article in articles:
+        if article.id not in article_ids:
+            self.data.append(article)</code></pre>
 </details>
 </dd>
 </dl>
@@ -2285,9 +2381,10 @@ def object(self) -&gt; str:
 </li>
 <li>
 <h4><code><a title="intercom_python_sdk.apis.articles.models.ArticleList" href="#intercom_python_sdk.apis.articles.models.ArticleList">ArticleList</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.api_client" href="#intercom_python_sdk.apis.articles.models.ArticleList.api_client">api_client</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.data" href="#intercom_python_sdk.apis.articles.models.ArticleList.data">data</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.extend" href="#intercom_python_sdk.apis.articles.models.ArticleList.extend">extend</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.pages" href="#intercom_python_sdk.apis.articles.models.ArticleList.pages">pages</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.total_count" href="#intercom_python_sdk.apis.articles.models.ArticleList.total_count">total_count</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.type" href="#intercom_python_sdk.apis.articles.models.ArticleList.type">type</a></code></li>

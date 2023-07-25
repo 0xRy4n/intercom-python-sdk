@@ -115,24 +115,32 @@ class ArticlesAPI(APIBase):
             DeletedArticle: The deleted Article.
         &#34;&#34;&#34;
 
-
-    @returns(ArticleListSchema(many=False)) # type: ignore
+    @returns(ArticleListSchema) # type: ignore
     @get(&#34;&#34;)
-    def list_all(self, page: Query(&#34;page&#34;, int) = 1, per_page: Query(&#34;per_page&#34;, int) = 50, order: Query(&#34;order&#34;, str) = None, sort: Query(&#34;sort&#34;, str) = None, type: Query(&#34;type&#34;, str) = None, workspace_id: Query(&#34;workspace_id&#34;, str) = None, parent_id: Query(&#34;parent_id&#34;, str) = None, parent_type: Query(&#34;parent_type&#34;, str) = None, tag_id: Query(&#34;tag_id&#34;, str) = None, query: Query(&#34;query&#34;, str) = None, label_id: Query(&#34;label_id&#34;, str) = None, include: Query(&#34;include&#34;, str) = None, label_type: Query(&#34;label_type&#34;, str) = None, label_name: Query(&#34;label_name&#34;, str) = None, label_color: Query(&#34;label_color&#34;, str) = None, label_parent_id: Query(&#34;label_parent_id&#34;, str) = None, label_parent_type: Query(&#34;label_parent_type&#34;, str) = None, label_parent_name: Query(&#34;label_parent_name&#34;, str) = None, label_parent_color: Query(&#34;label_parent_color&#34;, str) = None, label_parent_parent_id: Query(&#34;label_parent_parent_id&#34;, str) = None, label_parent_parent_type: Query(&#34;label_parent_parent_type&#34;, str) = None, label_parent_parent_name: Query(&#34;label_parent_parent_name&#34;, str) = None, label_parent_parent_color: Query(&#34;label_parent_parent_color&#34;, str) = None): # type: ignore
-        &#34;&#34;&#34; List all Articles.
+    def __list_all(self, page: Query(&#39;page&#39;), per_page: Query(&#39;per_page&#39;) = 50):
+        &#34;&#34;&#34; List all Articles. &#34;&#34;&#34;
+
+    def list_all(self, page: int = 1, per_page: int = 50) -&gt; ArticleList:
+        &#34;&#34;&#34; List all Articles. Automatically paginates through all Articles.
 
         Args:
-            page (int): The page number.
-            per_page (int): The number of Articles per page.
-            order (str): The order to sort the Articles by. Valid values are &#39;asc&#39; and &#39;desc&#39;. (Optional)
-            sort (str): The field to sort the Articles by. Valid values are &#39;created_at&#39; and &#39;updated_at&#39;. (Optional)
-            type (str): The type of Articles to list. Valid values are &#39;article&#39; and &#39;folder&#39;. (Optional)
-            workspace_id (str): The ID of the workspace to filter by. (Optional)
-            parent_id (str): The ID of the parent to filter by. (Optional)
-            parent_type (str): The type of the parent to filter by. (Optional)
-            &#34;&#34;&#34;
+            start (int): The page number to start at.
+            per_page (int): The number of Articles to return per page.
 
-    @returns(ArticleSchema(many=False)) # type: ignore
+        Returns:
+            ArticleList: A list of Articles.
+        &#34;&#34;&#34;
+
+        article_list = self.__list_all(page=page, per_page=per_page)
+        while page &lt; article_list.pages[&#39;total_pages&#39;]:
+            page += 1
+            new_page = self.__list_all(page=page, per_page=per_page)
+            article_list.extend(new_page)
+            article_list.pages = new_page.pages
+        
+        return article_list
+
+    @returns(ArticleSchema) # type: ignore
     @json
     @put(&#34;{article_id}&#34;)
     def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
@@ -215,24 +223,32 @@ class ArticlesAPI(APIBase):
             DeletedArticle: The deleted Article.
         &#34;&#34;&#34;
 
-
-    @returns(ArticleListSchema(many=False)) # type: ignore
+    @returns(ArticleListSchema) # type: ignore
     @get(&#34;&#34;)
-    def list_all(self, page: Query(&#34;page&#34;, int) = 1, per_page: Query(&#34;per_page&#34;, int) = 50, order: Query(&#34;order&#34;, str) = None, sort: Query(&#34;sort&#34;, str) = None, type: Query(&#34;type&#34;, str) = None, workspace_id: Query(&#34;workspace_id&#34;, str) = None, parent_id: Query(&#34;parent_id&#34;, str) = None, parent_type: Query(&#34;parent_type&#34;, str) = None, tag_id: Query(&#34;tag_id&#34;, str) = None, query: Query(&#34;query&#34;, str) = None, label_id: Query(&#34;label_id&#34;, str) = None, include: Query(&#34;include&#34;, str) = None, label_type: Query(&#34;label_type&#34;, str) = None, label_name: Query(&#34;label_name&#34;, str) = None, label_color: Query(&#34;label_color&#34;, str) = None, label_parent_id: Query(&#34;label_parent_id&#34;, str) = None, label_parent_type: Query(&#34;label_parent_type&#34;, str) = None, label_parent_name: Query(&#34;label_parent_name&#34;, str) = None, label_parent_color: Query(&#34;label_parent_color&#34;, str) = None, label_parent_parent_id: Query(&#34;label_parent_parent_id&#34;, str) = None, label_parent_parent_type: Query(&#34;label_parent_parent_type&#34;, str) = None, label_parent_parent_name: Query(&#34;label_parent_parent_name&#34;, str) = None, label_parent_parent_color: Query(&#34;label_parent_parent_color&#34;, str) = None): # type: ignore
-        &#34;&#34;&#34; List all Articles.
+    def __list_all(self, page: Query(&#39;page&#39;), per_page: Query(&#39;per_page&#39;) = 50):
+        &#34;&#34;&#34; List all Articles. &#34;&#34;&#34;
+
+    def list_all(self, page: int = 1, per_page: int = 50) -&gt; ArticleList:
+        &#34;&#34;&#34; List all Articles. Automatically paginates through all Articles.
 
         Args:
-            page (int): The page number.
-            per_page (int): The number of Articles per page.
-            order (str): The order to sort the Articles by. Valid values are &#39;asc&#39; and &#39;desc&#39;. (Optional)
-            sort (str): The field to sort the Articles by. Valid values are &#39;created_at&#39; and &#39;updated_at&#39;. (Optional)
-            type (str): The type of Articles to list. Valid values are &#39;article&#39; and &#39;folder&#39;. (Optional)
-            workspace_id (str): The ID of the workspace to filter by. (Optional)
-            parent_id (str): The ID of the parent to filter by. (Optional)
-            parent_type (str): The type of the parent to filter by. (Optional)
-            &#34;&#34;&#34;
+            start (int): The page number to start at.
+            per_page (int): The number of Articles to return per page.
 
-    @returns(ArticleSchema(many=False)) # type: ignore
+        Returns:
+            ArticleList: A list of Articles.
+        &#34;&#34;&#34;
+
+        article_list = self.__list_all(page=page, per_page=per_page)
+        while page &lt; article_list.pages[&#39;total_pages&#39;]:
+            page += 1
+            new_page = self.__list_all(page=page, per_page=per_page)
+            article_list.extend(new_page)
+            article_list.pages = new_page.pages
+        
+        return article_list
+
+    @returns(ArticleSchema) # type: ignore
     @json
     @put(&#34;{article_id}&#34;)
     def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
@@ -261,7 +277,7 @@ class ArticlesAPI(APIBase):
 <h3>Methods</h3>
 <dl>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.create"><code class="name flex">
-<span>def <span class="ident">create</span></span>(<span>self, data: <uplink.arguments.Body object at 0x1114f8790>)</span>
+<span>def <span class="ident">create</span></span>(<span>self, data: <uplink.arguments.Body object at 0x10a365910>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an Article.</p>
@@ -356,52 +372,49 @@ def get_by_id(self, article_id: Union[str, int]):
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.list_all"><code class="name flex">
-<span>def <span class="ident">list_all</span></span>(<span>self, page: <uplink.arguments.Query object at 0x1114f9e90> = 1, per_page: <uplink.arguments.Query object at 0x1114fa910> = 50, order: <uplink.arguments.Query object at 0x1114fa950> = None, sort: <uplink.arguments.Query object at 0x1114fa990> = None, type: <uplink.arguments.Query object at 0x1114fa9d0> = None, workspace_id: <uplink.arguments.Query object at 0x1114faa10> = None, parent_id: <uplink.arguments.Query object at 0x1114faa50> = None, parent_type: <uplink.arguments.Query object at 0x1114faa90> = None, tag_id: <uplink.arguments.Query object at 0x1114faad0> = None, query: <uplink.arguments.Query object at 0x1114fab10> = None, label_id: <uplink.arguments.Query object at 0x1114fab50> = None, include: <uplink.arguments.Query object at 0x1114fab90> = None, label_type: <uplink.arguments.Query object at 0x1114fabd0> = None, label_name: <uplink.arguments.Query object at 0x1114fac10> = None, label_color: <uplink.arguments.Query object at 0x1114fac50> = None, label_parent_id: <uplink.arguments.Query object at 0x1114fac90> = None, label_parent_type: <uplink.arguments.Query object at 0x1114facd0> = None, label_parent_name: <uplink.arguments.Query object at 0x1114fad10> = None, label_parent_color: <uplink.arguments.Query object at 0x1114fad50> = None, label_parent_parent_id: <uplink.arguments.Query object at 0x1114fad90> = None, label_parent_parent_type: <uplink.arguments.Query object at 0x1114fadd0> = None, label_parent_parent_name: <uplink.arguments.Query object at 0x1114fae10> = None, label_parent_parent_color: <uplink.arguments.Query object at 0x1114fa090> = None)</span>
+<span>def <span class="ident">list_all</span></span>(<span>self, page: int = 1, per_page: int = 50) ‑> <a title="intercom_python_sdk.apis.articles.models.ArticleList" href="models.html#intercom_python_sdk.apis.articles.models.ArticleList">ArticleList</a></span>
 </code></dt>
 <dd>
-<div class="desc"><p>List all Articles.</p>
+<div class="desc"><p>List all Articles. Automatically paginates through all Articles.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>page</code></strong> :&ensp;<code>int</code></dt>
-<dd>The page number.</dd>
+<dt><strong><code>start</code></strong> :&ensp;<code>int</code></dt>
+<dd>The page number to start at.</dd>
 <dt><strong><code>per_page</code></strong> :&ensp;<code>int</code></dt>
-<dd>The number of Articles per page.</dd>
-<dt><strong><code>order</code></strong> :&ensp;<code>str</code></dt>
-<dd>The order to sort the Articles by. Valid values are 'asc' and 'desc'. (Optional)</dd>
-<dt><strong><code>sort</code></strong> :&ensp;<code>str</code></dt>
-<dd>The field to sort the Articles by. Valid values are 'created_at' and 'updated_at'. (Optional)</dd>
-<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
-<dd>The type of Articles to list. Valid values are 'article' and 'folder'. (Optional)</dd>
-<dt><strong><code>workspace_id</code></strong> :&ensp;<code>str</code></dt>
-<dd>The ID of the workspace to filter by. (Optional)</dd>
-<dt><strong><code>parent_id</code></strong> :&ensp;<code>str</code></dt>
-<dd>The ID of the parent to filter by. (Optional)</dd>
-<dt><strong><code>parent_type</code></strong> :&ensp;<code>str</code></dt>
-<dd>The type of the parent to filter by. (Optional)</dd>
+<dd>The number of Articles to return per page.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ArticleList</code></dt>
+<dd>A list of Articles.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(ArticleListSchema(many=False)) # type: ignore
-@get(&#34;&#34;)
-def list_all(self, page: Query(&#34;page&#34;, int) = 1, per_page: Query(&#34;per_page&#34;, int) = 50, order: Query(&#34;order&#34;, str) = None, sort: Query(&#34;sort&#34;, str) = None, type: Query(&#34;type&#34;, str) = None, workspace_id: Query(&#34;workspace_id&#34;, str) = None, parent_id: Query(&#34;parent_id&#34;, str) = None, parent_type: Query(&#34;parent_type&#34;, str) = None, tag_id: Query(&#34;tag_id&#34;, str) = None, query: Query(&#34;query&#34;, str) = None, label_id: Query(&#34;label_id&#34;, str) = None, include: Query(&#34;include&#34;, str) = None, label_type: Query(&#34;label_type&#34;, str) = None, label_name: Query(&#34;label_name&#34;, str) = None, label_color: Query(&#34;label_color&#34;, str) = None, label_parent_id: Query(&#34;label_parent_id&#34;, str) = None, label_parent_type: Query(&#34;label_parent_type&#34;, str) = None, label_parent_name: Query(&#34;label_parent_name&#34;, str) = None, label_parent_color: Query(&#34;label_parent_color&#34;, str) = None, label_parent_parent_id: Query(&#34;label_parent_parent_id&#34;, str) = None, label_parent_parent_type: Query(&#34;label_parent_parent_type&#34;, str) = None, label_parent_parent_name: Query(&#34;label_parent_parent_name&#34;, str) = None, label_parent_parent_color: Query(&#34;label_parent_parent_color&#34;, str) = None): # type: ignore
-    &#34;&#34;&#34; List all Articles.
+<pre><code class="python">def list_all(self, page: int = 1, per_page: int = 50) -&gt; ArticleList:
+    &#34;&#34;&#34; List all Articles. Automatically paginates through all Articles.
 
     Args:
-        page (int): The page number.
-        per_page (int): The number of Articles per page.
-        order (str): The order to sort the Articles by. Valid values are &#39;asc&#39; and &#39;desc&#39;. (Optional)
-        sort (str): The field to sort the Articles by. Valid values are &#39;created_at&#39; and &#39;updated_at&#39;. (Optional)
-        type (str): The type of Articles to list. Valid values are &#39;article&#39; and &#39;folder&#39;. (Optional)
-        workspace_id (str): The ID of the workspace to filter by. (Optional)
-        parent_id (str): The ID of the parent to filter by. (Optional)
-        parent_type (str): The type of the parent to filter by. (Optional)
-        &#34;&#34;&#34;</code></pre>
+        start (int): The page number to start at.
+        per_page (int): The number of Articles to return per page.
+
+    Returns:
+        ArticleList: A list of Articles.
+    &#34;&#34;&#34;
+
+    article_list = self.__list_all(page=page, per_page=per_page)
+    while page &lt; article_list.pages[&#39;total_pages&#39;]:
+        page += 1
+        new_page = self.__list_all(page=page, per_page=per_page)
+        article_list.extend(new_page)
+        article_list.pages = new_page.pages
+    
+    return article_list</code></pre>
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.update_by_id"><code class="name flex">
-<span>def <span class="ident">update_by_id</span></span>(<span>self, article_id: Union[str, int], data: <uplink.arguments.Body object at 0x1114fbf90>)</span>
+<span>def <span class="ident">update_by_id</span></span>(<span>self, article_id: Union[str, int], data: <uplink.arguments.Body object at 0x10a366f10>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update an Article by ID.</p>
@@ -415,7 +428,7 @@ def list_all(self, page: Query(&#34;page&#34;, int) = 1, per_page: Query(&#34;pe
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(ArticleSchema(many=False)) # type: ignore
+<pre><code class="python">@returns(ArticleSchema) # type: ignore
 @json
 @put(&#34;{article_id}&#34;)
 def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
