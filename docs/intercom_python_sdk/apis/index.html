@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>intercom_python_sdk.apis API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Intercom Python SDK APIs …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,11 +22,45 @@
 <h1 class="title">Module <code>intercom_python_sdk.apis</code></h1>
 </header>
 <section id="section-intro">
+<h1 id="intercom-python-sdk-apis">Intercom Python SDK APIs</h1>
+<p>This directory contains the various API modules for the Intercom Python SDK.
+Each API is implemented in it's own directory, and contains three files:</p>
+<ul>
+<li><code>api.py</code> : Contains the API class, which is used to make API calls.</li>
+<li><code>models.py</code> : Contains the model classes, which are used to represent objects returned from the API.</li>
+<li><code>schemas.py</code> : Contains the schema classes, which are used to represent objects sent to the API (marshmallow).</li>
+</ul>
+<p>It is not intended in most cases for you to interact with these modules directly. Instead, to access an API client,
+you can use the <code>intercom_python_sdk.Intercom</code> object, which provides a convenient interface for accessing all the
+available APIs. </p>
+<p>Alternatively, to access a specific API client, you can use the <code>intercom_python_sdk.create_api_client()</code> function
+to build an API client interface. </p>
+<p>APIs can be enabled in the <code>Intercom</code> object via the <code><a title="intercom_python_sdk.apis.tags_to_api" href="tags_to_api.html">intercom_python_sdk.apis.tags_to_api</a></code> module.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .tags_to_api import tags_to_api_dict</code></pre>
+<pre><code class="python">&#34;&#34;&#34;
+# Intercom Python SDK APIs
+
+This directory contains the various API modules for the Intercom Python SDK.
+Each API is implemented in it&#39;s own directory, and contains three files:
+
+- `api.py` : Contains the API class, which is used to make API calls.
+- `models.py` : Contains the model classes, which are used to represent objects returned from the API.
+- `schemas.py` : Contains the schema classes, which are used to represent objects sent to the API (marshmallow).
+
+It is not intended in most cases for you to interact with these modules directly. Instead, to access an API client,
+you can use the `intercom_python_sdk.Intercom` object, which provides a convenient interface for accessing all the
+available APIs. 
+
+Alternatively, to access a specific API client, you can use the `intercom_python_sdk.create_api_client()` function 
+to build an API client interface. 
+
+APIs can be enabled in the `Intercom` object via the `tags_to_api` module.
+&#34;&#34;&#34;
+
+from .tags_to_api import tags_to_api_dict</code></pre>
 </details>
 </section>
 <section>
@@ -68,7 +102,9 @@
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#intercom-python-sdk-apis">Intercom Python SDK APIs</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
