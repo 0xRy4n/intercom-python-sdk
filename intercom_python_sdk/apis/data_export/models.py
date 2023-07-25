@@ -1,15 +1,15 @@
 """
-====================
-Data Events API Models
-====================
-`apis/data_events/models.py`
+# Data Export API Models
 
-This module contains models used to interact with the Intercom Admins API [1].
-These models provide object oriented interfaces for the schemas defined in `apis/data_attributes/schemas.py`.
+`apis/data_exports/models.py`
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
+This module contains models used to interact with the Intercom Data Exports API [1].
+These models provide object oriented interfaces for the schemas defined in `apis/data_exports/schemas.py`.
+
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/the-export-job-model
 """
+
 # Built-ins
 import time
 import requests
@@ -38,32 +38,45 @@ class DataExportJob(ModelBase):
         self._api_client: DataExportAPI = kwargs.get("api_client") # type: ignore
 
     @property
-    def api_client(self) -> "DataExportAPI":
+    def api_client(self) -> 'DataExportAPI':
         return self._api_client
     
     @api_client.setter
-    def api_client(self, value: "DataExportAPI"):
+    def api_client(self, value: 'DataExportAPI'):
         self._api_client = value
     
     @property
     def job_identifier(self) -> str:
+        """ The unique identifier for this data export job. """
         return self.__job_identifier
     
     @property
     def status(self) -> str:
+        """ Status of this data export job.
+
+        Possible values:
+            - pending
+            - in_progress
+            - completed
+            - failed
+            - no_data
+            - cancelled
+        """
         return self.__status
     
     @property
     def download_expires_at(self) -> str:
+        """ Time after which the download will be unavailable. """
         return self.__download_expires_at
     
     @property
     def download_url(self) -> str:
+        """ URL to download the data export. """
         return self.__download_url
     
     
-    def update(self, **kwargs) -> "DataExportJob":
-        """ Update this data export job. """
+    def update(self, **kwargs) -> 'DataExportJob':
+        """ Update this data export job to fetch it's current status and values. """
         job = self.api_client.get_export_job(job_identifier=self.job_identifier)
 
         self.__status = job.status
@@ -72,7 +85,7 @@ class DataExportJob(ModelBase):
         
         return self
     
-    def cancel(self) -> "DataExportJob":
+    def cancel(self) -> 'DataExportJob':
         """ Cancel this data export job. """
         job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
 
@@ -107,7 +120,11 @@ class DataExportJob(ModelBase):
         return True
 
     def download(self):
-        """ Download this data export job. """
+        """ Download this data export job. 
+        
+        Returns:
+            bytes: The data export file. Generally a gzip compressed CSV file.
+        """
         if self.download_url:
             response = self.api_client.download(job_identifier=self.job_identifier)
             if not isinstance(response, requests.Response):

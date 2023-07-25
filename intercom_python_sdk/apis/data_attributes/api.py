@@ -1,15 +1,14 @@
 """ 
-====================
-Data Attributes API
-====================
+# Data Attributes API
+
 `apis/data_attributes/api.py`
 
 This module contains the Data Attributes API class, which defines a client for the Data Attributes API.
 It is used to interact with the Intercom Data Attributes API [1] as defined in the Intercom API Reference [2].
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
-[2] https://github.com/intercom/Intercom-OpenAPI
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
+- [2] https://github.com/intercom/Intercom-OpenAPI
 """
 
 # Built-ins

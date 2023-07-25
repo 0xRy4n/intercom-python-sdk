@@ -92,9 +92,14 @@ class ArticleSchema(SchemaBase):
     
 
 class CreateArticleSchema(SchemaBase):
+    """ This schema represents a new Article on Intercom.
+
+    Attributes:
+        author_id (int): The ID of the author of the Article.
+        title (str): The title of the Article.
+    """
     author_id = fields.Int()
     title = fields.Str()
-
 
     @marshmallow.post_load
     def make_article(self, data, **kwargs):
@@ -102,6 +107,13 @@ class CreateArticleSchema(SchemaBase):
 
 
 class DeletedArticleSchema(SchemaBase):
+    """ This schema represents a deleted Article on Intercom.
+
+    Attributes:
+        id (int): The ID of the deleted Article.
+        object (str): The type of the deleted Article.
+        deleted (bool): Whether or not the Article was deleted.
+    """
     id = fields.Int()
     object = fields.Str()
     deleted = fields.Bool()
@@ -109,53 +121,16 @@ class DeletedArticleSchema(SchemaBase):
     @marshmallow.post_load
     def make_deleted_article(self, data, **kwargs):
         return a_models.DeletedArticle(**data)
-    
-    """
-    {
-  "type": "list",
-  "pages": {
-    "type": "pages",
-    "next": "https://api.intercom.io/articles?per_page=25&page=2",
-    "page": 1,
-    "per_page": 25,
-    "total_pages": 6
-  },
-  "total_count": 150,
-  "data": [
-    {
-      "id": "8117054",
-      "type": "article",
-      "workspace_id": "awwxrc0h",
-      "parent_id": 2919918,
-      "parent_type": "section",
-      "title": "Guided Mode For Machines",
-      "description": "Unlocking the Full Experience: Exploring and Mastering Guided Mode",
-      "body": "",
-      "author_id": 6396415,
-      "state": "published",
-      "created_at": 1689086414,
-      "updated_at": 1689161069,
-      "url": "https://help.hackthebox.com/en/articles/8117054-guided-mode-for-machines"
-    },
-    {
-      "id": "8116542",
-      "type": "article",
-      "workspace_id": "awwxrc0h",
-      "parent_id": 2919960,
-      "parent_type": "collection",
-      "title": "HTB Affiliate Program: Program Policy & Guidelines",
-      "description": "Resources, assets, and content to help you make Hack The Box available to your audience, so you can collect more affiliate rewards!",
-      "body": "TEST",
-      "author_id": 5165498,
-      "state": "published",
-      "created_at": 1689081668,
-      "updated_at": 1689088989,
-      "url": "https://help.hackthebox.com/en/articles/8116542-htb-affiliate-program-program-policy-guidelines"
-    },
-    {
-    """
+
 
 class ArticleListSchema(SchemaBase):
+    """ This schema represents a list of Articles on Intercom.
+
+    Attributes:
+        pages (dict): The pagination information of the list of Articles.
+        total_count (int): The total number of Articles.
+        data (list): The list of Articles.
+    """
     pages = fields.Dict()
     total_count = fields.Int()
     data = fields.Nested(ArticleSchema, many=True)

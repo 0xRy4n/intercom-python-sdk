@@ -408,6 +408,7 @@ class Article(ModelBase):
         """
         self.__id = id
 
+
 class CreateArticle(ModelBase):
     def __init__(self, *args, **kwargs):
             self.__title = kwargs.get('title')
@@ -476,7 +477,6 @@ class CreateArticle(ModelBase):
         """
         self.__author_id = author_id
 
-    
      
 class DeletedArticle(ModelBase):
     """

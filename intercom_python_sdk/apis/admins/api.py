@@ -1,15 +1,14 @@
 """ 
-====================
-Admins API
-====================
+# Admins API
+
 `apis/admins/api.py`
 
 This module contains the AdminsAPI class, which defines a client for the Admins API.
 It is used to interact with the Intercom Admins API [1] as defined in the Intercom API Reference [2].
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/admins
-[2] https://github.com/intercom/Intercom-OpenAPI
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/admins
+- [2] https://github.com/intercom/Intercom-OpenAPI
 """
 
 # Built-ins
@@ -40,9 +39,10 @@ from ...core.errors import catch_api_error
 @json
 @response_handler(catch_api_error)
 class AdminsAPI(APIBase):
+    """ Admins API Client. """
     URI = "/admins/"
 
-    @returns(AdminSchema(many=False)) # type: ignore
+    @returns(AdminSchema) # type: ignore
     @get("/me") # We are adding a leading slash here because we actually WANT to ignore the /admins URI in this case.
     def me(self):
         """ Get the current admin user. 
@@ -51,7 +51,7 @@ class AdminsAPI(APIBase):
             Admin: The current admin user.
         """
 
-    @returns(AdminSchema(many=False)) # type: ignore
+    @returns(AdminSchema) # type: ignore
     @put("{admin_id}/away")
     def __set_away_by_id(self, admin_id: Union[str, int], data: Body(type=dict)): # type: ignore
         """ Set the away status of an admin. Internal method for `set_away_by_id`."""
@@ -69,7 +69,7 @@ class AdminsAPI(APIBase):
         """
         return self.__set_away_by_id(admin_id, {"away_mode_enabled":away, "away_mode_reassign":reassign})
     
-    @returns(AdminListSchema(many=False)) # type: ignore
+    @returns(AdminListSchema) # type: ignore
     @get("")
     def list_admins(self):
         """ List all admins. 
@@ -78,17 +78,23 @@ class AdminsAPI(APIBase):
             AdminList: The list of admins.
         """
 
-    @returns(AdminSchema(many=False)) # type: ignore
+    @returns(AdminSchema) # type: ignore
     @get("{admin_id}")
     def get_admin_by_id(self, admin_id: Union[str, int]):
         """ Get an admin by ID. 
-        
+
+        Args:
+            admin_id (Union[str, int]): The ID of the admin.
+
         Returns:
             Admin: The admin.
         """
 
     def get_admin_by_email(self, email: str) -> Union[Admin, None]:
-        """ Get an admin by email. 
+        """ Get an admin by email.
+
+        Args:
+            email (str): The email of the admin.
         
         Returns:
             Admin: The matching Admin object. None if no match found.
@@ -99,8 +105,11 @@ class AdminsAPI(APIBase):
                 return admin
 
     def get_admins_by_team_id(self, team_id: Union[int, str]) -> AdminList:
-        """ Get all admins by team ID. 
-        
+        """ Get all admins by team ID.
+
+        Args:
+            team_id (Union[int, str]): The ID of the team.
+
         Returns:
             AdminList: The list of admins. None if no match found.
         """

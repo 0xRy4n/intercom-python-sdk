@@ -96,8 +96,6 @@ class ArticlesAPI(APIBase):
             workspace_id (str): The ID of the workspace to filter by. (Optional)
             parent_id (str): The ID of the parent to filter by. (Optional)
             parent_type (str): The type of the parent to filter by. (Optional)
-
-
             """
 
     @returns(ArticleSchema(many=False)) # type: ignore

@@ -1,14 +1,13 @@
 """
-====================
-Data Events API Models
-====================
+# Data Events API Models
+
 `apis/data_events/models.py`
 
 This module contains models used to interact with the Intercom Admins API [1].
 These models provide object oriented interfaces for the schemas defined in `apis/data_attributes/schemas.py`.
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
 """
 # Built-ins
 from typing import (
@@ -34,19 +33,19 @@ class DataEventSummary(ModelBase):
         self.__last = kwargs.get('last')
     
     @property
-    def event_name(self):
+    def event_name(self) -> str:
         return self.__event_name
     
     @property
-    def count(self):
+    def count(self) -> str:
         return self.__count
     
     @property
-    def first(self):
+    def first(self) -> str:
         return self.__first
     
     @property
-    def last(self):
+    def last(self) -> str:
         return self.__last
     
 
@@ -71,52 +70,58 @@ class DataEvent(ModelBase):
         self._api_client = value
     
     @property
-    def type(self):
-        """ The type of data event."""
+    def type(self) -> str:
+        """ The type of the object. """
         return self.__type__
     
     @property
-    def event_name(self):
+    def event_name(self) -> str:
         """ The name of the data event. """
         return self.__event_name__
     
     @property
-    def created_at(self):
+    def created_at(self) -> int:
         """ The timestamp of the data event. """
         return self.__created_at__
     
     @property
-    def id(self):
+    def id(self) -> str:
         """ The ID of the data event. """
         return self.__id__
     
     @property
-    def intercom_user_id(self):
+    def intercom_user_id(self) -> str:
         """ The Intercom user ID of the user associated with the data event. """
         return self.__intercom_user_id__
     
     @property
-    def email(self):
+    def email(self) -> str:
         """ The email of the user associated with the data event. """
         return self.__email__
     
     @property
-    def metadata(self):
+    def metadata(self) -> dict:
         """ The metadata associated with the data event. """
         return self.__metadata__
     
 
 class DataEventsList(ModelBase):
+    """ List of Data Events.
+    
+    It is iterable and indexable like a list (will delegate to the `events` attribute).
+    """
     def __init__(self, *args, **kwargs):
         self.__type__ = kwargs.get('type', '')
         self.__events__ = kwargs.get('events', [])
 
     @property
     def type(self) -> str:
+        """ The type of the object. """
         return self.__type__
     
     @property
     def events(self) -> List[DataEvent]:
+        """ A list of Data Event objects. """
         return self.__events__
     
     def __iter__(self):

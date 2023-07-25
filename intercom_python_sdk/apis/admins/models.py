@@ -1,15 +1,14 @@
 
 """
-====================
-Admins API Models
-====================
+# Admins API Models
+
 `apis/admins/models.py`
 
 This module contains models used to interact with the Intercom Admins API [1].
 These models provide object oriented interfaces for the schemas defined in `apis/admins/schemas.py`.
 
 ----
-[1] https://developers.intercom.com/intercom-api-reference/reference/admins
+- [1] https://developers.intercom.com/intercom-api-reference/reference/admins
 """
 # Built-ins
 from typing import Union, TYPE_CHECKING, List
@@ -238,7 +237,7 @@ class Admin(ModelBase):
         reassign = self.away_mode_reassign or True
         self.api_client.set_away_by_id(self.id, away=enabled, reassign=reassign)
 
-    def set_active(self, enabled: bool = False):
+    def set_active(self):
         """ Alias for set_away(enabled=False) """
         self.set_away(enabled=False)
 

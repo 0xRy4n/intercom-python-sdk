@@ -1,15 +1,14 @@
 
 """
-====================
-Data Attributes API Models
-====================
+# Data Attributes API Models
+
 `apis/data_attributes/models.py`
 
 This module contains models used to interact with the Intercom Admins API [1].
 These models provide object oriented interfaces for the schemas defined in `apis/data_attributes/schemas.py`.
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
 """
 # Built-ins
 from typing import Union, TYPE_CHECKING, List
@@ -29,12 +28,7 @@ if TYPE_CHECKING:
 
 
 class DataAttribute(ModelBase):
-    """
-    Represents a data attribute.
-
-    Attributes:
-        See the `DataAttributeSchema` definition in `apis/data_attributes/schemas.py` for details.
-    """
+    """ Represents a Data Attribute as an object. """
     def __init__(self, *args, **kwargs):
         self.__type = kwargs.get('type', '')
         self.__id = kwargs.get('id', None)
@@ -406,12 +400,6 @@ class DataAttributeList(ModelBase):
             ),
             None,
         )
-    
-    def my_fake_function(self):
-        admins_api_client = da_AdminsAPI(self.api_client.config) # type: ignore
-        cur_admin = admins_api_client.me()
-
-        # someshit
     
     # Dunder Overrides
     def __getitem__(self, key: int) -> Union[DataAttribute, None]:

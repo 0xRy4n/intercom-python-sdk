@@ -1,15 +1,13 @@
 """ 
-====================
-Data Export API
-====================
+# Data Export API
+
 `apis/data_export/api.py`
 
 This module contains the Data Export API class, which defines a client for the Data Export API.
-It is used to interact with the Intercom Data Events API [1] as defined in the Intercom API Reference [2].
+It is used to interact with the Intercom Data Events API [1] as defined in the Intercom API Reference.
 
 ----
-[1] https://developers.intercom.com/intercom-api-reference/reference/create-data-export
-[2] https://github.com/intercom/Intercom-OpenAPI
+- [1] https://developers.intercom.com/intercom-api-reference/reference/create-data-export
 """
 
 # Built-ins

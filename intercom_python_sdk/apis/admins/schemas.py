@@ -1,14 +1,13 @@
 """
-====================
-Admins API Schemas
-====================
+# Admins API Schemas
+
 `apis/admins/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
 These schemas provide serialization/deserialization to and from the models defined in the `apis/admins/models.py` module.
 
-----
-[1] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
 """
 
 # External

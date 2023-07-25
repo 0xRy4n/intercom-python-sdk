@@ -1,11 +1,31 @@
 """
-====================
-TagsToAPI
-====================
+# Tags To API
+
 `apis/tags_to_api.py`
 
 This module contains the TagsToAPI class which is a dictionary that maps
-tags (API names) to their respective API classes.
+tags (API names) to their respective API classes. It's used to control the name used to 
+access the API classes from the Intercom object, as well as which API classes
+are enabled via the Intercom object.
+
+## Example Usage
+
+To enable a new API, first import it like so:
+
+```python
+from .my_new_api.api import MyNewAPI
+```
+
+Then add it to the `tags_to_api_dict` like so:
+```python
+tags_to_api_dict["my_new_api"] = MyNewAPI
+```
+
+You can then access the API via the Intercom object like so:
+```python
+intercom = Intercom('my_api_key')
+intercom.my_new_api
+```
 """
 # External
 from uplink.builder import Consumer, ConsumerMeta
@@ -21,7 +41,11 @@ from .data_export.api import DataExportAPI
 from ..core.api_base import APIBase
 
 class TagsToAPI(dict):
-    """ A dictionary that maps tags (API names) to their respective API classes. """
+    """ 
+    A dictionary that maps tags (API names) to their respective API classes. 
+    
+    Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
+    """
     allowed_types = (APIBase, Consumer, ConsumerMeta) 
 
     # Validation of assigned values to ensure only API classes are mapped.
