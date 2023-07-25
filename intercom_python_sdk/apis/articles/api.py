@@ -80,24 +80,32 @@ class ArticlesAPI(APIBase):
             DeletedArticle: The deleted Article.
         """
 
-
-    @returns(ArticleListSchema(many=False)) # type: ignore
+    @returns(ArticleListSchema) # type: ignore
     @get("")
-    def list_all(self, page: Query("page", int) = 1, per_page: Query("per_page", int) = 50, order: Query("order", str) = None, sort: Query("sort", str) = None, type: Query("type", str) = None, workspace_id: Query("workspace_id", str) = None, parent_id: Query("parent_id", str) = None, parent_type: Query("parent_type", str) = None, tag_id: Query("tag_id", str) = None, query: Query("query", str) = None, label_id: Query("label_id", str) = None, include: Query("include", str) = None, label_type: Query("label_type", str) = None, label_name: Query("label_name", str) = None, label_color: Query("label_color", str) = None, label_parent_id: Query("label_parent_id", str) = None, label_parent_type: Query("label_parent_type", str) = None, label_parent_name: Query("label_parent_name", str) = None, label_parent_color: Query("label_parent_color", str) = None, label_parent_parent_id: Query("label_parent_parent_id", str) = None, label_parent_parent_type: Query("label_parent_parent_type", str) = None, label_parent_parent_name: Query("label_parent_parent_name", str) = None, label_parent_parent_color: Query("label_parent_parent_color", str) = None): # type: ignore
-        """ List all Articles.
+    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50):
+        """ List all Articles. """
+
+    def list_all(self, page: int = 1, per_page: int = 50) -> ArticleList:
+        """ List all Articles. Automatically paginates through all Articles.
 
         Args:
-            page (int): The page number.
-            per_page (int): The number of Articles per page.
-            order (str): The order to sort the Articles by. Valid values are 'asc' and 'desc'. (Optional)
-            sort (str): The field to sort the Articles by. Valid values are 'created_at' and 'updated_at'. (Optional)
-            type (str): The type of Articles to list. Valid values are 'article' and 'folder'. (Optional)
-            workspace_id (str): The ID of the workspace to filter by. (Optional)
-            parent_id (str): The ID of the parent to filter by. (Optional)
-            parent_type (str): The type of the parent to filter by. (Optional)
-            """
+            start (int): The page number to start at.
+            per_page (int): The number of Articles to return per page.
 
-    @returns(ArticleSchema(many=False)) # type: ignore
+        Returns:
+            ArticleList: A list of Articles.
+        """
+
+        article_list = self.__list_all(page=page, per_page=per_page)
+        while page < article_list.pages['total_pages']:
+            page += 1
+            new_page = self.__list_all(page=page, per_page=per_page)
+            article_list.extend(new_page)
+            article_list.pages = new_page.pages
+        
+        return article_list
+
+    @returns(ArticleSchema) # type: ignore
     @json
     @put("{article_id}")
     def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore

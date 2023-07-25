@@ -11,7 +11,7 @@ These models provide object oriented interfaces for the schemas defined in `apis
 """
 
 # External
-from typing import List, Optional, Union , TYPE_CHECKING
+from typing import Any, List, Optional, Union , TYPE_CHECKING
 
 # From Current API
 from . import schemas as a_schemas
@@ -696,4 +696,36 @@ class ArticleList(ModelBase):
         """
         self.__data = data
     
+
+    def __len__(self):
+        """
+        The length of the Article.
+
+        Returns:
+            int: The length of the Article.
+        """
+        return len(self.data)
     
+    def __iter__(self):
+        """
+        The iterator of the Article.
+
+        Returns:
+            iter: The iterator of the Article.
+        """
+        return iter(self.data)
+    
+    def __getitem__(self, index):
+        return super().__getitem__[index]
+    
+    def extend(self, articles: 'ArticleList'):
+        """
+        Extend the ArticleList with another ArticleList.
+
+        Args:
+            ArticleList (ArticleList): The ArticleList to extend.
+        """
+        article_ids = [a.id for a in self]
+        for article in articles:
+            if article.id not in article_ids:
+                self.data.append(article)

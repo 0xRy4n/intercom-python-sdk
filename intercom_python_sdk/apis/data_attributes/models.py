@@ -423,3 +423,24 @@ class DataAttributeList(ModelBase):
         """
         return len(self.__data)
     
+    def __contains__(self, item: Union[DataAttribute, str]) -> bool:
+        """
+        Returns True if the data attribute list contains the specified item.
+
+        Args:
+            item (Union[DataAttribute, str]): The item to check for.
+        Returns:
+            bool: True if the data attribute list contains the specified item.
+        """
+        if isinstance(item, DataAttribute):
+            return item in self.__data
+        elif isinstance(item, str):
+            return any(
+                attribute.name == item or attribute.full_name == item
+                for attribute in self.__data
+            )
+        else:
+            return False
+    
+
+    
