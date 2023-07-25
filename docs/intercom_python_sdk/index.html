@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>intercom_python_sdk API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Intercom Python SDK
+The unofficial Python SDK for the Intercom API, _because we can&#39;t all be Ruby or Go evagelists._ …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,11 +23,103 @@
 <h1 class="title">Package <code>intercom_python_sdk</code></h1>
 </header>
 <section id="section-intro">
+<h1 id="intercom-python-sdk">Intercom Python SDK</h1>
+<p>The unofficial Python SDK for the Intercom API, <em>because we can't all be Ruby or Go evagelists.</em></p>
+<h2 id="quick-start">Quick Start</h2>
+<pre><code class="language-python">
+from intercom_python_sdk import Intercom
+
+intercom = Intercom('my_api_key')
+
+intercom.admins.me() # Returns the current Admin
+intercom.data_attributes.list_all() # Returns a DataAttributesList object
+intercom.articles.list_all() # Returns an ArticlesList object
+</code></pre>
+<h2 id="using-schemas">Using Schemas</h2>
+<p>You can import any available schema from the <code><a title="intercom_python_sdk.schemas" href="schemas/index.html">intercom_python_sdk.schemas</a></code> module like so:</p>
+<pre><code class="language-python">from intercom_python_sdk.schemas import AdminSchema
+</code></pre>
+<p>Generally speaking, you don't need to use schemas directly unless you are POSTing a new object to the API, such as to create a new Data Attribute. For example:</p>
+<pre><code class="language-python">from intercom_python_sdk.schemas import DataAttributeSchema
+
+data = {
+    'name': 'Example',
+    'model': 'company', # Can be 'contact', 'company', or 'conversation`
+    'data_type': 'string', # Can be `string`, `integer`, `float`, `boolean`, `date`, `datetime`
+    'description': 'Example Description',
+    'options': ['Option 1', 'Option 2'], # If your attribute has options, define theme (string only).
+}
+
+attribute_data = DataAttributeSchema().dump(data)
+new_attribute = intercom.data_attributes.create(new_attribute) # Returns the new DataAttribute object.
+</code></pre>
+<p>Here, you can dump a standard dictionary of data into a Schema object, which can then be sent off to the API.</p>
+<h2 id="using-models">Using Models</h2>
+<p>You can import any available model from the <code><a title="intercom_python_sdk.models" href="models/index.html">intercom_python_sdk.models</a></code> module like so:</p>
+<pre><code class="language-python">from intercom_python_sdk.models import Admin
+</code></pre>
+<p>There are very few circumstances where you would need to access a Model class directly in this way. Instead, model <em>instances</em> are always returned from API calls. For example, <code>intercom.admins.me()</code> returns an <code>Admin</code> object.</p>
+<p>These objects contain all the properties defined for their model in the Intercom API Reference. They may also contain methods which allow you take actions on the object, or access related objects. For example, <code>Admin</code> objects have a <code>set_away()</code> method which allows you to set the Admin's status to away.</p>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from .intercom import Intercom
+<pre><code class="python">&#34;&#34;&#34;
+# Intercom Python SDK
+The unofficial Python SDK for the Intercom API, _because we can&#39;t all be Ruby or Go evagelists._
+
+## Quick Start
+
+```python
+
+from intercom_python_sdk import Intercom
+
+intercom = Intercom(&#39;my_api_key&#39;)
+
+intercom.admins.me() # Returns the current Admin
+intercom.data_attributes.list_all() # Returns a DataAttributesList object
+intercom.articles.list_all() # Returns an ArticlesList object
+```
+
+## Using Schemas
+You can import any available schema from the `schemas` module like so:
+
+```python
+from intercom_python_sdk.schemas import AdminSchema
+```
+
+Generally speaking, you don&#39;t need to use schemas directly unless you are POSTing a new object to the API, such as to create a new Data Attribute. For example:
+
+```python
+from intercom_python_sdk.schemas import DataAttributeSchema
+
+data = {
+    &#39;name&#39;: &#39;Example&#39;,
+    &#39;model&#39;: &#39;company&#39;, # Can be &#39;contact&#39;, &#39;company&#39;, or &#39;conversation`
+    &#39;data_type&#39;: &#39;string&#39;, # Can be `string`, `integer`, `float`, `boolean`, `date`, `datetime`
+    &#39;description&#39;: &#39;Example Description&#39;,
+    &#39;options&#39;: [&#39;Option 1&#39;, &#39;Option 2&#39;], # If your attribute has options, define theme (string only).
+}
+
+attribute_data = DataAttributeSchema().dump(data)
+new_attribute = intercom.data_attributes.create(new_attribute) # Returns the new DataAttribute object.
+```
+
+Here, you can dump a standard dictionary of data into a Schema object, which can then be sent off to the API.
+
+## Using Models
+You can import any available model from the `models` module like so:
+
+```python
+from intercom_python_sdk.models import Admin
+```
+
+There are very few circumstances where you would need to access a Model class directly in this way. Instead, model _instances_ are always returned from API calls. For example, `intercom.admins.me()` returns an `Admin` object.
+
+These objects contain all the properties defined for their model in the Intercom API Reference. They may also contain methods which allow you take actions on the object, or access related objects. For example, `Admin` objects have a `set_away()` method which allows you to set the Admin&#39;s status to away.
+&#34;&#34;&#34;
+
+from .intercom import Intercom
 from .core.configuration import Configuration
 from .core.api_base import create_api_client
 from .apis.tags_to_api import tags_to_api_dict as API_TAGS</code></pre>
@@ -67,7 +160,14 @@ from .apis.tags_to_api import tags_to_api_dict as API_TAGS</code></pre>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#intercom-python-sdk">Intercom Python SDK</a><ul>
+<li><a href="#quick-start">Quick Start</a></li>
+<li><a href="#using-schemas">Using Schemas</a></li>
+<li><a href="#using-models">Using Models</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <ul id="index">
 <li><h3><a href="#header-submodules">Sub-modules</a></h3>

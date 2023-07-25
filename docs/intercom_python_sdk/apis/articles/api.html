@@ -5,8 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>intercom_python_sdk.apis.articles.api API documentation</title>
-<meta name="description" content="Articles API
-`apis/articles/api.py` …" />
+<meta name="description" content="Articles API …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -23,10 +22,8 @@
 <h1 class="title">Module <code>intercom_python_sdk.apis.articles.api</code></h1>
 </header>
 <section id="section-intro">
-<p>====================
-Articles API
-====================
-<code>apis/articles/api.py</code></p>
+<h1 id="articles-api">Articles API</h1>
+<p><code>apis/articles/api.py</code></p>
 <p>This module contains the ArticlesAPI class, which defines a client for the Articles API.
 It is used to interact with the Intercom Articles API [1] as defined in the Intercom API Reference [2].</p>
 <hr>
@@ -37,9 +34,8 @@ It is used to interact with the Intercom Articles API [1] as defined in the Inte
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34; 
-====================
-Articles API
-====================
+# Articles API
+
 `apis/articles/api.py`
 
 This module contains the ArticlesAPI class, which defines a client for the Articles API.
@@ -265,7 +261,7 @@ class ArticlesAPI(APIBase):
 <h3>Methods</h3>
 <dl>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.create"><code class="name flex">
-<span>def <span class="ident">create</span></span>(<span>self, data: <uplink.arguments.Body object at 0x10f0b0a50>)</span>
+<span>def <span class="ident">create</span></span>(<span>self, data: <uplink.arguments.Body object at 0x10f518190>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an Article.</p>
@@ -360,7 +356,7 @@ def get_by_id(self, article_id: Union[str, int]):
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.list_all"><code class="name flex">
-<span>def <span class="ident">list_all</span></span>(<span>self, page: <uplink.arguments.Query object at 0x10f0b1f50> = 1, per_page: <uplink.arguments.Query object at 0x10f0b2850> = 50, order: <uplink.arguments.Query object at 0x10f0b2890> = None, sort: <uplink.arguments.Query object at 0x10f0b28d0> = None, type: <uplink.arguments.Query object at 0x10f0b2910> = None, workspace_id: <uplink.arguments.Query object at 0x10f0b2950> = None, parent_id: <uplink.arguments.Query object at 0x10f0b2990> = None, parent_type: <uplink.arguments.Query object at 0x10f0b29d0> = None, tag_id: <uplink.arguments.Query object at 0x10f0b2a10> = None, query: <uplink.arguments.Query object at 0x10f0b2a50> = None, label_id: <uplink.arguments.Query object at 0x10f0b2a90> = None, include: <uplink.arguments.Query object at 0x10f0b2ad0> = None, label_type: <uplink.arguments.Query object at 0x10f0b2b10> = None, label_name: <uplink.arguments.Query object at 0x10f0b2b50> = None, label_color: <uplink.arguments.Query object at 0x10f0b2b90> = None, label_parent_id: <uplink.arguments.Query object at 0x10f0b2bd0> = None, label_parent_type: <uplink.arguments.Query object at 0x10f0b2c10> = None, label_parent_name: <uplink.arguments.Query object at 0x10f0b2c50> = None, label_parent_color: <uplink.arguments.Query object at 0x10f0b2c90> = None, label_parent_parent_id: <uplink.arguments.Query object at 0x10f0b2cd0> = None, label_parent_parent_type: <uplink.arguments.Query object at 0x10f0b2d10> = None, label_parent_parent_name: <uplink.arguments.Query object at 0x10f0b2d50> = None, label_parent_parent_color: <uplink.arguments.Query object at 0x10f0b2150> = None)</span>
+<span>def <span class="ident">list_all</span></span>(<span>self, page: <uplink.arguments.Query object at 0x10f5198d0> = 1, per_page: <uplink.arguments.Query object at 0x10f519950> = 50, order: <uplink.arguments.Query object at 0x10f51a1d0> = None, sort: <uplink.arguments.Query object at 0x10f51a210> = None, type: <uplink.arguments.Query object at 0x10f51a250> = None, workspace_id: <uplink.arguments.Query object at 0x10f51a290> = None, parent_id: <uplink.arguments.Query object at 0x10f51a2d0> = None, parent_type: <uplink.arguments.Query object at 0x10f51a310> = None, tag_id: <uplink.arguments.Query object at 0x10f51a350> = None, query: <uplink.arguments.Query object at 0x10f51a390> = None, label_id: <uplink.arguments.Query object at 0x10f51a3d0> = None, include: <uplink.arguments.Query object at 0x10f51a410> = None, label_type: <uplink.arguments.Query object at 0x10f51a450> = None, label_name: <uplink.arguments.Query object at 0x10f51a490> = None, label_color: <uplink.arguments.Query object at 0x10f51a4d0> = None, label_parent_id: <uplink.arguments.Query object at 0x10f51a510> = None, label_parent_type: <uplink.arguments.Query object at 0x10f51a550> = None, label_parent_name: <uplink.arguments.Query object at 0x10f51a590> = None, label_parent_color: <uplink.arguments.Query object at 0x10f51a5d0> = None, label_parent_parent_id: <uplink.arguments.Query object at 0x10f51a610> = None, label_parent_parent_type: <uplink.arguments.Query object at 0x10f51a650> = None, label_parent_parent_name: <uplink.arguments.Query object at 0x10f51a690> = None, label_parent_parent_color: <uplink.arguments.Query object at 0x10f519750> = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>List all Articles.</p>
@@ -405,7 +401,7 @@ def list_all(self, page: Query(&#34;page&#34;, int) = 1, per_page: Query(&#34;pe
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.update_by_id"><code class="name flex">
-<span>def <span class="ident">update_by_id</span></span>(<span>self, article_id: Union[str, int], data: <uplink.arguments.Body object at 0x10f0b3ed0>)</span>
+<span>def <span class="ident">update_by_id</span></span>(<span>self, article_id: Union[str, int], data: <uplink.arguments.Body object at 0x10f51b810>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update an Article by ID.</p>
@@ -440,7 +436,9 @@ def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchem
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#articles-api">Articles API</a></li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
