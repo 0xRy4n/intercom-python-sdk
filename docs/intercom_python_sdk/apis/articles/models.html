@@ -1,0 +1,2333 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>intercom_python_sdk.apis.articles.models API documentation</title>
+<meta name="description" content="Articles API Models
+`apis/articles/models.py` …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>intercom_python_sdk.apis.articles.models</code></h1>
+</header>
+<section id="section-intro">
+<p>====================
+Articles API Models
+====================
+<code>apis/articles/models.py</code></p>
+<p>This module contains models used to interact with the Intercom Articles API [1].
+These models provide object oriented interfaces for the schemas defined in <code>apis/articles/schemas.py</code>.</p>
+<hr>
+<p>[1] <a href="https://developers.intercom.com/intercom-api-reference/reference/listarticles">https://developers.intercom.com/intercom-api-reference/reference/listarticles</a></p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+====================
+Articles API Models
+====================
+`apis/articles/models.py`
+
+This module contains models used to interact with the Intercom Articles API [1].
+These models provide object oriented interfaces for the schemas defined in `apis/articles/schemas.py`.
+
+----
+[1] https://developers.intercom.com/intercom-api-reference/reference/listarticles
+&#34;&#34;&#34;
+
+# External
+from typing import List, Optional, Union , TYPE_CHECKING
+
+# From Current API
+from . import schemas as a_schemas
+
+# From Current Package
+from ...core.model_base import ModelBase
+
+# Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
+# See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
+if TYPE_CHECKING:
+    from .api import ArticlesAPI
+
+
+class ArticleStatistics(ModelBase):
+    &#34;&#34;&#34;
+    This model represents the statistics of an Article on Intercom.
+
+    Attributes:
+        views (int): The number of views of the Article.
+        conversations (int): The number of conversations of the Article.
+        reactions (int): The number of reactions of the Article.
+        happy_reaction_percentage (int): The percentage of happy reactions of the Article.
+        neutral_reaction_percentage (int): The percentage of neutral reactions of the Article.
+        sad_reaction_percentage (int): The percentage of sad reactions of the Article.
+    &#34;&#34;&#34;
+    views: Optional[int]
+    conversations: Optional[int]
+    reactions: Optional[int]
+    happy_reaction_percentage: Optional[int]
+    neutral_reaction_percentage: Optional[int]
+    sad_reaction_percentage: Optional[int]
+
+
+class Article(ModelBase):
+    &#34;&#34;&#34;
+    This model represents an Article on Intercom.
+
+    Attributes:
+        id (int): The ID of the Article.
+        type (str): The type of the Article.
+        workspace_id (str): The ID of the workspace the Article belongs to.
+        title (str): The title of the Article.
+        description (str): The description of the Article.
+        body (str): The body of the Article.
+        author_id (int): The ID of the author of the Article.
+        state (str): The state of the Article.
+        created_at (int): The timestamp of when the Article was created.
+        updated_at (int): The timestamp of when the Article was updated.
+        url (str): The URL of the Article.
+        parent_id (int): The ID of the parent of the Article.
+        parent_type (str): The type of the parent of the Article.
+        default_locale (str): The default locale of the Article.
+        statistics (dict): The statistics of the Article.
+    &#34;&#34;&#34;
+    def __init__(self, *args, **kwargs):
+            self.__type = kwargs.get(&#39;type&#39;, &#39;article&#39;)
+            self.__workspace_id = kwargs.get(&#39;workspace_id&#39;)
+            self.__title = kwargs.get(&#39;title&#39;)
+            self.__description = kwargs.get(&#39;description&#39;)
+            self.__body = kwargs.get(&#39;body&#39;)
+            self.__author_id = kwargs.get(&#39;author_id&#39;)
+            self.__state = kwargs.get(&#39;state&#39;)
+            self.__created_at = kwargs.get(&#39;created_at&#39;)
+            self.__updated_at = kwargs.get(&#39;updated_at&#39;,None)
+            self.__url = kwargs.get(&#39;url&#39;,None)
+            self.__parent_id = kwargs.get(&#39;parent_id&#39;, None)
+            self.__parent_type = kwargs.get(&#39;parent_type&#39;, None)
+            self.__default_locale = kwargs.get(&#39;default_locale&#39;, None)
+            self.__statistics = kwargs.get(&#39;statistics&#39;, None)
+            self.__id = kwargs.get(&#39;id&#39;, None)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    @property
+    def workspace_id(self) -&gt; str:
+        &#34;&#34;&#34;
+        The ID of the workspace the Article belongs to.
+
+        Returns:
+            str: The ID of the workspace the Article belongs to.
+        &#34;&#34;&#34;
+        return self.__workspace_id
+    
+    @property
+    def title(self) -&gt; str:
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Returns:
+            str: The title of the Article.
+        &#34;&#34;&#34;
+        return self.__title
+    
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;
+        The description of the Article.
+
+        Returns:
+            str: The description of the Article.
+        &#34;&#34;&#34;
+        return self.__description
+    
+    @property
+    def body(self) -&gt; str:
+        &#34;&#34;&#34;
+        The body of the Article.
+
+        Returns:
+            str: The body of the Article.
+        &#34;&#34;&#34;
+        return self.__body
+    
+    @property
+    def author_id(self) -&gt; int:
+
+        &#34;&#34;&#34;
+        The ID of the author of the Article.
+
+        Returns:
+            int: The ID of the author of the Article.
+        &#34;&#34;&#34;
+        return self.__author_id
+    
+    @property
+    def state(self) -&gt; str:
+        &#34;&#34;&#34;
+        The state of the Article.
+
+        Returns:
+            str: The state of the Article.
+        &#34;&#34;&#34;
+        return self.__state
+    
+    @property
+    def created_at(self) -&gt; int:
+        &#34;&#34;&#34;
+        The timestamp of when the Article was created.
+
+        Returns:
+            int: The timestamp of when the Article was created.
+        &#34;&#34;&#34;
+        return self.__created_at
+    
+    @property
+    def updated_at(self) -&gt; int:
+        &#34;&#34;&#34;
+        The timestamp of when the Article was updated.
+
+        Returns:
+            int: The timestamp of when the Article was updated.
+        &#34;&#34;&#34;
+        return self.__updated_at
+    
+    @property
+    def url(self) -&gt; str:
+        &#34;&#34;&#34;
+        The URL of the Article.
+
+        Returns:
+            str: The URL of the Article.
+        &#34;&#34;&#34;
+        return self.__url
+    
+    @property
+    def parent_id(self) -&gt; int:
+        &#34;&#34;&#34;
+        The ID of the parent of the Article.
+
+        Returns:
+            int: The ID of the parent of the Article.
+        &#34;&#34;&#34;
+        return self.__parent_id
+    
+    @property
+    def parent_type(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the parent of the Article.
+
+        Returns:
+            str: The type of the parent of the Article.
+        &#34;&#34;&#34;
+        return self.__parent_type
+    
+    @property
+    def default_locale(self) -&gt; str:
+        &#34;&#34;&#34;
+        The default locale of the Article.
+
+        Returns:
+            str: The default locale of the Article.
+        &#34;&#34;&#34;
+        return self.__default_locale
+    
+    @property
+    def statistics(self) -&gt; ArticleStatistics:
+        &#34;&#34;&#34;
+        The statistics of the Article.
+
+        Returns:
+            ArticleStatistics: The statistics of the Article.
+        &#34;&#34;&#34;
+        return self.__statistics
+    
+    @property
+    def id(self) -&gt; int:
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Returns:
+            int: The ID of the Article.
+        &#34;&#34;&#34;
+        return self.__id
+    
+
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Args:
+            type (str): The type of the Article.
+        &#34;&#34;&#34;
+        self.__type = type
+
+    @workspace_id.setter
+    def workspace_id(self, workspace_id: str):
+        &#34;&#34;&#34;
+        The ID of the workspace the Article belongs to.
+
+        Args:
+            workspace_id (str): The ID of the workspace the Article belongs to.
+        &#34;&#34;&#34;
+        self.__workspace_id = workspace_id
+
+    @title.setter
+    def title(self, title: str):
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Args:
+            title (str): The title of the Article.
+        &#34;&#34;&#34;
+        self.__title = title
+
+    @description.setter
+    def description(self, description: str):
+        &#34;&#34;&#34;
+        The description of the Article.
+
+        Args:
+            description (str): The description of the Article.
+        &#34;&#34;&#34;
+        self.__description = description
+
+    @body.setter
+    def body(self, body: str):
+        &#34;&#34;&#34;
+        The body of the Article.
+
+        Args:
+            body (str): The body of the Article.
+        &#34;&#34;&#34;
+        self.__body = body
+
+    @author_id.setter
+    def author_id(self, author_id: int):
+        &#34;&#34;&#34;
+        The ID of the author of the Article.
+
+        Args:
+            author_id (int): The ID of the author of the Article.
+        &#34;&#34;&#34;
+        self.__author_id = author_id
+
+    @state.setter
+    def state(self, state: str):
+        &#34;&#34;&#34;
+        The state of the Article.
+
+        Args:
+            state (str): The state of the Article.
+        &#34;&#34;&#34;
+        self.__state = state
+
+    @created_at.setter
+    def created_at(self, created_at: int):
+        &#34;&#34;&#34;
+        The timestamp of when the Article was created.
+
+        Args:
+            created_at (int): The timestamp of when the Article was created.
+        &#34;&#34;&#34;
+        self.__created_at = created_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at: int):
+        &#34;&#34;&#34;
+        The timestamp of when the Article was updated.
+
+        Args:
+            updated_at (int): The timestamp of when the Article was updated.
+        &#34;&#34;&#34;
+        self.__updated_at = updated_at
+
+    @url.setter
+    def url(self, url: str):
+        &#34;&#34;&#34;
+        The URL of the Article.
+
+        Args:
+            url (str): The URL of the Article.
+        &#34;&#34;&#34;
+        self.__url = url
+
+    @parent_id.setter
+    def parent_id(self, parent_id: int):
+        &#34;&#34;&#34;
+        The ID of the parent of the Article.
+
+        Args:
+            parent_id (int): The ID of the parent of the Article.
+        &#34;&#34;&#34;
+        self.__parent_id = parent_id
+
+    @parent_type.setter
+    def parent_type(self, parent_type: str):
+        &#34;&#34;&#34;
+        The type of the parent of the Article.
+
+        Args:
+            parent_type (str): The type of the parent of the Article.
+        &#34;&#34;&#34;
+        self.__parent_type = parent_type
+
+    @default_locale.setter
+    def default_locale(self, default_locale: str):
+        &#34;&#34;&#34;
+        The default locale of the Article.
+
+        Args:
+            default_locale (str): The default locale of the Article.
+        &#34;&#34;&#34;
+        self.__default_locale = default_locale
+    
+    @statistics.setter
+    def statistics(self, statistics: ArticleStatistics):
+        &#34;&#34;&#34;
+        The statistics of the Article.
+
+        Args:
+            statistics (ArticleStatistics): The statistics of the Article.
+        &#34;&#34;&#34;
+        self.__statistics = statistics
+
+    @id.setter
+    def id(self, id: int):
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Args:
+            id (int): The ID of the Article.
+        &#34;&#34;&#34;
+        self.__id = id
+
+
+class CreateArticle(ModelBase):
+    def __init__(self, *args, **kwargs):
+            self.__title = kwargs.get(&#39;title&#39;)
+            self.__author_id = kwargs.get(&#39;author_id&#39;)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def title(self) -&gt; str:
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Returns:
+            str: The title of the Article.
+        &#34;&#34;&#34;
+        return self.__title
+    
+    @property
+    def author_id(self) -&gt; int:
+            
+            &#34;&#34;&#34;
+            The ID of the author of the Article.
+    
+            Returns:
+                int: The ID of the author of the Article.
+            &#34;&#34;&#34;
+            return self.__author_id
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @title.setter
+    def title(self, title: str):
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Args:
+            title (str): The title of the Article.
+        &#34;&#34;&#34;
+        self.__title = title
+
+    @author_id.setter
+    def author_id(self, author_id: int):
+        &#34;&#34;&#34;
+        The ID of the author of the Article.
+
+        Args:
+            author_id (int): The ID of the author of the Article.
+        &#34;&#34;&#34;
+        self.__author_id = author_id
+
+     
+class DeletedArticle(ModelBase):
+    &#34;&#34;&#34;
+    This model represents a deleted Article on Intercom.
+
+    Attributes:
+        id (int): The ID of the Article.
+        object (str): The type of the Article.
+        deleted (bool): Whether or not the Article was deleted.
+    &#34;&#34;&#34;
+    id: Optional[int]
+    object: Optional[str]
+    deleted: Optional[bool]
+
+    def __init__(self, *args, **kwargs):
+            self.__id = kwargs.get(&#39;id&#39;)
+            self.__object = kwargs.get(&#39;object&#39;)
+            self.__deleted = kwargs.get(&#39;deleted&#39;)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def id(self) -&gt; int:
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Returns:
+            int: The ID of the Article.
+        &#34;&#34;&#34;
+        return self.__id
+    
+    @property
+    def object(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        &#34;&#34;&#34;
+        return self.__object
+    
+    @property
+    def deleted(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Whether or not the Article was deleted.
+
+        Returns:
+            bool: Whether or not the Article was deleted.
+        &#34;&#34;&#34;
+        return self.__deleted
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @id.setter
+    def id(self, id: int):
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Args:
+            id (int): The ID of the Article.
+        &#34;&#34;&#34;
+        self.__id = id
+
+    @object.setter
+    def object(self, object: str):
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Args:
+            object (str): The type of the Article.
+        &#34;&#34;&#34;
+        self.__object = object
+
+    @deleted.setter
+    def deleted(self, deleted: bool):
+        &#34;&#34;&#34;
+        Whether or not the Article was deleted.
+
+        Args:
+            deleted (bool): Whether or not the Article was deleted.
+        &#34;&#34;&#34;
+        self.__deleted = deleted
+
+
+class ArticleList(ModelBase):
+    &#34;&#34;&#34;
+    This model represents a list of Articles on Intercom.
+
+    Attributes:
+        type (str): The type of the Article.
+        pages (dict): The pages of the Article.
+        total_count (int): The total count of the Article.
+        data (list): The data of the Article.
+    &#34;&#34;&#34;
+    def __init__(self, *args, **kwargs):
+            self.__type = kwargs.get(&#39;type&#39;)
+            self.__pages = kwargs.get(&#39;pages&#39;)
+            self.__total_count = kwargs.get(&#39;total_count&#39;)
+            self.__data = kwargs.get(&#39;data&#39;)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    @property
+    def pages(self) -&gt; dict:
+        &#34;&#34;&#34;
+        The pages of the Article.
+
+        Returns:
+            dict: The pages of the Article.
+        &#34;&#34;&#34;
+        return self.__pages
+    
+    @property
+    def total_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        The total count of the Article.
+
+        Returns:
+            int: The total count of the Article.
+        &#34;&#34;&#34;
+        return self.__total_count
+    
+    @property
+    def data(self) -&gt; List[Article]:
+        &#34;&#34;&#34;
+        The data of the Article.
+
+        Returns:
+            List[Article]: The data of the Article.
+        &#34;&#34;&#34;
+        return self.__data
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Args:
+            type (str): The type of the Article.
+        &#34;&#34;&#34;
+        self.__type = type
+
+    @pages.setter
+    def pages(self, pages: dict):
+        &#34;&#34;&#34;
+        The pages of the Article.
+
+        Args:
+            pages (dict): The pages of the Article.
+        &#34;&#34;&#34;
+        self.__pages = pages
+
+    @total_count.setter
+    def total_count(self, total_count: int):
+        &#34;&#34;&#34;
+        The total count of the Article.
+
+        Args:
+            total_count (int): The total count of the Article.
+        &#34;&#34;&#34;
+        self.__total_count = total_count
+
+    @data.setter
+    def data(self, data: List[Article]):
+        &#34;&#34;&#34;
+        The data of the Article.
+
+        Args:
+            data (List[Article]): The data of the Article.
+        &#34;&#34;&#34;
+        self.__data = data
+    
+    </code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.models.Article"><code class="flex name class">
+<span>class <span class="ident">Article</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This model represents an Article on Intercom.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong> :&ensp;<code>int</code></dt>
+<dd>The ID of the Article.</dd>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of the Article.</dd>
+<dt><strong><code>workspace_id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the workspace the Article belongs to.</dd>
+<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
+<dd>The title of the Article.</dd>
+<dt><strong><code>description</code></strong> :&ensp;<code>str</code></dt>
+<dd>The description of the Article.</dd>
+<dt><strong><code>body</code></strong> :&ensp;<code>str</code></dt>
+<dd>The body of the Article.</dd>
+<dt><strong><code>author_id</code></strong> :&ensp;<code>int</code></dt>
+<dd>The ID of the author of the Article.</dd>
+<dt><strong><code>state</code></strong> :&ensp;<code>str</code></dt>
+<dd>The state of the Article.</dd>
+<dt><strong><code>created_at</code></strong> :&ensp;<code>int</code></dt>
+<dd>The timestamp of when the Article was created.</dd>
+<dt><strong><code>updated_at</code></strong> :&ensp;<code>int</code></dt>
+<dd>The timestamp of when the Article was updated.</dd>
+<dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL of the Article.</dd>
+<dt><strong><code>parent_id</code></strong> :&ensp;<code>int</code></dt>
+<dd>The ID of the parent of the Article.</dd>
+<dt><strong><code>parent_type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of the parent of the Article.</dd>
+<dt><strong><code>default_locale</code></strong> :&ensp;<code>str</code></dt>
+<dd>The default locale of the Article.</dd>
+<dt><strong><code>statistics</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The statistics of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Article(ModelBase):
+    &#34;&#34;&#34;
+    This model represents an Article on Intercom.
+
+    Attributes:
+        id (int): The ID of the Article.
+        type (str): The type of the Article.
+        workspace_id (str): The ID of the workspace the Article belongs to.
+        title (str): The title of the Article.
+        description (str): The description of the Article.
+        body (str): The body of the Article.
+        author_id (int): The ID of the author of the Article.
+        state (str): The state of the Article.
+        created_at (int): The timestamp of when the Article was created.
+        updated_at (int): The timestamp of when the Article was updated.
+        url (str): The URL of the Article.
+        parent_id (int): The ID of the parent of the Article.
+        parent_type (str): The type of the parent of the Article.
+        default_locale (str): The default locale of the Article.
+        statistics (dict): The statistics of the Article.
+    &#34;&#34;&#34;
+    def __init__(self, *args, **kwargs):
+            self.__type = kwargs.get(&#39;type&#39;, &#39;article&#39;)
+            self.__workspace_id = kwargs.get(&#39;workspace_id&#39;)
+            self.__title = kwargs.get(&#39;title&#39;)
+            self.__description = kwargs.get(&#39;description&#39;)
+            self.__body = kwargs.get(&#39;body&#39;)
+            self.__author_id = kwargs.get(&#39;author_id&#39;)
+            self.__state = kwargs.get(&#39;state&#39;)
+            self.__created_at = kwargs.get(&#39;created_at&#39;)
+            self.__updated_at = kwargs.get(&#39;updated_at&#39;,None)
+            self.__url = kwargs.get(&#39;url&#39;,None)
+            self.__parent_id = kwargs.get(&#39;parent_id&#39;, None)
+            self.__parent_type = kwargs.get(&#39;parent_type&#39;, None)
+            self.__default_locale = kwargs.get(&#39;default_locale&#39;, None)
+            self.__statistics = kwargs.get(&#39;statistics&#39;, None)
+            self.__id = kwargs.get(&#39;id&#39;, None)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    @property
+    def workspace_id(self) -&gt; str:
+        &#34;&#34;&#34;
+        The ID of the workspace the Article belongs to.
+
+        Returns:
+            str: The ID of the workspace the Article belongs to.
+        &#34;&#34;&#34;
+        return self.__workspace_id
+    
+    @property
+    def title(self) -&gt; str:
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Returns:
+            str: The title of the Article.
+        &#34;&#34;&#34;
+        return self.__title
+    
+    @property
+    def description(self) -&gt; str:
+        &#34;&#34;&#34;
+        The description of the Article.
+
+        Returns:
+            str: The description of the Article.
+        &#34;&#34;&#34;
+        return self.__description
+    
+    @property
+    def body(self) -&gt; str:
+        &#34;&#34;&#34;
+        The body of the Article.
+
+        Returns:
+            str: The body of the Article.
+        &#34;&#34;&#34;
+        return self.__body
+    
+    @property
+    def author_id(self) -&gt; int:
+
+        &#34;&#34;&#34;
+        The ID of the author of the Article.
+
+        Returns:
+            int: The ID of the author of the Article.
+        &#34;&#34;&#34;
+        return self.__author_id
+    
+    @property
+    def state(self) -&gt; str:
+        &#34;&#34;&#34;
+        The state of the Article.
+
+        Returns:
+            str: The state of the Article.
+        &#34;&#34;&#34;
+        return self.__state
+    
+    @property
+    def created_at(self) -&gt; int:
+        &#34;&#34;&#34;
+        The timestamp of when the Article was created.
+
+        Returns:
+            int: The timestamp of when the Article was created.
+        &#34;&#34;&#34;
+        return self.__created_at
+    
+    @property
+    def updated_at(self) -&gt; int:
+        &#34;&#34;&#34;
+        The timestamp of when the Article was updated.
+
+        Returns:
+            int: The timestamp of when the Article was updated.
+        &#34;&#34;&#34;
+        return self.__updated_at
+    
+    @property
+    def url(self) -&gt; str:
+        &#34;&#34;&#34;
+        The URL of the Article.
+
+        Returns:
+            str: The URL of the Article.
+        &#34;&#34;&#34;
+        return self.__url
+    
+    @property
+    def parent_id(self) -&gt; int:
+        &#34;&#34;&#34;
+        The ID of the parent of the Article.
+
+        Returns:
+            int: The ID of the parent of the Article.
+        &#34;&#34;&#34;
+        return self.__parent_id
+    
+    @property
+    def parent_type(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the parent of the Article.
+
+        Returns:
+            str: The type of the parent of the Article.
+        &#34;&#34;&#34;
+        return self.__parent_type
+    
+    @property
+    def default_locale(self) -&gt; str:
+        &#34;&#34;&#34;
+        The default locale of the Article.
+
+        Returns:
+            str: The default locale of the Article.
+        &#34;&#34;&#34;
+        return self.__default_locale
+    
+    @property
+    def statistics(self) -&gt; ArticleStatistics:
+        &#34;&#34;&#34;
+        The statistics of the Article.
+
+        Returns:
+            ArticleStatistics: The statistics of the Article.
+        &#34;&#34;&#34;
+        return self.__statistics
+    
+    @property
+    def id(self) -&gt; int:
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Returns:
+            int: The ID of the Article.
+        &#34;&#34;&#34;
+        return self.__id
+    
+
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Args:
+            type (str): The type of the Article.
+        &#34;&#34;&#34;
+        self.__type = type
+
+    @workspace_id.setter
+    def workspace_id(self, workspace_id: str):
+        &#34;&#34;&#34;
+        The ID of the workspace the Article belongs to.
+
+        Args:
+            workspace_id (str): The ID of the workspace the Article belongs to.
+        &#34;&#34;&#34;
+        self.__workspace_id = workspace_id
+
+    @title.setter
+    def title(self, title: str):
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Args:
+            title (str): The title of the Article.
+        &#34;&#34;&#34;
+        self.__title = title
+
+    @description.setter
+    def description(self, description: str):
+        &#34;&#34;&#34;
+        The description of the Article.
+
+        Args:
+            description (str): The description of the Article.
+        &#34;&#34;&#34;
+        self.__description = description
+
+    @body.setter
+    def body(self, body: str):
+        &#34;&#34;&#34;
+        The body of the Article.
+
+        Args:
+            body (str): The body of the Article.
+        &#34;&#34;&#34;
+        self.__body = body
+
+    @author_id.setter
+    def author_id(self, author_id: int):
+        &#34;&#34;&#34;
+        The ID of the author of the Article.
+
+        Args:
+            author_id (int): The ID of the author of the Article.
+        &#34;&#34;&#34;
+        self.__author_id = author_id
+
+    @state.setter
+    def state(self, state: str):
+        &#34;&#34;&#34;
+        The state of the Article.
+
+        Args:
+            state (str): The state of the Article.
+        &#34;&#34;&#34;
+        self.__state = state
+
+    @created_at.setter
+    def created_at(self, created_at: int):
+        &#34;&#34;&#34;
+        The timestamp of when the Article was created.
+
+        Args:
+            created_at (int): The timestamp of when the Article was created.
+        &#34;&#34;&#34;
+        self.__created_at = created_at
+
+    @updated_at.setter
+    def updated_at(self, updated_at: int):
+        &#34;&#34;&#34;
+        The timestamp of when the Article was updated.
+
+        Args:
+            updated_at (int): The timestamp of when the Article was updated.
+        &#34;&#34;&#34;
+        self.__updated_at = updated_at
+
+    @url.setter
+    def url(self, url: str):
+        &#34;&#34;&#34;
+        The URL of the Article.
+
+        Args:
+            url (str): The URL of the Article.
+        &#34;&#34;&#34;
+        self.__url = url
+
+    @parent_id.setter
+    def parent_id(self, parent_id: int):
+        &#34;&#34;&#34;
+        The ID of the parent of the Article.
+
+        Args:
+            parent_id (int): The ID of the parent of the Article.
+        &#34;&#34;&#34;
+        self.__parent_id = parent_id
+
+    @parent_type.setter
+    def parent_type(self, parent_type: str):
+        &#34;&#34;&#34;
+        The type of the parent of the Article.
+
+        Args:
+            parent_type (str): The type of the parent of the Article.
+        &#34;&#34;&#34;
+        self.__parent_type = parent_type
+
+    @default_locale.setter
+    def default_locale(self, default_locale: str):
+        &#34;&#34;&#34;
+        The default locale of the Article.
+
+        Args:
+            default_locale (str): The default locale of the Article.
+        &#34;&#34;&#34;
+        self.__default_locale = default_locale
+    
+    @statistics.setter
+    def statistics(self, statistics: ArticleStatistics):
+        &#34;&#34;&#34;
+        The statistics of the Article.
+
+        Args:
+            statistics (ArticleStatistics): The statistics of the Article.
+        &#34;&#34;&#34;
+        self.__statistics = statistics
+
+    @id.setter
+    def id(self, id: int):
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Args:
+            id (int): The ID of the Article.
+        &#34;&#34;&#34;
+        self.__id = id</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.models.Article.api_client"><code class="name">var <span class="ident">api_client</span> : ArticlesAPI</code></dt>
+<dd>
+<div class="desc"><p>The API client used by the model instance.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ArticlesAPI</code></dt>
+<dd>The API client used by the model instance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+    &#34;&#34;&#34;
+    The API client used by the model instance.
+
+    Returns:
+        ArticlesAPI: The API client used by the model instance.
+    &#34;&#34;&#34;
+    return self._api_client</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.author_id"><code class="name">var <span class="ident">author_id</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The ID of the author of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The ID of the author of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def author_id(self) -&gt; int:
+
+    &#34;&#34;&#34;
+    The ID of the author of the Article.
+
+    Returns:
+        int: The ID of the author of the Article.
+    &#34;&#34;&#34;
+    return self.__author_id</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.body"><code class="name">var <span class="ident">body</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The body of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The body of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def body(self) -&gt; str:
+    &#34;&#34;&#34;
+    The body of the Article.
+
+    Returns:
+        str: The body of the Article.
+    &#34;&#34;&#34;
+    return self.__body</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.created_at"><code class="name">var <span class="ident">created_at</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The timestamp of when the Article was created.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The timestamp of when the Article was created.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def created_at(self) -&gt; int:
+    &#34;&#34;&#34;
+    The timestamp of when the Article was created.
+
+    Returns:
+        int: The timestamp of when the Article was created.
+    &#34;&#34;&#34;
+    return self.__created_at</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.default_locale"><code class="name">var <span class="ident">default_locale</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The default locale of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The default locale of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def default_locale(self) -&gt; str:
+    &#34;&#34;&#34;
+    The default locale of the Article.
+
+    Returns:
+        str: The default locale of the Article.
+    &#34;&#34;&#34;
+    return self.__default_locale</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.description"><code class="name">var <span class="ident">description</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The description of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The description of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def description(self) -&gt; str:
+    &#34;&#34;&#34;
+    The description of the Article.
+
+    Returns:
+        str: The description of the Article.
+    &#34;&#34;&#34;
+    return self.__description</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The ID of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The ID of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    &#34;&#34;&#34;
+    The ID of the Article.
+
+    Returns:
+        int: The ID of the Article.
+    &#34;&#34;&#34;
+    return self.__id</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.parent_id"><code class="name">var <span class="ident">parent_id</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The ID of the parent of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The ID of the parent of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def parent_id(self) -&gt; int:
+    &#34;&#34;&#34;
+    The ID of the parent of the Article.
+
+    Returns:
+        int: The ID of the parent of the Article.
+    &#34;&#34;&#34;
+    return self.__parent_id</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.parent_type"><code class="name">var <span class="ident">parent_type</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the parent of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The type of the parent of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def parent_type(self) -&gt; str:
+    &#34;&#34;&#34;
+    The type of the parent of the Article.
+
+    Returns:
+        str: The type of the parent of the Article.
+    &#34;&#34;&#34;
+    return self.__parent_type</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.state"><code class="name">var <span class="ident">state</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The state of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The state of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def state(self) -&gt; str:
+    &#34;&#34;&#34;
+    The state of the Article.
+
+    Returns:
+        str: The state of the Article.
+    &#34;&#34;&#34;
+    return self.__state</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.statistics"><code class="name">var <span class="ident">statistics</span> : <a title="intercom_python_sdk.apis.articles.models.ArticleStatistics" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics">ArticleStatistics</a></code></dt>
+<dd>
+<div class="desc"><p>The statistics of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics">ArticleStatistics</a></code></dt>
+<dd>The statistics of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def statistics(self) -&gt; ArticleStatistics:
+    &#34;&#34;&#34;
+    The statistics of the Article.
+
+    Returns:
+        ArticleStatistics: The statistics of the Article.
+    &#34;&#34;&#34;
+    return self.__statistics</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The title of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The title of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    &#34;&#34;&#34;
+    The title of the Article.
+
+    Returns:
+        str: The title of the Article.
+    &#34;&#34;&#34;
+    return self.__title</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The type of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def type(self) -&gt; str:
+    &#34;&#34;&#34;
+    The type of the Article.
+
+    Returns:
+        str: The type of the Article.
+    &#34;&#34;&#34;
+    return self.__type</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.updated_at"><code class="name">var <span class="ident">updated_at</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The timestamp of when the Article was updated.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The timestamp of when the Article was updated.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def updated_at(self) -&gt; int:
+    &#34;&#34;&#34;
+    The timestamp of when the Article was updated.
+
+    Returns:
+        int: The timestamp of when the Article was updated.
+    &#34;&#34;&#34;
+    return self.__updated_at</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.url"><code class="name">var <span class="ident">url</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The URL of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The URL of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def url(self) -&gt; str:
+    &#34;&#34;&#34;
+    The URL of the Article.
+
+    Returns:
+        str: The URL of the Article.
+    &#34;&#34;&#34;
+    return self.__url</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.Article.workspace_id"><code class="name">var <span class="ident">workspace_id</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The ID of the workspace the Article belongs to.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The ID of the workspace the Article belongs to.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def workspace_id(self) -&gt; str:
+    &#34;&#34;&#34;
+    The ID of the workspace the Article belongs to.
+
+    Returns:
+        str: The ID of the workspace the Article belongs to.
+    &#34;&#34;&#34;
+    return self.__workspace_id</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleList"><code class="flex name class">
+<span>class <span class="ident">ArticleList</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This model represents a list of Articles on Intercom.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of the Article.</dd>
+<dt><strong><code>pages</code></strong> :&ensp;<code>dict</code></dt>
+<dd>The pages of the Article.</dd>
+<dt><strong><code>total_count</code></strong> :&ensp;<code>int</code></dt>
+<dd>The total count of the Article.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>list</code></dt>
+<dd>The data of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ArticleList(ModelBase):
+    &#34;&#34;&#34;
+    This model represents a list of Articles on Intercom.
+
+    Attributes:
+        type (str): The type of the Article.
+        pages (dict): The pages of the Article.
+        total_count (int): The total count of the Article.
+        data (list): The data of the Article.
+    &#34;&#34;&#34;
+    def __init__(self, *args, **kwargs):
+            self.__type = kwargs.get(&#39;type&#39;)
+            self.__pages = kwargs.get(&#39;pages&#39;)
+            self.__total_count = kwargs.get(&#39;total_count&#39;)
+            self.__data = kwargs.get(&#39;data&#39;)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    @property
+    def pages(self) -&gt; dict:
+        &#34;&#34;&#34;
+        The pages of the Article.
+
+        Returns:
+            dict: The pages of the Article.
+        &#34;&#34;&#34;
+        return self.__pages
+    
+    @property
+    def total_count(self) -&gt; int:
+        &#34;&#34;&#34;
+        The total count of the Article.
+
+        Returns:
+            int: The total count of the Article.
+        &#34;&#34;&#34;
+        return self.__total_count
+    
+    @property
+    def data(self) -&gt; List[Article]:
+        &#34;&#34;&#34;
+        The data of the Article.
+
+        Returns:
+            List[Article]: The data of the Article.
+        &#34;&#34;&#34;
+        return self.__data
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Args:
+            type (str): The type of the Article.
+        &#34;&#34;&#34;
+        self.__type = type
+
+    @pages.setter
+    def pages(self, pages: dict):
+        &#34;&#34;&#34;
+        The pages of the Article.
+
+        Args:
+            pages (dict): The pages of the Article.
+        &#34;&#34;&#34;
+        self.__pages = pages
+
+    @total_count.setter
+    def total_count(self, total_count: int):
+        &#34;&#34;&#34;
+        The total count of the Article.
+
+        Args:
+            total_count (int): The total count of the Article.
+        &#34;&#34;&#34;
+        self.__total_count = total_count
+
+    @data.setter
+    def data(self, data: List[Article]):
+        &#34;&#34;&#34;
+        The data of the Article.
+
+        Args:
+            data (List[Article]): The data of the Article.
+        &#34;&#34;&#34;
+        self.__data = data</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleList.api_client"><code class="name">var <span class="ident">api_client</span> : ArticlesAPI</code></dt>
+<dd>
+<div class="desc"><p>The API client used by the model instance.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ArticlesAPI</code></dt>
+<dd>The API client used by the model instance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+    &#34;&#34;&#34;
+    The API client used by the model instance.
+
+    Returns:
+        ArticlesAPI: The API client used by the model instance.
+    &#34;&#34;&#34;
+    return self._api_client</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleList.data"><code class="name">var <span class="ident">data</span> : List[<a title="intercom_python_sdk.apis.articles.models.Article" href="#intercom_python_sdk.apis.articles.models.Article">Article</a>]</code></dt>
+<dd>
+<div class="desc"><p>The data of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[<a title="intercom_python_sdk.apis.articles.models.Article" href="#intercom_python_sdk.apis.articles.models.Article">Article</a>]</code></dt>
+<dd>The data of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def data(self) -&gt; List[Article]:
+    &#34;&#34;&#34;
+    The data of the Article.
+
+    Returns:
+        List[Article]: The data of the Article.
+    &#34;&#34;&#34;
+    return self.__data</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleList.pages"><code class="name">var <span class="ident">pages</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>The pages of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>dict</code></dt>
+<dd>The pages of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def pages(self) -&gt; dict:
+    &#34;&#34;&#34;
+    The pages of the Article.
+
+    Returns:
+        dict: The pages of the Article.
+    &#34;&#34;&#34;
+    return self.__pages</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleList.total_count"><code class="name">var <span class="ident">total_count</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The total count of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The total count of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def total_count(self) -&gt; int:
+    &#34;&#34;&#34;
+    The total count of the Article.
+
+    Returns:
+        int: The total count of the Article.
+    &#34;&#34;&#34;
+    return self.__total_count</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleList.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The type of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def type(self) -&gt; str:
+    &#34;&#34;&#34;
+    The type of the Article.
+
+    Returns:
+        str: The type of the Article.
+    &#34;&#34;&#34;
+    return self.__type</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleStatistics"><code class="flex name class">
+<span>class <span class="ident">ArticleStatistics</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This model represents the statistics of an Article on Intercom.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>views</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of views of the Article.</dd>
+<dt><strong><code>conversations</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of conversations of the Article.</dd>
+<dt><strong><code>reactions</code></strong> :&ensp;<code>int</code></dt>
+<dd>The number of reactions of the Article.</dd>
+<dt><strong><code>happy_reaction_percentage</code></strong> :&ensp;<code>int</code></dt>
+<dd>The percentage of happy reactions of the Article.</dd>
+<dt><strong><code>neutral_reaction_percentage</code></strong> :&ensp;<code>int</code></dt>
+<dd>The percentage of neutral reactions of the Article.</dd>
+<dt><strong><code>sad_reaction_percentage</code></strong> :&ensp;<code>int</code></dt>
+<dd>The percentage of sad reactions of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ArticleStatistics(ModelBase):
+    &#34;&#34;&#34;
+    This model represents the statistics of an Article on Intercom.
+
+    Attributes:
+        views (int): The number of views of the Article.
+        conversations (int): The number of conversations of the Article.
+        reactions (int): The number of reactions of the Article.
+        happy_reaction_percentage (int): The percentage of happy reactions of the Article.
+        neutral_reaction_percentage (int): The percentage of neutral reactions of the Article.
+        sad_reaction_percentage (int): The percentage of sad reactions of the Article.
+    &#34;&#34;&#34;
+    views: Optional[int]
+    conversations: Optional[int]
+    reactions: Optional[int]
+    happy_reaction_percentage: Optional[int]
+    neutral_reaction_percentage: Optional[int]
+    sad_reaction_percentage: Optional[int]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleStatistics.conversations"><code class="name">var <span class="ident">conversations</span> : Optional[int]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleStatistics.happy_reaction_percentage"><code class="name">var <span class="ident">happy_reaction_percentage</span> : Optional[int]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleStatistics.neutral_reaction_percentage"><code class="name">var <span class="ident">neutral_reaction_percentage</span> : Optional[int]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleStatistics.reactions"><code class="name">var <span class="ident">reactions</span> : Optional[int]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleStatistics.sad_reaction_percentage"><code class="name">var <span class="ident">sad_reaction_percentage</span> : Optional[int]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.ArticleStatistics.views"><code class="name">var <span class="ident">views</span> : Optional[int]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.CreateArticle"><code class="flex name class">
+<span>class <span class="ident">CreateArticle</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base model for all API models.</p>
+<h2 id="raises">Raises</h2>
+<dl>
+<dt><code>NotImplementedError</code></dt>
+<dd>When setting a property with no setter.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class CreateArticle(ModelBase):
+    def __init__(self, *args, **kwargs):
+            self.__title = kwargs.get(&#39;title&#39;)
+            self.__author_id = kwargs.get(&#39;author_id&#39;)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def title(self) -&gt; str:
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Returns:
+            str: The title of the Article.
+        &#34;&#34;&#34;
+        return self.__title
+    
+    @property
+    def author_id(self) -&gt; int:
+            
+            &#34;&#34;&#34;
+            The ID of the author of the Article.
+    
+            Returns:
+                int: The ID of the author of the Article.
+            &#34;&#34;&#34;
+            return self.__author_id
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @title.setter
+    def title(self, title: str):
+        &#34;&#34;&#34;
+        The title of the Article.
+
+        Args:
+            title (str): The title of the Article.
+        &#34;&#34;&#34;
+        self.__title = title
+
+    @author_id.setter
+    def author_id(self, author_id: int):
+        &#34;&#34;&#34;
+        The ID of the author of the Article.
+
+        Args:
+            author_id (int): The ID of the author of the Article.
+        &#34;&#34;&#34;
+        self.__author_id = author_id</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.models.CreateArticle.api_client"><code class="name">var <span class="ident">api_client</span> : ArticlesAPI</code></dt>
+<dd>
+<div class="desc"><p>The API client used by the model instance.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ArticlesAPI</code></dt>
+<dd>The API client used by the model instance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+    &#34;&#34;&#34;
+    The API client used by the model instance.
+
+    Returns:
+        ArticlesAPI: The API client used by the model instance.
+    &#34;&#34;&#34;
+    return self._api_client</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.CreateArticle.author_id"><code class="name">var <span class="ident">author_id</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The ID of the author of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The ID of the author of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def author_id(self) -&gt; int:
+        
+        &#34;&#34;&#34;
+        The ID of the author of the Article.
+
+        Returns:
+            int: The ID of the author of the Article.
+        &#34;&#34;&#34;
+        return self.__author_id</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.CreateArticle.title"><code class="name">var <span class="ident">title</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The title of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The title of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def title(self) -&gt; str:
+    &#34;&#34;&#34;
+    The title of the Article.
+
+    Returns:
+        str: The title of the Article.
+    &#34;&#34;&#34;
+    return self.__title</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.DeletedArticle"><code class="flex name class">
+<span>class <span class="ident">DeletedArticle</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This model represents a deleted Article on Intercom.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>id</code></strong> :&ensp;<code>int</code></dt>
+<dd>The ID of the Article.</dd>
+<dt><strong><code>object</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of the Article.</dd>
+<dt><strong><code>deleted</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Whether or not the Article was deleted.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DeletedArticle(ModelBase):
+    &#34;&#34;&#34;
+    This model represents a deleted Article on Intercom.
+
+    Attributes:
+        id (int): The ID of the Article.
+        object (str): The type of the Article.
+        deleted (bool): Whether or not the Article was deleted.
+    &#34;&#34;&#34;
+    id: Optional[int]
+    object: Optional[str]
+    deleted: Optional[bool]
+
+    def __init__(self, *args, **kwargs):
+            self.__id = kwargs.get(&#39;id&#39;)
+            self.__object = kwargs.get(&#39;object&#39;)
+            self.__deleted = kwargs.get(&#39;deleted&#39;)
+
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def id(self) -&gt; int:
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Returns:
+            int: The ID of the Article.
+        &#34;&#34;&#34;
+        return self.__id
+    
+    @property
+    def object(self) -&gt; str:
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Returns:
+            str: The type of the Article.
+        &#34;&#34;&#34;
+        return self.__object
+    
+    @property
+    def deleted(self) -&gt; bool:
+        &#34;&#34;&#34;
+        Whether or not the Article was deleted.
+
+        Returns:
+            bool: Whether or not the Article was deleted.
+        &#34;&#34;&#34;
+        return self.__deleted
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;ArticlesAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (ArticlesAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @id.setter
+    def id(self, id: int):
+        &#34;&#34;&#34;
+        The ID of the Article.
+
+        Args:
+            id (int): The ID of the Article.
+        &#34;&#34;&#34;
+        self.__id = id
+
+    @object.setter
+    def object(self, object: str):
+        &#34;&#34;&#34;
+        The type of the Article.
+
+        Args:
+            object (str): The type of the Article.
+        &#34;&#34;&#34;
+        self.__object = object
+
+    @deleted.setter
+    def deleted(self, deleted: bool):
+        &#34;&#34;&#34;
+        Whether or not the Article was deleted.
+
+        Args:
+            deleted (bool): Whether or not the Article was deleted.
+        &#34;&#34;&#34;
+        self.__deleted = deleted</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.models.DeletedArticle.api_client"><code class="name">var <span class="ident">api_client</span> : ArticlesAPI</code></dt>
+<dd>
+<div class="desc"><p>The API client used by the model instance.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>ArticlesAPI</code></dt>
+<dd>The API client used by the model instance.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api_client(self) -&gt; &#39;ArticlesAPI&#39;:
+    &#34;&#34;&#34;
+    The API client used by the model instance.
+
+    Returns:
+        ArticlesAPI: The API client used by the model instance.
+    &#34;&#34;&#34;
+    return self._api_client</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.DeletedArticle.deleted"><code class="name">var <span class="ident">deleted</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Whether or not the Article was deleted.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>Whether or not the Article was deleted.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def deleted(self) -&gt; bool:
+    &#34;&#34;&#34;
+    Whether or not the Article was deleted.
+
+    Returns:
+        bool: Whether or not the Article was deleted.
+    &#34;&#34;&#34;
+    return self.__deleted</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.DeletedArticle.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The ID of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>int</code></dt>
+<dd>The ID of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; int:
+    &#34;&#34;&#34;
+    The ID of the Article.
+
+    Returns:
+        int: The ID of the Article.
+    &#34;&#34;&#34;
+    return self.__id</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.models.DeletedArticle.object"><code class="name">var <span class="ident">object</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the Article.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The type of the Article.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def object(self) -&gt; str:
+    &#34;&#34;&#34;
+    The type of the Article.
+
+    Returns:
+        str: The type of the Article.
+    &#34;&#34;&#34;
+    return self.__object</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="intercom_python_sdk.apis.articles" href="index.html">intercom_python_sdk.apis.articles</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.articles.models.Article" href="#intercom_python_sdk.apis.articles.models.Article">Article</a></code></h4>
+<ul class="two-column">
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.api_client" href="#intercom_python_sdk.apis.articles.models.Article.api_client">api_client</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.author_id" href="#intercom_python_sdk.apis.articles.models.Article.author_id">author_id</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.body" href="#intercom_python_sdk.apis.articles.models.Article.body">body</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.created_at" href="#intercom_python_sdk.apis.articles.models.Article.created_at">created_at</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.default_locale" href="#intercom_python_sdk.apis.articles.models.Article.default_locale">default_locale</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.description" href="#intercom_python_sdk.apis.articles.models.Article.description">description</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.id" href="#intercom_python_sdk.apis.articles.models.Article.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.parent_id" href="#intercom_python_sdk.apis.articles.models.Article.parent_id">parent_id</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.parent_type" href="#intercom_python_sdk.apis.articles.models.Article.parent_type">parent_type</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.state" href="#intercom_python_sdk.apis.articles.models.Article.state">state</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.statistics" href="#intercom_python_sdk.apis.articles.models.Article.statistics">statistics</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.title" href="#intercom_python_sdk.apis.articles.models.Article.title">title</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.type" href="#intercom_python_sdk.apis.articles.models.Article.type">type</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.updated_at" href="#intercom_python_sdk.apis.articles.models.Article.updated_at">updated_at</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.url" href="#intercom_python_sdk.apis.articles.models.Article.url">url</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.Article.workspace_id" href="#intercom_python_sdk.apis.articles.models.Article.workspace_id">workspace_id</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.articles.models.ArticleList" href="#intercom_python_sdk.apis.articles.models.ArticleList">ArticleList</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.api_client" href="#intercom_python_sdk.apis.articles.models.ArticleList.api_client">api_client</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.data" href="#intercom_python_sdk.apis.articles.models.ArticleList.data">data</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.pages" href="#intercom_python_sdk.apis.articles.models.ArticleList.pages">pages</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.total_count" href="#intercom_python_sdk.apis.articles.models.ArticleList.total_count">total_count</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleList.type" href="#intercom_python_sdk.apis.articles.models.ArticleList.type">type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics">ArticleStatistics</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.conversations" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.conversations">conversations</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.happy_reaction_percentage" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.happy_reaction_percentage">happy_reaction_percentage</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.neutral_reaction_percentage" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.neutral_reaction_percentage">neutral_reaction_percentage</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.reactions" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.reactions">reactions</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.sad_reaction_percentage" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.sad_reaction_percentage">sad_reaction_percentage</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.views" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.views">views</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.articles.models.CreateArticle" href="#intercom_python_sdk.apis.articles.models.CreateArticle">CreateArticle</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.articles.models.CreateArticle.api_client" href="#intercom_python_sdk.apis.articles.models.CreateArticle.api_client">api_client</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.CreateArticle.author_id" href="#intercom_python_sdk.apis.articles.models.CreateArticle.author_id">author_id</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.CreateArticle.title" href="#intercom_python_sdk.apis.articles.models.CreateArticle.title">title</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.articles.models.DeletedArticle" href="#intercom_python_sdk.apis.articles.models.DeletedArticle">DeletedArticle</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.articles.models.DeletedArticle.api_client" href="#intercom_python_sdk.apis.articles.models.DeletedArticle.api_client">api_client</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.DeletedArticle.deleted" href="#intercom_python_sdk.apis.articles.models.DeletedArticle.deleted">deleted</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.DeletedArticle.id" href="#intercom_python_sdk.apis.articles.models.DeletedArticle.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.articles.models.DeletedArticle.object" href="#intercom_python_sdk.apis.articles.models.DeletedArticle.object">object</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

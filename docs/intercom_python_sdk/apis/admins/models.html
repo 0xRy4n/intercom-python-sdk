@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>intercom_python_sdk.apis.admins.models API documentation</title>
+<meta name="description" content="Admins API Models …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>intercom_python_sdk.apis.admins.models</code></h1>
+</header>
+<section id="section-intro">
+<h1 id="admins-api-models">Admins API Models</h1>
+<p><code>apis/admins/models.py</code></p>
+<p>This module contains models used to interact with the Intercom Admins API [1].
+These models provide object oriented interfaces for the schemas defined in <code>apis/admins/schemas.py</code>.</p>
+<hr>
+<ul>
+<li>[1] <a href="https://developers.intercom.com/intercom-api-reference/reference/admins">https://developers.intercom.com/intercom-api-reference/reference/admins</a></li>
+</ul>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+# Admins API Models
+
+`apis/admins/models.py`
+
+This module contains models used to interact with the Intercom Admins API [1].
+These models provide object oriented interfaces for the schemas defined in `apis/admins/schemas.py`.
+
+----
+- [1] https://developers.intercom.com/intercom-api-reference/reference/admins
+&#34;&#34;&#34;
+# Built-ins
+from typing import Union, TYPE_CHECKING, List
+
+# From Current Package
+from ...core.model_base import ModelBase
+
+# Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
+# We can use this to allow for type hinting without causing circular imports.
+# See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
+if TYPE_CHECKING:
+    from .api import AdminsAPI
+
+
+class TeamPriorityLevel(ModelBase):
+    &#34;&#34;&#34;
+    Represents a team priority level.
+
+    Attributes:
+        See the `TeamPriorityLevelSchema` definition in `apis/admins/schemas.py` for details.
+    &#34;&#34;&#34;
+    
+    def __init__(self, *args, **kwargs):
+        self.__primary_team_ids = kwargs.get(&#39;primary_team_ids&#39;)
+        self.__secondary_team_ids = kwargs.get(&#39;secondary_team_ids&#39;)
+    
+    @property
+    def primary_team_ids(self):
+        &#34;&#34;&#34;
+        Get the IDs of the primary teams.
+
+        Returns:
+            List[int]: The IDs of the primary teams.
+        &#34;&#34;&#34;
+        return self.__primary_team_ids
+    
+    @property
+    def secondary_team_ids(self):
+        &#34;&#34;&#34;
+        Get the IDs of the secondary teams.
+
+        Returns:
+            List[int]: The IDs of the secondary teams.
+        &#34;&#34;&#34;
+        return self.__secondary_team_ids
+
+
+class Admin(ModelBase):
+    &#34;&#34;&#34;
+    Represents an admin.
+
+    Attributes:
+        See the `AdminSchema` definition in `apis/admins/schemas.py` for details.
+
+    Model-Specific Attributes:
+        api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
+    &#34;&#34;&#34;
+    def __init__(self, *args, **kwargs):
+        self.__type: str  = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__id: str = kwargs.get(&#39;id&#39;, &#39;&#39;)
+        self.__name = kwargs.get(&#39;name&#39;, &#39;&#39;)
+        self.__email = kwargs.get(&#39;email&#39;, &#39;&#39;)
+        self.__job_title = kwargs.get(&#39;job_title&#39;, &#39;&#39;)
+        self.__has_inbox_seat = kwargs.get(&#39;has_inbox_seat&#39;, None)
+        self.__team_ids = kwargs.get(&#39;team_ids&#39;, [])
+        self.__avatar = kwargs.get(&#39;avatar&#39;, {})
+        self.__team_priority_level = kwargs.get(&#39;team_priority_level&#39;, None)
+        self.__away_mode_enabled = kwargs.get(&#39;away_mode_enabled&#39;, None)
+        self.__away_mode_reassign = kwargs.get(&#39;away_mode_reassign&#39;, None)
+
+    @property
+    def api_client(self) -&gt; &#39;AdminsAPI&#39;:
+        &#34;&#34;&#34; Get the API Client Instance. &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the type of the admin.
+
+        Returns:
+            str: The type of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    @property
+    def id(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the ID of the admin.
+
+        Returns:
+            str: The ID of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__id
+    
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the name of the admin.
+
+        Returns:
+            str: The name of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__name
+    
+    @property
+    def email(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the email of the admin.
+
+        Returns:
+            str: The email of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__email
+    
+    @property
+    def job_title(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the job title of the admin.
+
+        Returns:
+            str: The job title of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__job_title
+    
+    @property
+    def has_inbox_seat(self) -&gt; Union[bool, None]:
+        &#34;&#34;&#34;
+        Check if the admin has an inbox seat.
+
+        Returns:
+            bool: True if the admin has an inbox seat. None if unset.
+        &#34;&#34;&#34;
+        return self.__has_inbox_seat
+    
+    @property
+    def team_ids(self):
+        &#34;&#34;&#34;
+        Get the IDs of the teams the admin belongs to.
+
+        Returns:
+            List[str]: The IDs of the teams the admin belongs to. Empty list if unset.
+        &#34;&#34;&#34;
+        return self.__team_ids
+    
+    @property
+    def avatar(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Get the avatar URL of the admin.
+
+        Returns:
+            Dict: A dict containing the type and url of the avatar. Empty dict if unset.
+                - type (str): A string with the value &#34;avatar&#34;
+                - image_url (str): The URL of the avatar image.
+        &#34;&#34;&#34;
+        return self.__avatar
+    
+    @property
+    def team_priority_level(self) -&gt; Union[TeamPriorityLevel, None]:
+        &#34;&#34;&#34;
+        Get the team priority level of the admin.
+
+        Returns:
+            TeamPriorityLevel: The team priority level of the admin. None if unset.
+            See `TeamPriorityLevel` in `apis/admins/models.py` for details.
+        &#34;&#34;&#34;
+        return self.__team_priority_level
+    
+    @property
+    def away_mode_enabled(self) -&gt; Union[bool, None]:
+        &#34;&#34;&#34;
+        Check if the admin&#39;s away mode is enabled.
+
+        Returns:
+            bool: True if the admin&#39;s away mode is enabled. None if unset.
+        &#34;&#34;&#34;
+        return self.__away_mode_enabled
+    
+    @property
+    def away_mode_reassign(self) -&gt; Union[bool, None]:
+        &#34;&#34;&#34;
+        Check if the admin&#39;s away mode reassign is enabled.
+
+        Returns:
+            bool: True if the admin&#39;s away mode reassign is enabled. None if unset.
+        &#34;&#34;&#34;
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;AdminsAPI&#39;):
+        self._api_client = api_client
+
+    @away_mode_enabled.setter
+    def away_mode_enabled(self, value):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode to enabled or disabled.
+
+        Args:
+            value (bool): The value indicating whether the admin&#39;s away mode should be enabled or disabled.
+        &#34;&#34;&#34;
+        self.__away_mode_enabled = value
+        self.set_away(enabled=value)
+
+    @away_mode_reassign.setter
+    def away_mode_reassign(self, value):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode reassign to enabled or disabled.
+
+        Args:
+            value (bool): The value indicating whether the admin&#39;s away mode reassign should be enabled or disabled.
+        &#34;&#34;&#34;
+        self.__away_mode_reassign = value
+        self.set_reassign(enabled=value)
+
+    # Methods
+
+    def set_away(self, enabled: bool = True):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode.
+
+        Reassignment setting kept as its current value. If it cannot be obtained, it will default to True.
+
+        Args:
+            enabled (bool, optional): Whether the admin&#39;s away mode should be enabled or disabled. Defaults to True.
+        &#34;&#34;&#34;
+        reassign = self.away_mode_reassign or True
+        self.api_client.set_away_by_id(self.id, away=enabled, reassign=reassign)
+
+    def set_active(self):
+        &#34;&#34;&#34; Alias for set_away(enabled=False) &#34;&#34;&#34;
+        self.set_away(enabled=False)
+
+    def set_reassign(self, enabled: bool = True):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode reassign.
+
+        Away enabled setting kept as its current value. If it cannot be obtained, it will default to True.
+
+        Args:
+            enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled. Defaults to True.
+        &#34;&#34;&#34;
+        enabled = self.away_mode_enabled or True
+        self.api_client.set_away_by_id(self.id, away=enabled, reassign=enabled)
+        
+
+class AdminList(ModelBase):
+    &#34;&#34;&#34;
+    Represents a list of admins.
+
+    Attributes:
+        See the `AdminListSchema` definition in `apis/admins/schemas.py` for details.
+
+    Model-Specific Attributes:
+        api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
+    &#34;&#34;&#34;
+    
+    def __init__(self, *args, **kwargs):
+        self.__admins: List[Admin] = kwargs.get(&#39;admins&#39;, [])
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+
+    @property
+    def admins(self) -&gt; List[Admin]:
+        &#34;&#34;&#34;
+        Get the admins.
+
+        Returns:
+            List[Admin]: The admins.
+        &#34;&#34;&#34;
+        return self.__admins
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the type of the admin list.
+
+        Returns:
+            str: The type of the admin list.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    def __iter__(self):
+        return iter(self.admins)
+    
+    def __len__(self):
+        return len(self.admins)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="intercom_python_sdk.apis.admins.models.Admin"><code class="flex name class">
+<span>class <span class="ident">Admin</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Represents an admin.</p>
+<h2 id="attributes">Attributes</h2>
+<p>See the <code>AdminSchema</code> definition in <code>apis/admins/schemas.py</code> for details.
+Model-Specific Attributes:
+api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Admin(ModelBase):
+    &#34;&#34;&#34;
+    Represents an admin.
+
+    Attributes:
+        See the `AdminSchema` definition in `apis/admins/schemas.py` for details.
+
+    Model-Specific Attributes:
+        api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
+    &#34;&#34;&#34;
+    def __init__(self, *args, **kwargs):
+        self.__type: str  = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__id: str = kwargs.get(&#39;id&#39;, &#39;&#39;)
+        self.__name = kwargs.get(&#39;name&#39;, &#39;&#39;)
+        self.__email = kwargs.get(&#39;email&#39;, &#39;&#39;)
+        self.__job_title = kwargs.get(&#39;job_title&#39;, &#39;&#39;)
+        self.__has_inbox_seat = kwargs.get(&#39;has_inbox_seat&#39;, None)
+        self.__team_ids = kwargs.get(&#39;team_ids&#39;, [])
+        self.__avatar = kwargs.get(&#39;avatar&#39;, {})
+        self.__team_priority_level = kwargs.get(&#39;team_priority_level&#39;, None)
+        self.__away_mode_enabled = kwargs.get(&#39;away_mode_enabled&#39;, None)
+        self.__away_mode_reassign = kwargs.get(&#39;away_mode_reassign&#39;, None)
+
+    @property
+    def api_client(self) -&gt; &#39;AdminsAPI&#39;:
+        &#34;&#34;&#34; Get the API Client Instance. &#34;&#34;&#34;
+        return self._api_client
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the type of the admin.
+
+        Returns:
+            str: The type of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    @property
+    def id(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the ID of the admin.
+
+        Returns:
+            str: The ID of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__id
+    
+    @property
+    def name(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the name of the admin.
+
+        Returns:
+            str: The name of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__name
+    
+    @property
+    def email(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the email of the admin.
+
+        Returns:
+            str: The email of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__email
+    
+    @property
+    def job_title(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the job title of the admin.
+
+        Returns:
+            str: The job title of the admin. Empty if unset.
+        &#34;&#34;&#34;
+        return self.__job_title
+    
+    @property
+    def has_inbox_seat(self) -&gt; Union[bool, None]:
+        &#34;&#34;&#34;
+        Check if the admin has an inbox seat.
+
+        Returns:
+            bool: True if the admin has an inbox seat. None if unset.
+        &#34;&#34;&#34;
+        return self.__has_inbox_seat
+    
+    @property
+    def team_ids(self):
+        &#34;&#34;&#34;
+        Get the IDs of the teams the admin belongs to.
+
+        Returns:
+            List[str]: The IDs of the teams the admin belongs to. Empty list if unset.
+        &#34;&#34;&#34;
+        return self.__team_ids
+    
+    @property
+    def avatar(self) -&gt; dict:
+        &#34;&#34;&#34;
+        Get the avatar URL of the admin.
+
+        Returns:
+            Dict: A dict containing the type and url of the avatar. Empty dict if unset.
+                - type (str): A string with the value &#34;avatar&#34;
+                - image_url (str): The URL of the avatar image.
+        &#34;&#34;&#34;
+        return self.__avatar
+    
+    @property
+    def team_priority_level(self) -&gt; Union[TeamPriorityLevel, None]:
+        &#34;&#34;&#34;
+        Get the team priority level of the admin.
+
+        Returns:
+            TeamPriorityLevel: The team priority level of the admin. None if unset.
+            See `TeamPriorityLevel` in `apis/admins/models.py` for details.
+        &#34;&#34;&#34;
+        return self.__team_priority_level
+    
+    @property
+    def away_mode_enabled(self) -&gt; Union[bool, None]:
+        &#34;&#34;&#34;
+        Check if the admin&#39;s away mode is enabled.
+
+        Returns:
+            bool: True if the admin&#39;s away mode is enabled. None if unset.
+        &#34;&#34;&#34;
+        return self.__away_mode_enabled
+    
+    @property
+    def away_mode_reassign(self) -&gt; Union[bool, None]:
+        &#34;&#34;&#34;
+        Check if the admin&#39;s away mode reassign is enabled.
+
+        Returns:
+            bool: True if the admin&#39;s away mode reassign is enabled. None if unset.
+        &#34;&#34;&#34;
+    
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;AdminsAPI&#39;):
+        self._api_client = api_client
+
+    @away_mode_enabled.setter
+    def away_mode_enabled(self, value):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode to enabled or disabled.
+
+        Args:
+            value (bool): The value indicating whether the admin&#39;s away mode should be enabled or disabled.
+        &#34;&#34;&#34;
+        self.__away_mode_enabled = value
+        self.set_away(enabled=value)
+
+    @away_mode_reassign.setter
+    def away_mode_reassign(self, value):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode reassign to enabled or disabled.
+
+        Args:
+            value (bool): The value indicating whether the admin&#39;s away mode reassign should be enabled or disabled.
+        &#34;&#34;&#34;
+        self.__away_mode_reassign = value
+        self.set_reassign(enabled=value)
+
+    # Methods
+
+    def set_away(self, enabled: bool = True):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode.
+
+        Reassignment setting kept as its current value. If it cannot be obtained, it will default to True.
+
+        Args:
+            enabled (bool, optional): Whether the admin&#39;s away mode should be enabled or disabled. Defaults to True.
+        &#34;&#34;&#34;
+        reassign = self.away_mode_reassign or True
+        self.api_client.set_away_by_id(self.id, away=enabled, reassign=reassign)
+
+    def set_active(self):
+        &#34;&#34;&#34; Alias for set_away(enabled=False) &#34;&#34;&#34;
+        self.set_away(enabled=False)
+
+    def set_reassign(self, enabled: bool = True):
+        &#34;&#34;&#34;
+        Set the admin&#39;s away mode reassign.
+
+        Away enabled setting kept as its current value. If it cannot be obtained, it will default to True.
+
+        Args:
+            enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled. Defaults to True.
+        &#34;&#34;&#34;
+        enabled = self.away_mode_enabled or True
+        self.api_client.set_away_by_id(self.id, away=enabled, reassign=enabled)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.api_client"><code class="name">var <span class="ident">api_client</span> : AdminsAPI</code></dt>
+<dd>
+<div class="desc"><p>Get the API Client Instance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def api_client(self) -&gt; &#39;AdminsAPI&#39;:
+    &#34;&#34;&#34; Get the API Client Instance. &#34;&#34;&#34;
+    return self._api_client</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.avatar"><code class="name">var <span class="ident">avatar</span> : dict</code></dt>
+<dd>
+<div class="desc"><p>Get the avatar URL of the admin.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Dict</code></dt>
+<dd>A dict containing the type and url of the avatar. Empty dict if unset.
+- type (str): A string with the value "avatar"
+- image_url (str): The URL of the avatar image.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def avatar(self) -&gt; dict:
+    &#34;&#34;&#34;
+    Get the avatar URL of the admin.
+
+    Returns:
+        Dict: A dict containing the type and url of the avatar. Empty dict if unset.
+            - type (str): A string with the value &#34;avatar&#34;
+            - image_url (str): The URL of the avatar image.
+    &#34;&#34;&#34;
+    return self.__avatar</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.away_mode_enabled"><code class="name">var <span class="ident">away_mode_enabled</span> : Optional[bool]</code></dt>
+<dd>
+<div class="desc"><p>Check if the admin's away mode is enabled.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the admin's away mode is enabled. None if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def away_mode_enabled(self) -&gt; Union[bool, None]:
+    &#34;&#34;&#34;
+    Check if the admin&#39;s away mode is enabled.
+
+    Returns:
+        bool: True if the admin&#39;s away mode is enabled. None if unset.
+    &#34;&#34;&#34;
+    return self.__away_mode_enabled</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.away_mode_reassign"><code class="name">var <span class="ident">away_mode_reassign</span> : Optional[bool]</code></dt>
+<dd>
+<div class="desc"><p>Check if the admin's away mode reassign is enabled.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the admin's away mode reassign is enabled. None if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def away_mode_reassign(self) -&gt; Union[bool, None]:
+    &#34;&#34;&#34;
+    Check if the admin&#39;s away mode reassign is enabled.
+
+    Returns:
+        bool: True if the admin&#39;s away mode reassign is enabled. None if unset.
+    &#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.email"><code class="name">var <span class="ident">email</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Get the email of the admin.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The email of the admin. Empty if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def email(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the email of the admin.
+
+    Returns:
+        str: The email of the admin. Empty if unset.
+    &#34;&#34;&#34;
+    return self.__email</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.has_inbox_seat"><code class="name">var <span class="ident">has_inbox_seat</span> : Optional[bool]</code></dt>
+<dd>
+<div class="desc"><p>Check if the admin has an inbox seat.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>bool</code></dt>
+<dd>True if the admin has an inbox seat. None if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def has_inbox_seat(self) -&gt; Union[bool, None]:
+    &#34;&#34;&#34;
+    Check if the admin has an inbox seat.
+
+    Returns:
+        bool: True if the admin has an inbox seat. None if unset.
+    &#34;&#34;&#34;
+    return self.__has_inbox_seat</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Get the ID of the admin.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The ID of the admin. Empty if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def id(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the ID of the admin.
+
+    Returns:
+        str: The ID of the admin. Empty if unset.
+    &#34;&#34;&#34;
+    return self.__id</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.job_title"><code class="name">var <span class="ident">job_title</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Get the job title of the admin.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The job title of the admin. Empty if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def job_title(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the job title of the admin.
+
+    Returns:
+        str: The job title of the admin. Empty if unset.
+    &#34;&#34;&#34;
+    return self.__job_title</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.name"><code class="name">var <span class="ident">name</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Get the name of the admin.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The name of the admin. Empty if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def name(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the name of the admin.
+
+    Returns:
+        str: The name of the admin. Empty if unset.
+    &#34;&#34;&#34;
+    return self.__name</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.team_ids"><code class="name">var <span class="ident">team_ids</span></code></dt>
+<dd>
+<div class="desc"><p>Get the IDs of the teams the admin belongs to.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[str]</code></dt>
+<dd>The IDs of the teams the admin belongs to. Empty list if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def team_ids(self):
+    &#34;&#34;&#34;
+    Get the IDs of the teams the admin belongs to.
+
+    Returns:
+        List[str]: The IDs of the teams the admin belongs to. Empty list if unset.
+    &#34;&#34;&#34;
+    return self.__team_ids</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.team_priority_level"><code class="name">var <span class="ident">team_priority_level</span> : Optional[<a title="intercom_python_sdk.apis.admins.models.TeamPriorityLevel" href="#intercom_python_sdk.apis.admins.models.TeamPriorityLevel">TeamPriorityLevel</a>]</code></dt>
+<dd>
+<div class="desc"><p>Get the team priority level of the admin.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="intercom_python_sdk.apis.admins.models.TeamPriorityLevel" href="#intercom_python_sdk.apis.admins.models.TeamPriorityLevel">TeamPriorityLevel</a></code></dt>
+<dd>The team priority level of the admin. None if unset.</dd>
+</dl>
+<p>See <code><a title="intercom_python_sdk.apis.admins.models.TeamPriorityLevel" href="#intercom_python_sdk.apis.admins.models.TeamPriorityLevel">TeamPriorityLevel</a></code> in <code>apis/admins/models.py</code> for details.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def team_priority_level(self) -&gt; Union[TeamPriorityLevel, None]:
+    &#34;&#34;&#34;
+    Get the team priority level of the admin.
+
+    Returns:
+        TeamPriorityLevel: The team priority level of the admin. None if unset.
+        See `TeamPriorityLevel` in `apis/admins/models.py` for details.
+    &#34;&#34;&#34;
+    return self.__team_priority_level</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Get the type of the admin.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The type of the admin. Empty if unset.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def type(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the type of the admin.
+
+    Returns:
+        str: The type of the admin. Empty if unset.
+    &#34;&#34;&#34;
+    return self.__type</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.set_active"><code class="name flex">
+<span>def <span class="ident">set_active</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Alias for set_away(enabled=False)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_active(self):
+    &#34;&#34;&#34; Alias for set_away(enabled=False) &#34;&#34;&#34;
+    self.set_away(enabled=False)</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.set_away"><code class="name flex">
+<span>def <span class="ident">set_away</span></span>(<span>self, enabled: bool = True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the admin's away mode.</p>
+<p>Reassignment setting kept as its current value. If it cannot be obtained, it will default to True.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>enabled</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether the admin's away mode should be enabled or disabled. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_away(self, enabled: bool = True):
+    &#34;&#34;&#34;
+    Set the admin&#39;s away mode.
+
+    Reassignment setting kept as its current value. If it cannot be obtained, it will default to True.
+
+    Args:
+        enabled (bool, optional): Whether the admin&#39;s away mode should be enabled or disabled. Defaults to True.
+    &#34;&#34;&#34;
+    reassign = self.away_mode_reassign or True
+    self.api_client.set_away_by_id(self.id, away=enabled, reassign=reassign)</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.Admin.set_reassign"><code class="name flex">
+<span>def <span class="ident">set_reassign</span></span>(<span>self, enabled: bool = True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Set the admin's away mode reassign.</p>
+<p>Away enabled setting kept as its current value. If it cannot be obtained, it will default to True.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>enabled</code></strong> :&ensp;<code>bool</code>, optional</dt>
+<dd>Whether the admin's away mode reassign should be enabled or disabled. Defaults to True.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_reassign(self, enabled: bool = True):
+    &#34;&#34;&#34;
+    Set the admin&#39;s away mode reassign.
+
+    Away enabled setting kept as its current value. If it cannot be obtained, it will default to True.
+
+    Args:
+        enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled. Defaults to True.
+    &#34;&#34;&#34;
+    enabled = self.away_mode_enabled or True
+    self.api_client.set_away_by_id(self.id, away=enabled, reassign=enabled)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.AdminList"><code class="flex name class">
+<span>class <span class="ident">AdminList</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Represents a list of admins.</p>
+<h2 id="attributes">Attributes</h2>
+<p>See the <code>AdminListSchema</code> definition in <code>apis/admins/schemas.py</code> for details.
+Model-Specific Attributes:
+api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AdminList(ModelBase):
+    &#34;&#34;&#34;
+    Represents a list of admins.
+
+    Attributes:
+        See the `AdminListSchema` definition in `apis/admins/schemas.py` for details.
+
+    Model-Specific Attributes:
+        api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
+    &#34;&#34;&#34;
+    
+    def __init__(self, *args, **kwargs):
+        self.__admins: List[Admin] = kwargs.get(&#39;admins&#39;, [])
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+
+    @property
+    def admins(self) -&gt; List[Admin]:
+        &#34;&#34;&#34;
+        Get the admins.
+
+        Returns:
+            List[Admin]: The admins.
+        &#34;&#34;&#34;
+        return self.__admins
+    
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34;
+        Get the type of the admin list.
+
+        Returns:
+            str: The type of the admin list.
+        &#34;&#34;&#34;
+        return self.__type
+    
+    def __iter__(self):
+        return iter(self.admins)
+    
+    def __len__(self):
+        return len(self.admins)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.admins.models.AdminList.admins"><code class="name">var <span class="ident">admins</span> : List[<a title="intercom_python_sdk.apis.admins.models.Admin" href="#intercom_python_sdk.apis.admins.models.Admin">Admin</a>]</code></dt>
+<dd>
+<div class="desc"><p>Get the admins.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[<a title="intercom_python_sdk.apis.admins.models.Admin" href="#intercom_python_sdk.apis.admins.models.Admin">Admin</a>]</code></dt>
+<dd>The admins.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def admins(self) -&gt; List[Admin]:
+    &#34;&#34;&#34;
+    Get the admins.
+
+    Returns:
+        List[Admin]: The admins.
+    &#34;&#34;&#34;
+    return self.__admins</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.AdminList.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"><p>Get the type of the admin list.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>str</code></dt>
+<dd>The type of the admin list.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def type(self) -&gt; str:
+    &#34;&#34;&#34;
+    Get the type of the admin list.
+
+    Returns:
+        str: The type of the admin list.
+    &#34;&#34;&#34;
+    return self.__type</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.TeamPriorityLevel"><code class="flex name class">
+<span>class <span class="ident">TeamPriorityLevel</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Represents a team priority level.</p>
+<h2 id="attributes">Attributes</h2>
+<p>See the <code>TeamPriorityLevelSchema</code> definition in <code>apis/admins/schemas.py</code> for details.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TeamPriorityLevel(ModelBase):
+    &#34;&#34;&#34;
+    Represents a team priority level.
+
+    Attributes:
+        See the `TeamPriorityLevelSchema` definition in `apis/admins/schemas.py` for details.
+    &#34;&#34;&#34;
+    
+    def __init__(self, *args, **kwargs):
+        self.__primary_team_ids = kwargs.get(&#39;primary_team_ids&#39;)
+        self.__secondary_team_ids = kwargs.get(&#39;secondary_team_ids&#39;)
+    
+    @property
+    def primary_team_ids(self):
+        &#34;&#34;&#34;
+        Get the IDs of the primary teams.
+
+        Returns:
+            List[int]: The IDs of the primary teams.
+        &#34;&#34;&#34;
+        return self.__primary_team_ids
+    
+    @property
+    def secondary_team_ids(self):
+        &#34;&#34;&#34;
+        Get the IDs of the secondary teams.
+
+        Returns:
+            List[int]: The IDs of the secondary teams.
+        &#34;&#34;&#34;
+        return self.__secondary_team_ids</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.admins.models.TeamPriorityLevel.primary_team_ids"><code class="name">var <span class="ident">primary_team_ids</span></code></dt>
+<dd>
+<div class="desc"><p>Get the IDs of the primary teams.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[int]</code></dt>
+<dd>The IDs of the primary teams.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def primary_team_ids(self):
+    &#34;&#34;&#34;
+    Get the IDs of the primary teams.
+
+    Returns:
+        List[int]: The IDs of the primary teams.
+    &#34;&#34;&#34;
+    return self.__primary_team_ids</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.models.TeamPriorityLevel.secondary_team_ids"><code class="name">var <span class="ident">secondary_team_ids</span></code></dt>
+<dd>
+<div class="desc"><p>Get the IDs of the secondary teams.</p>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>List[int]</code></dt>
+<dd>The IDs of the secondary teams.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def secondary_team_ids(self):
+    &#34;&#34;&#34;
+    Get the IDs of the secondary teams.
+
+    Returns:
+        List[int]: The IDs of the secondary teams.
+    &#34;&#34;&#34;
+    return self.__secondary_team_ids</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#admins-api-models">Admins API Models</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="intercom_python_sdk.apis.admins" href="index.html">intercom_python_sdk.apis.admins</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.admins.models.Admin" href="#intercom_python_sdk.apis.admins.models.Admin">Admin</a></code></h4>
+<ul class="two-column">
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.api_client" href="#intercom_python_sdk.apis.admins.models.Admin.api_client">api_client</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.avatar" href="#intercom_python_sdk.apis.admins.models.Admin.avatar">avatar</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.away_mode_enabled" href="#intercom_python_sdk.apis.admins.models.Admin.away_mode_enabled">away_mode_enabled</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.away_mode_reassign" href="#intercom_python_sdk.apis.admins.models.Admin.away_mode_reassign">away_mode_reassign</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.email" href="#intercom_python_sdk.apis.admins.models.Admin.email">email</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.has_inbox_seat" href="#intercom_python_sdk.apis.admins.models.Admin.has_inbox_seat">has_inbox_seat</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.id" href="#intercom_python_sdk.apis.admins.models.Admin.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.job_title" href="#intercom_python_sdk.apis.admins.models.Admin.job_title">job_title</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.name" href="#intercom_python_sdk.apis.admins.models.Admin.name">name</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.set_active" href="#intercom_python_sdk.apis.admins.models.Admin.set_active">set_active</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.set_away" href="#intercom_python_sdk.apis.admins.models.Admin.set_away">set_away</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.set_reassign" href="#intercom_python_sdk.apis.admins.models.Admin.set_reassign">set_reassign</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.team_ids" href="#intercom_python_sdk.apis.admins.models.Admin.team_ids">team_ids</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.team_priority_level" href="#intercom_python_sdk.apis.admins.models.Admin.team_priority_level">team_priority_level</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.Admin.type" href="#intercom_python_sdk.apis.admins.models.Admin.type">type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.admins.models.AdminList" href="#intercom_python_sdk.apis.admins.models.AdminList">AdminList</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.admins.models.AdminList.admins" href="#intercom_python_sdk.apis.admins.models.AdminList.admins">admins</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.AdminList.type" href="#intercom_python_sdk.apis.admins.models.AdminList.type">type</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.admins.models.TeamPriorityLevel" href="#intercom_python_sdk.apis.admins.models.TeamPriorityLevel">TeamPriorityLevel</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.admins.models.TeamPriorityLevel.primary_team_ids" href="#intercom_python_sdk.apis.admins.models.TeamPriorityLevel.primary_team_ids">primary_team_ids</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.admins.models.TeamPriorityLevel.secondary_team_ids" href="#intercom_python_sdk.apis.admins.models.TeamPriorityLevel.secondary_team_ids">secondary_team_ids</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
