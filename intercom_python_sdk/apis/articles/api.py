@@ -1,7 +1,6 @@
 """ 
-====================
-Articles API
-====================
+# Articles API
+
 `apis/articles/api.py`
 
 This module contains the ArticlesAPI class, which defines a client for the Articles API.

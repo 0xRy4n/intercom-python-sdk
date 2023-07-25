@@ -1,7 +1,6 @@
 """
-====================
-Intercom Client
-====================
+# Intercom Client
+
 `intercom.py`
 
 This module contains the Intercom class, which is used to interact with the Intercom API.
@@ -24,9 +23,9 @@ class Intercom:
         Initializes a new instance of the Intercom class. Requires either an API key or a Configuration object.
 
         Args:
-            api_key: The API key to use for authentication. If not provided, will use the API key from the Configuration object.
-            config: The configuration settings for the API. If not provided, will build one using the provided API key.
-            debug: Enables debugging features. 
+            api_key (str): The API key to use for authentication. If not provided, will use the API key from the Configuration object.
+            config (Configuration): The configuration settings for the API. If not provided, will build one using the provided API key.
+            debug (dict): Enables debugging features. 
                 - Default HTTP proxy configuration enabled. Use custom config for more control.
         """
         if not api_key and not config:

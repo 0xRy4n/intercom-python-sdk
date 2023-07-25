@@ -1,3 +1,4 @@
+requests
 uplink
 marshmallow
 validator-collection
