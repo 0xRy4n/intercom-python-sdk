@@ -26,12 +26,9 @@ from uplink import (
 # From Current API
 from .schemas import (
     ArticleSchema,
-    ArticleStatisticsSchema,
-    CreateArticleSchema,
-    DeletedArticleSchema,
     ArticleListSchema
 )
-from .models import Article, ArticleStatistics, CreateArticle, DeletedArticle, ArticleList
+from .models import Article, ArticleStatistics, ArticleList
 
 # From Current Package
 from ...core.api_base import APIBase
@@ -41,7 +38,7 @@ from ...core.errors import catch_api_error
 class ArticlesAPI(APIBase):
     URI = "/articles/"
 
-    @returns(ArticleSchema(many=False)) # type: ignore
+    @returns(ArticleSchema) # type: ignore
     @get("{article_id}")
     def get_by_id(self, article_id: Union[str, int]):
         """ Get an Article by ID.
@@ -53,22 +50,21 @@ class ArticlesAPI(APIBase):
             Article: The Article with the given ID.
         """
     
-    @returns(ArticleSchema(many=False)) # type: ignore
+    @returns(ArticleSchema) # type: ignore
     @json
     @post("")
-    def create(self, data: Body(type=CreateArticleSchema)): # type: ignore
+    def create(self, data: Body(type=ArticleSchema)): # type: ignore
 
         """ Create an Article.
 
         Args:
-            data (Body(type=CreateArticleSchema)): The data to create the Article with.
+            data (ArticleSchema): The ArticleSchema to create the article with.
 
         Returns:
             Article: The created Article.
         """
 
-
-    @returns(DeletedArticleSchema(many=False)) # type: ignore
+    @returns(ArticleSchema) # type: ignore
     @delete("{article_id}")
     def delete_by_id(self, article_id: Union[str, int]):
         """ Delete an Article by ID.
@@ -113,6 +109,5 @@ class ArticlesAPI(APIBase):
 
         Args:
             article_id (Union[str, int]): The ID of the Article.
-            data (Body(type=ArticleSchema)): The data to update the Article with.
-
+            data (ArticleSchema): An article schema object to update via. 
         """

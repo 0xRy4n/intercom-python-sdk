@@ -47,7 +47,7 @@ class DataExportAPI(APIBase):
     def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
         """ Create a new data export. 
         
-        Params:
+        Args:
             created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
             created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
 
