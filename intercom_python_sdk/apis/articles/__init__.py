@@ -42,6 +42,7 @@ intercom.articles.delete_by_id(1234567890)
 ## Creating a New Article
 Like in other APIs, to create a new Article, We can use a Schema to dump a dictionary of data into an Article object, and then create it on the API.
 
+```python
 article_data = {
     'title': 'Example Article',
     'body': '<p>Example Article Body</p>',
@@ -51,6 +52,7 @@ article_data = {
 }
 article_schema = ArticleSchema().dump(article_data)
 new_article = intercom.articles.create(article_schema) # Returns the new Article object.
+```
 
 """
 

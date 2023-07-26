@@ -59,7 +59,6 @@ from . import models as a_models
 from ...core.schema_base import SchemaBase
 
 
-
 class ArticleStatisticsSchema(SchemaBase):
     &#34;&#34;&#34;
     This schema represents the statistics of an Article on Intercom.
@@ -78,7 +77,6 @@ class ArticleStatisticsSchema(SchemaBase):
     happy_reaction_percentage = fields.Int()
     neutral_reaction_percentage = fields.Int()
     sad_reaction_percentage = fields.Int()
-
 
 
 class ArticleSchema(SchemaBase):
@@ -125,38 +123,6 @@ class ArticleSchema(SchemaBase):
 
     def make_article(self, data, **kwargs):
         return a_models.Article(**data)
-    
-
-class CreateArticleSchema(SchemaBase):
-    &#34;&#34;&#34; This schema represents a new Article on Intercom.
-
-    Attributes:
-        author_id (int): The ID of the author of the Article.
-        title (str): The title of the Article.
-    &#34;&#34;&#34;
-    author_id = fields.Int()
-    title = fields.Str()
-
-    @marshmallow.post_load
-    def make_article(self, data, **kwargs):
-        return a_models.CreateArticle(**data)
-
-
-class DeletedArticleSchema(SchemaBase):
-    &#34;&#34;&#34; This schema represents a deleted Article on Intercom.
-
-    Attributes:
-        id (int): The ID of the deleted Article.
-        object (str): The type of the deleted Article.
-        deleted (bool): Whether or not the Article was deleted.
-    &#34;&#34;&#34;
-    id = fields.Int()
-    object = fields.Str()
-    deleted = fields.Bool()
-
-    @marshmallow.post_load
-    def make_deleted_article(self, data, **kwargs):
-        return a_models.DeletedArticle(**data)
 
 
 class ArticleListSchema(SchemaBase):
@@ -456,152 +422,6 @@ def make_article(self, data, **kwargs):
 </li>
 </ul>
 </dd>
-<dt id="intercom_python_sdk.apis.articles.schemas.CreateArticleSchema"><code class="flex name class">
-<span>class <span class="ident">CreateArticleSchema</span></span>
-<span>(</span><span>*, only: types.StrSequenceOrSet | None = None, exclude: types.StrSequenceOrSet = (), many: bool = False, context: dict | None = None, load_only: types.StrSequenceOrSet = (), dump_only: types.StrSequenceOrSet = (), partial: bool | types.StrSequenceOrSet | None = None, unknown: str | None = None)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>This schema represents a new Article on Intercom.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>author_id</code></strong> :&ensp;<code>int</code></dt>
-<dd>The ID of the author of the Article.</dd>
-<dt><strong><code>title</code></strong> :&ensp;<code>str</code></dt>
-<dd>The title of the Article.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class CreateArticleSchema(SchemaBase):
-    &#34;&#34;&#34; This schema represents a new Article on Intercom.
-
-    Attributes:
-        author_id (int): The ID of the author of the Article.
-        title (str): The title of the Article.
-    &#34;&#34;&#34;
-    author_id = fields.Int()
-    title = fields.Str()
-
-    @marshmallow.post_load
-    def make_article(self, data, **kwargs):
-        return a_models.CreateArticle(**data)</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></li>
-<li>marshmallow.schema.Schema</li>
-<li>marshmallow.base.SchemaABC</li>
-<li>abc.ABC</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="intercom_python_sdk.apis.articles.schemas.CreateArticleSchema.opts"><code class="name">var <span class="ident">opts</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="intercom_python_sdk.apis.articles.schemas.CreateArticleSchema.make_article"><code class="name flex">
-<span>def <span class="ident">make_article</span></span>(<span>self, data, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@marshmallow.post_load
-def make_article(self, data, **kwargs):
-    return a_models.CreateArticle(**data)</code></pre>
-</details>
-</dd>
-</dl>
-<h3>Inherited members</h3>
-<ul class="hlist">
-<li><code><b><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></b></code>:
-<ul class="hlist">
-<li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.Meta" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase.Meta">Meta</a></code></li>
-</ul>
-</li>
-</ul>
-</dd>
-<dt id="intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema"><code class="flex name class">
-<span>class <span class="ident">DeletedArticleSchema</span></span>
-<span>(</span><span>*, only: types.StrSequenceOrSet | None = None, exclude: types.StrSequenceOrSet = (), many: bool = False, context: dict | None = None, load_only: types.StrSequenceOrSet = (), dump_only: types.StrSequenceOrSet = (), partial: bool | types.StrSequenceOrSet | None = None, unknown: str | None = None)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>This schema represents a deleted Article on Intercom.</p>
-<h2 id="attributes">Attributes</h2>
-<dl>
-<dt><strong><code>id</code></strong> :&ensp;<code>int</code></dt>
-<dd>The ID of the deleted Article.</dd>
-<dt><strong><code>object</code></strong> :&ensp;<code>str</code></dt>
-<dd>The type of the deleted Article.</dd>
-<dt><strong><code>deleted</code></strong> :&ensp;<code>bool</code></dt>
-<dd>Whether or not the Article was deleted.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class DeletedArticleSchema(SchemaBase):
-    &#34;&#34;&#34; This schema represents a deleted Article on Intercom.
-
-    Attributes:
-        id (int): The ID of the deleted Article.
-        object (str): The type of the deleted Article.
-        deleted (bool): Whether or not the Article was deleted.
-    &#34;&#34;&#34;
-    id = fields.Int()
-    object = fields.Str()
-    deleted = fields.Bool()
-
-    @marshmallow.post_load
-    def make_deleted_article(self, data, **kwargs):
-        return a_models.DeletedArticle(**data)</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></li>
-<li>marshmallow.schema.Schema</li>
-<li>marshmallow.base.SchemaABC</li>
-<li>abc.ABC</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema.opts"><code class="name">var <span class="ident">opts</span></code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-<h3>Methods</h3>
-<dl>
-<dt id="intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema.make_deleted_article"><code class="name flex">
-<span>def <span class="ident">make_deleted_article</span></span>(<span>self, data, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@marshmallow.post_load
-def make_deleted_article(self, data, **kwargs):
-    return a_models.DeletedArticle(**data)</code></pre>
-</details>
-</dd>
-</dl>
-<h3>Inherited members</h3>
-<ul class="hlist">
-<li><code><b><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></b></code>:
-<ul class="hlist">
-<li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.Meta" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase.Meta">Meta</a></code></li>
-</ul>
-</li>
-</ul>
-</dd>
 </dl>
 </section>
 </article>
@@ -638,20 +458,6 @@ def make_deleted_article(self, data, **kwargs):
 <h4><code><a title="intercom_python_sdk.apis.articles.schemas.ArticleStatisticsSchema" href="#intercom_python_sdk.apis.articles.schemas.ArticleStatisticsSchema">ArticleStatisticsSchema</a></code></h4>
 <ul class="">
 <li><code><a title="intercom_python_sdk.apis.articles.schemas.ArticleStatisticsSchema.opts" href="#intercom_python_sdk.apis.articles.schemas.ArticleStatisticsSchema.opts">opts</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="intercom_python_sdk.apis.articles.schemas.CreateArticleSchema" href="#intercom_python_sdk.apis.articles.schemas.CreateArticleSchema">CreateArticleSchema</a></code></h4>
-<ul class="">
-<li><code><a title="intercom_python_sdk.apis.articles.schemas.CreateArticleSchema.make_article" href="#intercom_python_sdk.apis.articles.schemas.CreateArticleSchema.make_article">make_article</a></code></li>
-<li><code><a title="intercom_python_sdk.apis.articles.schemas.CreateArticleSchema.opts" href="#intercom_python_sdk.apis.articles.schemas.CreateArticleSchema.opts">opts</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema" href="#intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema">DeletedArticleSchema</a></code></h4>
-<ul class="">
-<li><code><a title="intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema.make_deleted_article" href="#intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema.make_deleted_article">make_deleted_article</a></code></li>
-<li><code><a title="intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema.opts" href="#intercom_python_sdk.apis.articles.schemas.DeletedArticleSchema.opts">opts</a></code></li>
 </ul>
 </li>
 </ul>

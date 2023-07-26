@@ -59,15 +59,16 @@ intercom.articles.delete_by_id(1234567890)
 </code></pre>
 <h2 id="creating-a-new-article">Creating a New Article</h2>
 <p>Like in other APIs, to create a new Article, We can use a Schema to dump a dictionary of data into an Article object, and then create it on the API.</p>
-<p>article_data = {
-'title': 'Example Article',
-'body': '<p>Example Article Body</p>',
-'description': 'Example Article Description',
-'author_id': intercom.admins.me().id,
-'state':'draft' # Can be 'draft' or 'published'
+<pre><code class="language-python">article_data = {
+    'title': 'Example Article',
+    'body': '&lt;p&gt;Example Article Body&lt;/p&gt;',
+    'description': 'Example Article Description',
+    'author_id': intercom.admins.me().id,
+    'state':'draft' # Can be 'draft' or 'published'
 }
 article_schema = ArticleSchema().dump(article_data)
-new_article = intercom.articles.create(article_schema) # Returns the new Article object.</p>
+new_article = intercom.articles.create(article_schema) # Returns the new Article object.
+</code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
@@ -116,6 +117,7 @@ intercom.articles.delete_by_id(1234567890)
 ## Creating a New Article
 Like in other APIs, to create a new Article, We can use a Schema to dump a dictionary of data into an Article object, and then create it on the API.
 
+```python
 article_data = {
     &#39;title&#39;: &#39;Example Article&#39;,
     &#39;body&#39;: &#39;&lt;p&gt;Example Article Body&lt;/p&gt;&#39;,
@@ -125,6 +127,7 @@ article_data = {
 }
 article_schema = ArticleSchema().dump(article_data)
 new_article = intercom.articles.create(article_schema) # Returns the new Article object.
+```
 
 &#34;&#34;&#34;
 
