@@ -5,27 +5,18 @@
 
 Contains the core base classes and methodsfor all API classes in the Intercom Python SDK.
 """
-# Built-in Imports
-import functools
-from typing import Optional as Opt, Union
-
 # Third-Party Imports
-import marshmallow.exceptions 
-from uplink.builder import Builder
 from uplink import (
-    Consumer, 
-    hooks as hooks_, 
-    session, 
-    returns,
+    Consumer,
     json
 )
-from validator_collection import checkers
-from warnings import warn
 
 # Local Imports
 from .configuration import Configuration
 from .model_base import ModelBase
 
+
+# Classes 
 
 class APIProxyInterface:
     """
@@ -135,20 +126,6 @@ class APIProxyInterface:
                 inject(attr)
 
 
-def create_api_client(api_class: 'APIBase', config: Configuration):
-    """
-    Creates a proxy interface for an API client for the provided API class.
-
-    Args:
-        api_class: The API class to create a client for.
-        config: The configuration settings for the API.
-
-    Returns:
-        An proxy interface to the instance of the API class with an API client attached to each model object.
-    """
-    return APIProxyInterface(api_class, config)
-
-
 @json
 class APIBase(Consumer):
     """
@@ -190,3 +167,19 @@ class APIBase(Consumer):
         else:
             # If the subapi has already been created, return it
             return getattr(self, api_tag)
+
+
+# Functions
+
+def create_api_client(api_class: 'APIBase', config: Configuration) -> APIProxyInterface:
+    """
+    Creates a proxy interface for an API client for the provided API class.
+
+    Args:
+        api_class: The API class to create a client for.
+        config: The configuration settings for the API.
+
+    Returns:
+        An proxy interface to the instance of the API class with an API client attached to each model object.
+    """
+    return APIProxyInterface(api_class, config)

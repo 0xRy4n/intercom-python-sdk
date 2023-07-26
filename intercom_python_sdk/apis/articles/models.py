@@ -14,8 +14,9 @@ These models provide object oriented interfaces for the schemas defined in `apis
 from bs4 import BeautifulSoup
 
 from typing import (
-    Any, List, 
-    Optional, Union, 
+    List,
+    Optional, 
+    Union, 
     TYPE_CHECKING
 )
 
@@ -55,18 +56,18 @@ class Article(ModelBase):
     """
     def __init__(self, *args, **kwargs):
             self.__type = kwargs.get('type', 'article')
-            self.__workspace_id = kwargs.get('workspace_id')
-            self.__title = kwargs.get('title')
-            self.__description = kwargs.get('description')
-            self.__body = kwargs.get('body')
-            self.__author_id = kwargs.get('author_id')
-            self.__state = kwargs.get('state')
-            self.__created_at = kwargs.get('created_at')
-            self.__updated_at = kwargs.get('updated_at',None)
-            self.__url = kwargs.get('url',None)
+            self.__workspace_id = kwargs.get('workspace_id', '')
+            self.__title = kwargs.get('title', '')
+            self.__description = kwargs.get('description', '')
+            self.__body = kwargs.get('body', '')
+            self.__author_id = kwargs.get('author_id', None)
+            self.__state = kwargs.get('state', '')
+            self.__created_at = kwargs.get('created_at', None)
+            self.__updated_at = kwargs.get('updated_at', None)
+            self.__url = kwargs.get('url', '')
             self.__parent_id = kwargs.get('parent_id', None)
-            self.__parent_type = kwargs.get('parent_type', None)
-            self.__default_locale = kwargs.get('default_locale', None)
+            self.__parent_type = kwargs.get('parent_type', '')
+            self.__default_locale = kwargs.get('default_locale', '')
             self.__statistics = kwargs.get('statistics', None)
             self.__id = kwargs.get('id', None)
 
@@ -132,7 +133,7 @@ class Article(ModelBase):
         return self.__body
     
     @property
-    def author_id(self) -> int:
+    def author_id(self) -> Optional[int]:
 
         """
         The ID of the author of the Article.
@@ -153,7 +154,7 @@ class Article(ModelBase):
         return self.__state
     
     @property
-    def created_at(self) -> int:
+    def created_at(self) -> Optional[int]:
         """
         The timestamp of when the Article was created.
 
@@ -163,7 +164,7 @@ class Article(ModelBase):
         return self.__created_at
     
     @property
-    def updated_at(self) -> int:
+    def updated_at(self) -> Optional[int]:
         """
         The timestamp of when the Article was updated.
 
@@ -183,7 +184,7 @@ class Article(ModelBase):
         return self.__url
     
     @property
-    def parent_id(self) -> int:
+    def parent_id(self) -> Optional[int]:
         """
         The ID of the parent of the Article.
 
@@ -213,7 +214,7 @@ class Article(ModelBase):
         return self.__default_locale
     
     @property
-    def statistics(self) -> ArticleStatistics:
+    def statistics(self) -> Optional[ArticleStatistics]:
         """
         The statistics of the Article.
 
@@ -223,7 +224,7 @@ class Article(ModelBase):
         return self.__statistics
     
     @property
-    def id(self) -> int:
+    def id(self) -> Optional[int]:
         """
         The ID of the Article.
 
@@ -424,10 +425,10 @@ class ArticleList(ModelBase):
         See the `ArticleListSchema` class.
     """
     def __init__(self, *args, **kwargs):
-            self.__type = kwargs.get('type')
-            self.__pages = kwargs.get('pages')
-            self.__total_count = kwargs.get('total_count')
-            self.__data = kwargs.get('data')
+            self.__type = kwargs.get('type', '')
+            self.__pages = kwargs.get('pages', {})
+            self.__total_count = kwargs.get('total_count', 0)
+            self.__data = kwargs.get('data', [])
 
     # Properties
     @property
@@ -541,10 +542,9 @@ class ArticleList(ModelBase):
         Returns:
             Optional[Article]: The Article with the given ID.
         """
-        for article in self.data:
-            if article.id == article_id:
-                return article
-        return None
+        return next(
+            (article for article in self.data if article.id == article_id), None
+        )
     
     def extend(self, articles: 'ArticleList'):
         """

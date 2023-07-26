@@ -16,18 +16,16 @@ from datetime import datetime
 from validator_collection import validators
 
 # External
-import marshmallow
 from uplink import (
-    get, put, post, 
-    returns, args, headers,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query
+    get, post,
+    returns, headers,
+    response_handler,
+    json, Body, Path
 )
 
 # From Current API
 from . import schemas as dexport_schemas
 from . import models as dexport_models
-
 
 # From Current Package
 from ...core.api_base import APIBase
@@ -72,19 +70,8 @@ class DataExportAPI(APIBase):
         }
 
         return self.__create_data_export(payload=payload)
-    
 
     @headers({"Accept": "application/octet-stream"})
     @get("/download/content/data/{job_identifier}") # Leading slash as we aren't using the base URI
     def download(self, job_identifier: Path("job_identifier", str)): # type: ignore
         """ Download a data export. """
-
-
-    
-
-    
-
-
-
-    
-

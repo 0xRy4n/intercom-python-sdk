@@ -12,15 +12,14 @@ It is used to interact with the Intercom Articles API [1] as defined in the Inte
 """
 
 # Built-ins
-import functools
-from typing import Union, cast
+from typing import Union
 
 # External
 from uplink import (
     get, put, post,
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query,delete
+    delete, returns,
+    response_handler,
+    Body, json, Query
 )
 
 # From Current API
@@ -28,11 +27,12 @@ from .schemas import (
     ArticleSchema,
     ArticleListSchema
 )
-from .models import Article, ArticleStatistics, ArticleList
+from .models import ArticleList
 
 # From Current Package
 from ...core.api_base import APIBase
 from ...core.errors import catch_api_error
+
 
 @response_handler(catch_api_error)
 class ArticlesAPI(APIBase):
@@ -78,7 +78,7 @@ class ArticlesAPI(APIBase):
 
     @returns(ArticleListSchema) # type: ignore
     @get("")
-    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50):
+    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50): # type: ignore
         """ List all Articles. """
 
     def list_all(self, page: int = 1, per_page: int = 50) -> ArticleList:

@@ -16,7 +16,7 @@ from marshmallow import fields
 
 # From Current API
 from .models import (
-    Admin, 
+    Admin,
     AdminList,
     TeamPriorityLevel
 )

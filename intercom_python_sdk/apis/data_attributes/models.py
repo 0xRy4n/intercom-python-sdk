@@ -11,15 +11,17 @@ These models provide object oriented interfaces for the schemas defined in `apis
 - [1] https://developers.intercom.com/intercom-api-reference/reference/lisdataattributes
 """
 # Built-ins
-from typing import Union, TYPE_CHECKING, List
-import copy
+from typing import (
+    Union,
+    List,
+    TYPE_CHECKING
+)
 
 # From Current API
 from . import schemas as da_schemas
 
 # From Current Package
 from ...core.model_base import ModelBase
-from ..admins.api import AdminsAPI as da_AdminsAPI
 
 # Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
@@ -48,6 +50,7 @@ class DataAttribute(ModelBase):
         self.__admin_id = kwargs.get('admin_id', None)
 
     # Properties
+    
     @property
     def api_client(self) -> 'DataAttributesAPI':
         """
@@ -402,6 +405,7 @@ class DataAttributeList(ModelBase):
         )
     
     # Dunder Overrides
+
     def __getitem__(self, key: int) -> Union[DataAttribute, None]:
         return self.__data[key]
 
@@ -441,6 +445,3 @@ class DataAttributeList(ModelBase):
             )
         else:
             return False
-    
-
-    

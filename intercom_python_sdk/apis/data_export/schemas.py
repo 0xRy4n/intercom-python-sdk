@@ -22,8 +22,15 @@ from . import models as dexport_models
 from ...core.schema_base import SchemaBase
 
 
-
 class DataExportJobSchema(SchemaBase):
+    """ Schema for the DataExportJob model.
+
+    Attributes:
+        job_identifier (str): The identifier of the job.
+        status (str): The status of the job.
+        download_expires_at (str): The time at which the download expires.
+        download_url (str): The URL to download the job.
+    """
     job_identifier = fields.Str()
     status = fields.Str()
     download_expires_at = fields.Str()
@@ -32,4 +39,3 @@ class DataExportJobSchema(SchemaBase):
     @marshmallow.post_load
     def make(self, data, **kwargs):
         return dexport_models.DataExportJob(**data)
-    

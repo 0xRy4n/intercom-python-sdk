@@ -11,16 +11,12 @@ It is used to interact with the Intercom Data Events API [1] as defined in the I
 - [2] https://github.com/intercom/Intercom-OpenAPI
 """
 
-# Built-ins
-from typing import Union
-
 # External
-import marshmallow
 from uplink import (
-    get, put, post, 
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query
+    get, post,
+    returns,
+    response_handler,
+    Body, Query
 )
 
 # From Current API
@@ -30,7 +26,6 @@ from .schemas import (
 )
 
 from .models import (
-    DataEvent,
     DataEventsList
 )
 

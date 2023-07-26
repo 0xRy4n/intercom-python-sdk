@@ -17,10 +17,10 @@ from typing import Union
 # External
 import marshmallow
 from uplink import (
-    get, put, post, 
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query
+    get, put, post,
+    returns, json,
+    response_handler,
+    Body, Query
 )
 
 # From Current API
@@ -31,7 +31,6 @@ from .schemas import (
 
 from .models import (
     DataAttribute,
-    DataAttributeList
 )
 
 # From Current Package
@@ -114,4 +113,3 @@ class DataAttributesAPI(APIBase):
         data_attribute.archived = True
         
         return self.update_by_id(attribute_id, data_attribute)
-    

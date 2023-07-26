@@ -11,13 +11,10 @@ These models provide object oriented interfaces for the schemas defined in `apis
 """
 # Built-ins
 from typing import (
-    Any, Union, List,
+    Optional,
+    List,
     TYPE_CHECKING,
 )
-
-# From Current API
-from . import schemas as de_schemas
-from . import models as de_models
 
 # From Current Package
 from ...core.model_base import ModelBase
@@ -25,13 +22,16 @@ from ...core.model_base import ModelBase
 if TYPE_CHECKING:
     from .api import DataEventsAPI
 
+
 class DataEventSummary(ModelBase):
     def __init__(self, *args, **kwargs):
-        self.__event_name= kwargs.get('event_name')
-        self.__count = kwargs.get('count')
-        self.__first = kwargs.get('first')
-        self.__last = kwargs.get('last')
+        self.__event_name= kwargs.get('event_name', '')
+        self.__count = kwargs.get('count', '')
+        self.__first = kwargs.get('first', '')
+        self.__last = kwargs.get('last', '')
     
+    # Properties
+
     @property
     def event_name(self) -> str:
         return self.__event_name
@@ -51,16 +51,17 @@ class DataEventSummary(ModelBase):
 
 class DataEvent(ModelBase):
     def __init__(self, *args, **kwargs):
-        self.__type__ = kwargs.get('type')
-        self.__event_name__ = kwargs.get('event_name')
+        self.__type__ = kwargs.get('type', 'event')
+        self.__event_name__ = kwargs.get('event_name', '')
         self.__created_at__ = kwargs.get('created_at')
-        self.__id__ = kwargs.get('id')
-        self.__intercom_user_id__ = kwargs.get('intercom_user_id')
-        self.__email__ = kwargs.get('email')
-        self.__metadata__ = kwargs.get('metadata')
+        self.__id__ = kwargs.get('id', '')
+        self.__intercom_user_id__ = kwargs.get('intercom_user_id', '')
+        self.__email__ = kwargs.get('email', '')
+        self.__metadata__ = kwargs.get('metadata', {})
         self._api_client: 'DataEventsAPI' = kwargs.get('api_client') # type: ignore
 
-    
+    # Properties 
+
     @property
     def api_client(self) -> 'DataEventsAPI':
         return self._api_client
@@ -80,7 +81,7 @@ class DataEvent(ModelBase):
         return self.__event_name__
     
     @property
-    def created_at(self) -> int:
+    def created_at(self) -> Optional[int]:
         """ The timestamp of the data event. """
         return self.__created_at__
     
@@ -114,6 +115,8 @@ class DataEventsList(ModelBase):
         self.__type__ = kwargs.get('type', '')
         self.__events__ = kwargs.get('events', [])
 
+    # Properties
+
     @property
     def type(self) -> str:
         """ The type of the object. """
@@ -124,6 +127,8 @@ class DataEventsList(ModelBase):
         """ A list of Data Event objects. """
         return self.__events__
     
+    # Dunder Overrides
+
     def __iter__(self):
         return iter(self.events)
     

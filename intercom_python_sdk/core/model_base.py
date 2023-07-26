@@ -8,6 +8,7 @@ Extensible models applicable to all APIS.
 # Built-ins
 from pprint import pformat
 
+
 class ModelBase:
     """
     Base model for all API models.
@@ -15,7 +16,6 @@ class ModelBase:
     Raises:
         NotImplementedError: When setting a property with no setter.
     """
-
     # set _api_client to None on new instances with __new__
     def __new__(cls, *args, **kwargs):
         instance = super().__new__(cls)
@@ -45,5 +45,3 @@ class ModelBase:
     @api_client.setter
     def api_client(self, api_client):
         self._api_client = api_client
-    
-    

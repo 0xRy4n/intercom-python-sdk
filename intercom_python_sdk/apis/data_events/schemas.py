@@ -79,7 +79,3 @@ class DataEventsListSchema(SchemaBase):
     @marshmallow.post_load
     def make(self, data, **kwargs):
         return da_models.DataEventsList(**data)
-    
-
-
-

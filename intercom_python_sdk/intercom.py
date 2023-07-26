@@ -5,13 +5,14 @@
 
 This module contains the Intercom class, which is used to interact with the Intercom API.
 """
-
-import marshmallow 
-
+# Built-ins
 from typing import Optional as Opt
-from uplink.auth import BearerToken
 from warnings import warn
 
+# External
+from uplink.auth import BearerToken
+
+# Current package 
 from .apis import tags_to_api_dict
 from .core.configuration import Configuration
 from .core.api_base import create_api_client
@@ -45,7 +46,6 @@ class Intercom:
                 proxy = None
 
             config = Configuration(auth=auth, proxy=proxy)
-
         
         for tag, api_class in tags_to_api_dict.items():
             setattr(self, tag, create_api_client(api_class, config))

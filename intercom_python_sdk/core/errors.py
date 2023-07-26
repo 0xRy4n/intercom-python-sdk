@@ -10,21 +10,18 @@ These models/schemas are implemented as defined by the Intercom API Reference [1
 - [1] https://developers.intercom.com/intercom-api-reference/reference/error-objects
 """
 # Built-ins
-import json
-
-from dataclasses import dataclass
 from pprint import pformat
 from typing import Any
 
 # External
 from marshmallow import (
-    fields, 
-    post_load, 
-    ValidationError
+    fields,
+    post_load,
 )
 
 # From Current Package
 from .schema_base import SchemaBase
+
 
 class IntercomErrorObjectSchema(SchemaBase):
     """
@@ -90,6 +87,7 @@ class IntercomErrorList(Exception):
         self.request_id = kwargs.get("request_id", None)
 
         super().__init__(f"Error Response from Intercom API. Request ID: {self.request_id}\n {pformat(self.__dict__)}")
+
 
 def catch_api_error(response):  # type: ignore
     """ Catches API errors and raises them as as custom exceptions. """
