@@ -1,4 +1,4 @@
-""" 
+"""
 # Data Events API
 
 `apis/data_events/api.py`
@@ -40,26 +40,25 @@ class DataEventsAPI(APIBase):
     URI = "/events/"
 
     # Internal method required here so we can implement custom query parameter logic
-    @returns(DataEventsListSchema()) # type: ignore
+    @returns(DataEventsListSchema())  # type: ignore
     @get("")
-    def __list_all(self, 
-                   user_id: Query("user_id", str) = None, # type: ignore
-                   intercom_user_id: Query("intercom_user_id", str) = None, # type: ignore
-                   email: Query("email", str) = None, # type: ignore
-                   type: Query("type", str) = "user", # type: ignore
-                   summary: Query("summary", bool) = False): # type: ignore
-    
+    def __list_all(self,
+                   user_id: Query("user_id", str) = None,  # type: ignore
+                   intercom_user_id: Query("intercom_user_id", str) = None,  # type: ignore
+                   email: Query("email", str) = None,  # type: ignore
+                   type: Query("type", str) = "user",  # type: ignore
+                   summary: Query("summary", bool) = False):  # type: ignore
+
         """ List all data events. Internal method for `list_all`."""
 
-    
-    def list_all(self, 
-                 user_id: str = "", 
+    def list_all(self,
+                 user_id: str = "",
                  intercom_user_id: str = "",
                  email: str = "",
                  summary: bool = False) -> DataEventsList:
-        
+
         """ List all data events.
-         
+
         Args:
             user_id (str): The user id of the user who triggered the event.
             intercom_user_id (str): The intercom user id of the user who triggered the event.
@@ -77,19 +76,16 @@ class DataEventsAPI(APIBase):
             raise ValueError("At least one of `user_id`, `intercom_user_id`, or `email` must be provided.")
 
         return self.__list_all(user_id=user_id, intercom_user_id=intercom_user_id, email=email, summary=summary)
-    
 
-    @returns(DataEventSchema()) # type: ignore
+    @returns(DataEventSchema())  # type: ignore
     @post("")
-    def submit(self, event: Body(type=DataEventSchema)): # type: ignore
-        """ Submit a new data event. 
-        
+    def submit(self, event: Body(type=DataEventSchema)):  # type: ignore
+        """ Submit a new data event.
+
         Args:
-            event (DataEventSchema): The data event to submit. Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
+            event (DataEventSchema): The data event to submit.
+                Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
 
         Returns:
             DataEvent: The data event that was submitted.
         """
-
-
-    

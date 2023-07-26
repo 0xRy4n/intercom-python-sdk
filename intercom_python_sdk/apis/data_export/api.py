@@ -1,4 +1,4 @@
-""" 
+"""
 # Data Export API
 
 `apis/data_export/api.py`
@@ -25,7 +25,6 @@ from uplink import (
 
 # From Current API
 from . import schemas as dexport_schemas
-from . import models as dexport_models
 
 # From Current Package
 from ...core.api_base import APIBase
@@ -35,16 +34,16 @@ from ...core.errors import catch_api_error
 @response_handler(catch_api_error)
 class DataExportAPI(APIBase):
     URI = "/export/"
-    
+
     @json
-    @returns(dexport_schemas.DataExportJobSchema()) # type: ignore
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
     @post("content/data")
-    def __create_data_export(self, payload: Body(type=dict)): # type: ignore
+    def __create_data_export(self, payload: Body(type=dict)):  # type: ignore
         """ Create a new data export. """
 
     def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
-        """ Create a new data export. 
-        
+        """ Create a new data export.
+
         Args:
             created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
             created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
@@ -57,12 +56,11 @@ class DataExportAPI(APIBase):
             created_before = int(created_before.timestamp())
         else:
             created_before = validators.integer(created_before, minimum=0)
-        
+
         if isinstance(created_after, datetime):
             created_after = int(created_after.timestamp())
         else:
             created_after = validators.integer(created_after, minimum=0)
-
 
         payload = {
             "created_before": created_before,
@@ -72,6 +70,6 @@ class DataExportAPI(APIBase):
         return self.__create_data_export(payload=payload)
 
     @headers({"Accept": "application/octet-stream"})
-    @get("/download/content/data/{job_identifier}") # Leading slash as we aren't using the base URI
-    def download(self, job_identifier: Path("job_identifier", str)): # type: ignore
+    @get("/download/content/data/{job_identifier}")  # Leading slash as we aren't using the base URI
+    def download(self, job_identifier: Path("job_identifier", str)):  # type: ignore
         """ Download a data export. """

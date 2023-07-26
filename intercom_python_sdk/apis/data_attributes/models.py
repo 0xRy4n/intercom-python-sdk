@@ -50,7 +50,7 @@ class DataAttribute(ModelBase):
         self.__admin_id = kwargs.get('admin_id', None)
 
     # Properties
-    
+
     @property
     def api_client(self) -> 'DataAttributesAPI':
         """
@@ -60,7 +60,7 @@ class DataAttribute(ModelBase):
             DataAttributesAPI: The API client used to interact with the data attribute.
         """
         return self._api_client
-    
+
     @property
     def type(self) -> str:
         """
@@ -70,7 +70,7 @@ class DataAttribute(ModelBase):
             str: The type of the data attribute.
         """
         return self.__type
-    
+
     @property
     def id(self) -> Union[str, None]:
         """
@@ -80,7 +80,7 @@ class DataAttribute(ModelBase):
             str: The ID of the data attribute.
         """
         return self.__id
-    
+
     @property
     def model(self) -> str:
         """
@@ -90,7 +90,7 @@ class DataAttribute(ModelBase):
             str: The model of the data attribute.
         """
         return self.__model
-    
+
     @property
     def name(self) -> str:
         """
@@ -100,7 +100,7 @@ class DataAttribute(ModelBase):
             str: The name of the data attribute.
         """
         return self.__name
-    
+
     @property
     def full_name(self) -> str:
         """
@@ -110,7 +110,7 @@ class DataAttribute(ModelBase):
             str: The full name of the data attribute.
         """
         return self.__full_name
-    
+
     @property
     def label(self) -> str:
         """
@@ -120,7 +120,7 @@ class DataAttribute(ModelBase):
             str: The label of the data attribute.
         """
         return self.__label
-    
+
     @property
     def description(self) -> str:
         """
@@ -130,7 +130,7 @@ class DataAttribute(ModelBase):
             str: The description of the data attribute.
         """
         return self.__description
-    
+
     @property
     def data_type(self) -> str:
         """
@@ -140,7 +140,7 @@ class DataAttribute(ModelBase):
             str: The data type of the data attribute.
         """
         return self.__data_type
-    
+
     @property
     def options(self) -> List[str]:
         """
@@ -150,7 +150,7 @@ class DataAttribute(ModelBase):
             str: The options of the data attribute.
         """
         return self.__options
-    
+
     @property
     def api_writable(self) -> Union[int, None]:
         """
@@ -160,7 +160,7 @@ class DataAttribute(ModelBase):
             str: The API writable of the data attribute.
         """
         return self.__api_writable
-    
+
     @property
     def ui_writable(self) -> Union[int, None]:
         """
@@ -170,7 +170,7 @@ class DataAttribute(ModelBase):
             str: The UI writable of the data attribute.
         """
         return self.__ui_writable
-    
+
     @property
     def custom(self) -> Union[int, None]:
         """
@@ -180,7 +180,7 @@ class DataAttribute(ModelBase):
             str: The custom of the data attribute.
         """
         return self.__custom
-    
+
     @property
     def archived(self) -> Union[int, None]:
         """
@@ -200,7 +200,7 @@ class DataAttribute(ModelBase):
             str: The created at of the data attribute.
         """
         return self.__created_at
-    
+
     @property
     def updated_at(self) -> Union[int, None]:
         """
@@ -220,14 +220,14 @@ class DataAttribute(ModelBase):
             str: The admin id of the data attribute.
         """
         return self.__admin_id
-    
+
     # Property Setters
-    
+
     @api_client.setter
     def api_client(self, value: 'DataAttributesAPI'):
         """ Setter for the api_client property """
         self._api_client = value
-    
+
     @type.setter
     def type(self, value: str):
         """ Setter for the type property """
@@ -237,42 +237,42 @@ class DataAttribute(ModelBase):
     def id(self, value: Union[str, None]):
         """ Setter for the id property """
         self.__id = value
-    
+
     @model.setter
     def model(self, value: str):
         """ Setter for the model property """
         self.__model = value
-    
+
     @name.setter
     def name(self, value: str):
         """ Setter for the name property """
         self.__name = value
-    
+
     @full_name.setter
     def full_name(self, value: str):
         """ Setter for the full_name property """
         self.__full_name = value
-    
+
     @label.setter
     def label(self, value: str):
         """ Setter for the label property """
         self.__label = value
-    
+
     @description.setter
     def description(self, value: str):
         """ Setter for the description property """
         self.__description = value
-    
+
     @data_type.setter
     def data_type(self, value: str):
         """ Setter for the data_type property """
         self.__data_type = value
-    
+
     @options.setter
     def options(self, value: List[str]):
         """ Setter for the options property """
         self.__options = value
-    
+
     @api_writable.setter
     def api_writable(self, value: Union[int, None]):
         """ Setter for the api_writable property """
@@ -292,17 +292,17 @@ class DataAttribute(ModelBase):
     def archived(self, value: Union[int, None]):
         """ Setter for the archived property """
         self.__archived = value
-    
+
     @created_at.setter
     def created_at(self, value: Union[int, None]):
         """ Setter for the created_at property """
         self.__created_at = value
-    
+
     @updated_at.setter
     def updated_at(self, value: Union[int, None]):
         """ Setter for the updated_at property """
         self.__updated_at = value
-    
+
     @admin_id.setter
     def admin_id(self, value: Union[int, None]):
         """ Setter for the admin_id property """
@@ -315,7 +315,7 @@ class DataAttribute(ModelBase):
         """
         if not (self.id and self.api_writable):
             raise ValueError('This data attribute is not writable.')
-        
+
         data = da_schemas.DataAttributeSchema().dump(self)
         schema = da_schemas.DataAttributeSchema().load(data, partial=True)
         self.api_client.update_by_id(self.id, schema)
@@ -331,7 +331,7 @@ class DataAttributeList(ModelBase):
     def __init__(self, *args, **kwargs):
         self.__type = kwargs.get('type', '')
         self.__data = kwargs.get('data', [])
-    
+
     # Properties
 
     @property
@@ -343,7 +343,7 @@ class DataAttributeList(ModelBase):
             str: The type of the data attribute list.
         """
         return self.__type
-    
+
     @property
     def data(self) -> List[DataAttribute]:
         """
@@ -353,7 +353,7 @@ class DataAttributeList(ModelBase):
             str: The data of the data attribute list.
         """
         return self.__data
-    
+
     # Methods
 
     def get_attribute_by_id(self, id: str) -> Union[DataAttribute, None]:
@@ -369,7 +369,7 @@ class DataAttributeList(ModelBase):
         return next(
             (attribute for attribute in self.__data if attribute.id == id), None
         )
-    
+
     def get_attribute_by_name(self, name: str) -> Union[DataAttribute, None]:
         """
         Get the data attribute with the specified name.
@@ -384,7 +384,7 @@ class DataAttributeList(ModelBase):
             (attribute for attribute in self.__data if attribute.name == name),
             None,
         )
-    
+
     def get_attribute_by_full_name(self, full_name: str) -> Union[DataAttribute, None]:
         """
         Get the data attribute with the specified full name.
@@ -403,7 +403,7 @@ class DataAttributeList(ModelBase):
             ),
             None,
         )
-    
+
     # Dunder Overrides
 
     def __getitem__(self, key: int) -> Union[DataAttribute, None]:
@@ -417,7 +417,7 @@ class DataAttributeList(ModelBase):
             Iterator[DataAttribute]: An iterator for the data attribute list.
         """
         return iter(self.__data)
-    
+
     def __len__(self):
         """
         Returns the length of the data attribute list.
@@ -426,7 +426,7 @@ class DataAttributeList(ModelBase):
             int: The length of the data attribute list.
         """
         return len(self.__data)
-    
+
     def __contains__(self, item: Union[DataAttribute, str]) -> bool:
         """
         Returns True if the data attribute list contains the specified item.

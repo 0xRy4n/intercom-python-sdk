@@ -1,3 +1,4 @@
+# flake8: noqa
 """
 # Intercom Python SDK
 The unofficial Python SDK for the Intercom API, _because we can't all be Ruby or Go evagelists._

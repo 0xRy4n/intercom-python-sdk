@@ -4,7 +4,7 @@
 `apis/data_events/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the 
+These schemas provide serialization/deserialization to and from the models defined in the
 `apis/data_events/models.py` module.
 
 ---
@@ -24,7 +24,7 @@ from ...core.schema_base import SchemaBase
 
 class DataEventSummarySchema(SchemaBase):
     """ Schema for a summary of data events.
-    
+
     Attributes:
         type (str): The type of data event.
         event_name (str): The name of the event.
@@ -68,7 +68,7 @@ class DataEventSchema(SchemaBase):
 
 class DataEventsListSchema(SchemaBase):
     """ Schema for a list of Data Events.
-    
+
     Attributes:
         type (str): The type of data event.
         events (list): A list of data events.

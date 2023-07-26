@@ -5,7 +5,7 @@ Data Attributes API Schemas
 `apis/data_attributes/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the 
+These schemas provide serialization/deserialization to and from the models defined in the
 `apis/data_attributes/models.py` module.
 
 ----
@@ -77,7 +77,7 @@ class DataAttributeListSchema(SchemaBase):
         pages (PagesSchema): The pagination information for the Data Attribute list.
     """
     type = fields.Str()
-    data = fields.List(fields.Nested(DataAttributeSchema(unknown = marshmallow.EXCLUDE)))
+    data = fields.List(fields.Nested(DataAttributeSchema(unknown=marshmallow.EXCLUDE)))
 
     @marshmallow.post_load
     def make_data_attribute_list(self, data, **kwargs):
