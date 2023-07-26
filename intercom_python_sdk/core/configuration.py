@@ -8,21 +8,20 @@ It is used to configure settings for individual API instances, which themselves
 are instances of the `Consumer` class from the Uplink library.
 """
 # Built-ins
-from typing import Optional as Opt, Union, Tuple, Any, Dict
+from typing import (
+    Optional as Opt,
+    Union,
+    Tuple,
+    Dict
+)
+
+from warnings import warn
 
 # External
 import requests
 from uplink.converters import ConverterFactory
 from uplink.hooks import TransactionHook
-from uplink.auth import (
-    BasicAuth, 
-    BearerToken, 
-    ProxyAuth, 
-    ApiTokenParam, 
-    ApiTokenHeader
-)
 from validator_collection import checkers
-from warnings import warn
 
 
 class Configuration:

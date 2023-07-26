@@ -14,13 +14,8 @@ These models provide object oriented interfaces for the schemas defined in `apis
 import time
 import requests
 from typing import (
-    Any, Union, List,
     TYPE_CHECKING,
 )
-
-# From Current API
-from . import schemas as dexport_schemas
-from . import models as dexport_models
 
 # From Current Package
 from ...core.model_base import ModelBase
@@ -135,9 +130,3 @@ class DataExportJob(ModelBase):
                 raise ValueError(f"Failed to download data export job {self.job_identifier} \
                                        with error: {response.text}")
     
-
-
-            
-
-
-

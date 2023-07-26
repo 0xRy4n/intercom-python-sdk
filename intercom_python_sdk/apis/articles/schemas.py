@@ -80,10 +80,8 @@ class ArticleSchema(SchemaBase):
 
     parent_id = fields.Int(allow_none=True)
     parent_type = fields.Str(allow_none=True)
-    
 
     @marshmallow.post_load
-
     def make_article(self, data, **kwargs):
         return a_models.Article(**data)
 

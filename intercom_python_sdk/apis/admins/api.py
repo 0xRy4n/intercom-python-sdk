@@ -1,4 +1,4 @@
-""" 
+"""
 # Admins API
 
 `apis/admins/api.py`
@@ -24,7 +24,7 @@ from uplink import (
 
 # From Current API
 from .schemas import (
-    AdminSchema, 
+    AdminSchema,
     AdminListSchema,
 )
 from .models import Admin, AdminList
@@ -40,18 +40,18 @@ class AdminsAPI(APIBase):
     """ Admins API Client. """
     URI = "/admins/"
 
-    @returns(AdminSchema) # type: ignore
-    @get("/me") # We are adding a leading slash here because we actually WANT to ignore the /admins URI in this case.
+    @returns(AdminSchema)  # type: ignore
+    @get("/me")  # We are adding a leading slash here because we actually WANT to ignore the /admins URI in this case.
     def me(self):
-        """ Get the current admin user. 
-        
+        """ Get the current admin user.
+
         Returns:
             Admin: The current admin user.
         """
 
-    @returns(AdminSchema) # type: ignore
+    @returns(AdminSchema)  # type: ignore
     @put("{admin_id}/away")
-    def __set_away_by_id(self, admin_id: Union[str, int], data: Body(type=dict)): # type: ignore
+    def __set_away_by_id(self, admin_id: Union[str, int], data: Body(type=dict)):  # type: ignore
         """ Set the away status of an admin. Internal method for `set_away_by_id`."""
 
     def set_away_by_id(self, admin_id: Union[str, int], away: bool = True, reassign: bool = True):
@@ -65,21 +65,21 @@ class AdminsAPI(APIBase):
         Returns:
             HTTPResponse: The response from the API.
         """
-        return self.__set_away_by_id(admin_id, {"away_mode_enabled":away, "away_mode_reassign":reassign})
-    
-    @returns(AdminListSchema) # type: ignore
+        return self.__set_away_by_id(admin_id, {"away_mode_enabled": away, "away_mode_reassign": reassign})
+
+    @returns(AdminListSchema)  # type: ignore
     @get("")
     def list_admins(self):
-        """ List all admins. 
-        
+        """ List all admins.
+
         Returns:
             AdminList: The list of admins.
         """
 
-    @returns(AdminSchema) # type: ignore
+    @returns(AdminSchema)  # type: ignore
     @get("{admin_id}")
     def get_admin_by_id(self, admin_id: Union[str, int]):
-        """ Get an admin by ID. 
+        """ Get an admin by ID.
 
         Args:
             admin_id (Union[str, int]): The ID of the admin.
@@ -93,12 +93,12 @@ class AdminsAPI(APIBase):
 
         Args:
             email (str): The email of the admin.
-        
+
         Returns:
             Admin: The matching Admin object. None if no match found.
         """
         admins_list = self.list_admins()
-        for admin in admins_list.admins: # type: ignore
+        for admin in admins_list.admins:  # type: ignore
             if admin.email == email:
                 return admin
 
@@ -114,7 +114,7 @@ class AdminsAPI(APIBase):
         admins_list = self.list_admins()
 
         # Loop over list in reverse so we can delete from the list as we go.
-        for index, admin in reversed(list(enumerate(admins_list.admins))): # type: ignore
+        for index, admin in reversed(list(enumerate(admins_list.admins))):  # type: ignore
             if team_id not in admin.team_ids:
                 del admins_list.admins[index]
 
