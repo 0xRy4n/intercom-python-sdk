@@ -83,7 +83,7 @@ class DataExportAPI(APIBase):
     def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
         &#34;&#34;&#34; Create a new data export. 
         
-        Params:
+        Args:
             created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
             created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
 
@@ -165,7 +165,7 @@ class DataExportAPI(APIBase):
     def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
         &#34;&#34;&#34; Create a new data export. 
         
-        Params:
+        Args:
             created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
             created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
 
@@ -214,7 +214,7 @@ class DataExportAPI(APIBase):
 <h3>Methods</h3>
 <dl>
 <dt id="intercom_python_sdk.apis.data_export.api.DataExportAPI.download"><code class="name flex">
-<span>def <span class="ident">download</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x10a377990>)</span>
+<span>def <span class="ident">download</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x112263550>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Download a data export.</p></div>
@@ -233,9 +233,13 @@ def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)): # type:
 </code></dt>
 <dd>
 <div class="desc"><p>Create a new data export. </p>
-<h2 id="params">Params</h2>
-<p>created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
-created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>created_before</code></strong> :&ensp;<code>Union[int, datetime]</code></dt>
+<dd>Datetime or unix epoch to define the upper bound of the export.</dd>
+<dt><strong><code>created_after</code></strong> :&ensp;<code>Union[int, datetime]</code></dt>
+<dd>Datetime or unix epoch to define the lower bound of the export.</dd>
+</dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>DataExportJob</code></dt>
@@ -248,7 +252,7 @@ created_after (Union[int, datetime]): Datetime or unix epoch to define the lower
 <pre><code class="python">def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
     &#34;&#34;&#34; Create a new data export. 
     
-    Params:
+    Args:
         created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
         created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
 

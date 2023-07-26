@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>intercom_python_sdk.apis.articles API documentation</title>
-<meta name="description" content="" />
+<meta name="description" content="Intercom Articles API …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,6 +22,116 @@
 <h1 class="title">Module <code>intercom_python_sdk.apis.articles</code></h1>
 </header>
 <section id="section-intro">
+<h1 id="intercom-articles-api">Intercom Articles API</h1>
+<p>Implements the Intercom Articles API [1]. Can be used to create, list, update, and delete individual Articles.
+For operations regarding collections and the Help Center itself, see the Help Center API.</p>
+<hr>
+<ul>
+<li>[1] <a href="https://developers.intercom.com/intercom-api-reference/reference/articles">https://developers.intercom.com/intercom-api-reference/reference/articles</a></li>
+</ul>
+<h2 id="example-usage">Example Usage</h2>
+<pre><code class="language-python">from intercom_python_sdk import Intercom
+
+intercom = Intercom('my_api_key')
+
+articles_list = intercom.articles.list_all() # Returns an ArticlesList object
+
+for article in articles_list: # We can iterate over the ArticlesList object like a list
+    print(article.name) # We can access the attributes of each Article object, as is defined in `apis/articles/models.py` and the Intercom Article Model [2].
+    print(article.body) # The article body is a raw HTML string.
+    print(article.content) # The content property returns the article body as a parsed BeautifulSoup object.
+
+# We can get a specific Article by ID from an ArticleList object
+article = articles_list.get_by_id(1234567890) # Returns an Article object
+
+# Or we could pull the Article directly from the API
+article = intercom.articles.get_by_id(1234567890) # Returns an Article object
+
+# We can also update an Article
+article.name = &quot;My New Article Name&quot;
+article.update() # Updates the Article on the Intercom API
+
+# And we can delete an Article
+article.delete() # Deletes the Article from the Intercom API
+
+# Or, by ID
+intercom.articles.delete_by_id(1234567890)
+</code></pre>
+<h2 id="creating-a-new-article">Creating a New Article</h2>
+<p>Like in other APIs, to create a new Article, We can use a Schema to dump a dictionary of data into an Article object, and then create it on the API.</p>
+<p>article_data = {
+'title': 'Example Article',
+'body': '<p>Example Article Body</p>',
+'description': 'Example Article Description',
+'author_id': intercom.admins.me().id,
+'state':'draft' # Can be 'draft' or 'published'
+}
+article_schema = ArticleSchema().dump(article_data)
+new_article = intercom.articles.create(article_schema) # Returns the new Article object.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+# Intercom Articles API
+
+Implements the Intercom Articles API [1]. Can be used to create, list, update, and delete individual Articles.
+For operations regarding collections and the Help Center itself, see the Help Center API.
+
+---
+- [1] https://developers.intercom.com/intercom-api-reference/reference/articles
+
+
+## Example Usage
+
+```python
+from intercom_python_sdk import Intercom
+
+intercom = Intercom(&#39;my_api_key&#39;)
+
+articles_list = intercom.articles.list_all() # Returns an ArticlesList object
+
+for article in articles_list: # We can iterate over the ArticlesList object like a list
+    print(article.name) # We can access the attributes of each Article object, as is defined in `apis/articles/models.py` and the Intercom Article Model [2].
+    print(article.body) # The article body is a raw HTML string.
+    print(article.content) # The content property returns the article body as a parsed BeautifulSoup object.
+
+# We can get a specific Article by ID from an ArticleList object
+article = articles_list.get_by_id(1234567890) # Returns an Article object
+
+# Or we could pull the Article directly from the API
+article = intercom.articles.get_by_id(1234567890) # Returns an Article object
+
+# We can also update an Article
+article.name = &#34;My New Article Name&#34;
+article.update() # Updates the Article on the Intercom API
+
+# And we can delete an Article
+article.delete() # Deletes the Article from the Intercom API
+
+# Or, by ID
+intercom.articles.delete_by_id(1234567890)
+```
+
+## Creating a New Article
+Like in other APIs, to create a new Article, We can use a Schema to dump a dictionary of data into an Article object, and then create it on the API.
+
+article_data = {
+    &#39;title&#39;: &#39;Example Article&#39;,
+    &#39;body&#39;: &#39;&lt;p&gt;Example Article Body&lt;/p&gt;&#39;,
+    &#39;description&#39;: &#39;Example Article Description&#39;,
+    &#39;author_id&#39;: intercom.admins.me().id,
+    &#39;state&#39;:&#39;draft&#39; # Can be &#39;draft&#39; or &#39;published&#39;
+}
+article_schema = ArticleSchema().dump(article_data)
+new_article = intercom.articles.create(article_schema) # Returns the new Article object.
+
+&#34;&#34;&#34;
+
+from . import api
+from . import models
+from . import schemas</code></pre>
+</details>
 </section>
 <section>
 <h2 class="section-title" id="header-submodules">Sub-modules</h2>
@@ -50,7 +160,13 @@
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul></ul>
+<ul>
+<li><a href="#intercom-articles-api">Intercom Articles API</a><ul>
+<li><a href="#example-usage">Example Usage</a></li>
+<li><a href="#creating-a-new-article">Creating a New Article</a></li>
+</ul>
+</li>
+</ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>

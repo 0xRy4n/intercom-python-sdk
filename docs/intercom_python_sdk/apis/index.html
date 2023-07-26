@@ -31,9 +31,9 @@ Each API is implemented in it's own directory, and contains three files:</p>
 <li><code>schemas.py</code> : Contains the schema classes, which are used to represent objects sent to the API (marshmallow).</li>
 </ul>
 <p>It is not intended in most cases for you to interact with these modules directly. Instead, to access an API client,
-you can use the <code>intercom_python_sdk.Intercom</code> object, which provides a convenient interface for accessing all the
+you can use the <code><a title="intercom_python_sdk.intercom.Intercom" href="../intercom.html#intercom_python_sdk.intercom.Intercom">Intercom</a></code> object, which provides a convenient interface for accessing all the
 available APIs. </p>
-<p>Alternatively, to access a specific API client, you can use the <code>intercom_python_sdk.create_api_client()</code> function
+<p>Alternatively, to access a specific API client, you can use the <code><a title="intercom_python_sdk.core.api_base.create_api_client" href="../core/api_base.html#intercom_python_sdk.core.api_base.create_api_client">create_api_client()</a></code> function
 to build an API client interface. </p>
 <p>APIs can be enabled in the <code>Intercom</code> object via the <code><a title="intercom_python_sdk.apis.tags_to_api" href="tags_to_api.html">intercom_python_sdk.apis.tags_to_api</a></code> module.</p>
 <details class="source">
@@ -51,10 +51,10 @@ Each API is implemented in it&#39;s own directory, and contains three files:
 - `schemas.py` : Contains the schema classes, which are used to represent objects sent to the API (marshmallow).
 
 It is not intended in most cases for you to interact with these modules directly. Instead, to access an API client,
-you can use the `intercom_python_sdk.Intercom` object, which provides a convenient interface for accessing all the
+you can use the `intercom_python_sdk.intercom.Intercom` object, which provides a convenient interface for accessing all the
 available APIs. 
 
-Alternatively, to access a specific API client, you can use the `intercom_python_sdk.create_api_client()` function 
+Alternatively, to access a specific API client, you can use the `intercom_python_sdk.core.api_base.create_api_client` function 
 to build an API client interface. 
 
 APIs can be enabled in the `Intercom` object via the `tags_to_api` module.
@@ -72,7 +72,7 @@ from .tags_to_api import tags_to_api_dict</code></pre>
 </dd>
 <dt><code class="name"><a title="intercom_python_sdk.apis.articles" href="articles/index.html">intercom_python_sdk.apis.articles</a></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Intercom Articles API …</p></div>
 </dd>
 <dt><code class="name"><a title="intercom_python_sdk.apis.data_attributes" href="data_attributes/index.html">intercom_python_sdk.apis.data_attributes</a></code></dt>
 <dd>
