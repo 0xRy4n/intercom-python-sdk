@@ -1,5 +1,7 @@
 # Intercom Python SDK
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/37d20c511a7d4c8590099f9ddcaf4485)](https://app.codacy.com/gh/0xRy4n/intercom-python-sdk?utm_source=github.com&utm_medium=referral&utm_content=0xRy4n/intercom-python-sdk&utm_campaign=Badge_Grade)
+
 ### Disclaimer
 
 This is an unofficial Python SDK for interacting with the Intercom API as defined in the [Intercom API Reference](https://developers.intercom.com/intercom-api-reference/reference). This project is in no way associated with Intercom and is provided as-is without warranty. See the `LICENSE` file for more information.
