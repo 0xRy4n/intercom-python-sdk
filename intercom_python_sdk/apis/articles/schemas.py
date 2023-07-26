@@ -22,7 +22,6 @@ from . import models as a_models
 from ...core.schema_base import SchemaBase
 
 
-
 class ArticleStatisticsSchema(SchemaBase):
     """
     This schema represents the statistics of an Article on Intercom.
@@ -41,7 +40,6 @@ class ArticleStatisticsSchema(SchemaBase):
     happy_reaction_percentage = fields.Int()
     neutral_reaction_percentage = fields.Int()
     sad_reaction_percentage = fields.Int()
-
 
 
 class ArticleSchema(SchemaBase):
@@ -88,38 +86,6 @@ class ArticleSchema(SchemaBase):
 
     def make_article(self, data, **kwargs):
         return a_models.Article(**data)
-    
-
-class CreateArticleSchema(SchemaBase):
-    """ This schema represents a new Article on Intercom.
-
-    Attributes:
-        author_id (int): The ID of the author of the Article.
-        title (str): The title of the Article.
-    """
-    author_id = fields.Int()
-    title = fields.Str()
-
-    @marshmallow.post_load
-    def make_article(self, data, **kwargs):
-        return a_models.CreateArticle(**data)
-
-
-class DeletedArticleSchema(SchemaBase):
-    """ This schema represents a deleted Article on Intercom.
-
-    Attributes:
-        id (int): The ID of the deleted Article.
-        object (str): The type of the deleted Article.
-        deleted (bool): Whether or not the Article was deleted.
-    """
-    id = fields.Int()
-    object = fields.Str()
-    deleted = fields.Bool()
-
-    @marshmallow.post_load
-    def make_deleted_article(self, data, **kwargs):
-        return a_models.DeletedArticle(**data)
 
 
 class ArticleListSchema(SchemaBase):
