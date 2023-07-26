@@ -44,8 +44,8 @@ class DataAttributesAPI(APIBase):
     @returns(DataAttributeListSchema())  # type: ignore
     @get("")
     def list_all(self,
-                 include_archived: Query("include_archived", bool) = False,  # type: ignore
-                 model: Query("model", str) = None):  # type: ignore
+                 include_archived: Query("include_archived", bool) = False,  # noqa # type: ignore
+                 model: Query("model", str) = None):  # noqa # type: ignore
         """ List all data attributes.
 
         Args:

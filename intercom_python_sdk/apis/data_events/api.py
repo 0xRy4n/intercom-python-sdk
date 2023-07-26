@@ -43,11 +43,11 @@ class DataEventsAPI(APIBase):
     @returns(DataEventsListSchema())  # type: ignore
     @get("")
     def __list_all(self,
-                   user_id: Query("user_id", str) = None,  # type: ignore
-                   intercom_user_id: Query("intercom_user_id", str) = None,  # type: ignore
-                   email: Query("email", str) = None,  # type: ignore
-                   type: Query("type", str) = "user",  # type: ignore
-                   summary: Query("summary", bool) = False):  # type: ignore
+                   user_id: Query("user_id", str) = None,  # noqa # type: ignore
+                   intercom_user_id: Query("intercom_user_id", str) = None,  # noqa # type: ignore
+                   email: Query("email", str) = None,  # noqa #  type: ignore
+                   type: Query("type", str) = "user",  # noqa # type: ignore
+                   summary: Query("summary", bool) = False):  # noqa # type: ignore
 
         """ List all data events. Internal method for `list_all`."""
 

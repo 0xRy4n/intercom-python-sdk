@@ -3,8 +3,9 @@
 
 `core/errors.py`
 
-This module contains the IntercomErrorObject and IntercomErrorList classes, which are custom exceptions for Intercom error objects.
-These models/schemas are implemented as defined by the Intercom API Reference [1].
+This module contains the IntercomErrorObject and IntercomErrorList classes, which
+are custom exceptions for Intercom error objects. These models/schemas are implemented
+as defined by the Intercom API Reference [1].
 
 ---
 - [1] https://developers.intercom.com/intercom-api-reference/reference/error-objects

@@ -73,20 +73,14 @@ class DataExportJob(ModelBase):
     def update(self, **kwargs) -> 'DataExportJob':
         """ Update this data export job to fetch it's current status and values. """
         job = self.api_client.get_export_job(job_identifier=self.job_identifier)
-
-        self.__status = job.status
-        self.__download_expires_at = job.download_expires_at
-        self.__download_url = job.download_url
+        self.__update_self(job)
 
         return self
 
     def cancel(self) -> 'DataExportJob':
         """ Cancel this data export job. """
         job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
-
-        self.__status = job.status
-        self.__download_expires_at = job.download_expires_at
-        self.__download_url = job.download_url
+        self.__update_self(job)
 
         return self
 
@@ -132,3 +126,8 @@ class DataExportJob(ModelBase):
             else:
                 raise ValueError(f"Failed to download data export job {self.job_identifier} \
                                        with error: {response.text}")
+
+    def __update_self(self, job: 'DataExportJob'):
+        self.__status = job.status
+        self.__download_expires_at = job.download_expires_at
+        self.__download_url = job.download_url

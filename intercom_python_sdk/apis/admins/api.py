@@ -98,9 +98,8 @@ class AdminsAPI(APIBase):
             Admin: The matching Admin object. None if no match found.
         """
         admins_list = self.list_admins()
-        for admin in admins_list.admins:  # type: ignore
-            if admin.email == email:
-                return admin
+        admins_list.admins = [admin for admin in admins_list.admins if admin.email == email]  # type: ignore
+        return admins_list.admins[0] if admins_list.admins else None
 
     def get_admins_by_team_id(self, team_id: Union[int, str]) -> AdminList:
         """ Get all admins by team ID.
@@ -112,10 +111,5 @@ class AdminsAPI(APIBase):
             AdminList: The list of admins. None if no match found.
         """
         admins_list = self.list_admins()
-
-        # Loop over list in reverse so we can delete from the list as we go.
-        for index, admin in reversed(list(enumerate(admins_list.admins))):  # type: ignore
-            if team_id not in admin.team_ids:
-                del admins_list.admins[index]
-
+        admins_list.admins = [admin for admin in admins_list.admins if team_id in admin.team_ids]  # type: ignore
         return admins_list

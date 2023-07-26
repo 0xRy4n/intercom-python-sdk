@@ -78,7 +78,7 @@ class ArticlesAPI(APIBase):
 
     @returns(ArticleListSchema)  # type: ignore
     @get("")
-    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50):  # type: ignore
+    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50):  # noqa # type: ignore
         """ List all Articles. """
 
     def list_all(self, page: int = 1, per_page: int = 50) -> ArticleList:

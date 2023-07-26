@@ -72,7 +72,8 @@ class APIProxyInterface:
         setattr(api_object, item, value)
 
     def __call__(self, *args, **kwargs):
-        raise NotImplementedError("Direct method calls on APIProxyInterface are not supported. Access methods through api_object.")
+        raise NotImplementedError("Direct method calls on APIProxyInterface are not supported. \
+                                  Access methods through api_object.")
 
     def __repr__(self):
         return repr(f"<{object.__getattribute__(self, '__class__').__name__}> - {self.api_object}")

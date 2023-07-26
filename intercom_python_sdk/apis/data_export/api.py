@@ -71,5 +71,5 @@ class DataExportAPI(APIBase):
 
     @headers({"Accept": "application/octet-stream"})
     @get("/download/content/data/{job_identifier}")  # Leading slash as we aren't using the base URI
-    def download(self, job_identifier: Path("job_identifier", str)):  # type: ignore
+    def download(self, job_identifier: Path("job_identifier", str)):  # noqa # type: ignore
         """ Download a data export. """
