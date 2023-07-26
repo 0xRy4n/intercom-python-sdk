@@ -4,7 +4,7 @@
 `apis/articles/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the 
+These schemas provide serialization/deserialization to and from the models defined in the
 `apis/data_attributes/models.py` module.
 
 ---
@@ -58,8 +58,10 @@ class ArticleSchema(SchemaBase):
         created_at (int): The timestamp of when the Article was created.
         updated_at (int): The timestamp of when the Article was updated.
         url (str): The URL of the Article.can be null if the Article is not published.
-        parent_id (int): The ID of the parent of the Article. can be null if the Article is not a child of another Article.
-        parent_type (str): The type of the parent of the Article. can be null if the Article is not a child of another Article.
+        parent_id (int): The ID of the parent of the Article.
+            Can be null if the Article is not a child of another Article.
+        parent_type (str): The type of the parent of the Article.
+            Can be null if the Article is not a child of another Article.
         default_locale (str): The default locale of the Article.
         statistics (dict): The statistics of the Article.
     """

@@ -1,4 +1,4 @@
-""" 
+"""
 # API Base Module
 
 `core/api_base.py`
@@ -16,8 +16,6 @@ from .configuration import Configuration
 from .model_base import ModelBase
 
 
-# Classes 
-
 class APIProxyInterface:
     """
     A proxy class that functions as an interface to API client / consumer objects.
@@ -32,7 +30,7 @@ class APIProxyInterface:
     Args:
         api_class: The API class to proxy.
         config: The configuration settings for the API.
-    
+
     Attributes:
         All attributes and methods are passed through to the API object. It will be as if
         you are accessing the API object directly.
@@ -41,19 +39,19 @@ class APIProxyInterface:
         A proxy class that functions as an interface to API client / consumer objects.
     """
     def __init__(self, api_class, config):
-        """ 
-        Set the API object for the API we are proxying 
+        """
+        Set the API object for the API we are proxying
 
         Args:
             api_class: The API class to proxy.
             config: The configuration settings for the API.
         """
         self.api_object = api_class(config)
-    
+
     def __dir__(self):
         """ Proxy the dir() method to the API object. """
         return dir(self.api_object)
-    
+
     def __getattribute__(self, item):
         """ Proxy all attribute access to the API object (except for api_object itself). """
         api_object = object.__getattribute__(self, 'api_object')
@@ -65,20 +63,20 @@ class APIProxyInterface:
             return object.__getattribute__(self, '_wrap_callable')(attr)
         else:
             return attr
-        
+
     def __setattr__(self, item, value):
         """ Proxy all attribute setting to the API object (except for api_object itself). """
         if item == 'api_object':
             return object.__setattr__(self, item, value)
         api_object = object.__getattribute__(self, 'api_object')
         setattr(api_object, item, value)
-    
+
     def __call__(self, *args, **kwargs):
         raise NotImplementedError("Direct method calls on APIProxyInterface are not supported. Access methods through api_object.")
 
     def __repr__(self):
         return repr(f"<{object.__getattribute__(self, '__class__').__name__}> - {self.api_object}")
-    
+
     def _wrap_callable(self, method):
         """
         Wraps callable method to intercept the result.
@@ -90,7 +88,7 @@ class APIProxyInterface:
             inject_into_instances(result, ModelBase, 'api_client', self.api_object)
             return result
         return wrapped
-    
+
     def _inject_into_instances(self, obj, cls, attribute_name, attribute_value, visited=None):
         """
         Allows us to inject an attribute into all instances of a class, contained
@@ -106,9 +104,9 @@ class APIProxyInterface:
             return
 
         visited.add(id(obj))
-        
+
         inject_into_instances_method = object.__getattribute__(self, '_inject_into_instances')
-        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value, visited)
+        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value, visited) # noqa
 
         if isinstance(obj, cls):
             obj.__setattr__(attribute_name, attribute_value)
@@ -132,17 +130,18 @@ class APIBase(Consumer):
     The base class for all API classes in the Intercom Python SDK.
     """
     URI = ""
+
     def __init__(self, config: Configuration, **kwargs):
         """
         Initializes a new instance of the APIBase class.
-        Overrides the Consumer class from the Uplink library to 
+        Overrides the Consumer class from the Uplink library to
         configure the Consumer instance using a Configuration object.
 
         Args:
             config: The configuration settings for the API.
         """
         self.config = config
-        
+
         self.base_url = config.base_url + self.URI
 
         print(f"[*] Loaded API Endpoint: {self.base_url}")
@@ -170,7 +169,6 @@ class APIBase(Consumer):
 
 
 # Functions
-
 def create_api_client(api_class: 'APIBase', config: Configuration) -> APIProxyInterface:
     """
     Creates a proxy interface for an API client for the provided API class.

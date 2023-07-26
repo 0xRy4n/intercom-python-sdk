@@ -4,7 +4,8 @@
 `apis/admins/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the `apis/admins/models.py` module.
+These schemas provide serialization/deserialization to and from the models defined
+in the `apis/admins/models.py` module.
 
 ---
 - [1] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
@@ -28,7 +29,7 @@ from ...core.schema_base import SchemaBase
 class TeamPriorityLevelSchema(SchemaBase):
     """
     This schema represents a priority level of a team.
-    
+
     Attributes:
         primary_team_ids (List[int]): The IDs of the primary teams.
         secondary_team_ids (List[int]): The IDs of the secondary teams.
@@ -39,12 +40,12 @@ class TeamPriorityLevelSchema(SchemaBase):
     @marshmallow.post_load
     def make_team_priority_level(self, data, **kwargs):
         return TeamPriorityLevel(**data)
-    
+
 
 class AdminSchema(SchemaBase):
     """
     This schema represents an admin user on Intercom.
-    
+
     Attributes:
         type (str): The type of the admin user.
         id (str): The ID of the admin user.
@@ -75,7 +76,7 @@ class AdminSchema(SchemaBase):
     @marshmallow.post_load
     def make_admin(self, data, **kwargs):
         return Admin(**data)
-    
+
 
 class AdminListSchema(SchemaBase):
     type = fields.Str()

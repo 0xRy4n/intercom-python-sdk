@@ -15,8 +15,8 @@ from bs4 import BeautifulSoup
 
 from typing import (
     List,
-    Optional, 
-    Union, 
+    Optional,
+    Union,
     TYPE_CHECKING
 )
 
@@ -55,21 +55,21 @@ class Article(ModelBase):
         See the `ArticleSchema` class.
     """
     def __init__(self, *args, **kwargs):
-            self.__type = kwargs.get('type', 'article')
-            self.__workspace_id = kwargs.get('workspace_id', '')
-            self.__title = kwargs.get('title', '')
-            self.__description = kwargs.get('description', '')
-            self.__body = kwargs.get('body', '')
-            self.__author_id = kwargs.get('author_id', None)
-            self.__state = kwargs.get('state', '')
-            self.__created_at = kwargs.get('created_at', None)
-            self.__updated_at = kwargs.get('updated_at', None)
-            self.__url = kwargs.get('url', '')
-            self.__parent_id = kwargs.get('parent_id', None)
-            self.__parent_type = kwargs.get('parent_type', '')
-            self.__default_locale = kwargs.get('default_locale', '')
-            self.__statistics = kwargs.get('statistics', None)
-            self.__id = kwargs.get('id', None)
+        self.__type = kwargs.get('type', 'article')
+        self.__workspace_id = kwargs.get('workspace_id', '')
+        self.__title = kwargs.get('title', '')
+        self.__description = kwargs.get('description', '')
+        self.__body = kwargs.get('body', '')
+        self.__author_id = kwargs.get('author_id', None)
+        self.__state = kwargs.get('state', '')
+        self.__created_at = kwargs.get('created_at', None)
+        self.__updated_at = kwargs.get('updated_at', None)
+        self.__url = kwargs.get('url', '')
+        self.__parent_id = kwargs.get('parent_id', None)
+        self.__parent_type = kwargs.get('parent_type', '')
+        self.__default_locale = kwargs.get('default_locale', '')
+        self.__statistics = kwargs.get('statistics', None)
+        self.__id = kwargs.get('id', None)
 
     # Properties
     @property
@@ -81,7 +81,7 @@ class Article(ModelBase):
             ArticlesAPI: The API client used by the model instance.
         """
         return self._api_client
-    
+
     @property
     def type(self) -> str:
         """
@@ -91,7 +91,7 @@ class Article(ModelBase):
             str: The type of the Article.
         """
         return self.__type
-    
+
     @property
     def workspace_id(self) -> str:
         """
@@ -101,7 +101,7 @@ class Article(ModelBase):
             str: The ID of the workspace the Article belongs to.
         """
         return self.__workspace_id
-    
+
     @property
     def title(self) -> str:
         """
@@ -111,7 +111,7 @@ class Article(ModelBase):
             str: The title of the Article.
         """
         return self.__title
-    
+
     @property
     def description(self) -> str:
         """
@@ -121,7 +121,7 @@ class Article(ModelBase):
             str: The description of the Article.
         """
         return self.__description
-    
+
     @property
     def body(self) -> str:
         """
@@ -131,7 +131,7 @@ class Article(ModelBase):
             str: The body of the Article.
         """
         return self.__body
-    
+
     @property
     def author_id(self) -> Optional[int]:
 
@@ -142,7 +142,7 @@ class Article(ModelBase):
             int: The ID of the author of the Article.
         """
         return self.__author_id
-    
+
     @property
     def state(self) -> str:
         """
@@ -152,7 +152,7 @@ class Article(ModelBase):
             str: The state of the Article.
         """
         return self.__state
-    
+
     @property
     def created_at(self) -> Optional[int]:
         """
@@ -162,7 +162,7 @@ class Article(ModelBase):
             int: The timestamp of when the Article was created.
         """
         return self.__created_at
-    
+
     @property
     def updated_at(self) -> Optional[int]:
         """
@@ -172,7 +172,7 @@ class Article(ModelBase):
             int: The timestamp of when the Article was updated.
         """
         return self.__updated_at
-    
+
     @property
     def url(self) -> str:
         """
@@ -182,7 +182,7 @@ class Article(ModelBase):
             str: The URL of the Article.
         """
         return self.__url
-    
+
     @property
     def parent_id(self) -> Optional[int]:
         """
@@ -192,7 +192,7 @@ class Article(ModelBase):
             int: The ID of the parent of the Article.
         """
         return self.__parent_id
-    
+
     @property
     def parent_type(self) -> str:
         """
@@ -202,7 +202,7 @@ class Article(ModelBase):
             str: The type of the parent of the Article.
         """
         return self.__parent_type
-    
+
     @property
     def default_locale(self) -> str:
         """
@@ -212,7 +212,7 @@ class Article(ModelBase):
             str: The default locale of the Article.
         """
         return self.__default_locale
-    
+
     @property
     def statistics(self) -> Optional[ArticleStatistics]:
         """
@@ -222,7 +222,7 @@ class Article(ModelBase):
             ArticleStatistics: The statistics of the Article.
         """
         return self.__statistics
-    
+
     @property
     def id(self) -> Optional[int]:
         """
@@ -232,7 +232,7 @@ class Article(ModelBase):
             int: The ID of the Article.
         """
         return self.__id
-    
+
     @property
     def content(self) -> BeautifulSoup:
         """
@@ -242,7 +242,7 @@ class Article(ModelBase):
             BeautifulSoup: The content of the Article.
         """
         return BeautifulSoup(self.body, 'html.parser')
-    
+
     # Property Setters
 
     @api_client.setter
@@ -384,7 +384,7 @@ class Article(ModelBase):
             default_locale (str): The default locale of the Article.
         """
         self.__default_locale = default_locale
-    
+
     @statistics.setter
     def statistics(self, statistics: ArticleStatistics):
         """
@@ -413,7 +413,6 @@ class Article(ModelBase):
         """
         data = a_schemas.ArticleSchema().dump(self)
         schema = a_schemas.ArticleSchema().load(data)
-
         self.api_client.update_by_id(self.id, schema)
 
 
@@ -425,10 +424,10 @@ class ArticleList(ModelBase):
         See the `ArticleListSchema` class.
     """
     def __init__(self, *args, **kwargs):
-            self.__type = kwargs.get('type', '')
-            self.__pages = kwargs.get('pages', {})
-            self.__total_count = kwargs.get('total_count', 0)
-            self.__data = kwargs.get('data', [])
+        self.__type = kwargs.get('type', '')
+        self.__pages = kwargs.get('pages', {})
+        self.__total_count = kwargs.get('total_count', 0)
+        self.__data = kwargs.get('data', [])
 
     # Properties
     @property
@@ -440,7 +439,7 @@ class ArticleList(ModelBase):
             ArticlesAPI: The API client used by the model instance.
         """
         return self._api_client
-    
+
     @property
     def type(self) -> str:
         """
@@ -450,7 +449,7 @@ class ArticleList(ModelBase):
             str: The type of the Article.
         """
         return self.__type
-    
+
     @property
     def pages(self) -> dict:
         """
@@ -460,7 +459,7 @@ class ArticleList(ModelBase):
             dict: The pages of the Article.
         """
         return self.__pages
-    
+
     @property
     def total_count(self) -> int:
         """
@@ -470,7 +469,7 @@ class ArticleList(ModelBase):
             int: The total count of the Article.
         """
         return self.__total_count
-    
+
     @property
     def data(self) -> List[Article]:
         """
@@ -480,7 +479,7 @@ class ArticleList(ModelBase):
             List[Article]: The data of the Article.
         """
         return self.__data
-    
+
     # Property Setters
     @api_client.setter
     def api_client(self, api_client: 'ArticlesAPI'):
@@ -531,7 +530,7 @@ class ArticleList(ModelBase):
             data (List[Article]): The data of the Article.
         """
         self.__data = data
-    
+
     def get_by_id(self, article_id: Union[str, int]) -> Optional[Article]:
         """
         Gets an Article by ID.
@@ -545,7 +544,7 @@ class ArticleList(ModelBase):
         return next(
             (article for article in self.data if article.id == article_id), None
         )
-    
+
     def extend(self, articles: 'ArticleList'):
         """
         Extend the ArticleList with another ArticleList.
@@ -561,7 +560,7 @@ class ArticleList(ModelBase):
     def __len__(self):
         """ The length of the ArticleList"""
         return len(self.data)
-    
+
     def __iter__(self):
         """ Iterates over articles in the ArticleList
 
@@ -570,10 +569,10 @@ class ArticleList(ModelBase):
             >>> [article for article in article_list]
         """
         return iter(self.data)
-    
+
     def __getitem__(self, index):
         """ Gets an article from ArticleList.data at a given index.
-        
+
         Example:
             >>> article_list = intercom.articles.list_all()
             >>> article_list[0]

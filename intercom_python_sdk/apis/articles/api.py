@@ -1,4 +1,4 @@
-""" 
+"""
 # Articles API
 
 `apis/articles/api.py`
@@ -38,7 +38,7 @@ from ...core.errors import catch_api_error
 class ArticlesAPI(APIBase):
     URI = "/articles/"
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @get("{article_id}")
     def get_by_id(self, article_id: Union[str, int]):
         """ Get an Article by ID.
@@ -49,11 +49,11 @@ class ArticlesAPI(APIBase):
         Returns:
             Article: The Article with the given ID.
         """
-    
-    @returns(ArticleSchema) # type: ignore
+
+    @returns(ArticleSchema)  # type: ignore
     @json
     @post("")
-    def create(self, data: Body(type=ArticleSchema)): # type: ignore
+    def create(self, data: Body(type=ArticleSchema)):  # type: ignore
 
         """ Create an Article.
 
@@ -64,7 +64,7 @@ class ArticlesAPI(APIBase):
             Article: The created Article.
         """
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @delete("{article_id}")
     def delete_by_id(self, article_id: Union[str, int]):
         """ Delete an Article by ID.
@@ -76,9 +76,9 @@ class ArticlesAPI(APIBase):
             DeletedArticle: The deleted Article.
         """
 
-    @returns(ArticleListSchema) # type: ignore
+    @returns(ArticleListSchema)  # type: ignore
     @get("")
-    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50): # type: ignore
+    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50):  # type: ignore
         """ List all Articles. """
 
     def list_all(self, page: int = 1, per_page: int = 50) -> ArticleList:
@@ -98,16 +98,16 @@ class ArticlesAPI(APIBase):
             new_page = self.__list_all(page=page, per_page=per_page)
             article_list.extend(new_page)
             article_list.pages = new_page.pages
-        
+
         return article_list
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @json
     @put("{article_id}")
-    def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
+    def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)):  # type: ignore
         """ Update an Article by ID.
 
         Args:
             article_id (Union[str, int]): The ID of the Article.
-            data (ArticleSchema): An article schema object to update via. 
+            data (ArticleSchema): An article schema object to update via.
         """

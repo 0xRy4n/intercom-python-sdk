@@ -74,7 +74,7 @@ class IntercomErrorObject:
 
     def __str__(self):
         return f"\n{pformat(self.__dict__)}\n"
-    
+
     def __repr__(self):
         return self.__str__()
 
@@ -93,7 +93,8 @@ def catch_api_error(response):  # type: ignore
     """ Catches API errors and raises them as as custom exceptions. """
     if 200 <= response.status_code < 300:
         return response
-    
+
     data = response.json()
-    error = IntercomErrorListSchema().load(data) 
-    raise error # type: ignore
+    error = IntercomErrorListSchema().load(data)
+
+    raise error  # type: ignore
