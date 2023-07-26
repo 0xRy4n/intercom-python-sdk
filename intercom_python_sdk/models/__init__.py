@@ -1,5 +1,5 @@
 """
-# Intercom SDK Models Import Interface
+# Models Import Interface
 
 This module serves as an interface for importing all available models from the Intercom Python SDK.
 
