@@ -1,6 +1,6 @@
 # Intercom Python SDK
 
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a2dc4c9a2c6c4f648bc8e909cf2bc731)](https://app.codacy.com/gh/0xRy4n/intercom-python-sdk/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![Docs](https://github.com/0xRy4n/intercom-python-sdk/actions/workflows/static.yml/badge.svg)](https://github.com/0xRy4n/intercom-python-sdk/actions/workflows/static.yml)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/a2dc4c9a2c6c4f648bc8e909cf2bc731)](https://app.codacy.com/gh/0xRy4n/intercom-python-sdk/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade) [![Docs](https://github.com/0xRy4n/intercom-python-sdk/actions/workflows/static.yml/badge.svg)](https://0xry4n.github.io/intercom_python_sdk)
 
 ### Disclaimer
 
