@@ -29,29 +29,18 @@
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34; 
+<pre><code class="python">&#34;&#34;&#34;
 # API Base Module
 
 `core/api_base.py`
 
 Contains the core base classes and methodsfor all API classes in the Intercom Python SDK.
 &#34;&#34;&#34;
-# Built-in Imports
-import functools
-from typing import Optional as Opt, Union
-
 # Third-Party Imports
-import marshmallow.exceptions 
-from uplink.builder import Builder
 from uplink import (
-    Consumer, 
-    hooks as hooks_, 
-    session, 
-    returns,
+    Consumer,
     json
 )
-from validator_collection import checkers
-from warnings import warn
 
 # Local Imports
 from .configuration import Configuration
@@ -72,7 +61,7 @@ class APIProxyInterface:
     Args:
         api_class: The API class to proxy.
         config: The configuration settings for the API.
-    
+
     Attributes:
         All attributes and methods are passed through to the API object. It will be as if
         you are accessing the API object directly.
@@ -81,19 +70,19 @@ class APIProxyInterface:
         A proxy class that functions as an interface to API client / consumer objects.
     &#34;&#34;&#34;
     def __init__(self, api_class, config):
-        &#34;&#34;&#34; 
-        Set the API object for the API we are proxying 
+        &#34;&#34;&#34;
+        Set the API object for the API we are proxying
 
         Args:
             api_class: The API class to proxy.
             config: The configuration settings for the API.
         &#34;&#34;&#34;
         self.api_object = api_class(config)
-    
+
     def __dir__(self):
         &#34;&#34;&#34; Proxy the dir() method to the API object. &#34;&#34;&#34;
         return dir(self.api_object)
-    
+
     def __getattribute__(self, item):
         &#34;&#34;&#34; Proxy all attribute access to the API object (except for api_object itself). &#34;&#34;&#34;
         api_object = object.__getattribute__(self, &#39;api_object&#39;)
@@ -105,20 +94,21 @@ class APIProxyInterface:
             return object.__getattribute__(self, &#39;_wrap_callable&#39;)(attr)
         else:
             return attr
-        
+
     def __setattr__(self, item, value):
         &#34;&#34;&#34; Proxy all attribute setting to the API object (except for api_object itself). &#34;&#34;&#34;
         if item == &#39;api_object&#39;:
             return object.__setattr__(self, item, value)
         api_object = object.__getattribute__(self, &#39;api_object&#39;)
         setattr(api_object, item, value)
-    
+
     def __call__(self, *args, **kwargs):
-        raise NotImplementedError(&#34;Direct method calls on APIProxyInterface are not supported. Access methods through api_object.&#34;)
+        raise NotImplementedError(&#34;Direct method calls on APIProxyInterface are not supported. \
+                                  Access methods through api_object.&#34;)
 
     def __repr__(self):
         return repr(f&#34;&lt;{object.__getattribute__(self, &#39;__class__&#39;).__name__}&gt; - {self.api_object}&#34;)
-    
+
     def _wrap_callable(self, method):
         &#34;&#34;&#34;
         Wraps callable method to intercept the result.
@@ -130,7 +120,7 @@ class APIProxyInterface:
             inject_into_instances(result, ModelBase, &#39;api_client&#39;, self.api_object)
             return result
         return wrapped
-    
+
     def _inject_into_instances(self, obj, cls, attribute_name, attribute_value, visited=None):
         &#34;&#34;&#34;
         Allows us to inject an attribute into all instances of a class, contained
@@ -146,9 +136,9 @@ class APIProxyInterface:
             return
 
         visited.add(id(obj))
-        
+
         inject_into_instances_method = object.__getattribute__(self, &#39;_inject_into_instances&#39;)
-        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value, visited)
+        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value, visited) # noqa
 
         if isinstance(obj, cls):
             obj.__setattr__(attribute_name, attribute_value)
@@ -166,41 +156,26 @@ class APIProxyInterface:
                 inject(attr)
 
 
-def create_api_client(api_class: &#39;APIBase&#39;, config: Configuration):
-    &#34;&#34;&#34;
-    Creates a proxy interface for an API client for the provided API class.
-
-    Args:
-        api_class: The API class to create a client for.
-        config: The configuration settings for the API.
-
-    Returns:
-        An proxy interface to the instance of the API class with an API client attached to each model object.
-    &#34;&#34;&#34;
-    return APIProxyInterface(api_class, config)
-
-
 @json
 class APIBase(Consumer):
     &#34;&#34;&#34;
     The base class for all API classes in the Intercom Python SDK.
     &#34;&#34;&#34;
     URI = &#34;&#34;
+
     def __init__(self, config: Configuration, **kwargs):
         &#34;&#34;&#34;
         Initializes a new instance of the APIBase class.
-        Overrides the Consumer class from the Uplink library to 
+        Overrides the Consumer class from the Uplink library to
         configure the Consumer instance using a Configuration object.
 
         Args:
             config: The configuration settings for the API.
         &#34;&#34;&#34;
         self.config = config
-        
+
         self.base_url = config.base_url + self.URI
-
-        print(f&#34;[*] Loaded API Endpoint: {self.base_url}&#34;)
-
+        
         super().__init__(
             base_url=self.base_url,
             converters=config.converters,
@@ -220,7 +195,22 @@ class APIBase(Consumer):
 
         else:
             # If the subapi has already been created, return it
-            return getattr(self, api_tag)</code></pre>
+            return getattr(self, api_tag)
+
+
+# Functions
+def create_api_client(api_class: &#39;APIBase&#39;, config: Configuration) -&gt; APIProxyInterface:
+    &#34;&#34;&#34;
+    Creates a proxy interface for an API client for the provided API class.
+
+    Args:
+        api_class: The API class to create a client for.
+        config: The configuration settings for the API.
+
+    Returns:
+        An proxy interface to the instance of the API class with an API client attached to each model object.
+    &#34;&#34;&#34;
+    return APIProxyInterface(api_class, config)</code></pre>
 </details>
 </section>
 <section>
@@ -231,7 +221,7 @@ class APIBase(Consumer):
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
 <dt id="intercom_python_sdk.core.api_base.create_api_client"><code class="name flex">
-<span>def <span class="ident">create_api_client</span></span>(<span>api_class: <a title="intercom_python_sdk.core.api_base.APIBase" href="#intercom_python_sdk.core.api_base.APIBase">APIBase</a>, config: <a title="intercom_python_sdk.core.configuration.Configuration" href="configuration.html#intercom_python_sdk.core.configuration.Configuration">Configuration</a>)</span>
+<span>def <span class="ident">create_api_client</span></span>(<span>api_class: <a title="intercom_python_sdk.core.api_base.APIBase" href="#intercom_python_sdk.core.api_base.APIBase">APIBase</a>, config: <a title="intercom_python_sdk.core.configuration.Configuration" href="configuration.html#intercom_python_sdk.core.configuration.Configuration">Configuration</a>) ‑> <a title="intercom_python_sdk.core.api_base.APIProxyInterface" href="#intercom_python_sdk.core.api_base.APIProxyInterface">APIProxyInterface</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Creates a proxy interface for an API client for the provided API class.</p>
@@ -248,7 +238,7 @@ class APIBase(Consumer):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def create_api_client(api_class: &#39;APIBase&#39;, config: Configuration):
+<pre><code class="python">def create_api_client(api_class: &#39;APIBase&#39;, config: Configuration) -&gt; APIProxyInterface:
     &#34;&#34;&#34;
     Creates a proxy interface for an API client for the provided API class.
 
@@ -291,21 +281,20 @@ class APIBase(Consumer):
     The base class for all API classes in the Intercom Python SDK.
     &#34;&#34;&#34;
     URI = &#34;&#34;
+
     def __init__(self, config: Configuration, **kwargs):
         &#34;&#34;&#34;
         Initializes a new instance of the APIBase class.
-        Overrides the Consumer class from the Uplink library to 
+        Overrides the Consumer class from the Uplink library to
         configure the Consumer instance using a Configuration object.
 
         Args:
             config: The configuration settings for the API.
         &#34;&#34;&#34;
         self.config = config
-        
+
         self.base_url = config.base_url + self.URI
-
-        print(f&#34;[*] Loaded API Endpoint: {self.base_url}&#34;)
-
+        
         super().__init__(
             base_url=self.base_url,
             converters=config.converters,
@@ -399,7 +388,7 @@ itself.</p>
 you are accessing the API object directly.</p>
 <h2 id="returns">Returns</h2>
 <p>A proxy class that functions as an interface to API client / consumer objects.
-Set the API object for the API we are proxying </p>
+Set the API object for the API we are proxying</p>
 <h2 id="args_1">Args</h2>
 <dl>
 <dt><strong><code>api_class</code></strong></dt>
@@ -425,7 +414,7 @@ Set the API object for the API we are proxying </p>
     Args:
         api_class: The API class to proxy.
         config: The configuration settings for the API.
-    
+
     Attributes:
         All attributes and methods are passed through to the API object. It will be as if
         you are accessing the API object directly.
@@ -434,19 +423,19 @@ Set the API object for the API we are proxying </p>
         A proxy class that functions as an interface to API client / consumer objects.
     &#34;&#34;&#34;
     def __init__(self, api_class, config):
-        &#34;&#34;&#34; 
-        Set the API object for the API we are proxying 
+        &#34;&#34;&#34;
+        Set the API object for the API we are proxying
 
         Args:
             api_class: The API class to proxy.
             config: The configuration settings for the API.
         &#34;&#34;&#34;
         self.api_object = api_class(config)
-    
+
     def __dir__(self):
         &#34;&#34;&#34; Proxy the dir() method to the API object. &#34;&#34;&#34;
         return dir(self.api_object)
-    
+
     def __getattribute__(self, item):
         &#34;&#34;&#34; Proxy all attribute access to the API object (except for api_object itself). &#34;&#34;&#34;
         api_object = object.__getattribute__(self, &#39;api_object&#39;)
@@ -458,20 +447,21 @@ Set the API object for the API we are proxying </p>
             return object.__getattribute__(self, &#39;_wrap_callable&#39;)(attr)
         else:
             return attr
-        
+
     def __setattr__(self, item, value):
         &#34;&#34;&#34; Proxy all attribute setting to the API object (except for api_object itself). &#34;&#34;&#34;
         if item == &#39;api_object&#39;:
             return object.__setattr__(self, item, value)
         api_object = object.__getattribute__(self, &#39;api_object&#39;)
         setattr(api_object, item, value)
-    
+
     def __call__(self, *args, **kwargs):
-        raise NotImplementedError(&#34;Direct method calls on APIProxyInterface are not supported. Access methods through api_object.&#34;)
+        raise NotImplementedError(&#34;Direct method calls on APIProxyInterface are not supported. \
+                                  Access methods through api_object.&#34;)
 
     def __repr__(self):
         return repr(f&#34;&lt;{object.__getattribute__(self, &#39;__class__&#39;).__name__}&gt; - {self.api_object}&#34;)
-    
+
     def _wrap_callable(self, method):
         &#34;&#34;&#34;
         Wraps callable method to intercept the result.
@@ -483,7 +473,7 @@ Set the API object for the API we are proxying </p>
             inject_into_instances(result, ModelBase, &#39;api_client&#39;, self.api_object)
             return result
         return wrapped
-    
+
     def _inject_into_instances(self, obj, cls, attribute_name, attribute_value, visited=None):
         &#34;&#34;&#34;
         Allows us to inject an attribute into all instances of a class, contained
@@ -499,9 +489,9 @@ Set the API object for the API we are proxying </p>
             return
 
         visited.add(id(obj))
-        
+
         inject_into_instances_method = object.__getattribute__(self, &#39;_inject_into_instances&#39;)
-        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value, visited)
+        inject = lambda obj: inject_into_instances_method(obj, cls, attribute_name, attribute_value, visited) # noqa
 
         if isinstance(obj, cls):
             obj.__setattr__(attribute_name, attribute_value)

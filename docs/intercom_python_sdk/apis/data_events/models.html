@@ -47,13 +47,10 @@ These models provide object oriented interfaces for the schemas defined in `apis
 &#34;&#34;&#34;
 # Built-ins
 from typing import (
-    Any, Union, List,
+    Optional,
+    List,
     TYPE_CHECKING,
 )
-
-# From Current API
-from . import schemas as de_schemas
-from . import models as de_models
 
 # From Current Package
 from ...core.model_base import ModelBase
@@ -61,111 +58,119 @@ from ...core.model_base import ModelBase
 if TYPE_CHECKING:
     from .api import DataEventsAPI
 
+
 class DataEventSummary(ModelBase):
     def __init__(self, *args, **kwargs):
-        self.__event_name= kwargs.get(&#39;event_name&#39;)
-        self.__count = kwargs.get(&#39;count&#39;)
-        self.__first = kwargs.get(&#39;first&#39;)
-        self.__last = kwargs.get(&#39;last&#39;)
-    
+        self.__event_name = kwargs.get(&#39;event_name&#39;, &#39;&#39;)
+        self.__count = kwargs.get(&#39;count&#39;, &#39;&#39;)
+        self.__first = kwargs.get(&#39;first&#39;, &#39;&#39;)
+        self.__last = kwargs.get(&#39;last&#39;, &#39;&#39;)
+
+    # Properties
+
     @property
     def event_name(self) -&gt; str:
         return self.__event_name
-    
+
     @property
     def count(self) -&gt; str:
         return self.__count
-    
+
     @property
     def first(self) -&gt; str:
         return self.__first
-    
+
     @property
     def last(self) -&gt; str:
         return self.__last
-    
+
 
 class DataEvent(ModelBase):
     def __init__(self, *args, **kwargs):
-        self.__type__ = kwargs.get(&#39;type&#39;)
-        self.__event_name__ = kwargs.get(&#39;event_name&#39;)
+        self.__type__ = kwargs.get(&#39;type&#39;, &#39;event&#39;)
+        self.__event_name__ = kwargs.get(&#39;event_name&#39;, &#39;&#39;)
         self.__created_at__ = kwargs.get(&#39;created_at&#39;)
-        self.__id__ = kwargs.get(&#39;id&#39;)
-        self.__intercom_user_id__ = kwargs.get(&#39;intercom_user_id&#39;)
-        self.__email__ = kwargs.get(&#39;email&#39;)
-        self.__metadata__ = kwargs.get(&#39;metadata&#39;)
-        self._api_client: &#39;DataEventsAPI&#39; = kwargs.get(&#39;api_client&#39;) # type: ignore
+        self.__id__ = kwargs.get(&#39;id&#39;, &#39;&#39;)
+        self.__intercom_user_id__ = kwargs.get(&#39;intercom_user_id&#39;, &#39;&#39;)
+        self.__email__ = kwargs.get(&#39;email&#39;, &#39;&#39;)
+        self.__metadata__ = kwargs.get(&#39;metadata&#39;, {})
+        self._api_client: &#39;DataEventsAPI&#39; = kwargs.get(&#39;api_client&#39;)  # type: ignore
 
-    
+    # Properties
+
     @property
     def api_client(self) -&gt; &#39;DataEventsAPI&#39;:
         return self._api_client
-    
+
     @api_client.setter
     def api_client(self, value: &#39;DataEventsAPI&#39;):
         self._api_client = value
-    
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
         return self.__type__
-    
+
     @property
     def event_name(self) -&gt; str:
         &#34;&#34;&#34; The name of the data event. &#34;&#34;&#34;
         return self.__event_name__
-    
+
     @property
-    def created_at(self) -&gt; int:
+    def created_at(self) -&gt; Optional[int]:
         &#34;&#34;&#34; The timestamp of the data event. &#34;&#34;&#34;
         return self.__created_at__
-    
+
     @property
     def id(self) -&gt; str:
         &#34;&#34;&#34; The ID of the data event. &#34;&#34;&#34;
         return self.__id__
-    
+
     @property
     def intercom_user_id(self) -&gt; str:
         &#34;&#34;&#34; The Intercom user ID of the user associated with the data event. &#34;&#34;&#34;
         return self.__intercom_user_id__
-    
+
     @property
     def email(self) -&gt; str:
         &#34;&#34;&#34; The email of the user associated with the data event. &#34;&#34;&#34;
         return self.__email__
-    
+
     @property
     def metadata(self) -&gt; dict:
         &#34;&#34;&#34; The metadata associated with the data event. &#34;&#34;&#34;
         return self.__metadata__
-    
+
 
 class DataEventsList(ModelBase):
     &#34;&#34;&#34; List of Data Events.
-    
+
     It is iterable and indexable like a list (will delegate to the `events` attribute).
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
         self.__type__ = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__events__ = kwargs.get(&#39;events&#39;, [])
 
+    # Properties
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
         return self.__type__
-    
+
     @property
     def events(self) -&gt; List[DataEvent]:
         &#34;&#34;&#34; A list of Data Event objects. &#34;&#34;&#34;
         return self.__events__
-    
+
+    # Dunder Overrides
+
     def __iter__(self):
         return iter(self.events)
-    
+
     def __getitem__(self, index):
         return self.events[index]
-    
+
     def __len__(self):
         return len(self.events)</code></pre>
 </details>
@@ -196,54 +201,55 @@ class DataEventsList(ModelBase):
 </summary>
 <pre><code class="python">class DataEvent(ModelBase):
     def __init__(self, *args, **kwargs):
-        self.__type__ = kwargs.get(&#39;type&#39;)
-        self.__event_name__ = kwargs.get(&#39;event_name&#39;)
+        self.__type__ = kwargs.get(&#39;type&#39;, &#39;event&#39;)
+        self.__event_name__ = kwargs.get(&#39;event_name&#39;, &#39;&#39;)
         self.__created_at__ = kwargs.get(&#39;created_at&#39;)
-        self.__id__ = kwargs.get(&#39;id&#39;)
-        self.__intercom_user_id__ = kwargs.get(&#39;intercom_user_id&#39;)
-        self.__email__ = kwargs.get(&#39;email&#39;)
-        self.__metadata__ = kwargs.get(&#39;metadata&#39;)
-        self._api_client: &#39;DataEventsAPI&#39; = kwargs.get(&#39;api_client&#39;) # type: ignore
+        self.__id__ = kwargs.get(&#39;id&#39;, &#39;&#39;)
+        self.__intercom_user_id__ = kwargs.get(&#39;intercom_user_id&#39;, &#39;&#39;)
+        self.__email__ = kwargs.get(&#39;email&#39;, &#39;&#39;)
+        self.__metadata__ = kwargs.get(&#39;metadata&#39;, {})
+        self._api_client: &#39;DataEventsAPI&#39; = kwargs.get(&#39;api_client&#39;)  # type: ignore
 
-    
+    # Properties
+
     @property
     def api_client(self) -&gt; &#39;DataEventsAPI&#39;:
         return self._api_client
-    
+
     @api_client.setter
     def api_client(self, value: &#39;DataEventsAPI&#39;):
         self._api_client = value
-    
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
         return self.__type__
-    
+
     @property
     def event_name(self) -&gt; str:
         &#34;&#34;&#34; The name of the data event. &#34;&#34;&#34;
         return self.__event_name__
-    
+
     @property
-    def created_at(self) -&gt; int:
+    def created_at(self) -&gt; Optional[int]:
         &#34;&#34;&#34; The timestamp of the data event. &#34;&#34;&#34;
         return self.__created_at__
-    
+
     @property
     def id(self) -&gt; str:
         &#34;&#34;&#34; The ID of the data event. &#34;&#34;&#34;
         return self.__id__
-    
+
     @property
     def intercom_user_id(self) -&gt; str:
         &#34;&#34;&#34; The Intercom user ID of the user associated with the data event. &#34;&#34;&#34;
         return self.__intercom_user_id__
-    
+
     @property
     def email(self) -&gt; str:
         &#34;&#34;&#34; The email of the user associated with the data event. &#34;&#34;&#34;
         return self.__email__
-    
+
     @property
     def metadata(self) -&gt; dict:
         &#34;&#34;&#34; The metadata associated with the data event. &#34;&#34;&#34;
@@ -267,7 +273,7 @@ def api_client(self) -&gt; &#39;DataEventsAPI&#39;:
     return self._api_client</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.data_events.models.DataEvent.created_at"><code class="name">var <span class="ident">created_at</span> : int</code></dt>
+<dt id="intercom_python_sdk.apis.data_events.models.DataEvent.created_at"><code class="name">var <span class="ident">created_at</span> : Optional[int]</code></dt>
 <dd>
 <div class="desc"><p>The timestamp of the data event.</p></div>
 <details class="source">
@@ -275,7 +281,7 @@ def api_client(self) -&gt; &#39;DataEventsAPI&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def created_at(self) -&gt; int:
+def created_at(self) -&gt; Optional[int]:
     &#34;&#34;&#34; The timestamp of the data event. &#34;&#34;&#34;
     return self.__created_at__</code></pre>
 </details>
@@ -377,23 +383,25 @@ def type(self) -&gt; str:
 </summary>
 <pre><code class="python">class DataEventSummary(ModelBase):
     def __init__(self, *args, **kwargs):
-        self.__event_name= kwargs.get(&#39;event_name&#39;)
-        self.__count = kwargs.get(&#39;count&#39;)
-        self.__first = kwargs.get(&#39;first&#39;)
-        self.__last = kwargs.get(&#39;last&#39;)
-    
+        self.__event_name = kwargs.get(&#39;event_name&#39;, &#39;&#39;)
+        self.__count = kwargs.get(&#39;count&#39;, &#39;&#39;)
+        self.__first = kwargs.get(&#39;first&#39;, &#39;&#39;)
+        self.__last = kwargs.get(&#39;last&#39;, &#39;&#39;)
+
+    # Properties
+
     @property
     def event_name(self) -&gt; str:
         return self.__event_name
-    
+
     @property
     def count(self) -&gt; str:
         return self.__count
-    
+
     @property
     def first(self) -&gt; str:
         return self.__first
-    
+
     @property
     def last(self) -&gt; str:
         return self.__last</code></pre>
@@ -467,29 +475,33 @@ def last(self) -&gt; str:
 </summary>
 <pre><code class="python">class DataEventsList(ModelBase):
     &#34;&#34;&#34; List of Data Events.
-    
+
     It is iterable and indexable like a list (will delegate to the `events` attribute).
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
         self.__type__ = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__events__ = kwargs.get(&#39;events&#39;, [])
 
+    # Properties
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
         return self.__type__
-    
+
     @property
     def events(self) -&gt; List[DataEvent]:
         &#34;&#34;&#34; A list of Data Event objects. &#34;&#34;&#34;
         return self.__events__
-    
+
+    # Dunder Overrides
+
     def __iter__(self):
         return iter(self.events)
-    
+
     def __getitem__(self, index):
         return self.events[index]
-    
+
     def __len__(self):
         return len(self.events)</code></pre>
 </details>

@@ -91,7 +91,7 @@ class TagsToAPI(dict):
     
     Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
     &#34;&#34;&#34;
-    allowed_types = (APIBase, Consumer, ConsumerMeta) 
+    allowed_types = (APIBase, Consumer, ConsumerMeta)
 
     # Validation of assigned values to ensure only API classes are mapped.
     def __setitem__(self, key, value):
@@ -134,7 +134,7 @@ tags_to_api_dict[&#34;data_export&#34;] = DataExportAPI</code></pre>
     
     Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
     &#34;&#34;&#34;
-    allowed_types = (APIBase, Consumer, ConsumerMeta) 
+    allowed_types = (APIBase, Consumer, ConsumerMeta)
 
     # Validation of assigned values to ensure only API classes are mapped.
     def __setitem__(self, key, value):

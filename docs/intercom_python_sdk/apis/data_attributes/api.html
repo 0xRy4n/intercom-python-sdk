@@ -35,7 +35,7 @@ It is used to interact with the Intercom Data Attributes API [1] as defined in t
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34; 
+<pre><code class="python">&#34;&#34;&#34;
 # Data Attributes API
 
 `apis/data_attributes/api.py`
@@ -52,12 +52,11 @@ It is used to interact with the Intercom Data Attributes API [1] as defined in t
 from typing import Union
 
 # External
-import marshmallow
 from uplink import (
-    get, put, post, 
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query
+    get, put, post,
+    returns, json,
+    response_handler,
+    Body, Query
 )
 
 # From Current API
@@ -68,7 +67,6 @@ from .schemas import (
 
 from .models import (
     DataAttribute,
-    DataAttributeList
 )
 
 # From Current Package
@@ -80,11 +78,13 @@ from ...core.errors import catch_api_error
 class DataAttributesAPI(APIBase):
     URI = &#34;/data_attributes/&#34;
 
-    @returns(DataAttributeListSchema()) # type: ignore
+    @returns(DataAttributeListSchema())  # type: ignore
     @get(&#34;&#34;)
-    def list_all(self, include_archived: Query(&#34;include_archived&#34;, bool) = False, model: Query(&#34;model&#34;, str) = None): # type: ignore
-        &#34;&#34;&#34; List all data attributes. 
-        
+    def list_all(self,
+                 include_archived: Query(&#34;include_archived&#34;, bool) = False,  # noqa # type: ignore
+                 model: Query(&#34;model&#34;, str) = None):  # noqa # type: ignore
+        &#34;&#34;&#34; List all data attributes.
+
         Args:
             include_archived (bool): Whether or not to include archived data attributes. Defaults to False. (Optional)
             model (str): The model to filter by. Valid values are &#39;contact&#39;, &#39;company&#39;, and &#39;conversation&#39;. (Optional)
@@ -93,24 +93,24 @@ class DataAttributesAPI(APIBase):
             DataAttributeList: A list of data attributes.
         &#34;&#34;&#34;
 
-    @returns(DataAttributeSchema()) # type: ignore
+    @returns(DataAttributeSchema())  # type: ignore
     @post(&#34;&#34;)
-    def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
-        &#34;&#34;&#34; Create a new data attribute. 
-        
+    def create(self, attribute: Body(type=DataAttributeSchema)):  # type: ignore
+        &#34;&#34;&#34; Create a new data attribute.
+
         Args:
             attribute (DataAttribute): The data attribute to create.
-        
+
         Returns:
             DataAttribute: The newly created data attribute.
         &#34;&#34;&#34;
-    
-    @returns(DataAttributeSchema()) # type: ignore
+
+    @returns(DataAttributeSchema())  # type: ignore
     @json
     @put(&#34;{attribute_id}&#34;)
-    def update_by_id(self, attribute_id: Union[str, int], attribute: Body(type=DataAttributeSchema)): # type: ignore
+    def update_by_id(self, attribute_id: Union[str, int], attribute: Body(type=DataAttributeSchema)):  # type: ignore
         &#34;&#34;&#34; Update a data attribute by ID.
-         
+
         Args:
             attribute_id (Union[str, int]): The ID of the data attribute.
             attribute (DataAttribute): The updated data attribute.
@@ -122,8 +122,8 @@ class DataAttributesAPI(APIBase):
     # Helper Methods
 
     def get_by_id(self, attribute_id: Union[str, int]) -&gt; Union[DataAttribute, None]:
-        &#34;&#34;&#34; Get a data attribute by ID. 
-        
+        &#34;&#34;&#34; Get a data attribute by ID.
+
         Args:
             attribute_id (Union[str, int]): The ID of the data attribute.
 
@@ -131,11 +131,11 @@ class DataAttributesAPI(APIBase):
             DataAttribute: The data attribute with the given ID.
         &#34;&#34;&#34;
         data_attribute_list = self.list_all()
-        for data_attribute in data_attribute_list: # type: ignore
+        for data_attribute in data_attribute_list:  # type: ignore
             if data_attribute.id == attribute_id:
                 return data_attribute
-    
-    @returns(DataAttributeSchema(many=False)) # type: ignore
+
+    @returns(DataAttributeSchema(many=False))  # type: ignore
     def archive_by_id(self, attribute_id: Union[str, int]):
         &#34;&#34;&#34; Archive a data attribute by ID.
 
@@ -149,9 +149,8 @@ class DataAttributesAPI(APIBase):
         if data_attribute is None:
             raise ValueError(f&#34;Data attribute with ID {attribute_id} not found.&#34;)
         data_attribute.archived = True
-        
-        return self.update_by_id(attribute_id, data_attribute)
-    </code></pre>
+
+        return self.update_by_id(attribute_id, data_attribute)</code></pre>
 </details>
 </section>
 <section>
@@ -185,11 +184,13 @@ configure the Consumer instance using a Configuration object.</p>
 class DataAttributesAPI(APIBase):
     URI = &#34;/data_attributes/&#34;
 
-    @returns(DataAttributeListSchema()) # type: ignore
+    @returns(DataAttributeListSchema())  # type: ignore
     @get(&#34;&#34;)
-    def list_all(self, include_archived: Query(&#34;include_archived&#34;, bool) = False, model: Query(&#34;model&#34;, str) = None): # type: ignore
-        &#34;&#34;&#34; List all data attributes. 
-        
+    def list_all(self,
+                 include_archived: Query(&#34;include_archived&#34;, bool) = False,  # noqa # type: ignore
+                 model: Query(&#34;model&#34;, str) = None):  # noqa # type: ignore
+        &#34;&#34;&#34; List all data attributes.
+
         Args:
             include_archived (bool): Whether or not to include archived data attributes. Defaults to False. (Optional)
             model (str): The model to filter by. Valid values are &#39;contact&#39;, &#39;company&#39;, and &#39;conversation&#39;. (Optional)
@@ -198,24 +199,24 @@ class DataAttributesAPI(APIBase):
             DataAttributeList: A list of data attributes.
         &#34;&#34;&#34;
 
-    @returns(DataAttributeSchema()) # type: ignore
+    @returns(DataAttributeSchema())  # type: ignore
     @post(&#34;&#34;)
-    def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
-        &#34;&#34;&#34; Create a new data attribute. 
-        
+    def create(self, attribute: Body(type=DataAttributeSchema)):  # type: ignore
+        &#34;&#34;&#34; Create a new data attribute.
+
         Args:
             attribute (DataAttribute): The data attribute to create.
-        
+
         Returns:
             DataAttribute: The newly created data attribute.
         &#34;&#34;&#34;
-    
-    @returns(DataAttributeSchema()) # type: ignore
+
+    @returns(DataAttributeSchema())  # type: ignore
     @json
     @put(&#34;{attribute_id}&#34;)
-    def update_by_id(self, attribute_id: Union[str, int], attribute: Body(type=DataAttributeSchema)): # type: ignore
+    def update_by_id(self, attribute_id: Union[str, int], attribute: Body(type=DataAttributeSchema)):  # type: ignore
         &#34;&#34;&#34; Update a data attribute by ID.
-         
+
         Args:
             attribute_id (Union[str, int]): The ID of the data attribute.
             attribute (DataAttribute): The updated data attribute.
@@ -227,8 +228,8 @@ class DataAttributesAPI(APIBase):
     # Helper Methods
 
     def get_by_id(self, attribute_id: Union[str, int]) -&gt; Union[DataAttribute, None]:
-        &#34;&#34;&#34; Get a data attribute by ID. 
-        
+        &#34;&#34;&#34; Get a data attribute by ID.
+
         Args:
             attribute_id (Union[str, int]): The ID of the data attribute.
 
@@ -236,11 +237,11 @@ class DataAttributesAPI(APIBase):
             DataAttribute: The data attribute with the given ID.
         &#34;&#34;&#34;
         data_attribute_list = self.list_all()
-        for data_attribute in data_attribute_list: # type: ignore
+        for data_attribute in data_attribute_list:  # type: ignore
             if data_attribute.id == attribute_id:
                 return data_attribute
-    
-    @returns(DataAttributeSchema(many=False)) # type: ignore
+
+    @returns(DataAttributeSchema(many=False))  # type: ignore
     def archive_by_id(self, attribute_id: Union[str, int]):
         &#34;&#34;&#34; Archive a data attribute by ID.
 
@@ -254,7 +255,7 @@ class DataAttributesAPI(APIBase):
         if data_attribute is None:
             raise ValueError(f&#34;Data attribute with ID {attribute_id} not found.&#34;)
         data_attribute.archived = True
-        
+
         return self.update_by_id(attribute_id, data_attribute)</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -292,7 +293,7 @@ class DataAttributesAPI(APIBase):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(DataAttributeSchema(many=False)) # type: ignore
+<pre><code class="python">@returns(DataAttributeSchema(many=False))  # type: ignore
 def archive_by_id(self, attribute_id: Union[str, int]):
     &#34;&#34;&#34; Archive a data attribute by ID.
 
@@ -306,15 +307,15 @@ def archive_by_id(self, attribute_id: Union[str, int]):
     if data_attribute is None:
         raise ValueError(f&#34;Data attribute with ID {attribute_id} not found.&#34;)
     data_attribute.archived = True
-    
+
     return self.update_by_id(attribute_id, data_attribute)</code></pre>
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.data_attributes.api.DataAttributesAPI.create"><code class="name flex">
-<span>def <span class="ident">create</span></span>(<span>self, attribute: <uplink.arguments.Body object at 0x1051fa690>)</span>
+<span>def <span class="ident">create</span></span>(<span>self, attribute: <uplink.arguments.Body object at 0x1026d7a10>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a new data attribute. </p>
+<div class="desc"><p>Create a new data attribute.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>attribute</code></strong> :&ensp;<code>DataAttribute</code></dt>
@@ -329,14 +330,14 @@ def archive_by_id(self, attribute_id: Union[str, int]):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(DataAttributeSchema()) # type: ignore
+<pre><code class="python">@returns(DataAttributeSchema())  # type: ignore
 @post(&#34;&#34;)
-def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
-    &#34;&#34;&#34; Create a new data attribute. 
-    
+def create(self, attribute: Body(type=DataAttributeSchema)):  # type: ignore
+    &#34;&#34;&#34; Create a new data attribute.
+
     Args:
         attribute (DataAttribute): The data attribute to create.
-    
+
     Returns:
         DataAttribute: The newly created data attribute.
     &#34;&#34;&#34;</code></pre>
@@ -346,7 +347,7 @@ def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
 <span>def <span class="ident">get_by_id</span></span>(<span>self, attribute_id: Union[str, int]) ‑> Optional[<a title="intercom_python_sdk.apis.data_attributes.models.DataAttribute" href="models.html#intercom_python_sdk.apis.data_attributes.models.DataAttribute">DataAttribute</a>]</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Get a data attribute by ID. </p>
+<div class="desc"><p>Get a data attribute by ID.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>attribute_id</code></strong> :&ensp;<code>Union[str, int]</code></dt>
@@ -362,8 +363,8 @@ def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def get_by_id(self, attribute_id: Union[str, int]) -&gt; Union[DataAttribute, None]:
-    &#34;&#34;&#34; Get a data attribute by ID. 
-    
+    &#34;&#34;&#34; Get a data attribute by ID.
+
     Args:
         attribute_id (Union[str, int]): The ID of the data attribute.
 
@@ -371,16 +372,16 @@ def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
         DataAttribute: The data attribute with the given ID.
     &#34;&#34;&#34;
     data_attribute_list = self.list_all()
-    for data_attribute in data_attribute_list: # type: ignore
+    for data_attribute in data_attribute_list:  # type: ignore
         if data_attribute.id == attribute_id:
             return data_attribute</code></pre>
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.data_attributes.api.DataAttributesAPI.list_all"><code class="name flex">
-<span>def <span class="ident">list_all</span></span>(<span>self, include_archived: <uplink.arguments.Query object at 0x1051f8f50> = False, model: <uplink.arguments.Query object at 0x104f24250> = None)</span>
+<span>def <span class="ident">list_all</span></span>(<span>self, include_archived: <uplink.arguments.Query object at 0x101dba5d0> = False, model: <uplink.arguments.Query object at 0x101d9d910> = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>List all data attributes. </p>
+<div class="desc"><p>List all data attributes.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>include_archived</code></strong> :&ensp;<code>bool</code></dt>
@@ -397,11 +398,13 @@ def create(self, attribute: Body(type=DataAttributeSchema)): # type: ignore
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(DataAttributeListSchema()) # type: ignore
+<pre><code class="python">@returns(DataAttributeListSchema())  # type: ignore
 @get(&#34;&#34;)
-def list_all(self, include_archived: Query(&#34;include_archived&#34;, bool) = False, model: Query(&#34;model&#34;, str) = None): # type: ignore
-    &#34;&#34;&#34; List all data attributes. 
-    
+def list_all(self,
+             include_archived: Query(&#34;include_archived&#34;, bool) = False,  # noqa # type: ignore
+             model: Query(&#34;model&#34;, str) = None):  # noqa # type: ignore
+    &#34;&#34;&#34; List all data attributes.
+
     Args:
         include_archived (bool): Whether or not to include archived data attributes. Defaults to False. (Optional)
         model (str): The model to filter by. Valid values are &#39;contact&#39;, &#39;company&#39;, and &#39;conversation&#39;. (Optional)
@@ -412,7 +415,7 @@ def list_all(self, include_archived: Query(&#34;include_archived&#34;, bool) = F
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.data_attributes.api.DataAttributesAPI.update_by_id"><code class="name flex">
-<span>def <span class="ident">update_by_id</span></span>(<span>self, attribute_id: Union[str, int], attribute: <uplink.arguments.Body object at 0x1051fb910>)</span>
+<span>def <span class="ident">update_by_id</span></span>(<span>self, attribute_id: Union[str, int], attribute: <uplink.arguments.Body object at 0x1026f8cd0>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update a data attribute by ID.</p>
@@ -432,12 +435,12 @@ def list_all(self, include_archived: Query(&#34;include_archived&#34;, bool) = F
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(DataAttributeSchema()) # type: ignore
+<pre><code class="python">@returns(DataAttributeSchema())  # type: ignore
 @json
 @put(&#34;{attribute_id}&#34;)
-def update_by_id(self, attribute_id: Union[str, int], attribute: Body(type=DataAttributeSchema)): # type: ignore
+def update_by_id(self, attribute_id: Union[str, int], attribute: Body(type=DataAttributeSchema)):  # type: ignore
     &#34;&#34;&#34; Update a data attribute by ID.
-     
+
     Args:
         attribute_id (Union[str, int]): The ID of the data attribute.
         attribute (DataAttribute): The updated data attribute.

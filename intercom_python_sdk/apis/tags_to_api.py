@@ -54,6 +54,7 @@ class TagsToAPI(dict):
             raise TypeError(f"Invalid type. Value must be one of types {TagsToAPI.allowed_types}. Got {type(value)}.")
         super().__setitem__(key, value)
 
+
 tags_to_api_dict = TagsToAPI()
 tags_to_api_dict["admins"] = AdminsAPI
 tags_to_api_dict["articles"] = ArticlesAPI

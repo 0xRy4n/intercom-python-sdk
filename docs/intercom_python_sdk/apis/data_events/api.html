@@ -35,7 +35,7 @@ It is used to interact with the Intercom Data Events API [1] as defined in the I
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34; 
+<pre><code class="python">&#34;&#34;&#34;
 # Data Events API
 
 `apis/data_events/api.py`
@@ -48,16 +48,12 @@ It is used to interact with the Intercom Data Events API [1] as defined in the I
 - [2] https://github.com/intercom/Intercom-OpenAPI
 &#34;&#34;&#34;
 
-# Built-ins
-from typing import Union
-
 # External
-import marshmallow
 from uplink import (
-    get, put, post, 
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query
+    get, post,
+    returns,
+    response_handler,
+    Body, Query
 )
 
 # From Current API
@@ -67,7 +63,6 @@ from .schemas import (
 )
 
 from .models import (
-    DataEvent,
     DataEventsList
 )
 
@@ -82,26 +77,25 @@ class DataEventsAPI(APIBase):
     URI = &#34;/events/&#34;
 
     # Internal method required here so we can implement custom query parameter logic
-    @returns(DataEventsListSchema()) # type: ignore
+    @returns(DataEventsListSchema())  # type: ignore
     @get(&#34;&#34;)
-    def __list_all(self, 
-                   user_id: Query(&#34;user_id&#34;, str) = None, # type: ignore
-                   intercom_user_id: Query(&#34;intercom_user_id&#34;, str) = None, # type: ignore
-                   email: Query(&#34;email&#34;, str) = None, # type: ignore
-                   type: Query(&#34;type&#34;, str) = &#34;user&#34;, # type: ignore
-                   summary: Query(&#34;summary&#34;, bool) = False): # type: ignore
-    
+    def __list_all(self,
+                   user_id: Query(&#34;user_id&#34;, str) = None,  # noqa # type: ignore
+                   intercom_user_id: Query(&#34;intercom_user_id&#34;, str) = None,  # noqa # type: ignore
+                   email: Query(&#34;email&#34;, str) = None,  # noqa #  type: ignore
+                   type: Query(&#34;type&#34;, str) = &#34;user&#34;,  # noqa # type: ignore
+                   summary: Query(&#34;summary&#34;, bool) = False):  # noqa # type: ignore
+
         &#34;&#34;&#34; List all data events. Internal method for `list_all`.&#34;&#34;&#34;
 
-    
-    def list_all(self, 
-                 user_id: str = &#34;&#34;, 
+    def list_all(self,
+                 user_id: str = &#34;&#34;,
                  intercom_user_id: str = &#34;&#34;,
                  email: str = &#34;&#34;,
                  summary: bool = False) -&gt; DataEventsList:
-        
+
         &#34;&#34;&#34; List all data events.
-         
+
         Args:
             user_id (str): The user id of the user who triggered the event.
             intercom_user_id (str): The intercom user id of the user who triggered the event.
@@ -119,22 +113,19 @@ class DataEventsAPI(APIBase):
             raise ValueError(&#34;At least one of `user_id`, `intercom_user_id`, or `email` must be provided.&#34;)
 
         return self.__list_all(user_id=user_id, intercom_user_id=intercom_user_id, email=email, summary=summary)
-    
 
-    @returns(DataEventSchema()) # type: ignore
+    @returns(DataEventSchema())  # type: ignore
     @post(&#34;&#34;)
-    def submit(self, event: Body(type=DataEventSchema)): # type: ignore
-        &#34;&#34;&#34; Submit a new data event. 
-        
+    def submit(self, event: Body(type=DataEventSchema)):  # type: ignore
+        &#34;&#34;&#34; Submit a new data event.
+
         Args:
-            event (DataEventSchema): The data event to submit. Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
+            event (DataEventSchema): The data event to submit.
+                Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
 
         Returns:
             DataEvent: The data event that was submitted.
-        &#34;&#34;&#34;
-
-
-    </code></pre>
+        &#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -170,26 +161,25 @@ class DataEventsAPI(APIBase):
     URI = &#34;/events/&#34;
 
     # Internal method required here so we can implement custom query parameter logic
-    @returns(DataEventsListSchema()) # type: ignore
+    @returns(DataEventsListSchema())  # type: ignore
     @get(&#34;&#34;)
-    def __list_all(self, 
-                   user_id: Query(&#34;user_id&#34;, str) = None, # type: ignore
-                   intercom_user_id: Query(&#34;intercom_user_id&#34;, str) = None, # type: ignore
-                   email: Query(&#34;email&#34;, str) = None, # type: ignore
-                   type: Query(&#34;type&#34;, str) = &#34;user&#34;, # type: ignore
-                   summary: Query(&#34;summary&#34;, bool) = False): # type: ignore
-    
+    def __list_all(self,
+                   user_id: Query(&#34;user_id&#34;, str) = None,  # noqa # type: ignore
+                   intercom_user_id: Query(&#34;intercom_user_id&#34;, str) = None,  # noqa # type: ignore
+                   email: Query(&#34;email&#34;, str) = None,  # noqa #  type: ignore
+                   type: Query(&#34;type&#34;, str) = &#34;user&#34;,  # noqa # type: ignore
+                   summary: Query(&#34;summary&#34;, bool) = False):  # noqa # type: ignore
+
         &#34;&#34;&#34; List all data events. Internal method for `list_all`.&#34;&#34;&#34;
 
-    
-    def list_all(self, 
-                 user_id: str = &#34;&#34;, 
+    def list_all(self,
+                 user_id: str = &#34;&#34;,
                  intercom_user_id: str = &#34;&#34;,
                  email: str = &#34;&#34;,
                  summary: bool = False) -&gt; DataEventsList:
-        
+
         &#34;&#34;&#34; List all data events.
-         
+
         Args:
             user_id (str): The user id of the user who triggered the event.
             intercom_user_id (str): The intercom user id of the user who triggered the event.
@@ -207,15 +197,15 @@ class DataEventsAPI(APIBase):
             raise ValueError(&#34;At least one of `user_id`, `intercom_user_id`, or `email` must be provided.&#34;)
 
         return self.__list_all(user_id=user_id, intercom_user_id=intercom_user_id, email=email, summary=summary)
-    
 
-    @returns(DataEventSchema()) # type: ignore
+    @returns(DataEventSchema())  # type: ignore
     @post(&#34;&#34;)
-    def submit(self, event: Body(type=DataEventSchema)): # type: ignore
-        &#34;&#34;&#34; Submit a new data event. 
-        
+    def submit(self, event: Body(type=DataEventSchema)):  # type: ignore
+        &#34;&#34;&#34; Submit a new data event.
+
         Args:
-            event (DataEventSchema): The data event to submit. Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
+            event (DataEventSchema): The data event to submit.
+                Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
 
         Returns:
             DataEvent: The data event that was submitted.
@@ -263,14 +253,14 @@ class DataEventsAPI(APIBase):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def list_all(self, 
-             user_id: str = &#34;&#34;, 
+<pre><code class="python">def list_all(self,
+             user_id: str = &#34;&#34;,
              intercom_user_id: str = &#34;&#34;,
              email: str = &#34;&#34;,
              summary: bool = False) -&gt; DataEventsList:
-    
+
     &#34;&#34;&#34; List all data events.
-     
+
     Args:
         user_id (str): The user id of the user who triggered the event.
         intercom_user_id (str): The intercom user id of the user who triggered the event.
@@ -291,14 +281,15 @@ class DataEventsAPI(APIBase):
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.data_events.api.DataEventsAPI.submit"><code class="name flex">
-<span>def <span class="ident">submit</span></span>(<span>self, event: <uplink.arguments.Body object at 0x1052d1010>)</span>
+<span>def <span class="ident">submit</span></span>(<span>self, event: <uplink.arguments.Body object at 0x101dca050>)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Submit a new data event. </p>
+<div class="desc"><p>Submit a new data event.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>event</code></strong> :&ensp;<code>DataEventSchema</code></dt>
-<dd>The data event to submit. Takes in a DataEventSchema object as defined in <code>apis/data_events/schemas.py</code>.</dd>
+<dd>The data event to submit.
+Takes in a DataEventSchema object as defined in <code>apis/data_events/schemas.py</code>.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
@@ -309,13 +300,14 @@ class DataEventsAPI(APIBase):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(DataEventSchema()) # type: ignore
+<pre><code class="python">@returns(DataEventSchema())  # type: ignore
 @post(&#34;&#34;)
-def submit(self, event: Body(type=DataEventSchema)): # type: ignore
-    &#34;&#34;&#34; Submit a new data event. 
-    
+def submit(self, event: Body(type=DataEventSchema)):  # type: ignore
+    &#34;&#34;&#34; Submit a new data event.
+
     Args:
-        event (DataEventSchema): The data event to submit. Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
+        event (DataEventSchema): The data event to submit.
+            Takes in a DataEventSchema object as defined in `apis/data_events/schemas.py`.
 
     Returns:
         DataEvent: The data event that was submitted.

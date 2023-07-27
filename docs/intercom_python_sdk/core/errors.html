@@ -24,8 +24,9 @@
 <section id="section-intro">
 <h1 id="intercom-error-objects">Intercom Error Objects</h1>
 <p><code>core/errors.py</code></p>
-<p>This module contains the IntercomErrorObject and IntercomErrorList classes, which are custom exceptions for Intercom error objects.
-These models/schemas are implemented as defined by the Intercom API Reference [1].</p>
+<p>This module contains the IntercomErrorObject and IntercomErrorList classes, which
+are custom exceptions for Intercom error objects. These models/schemas are implemented
+as defined by the Intercom API Reference [1].</p>
 <hr>
 <ul>
 <li>[1] <a href="https://developers.intercom.com/intercom-api-reference/reference/error-objects">https://developers.intercom.com/intercom-api-reference/reference/error-objects</a></li>
@@ -39,28 +40,26 @@ These models/schemas are implemented as defined by the Intercom API Reference [1
 
 `core/errors.py`
 
-This module contains the IntercomErrorObject and IntercomErrorList classes, which are custom exceptions for Intercom error objects.
-These models/schemas are implemented as defined by the Intercom API Reference [1].
+This module contains the IntercomErrorObject and IntercomErrorList classes, which
+are custom exceptions for Intercom error objects. These models/schemas are implemented
+as defined by the Intercom API Reference [1].
 
 ---
 - [1] https://developers.intercom.com/intercom-api-reference/reference/error-objects
 &#34;&#34;&#34;
 # Built-ins
-import json
-
-from dataclasses import dataclass
 from pprint import pformat
 from typing import Any
 
 # External
 from marshmallow import (
-    fields, 
-    post_load, 
-    ValidationError
+    fields,
+    post_load,
 )
 
 # From Current Package
 from .schema_base import SchemaBase
+
 
 class IntercomErrorObjectSchema(SchemaBase):
     &#34;&#34;&#34;
@@ -113,7 +112,7 @@ class IntercomErrorObject:
 
     def __str__(self):
         return f&#34;\n{pformat(self.__dict__)}\n&#34;
-    
+
     def __repr__(self):
         return self.__str__()
 
@@ -127,14 +126,16 @@ class IntercomErrorList(Exception):
 
         super().__init__(f&#34;Error Response from Intercom API. Request ID: {self.request_id}\n {pformat(self.__dict__)}&#34;)
 
+
 def catch_api_error(response):  # type: ignore
     &#34;&#34;&#34; Catches API errors and raises them as as custom exceptions. &#34;&#34;&#34;
     if 200 &lt;= response.status_code &lt; 300:
         return response
-    
+
     data = response.json()
-    error = IntercomErrorListSchema().load(data) 
-    raise error # type: ignore</code></pre>
+    error = IntercomErrorListSchema().load(data)
+
+    raise error  # type: ignore</code></pre>
 </details>
 </section>
 <section>
@@ -157,10 +158,11 @@ def catch_api_error(response):  # type: ignore
     &#34;&#34;&#34; Catches API errors and raises them as as custom exceptions. &#34;&#34;&#34;
     if 200 &lt;= response.status_code &lt; 300:
         return response
-    
+
     data = response.json()
-    error = IntercomErrorListSchema().load(data) 
-    raise error # type: ignore</code></pre>
+    error = IntercomErrorListSchema().load(data)
+
+    raise error  # type: ignore</code></pre>
 </details>
 </dd>
 </dl>
@@ -291,7 +293,7 @@ def make_intercom_error_list(self, data, **kwargs):
 
     def __str__(self):
         return f&#34;\n{pformat(self.__dict__)}\n&#34;
-    
+
     def __repr__(self):
         return self.__str__()</code></pre>
 </details>

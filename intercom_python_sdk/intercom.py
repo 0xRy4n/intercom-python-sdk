@@ -32,7 +32,7 @@ class Intercom:
         if not api_key and not config:
             raise ValueError("Must provide either an API key or a Configuration object.")
         
-        if api_key and config: # type: ignore
+        if api_key and config:  # type: ignore
             warn("Both an API key and a Configuration object were provided. Using the Configuration object.")
         
         if not config:

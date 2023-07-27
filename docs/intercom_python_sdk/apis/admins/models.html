@@ -65,11 +65,11 @@ class TeamPriorityLevel(ModelBase):
     Attributes:
         See the `TeamPriorityLevelSchema` definition in `apis/admins/schemas.py` for details.
     &#34;&#34;&#34;
-    
+
     def __init__(self, *args, **kwargs):
         self.__primary_team_ids = kwargs.get(&#39;primary_team_ids&#39;)
         self.__secondary_team_ids = kwargs.get(&#39;secondary_team_ids&#39;)
-    
+
     @property
     def primary_team_ids(self):
         &#34;&#34;&#34;
@@ -79,7 +79,7 @@ class TeamPriorityLevel(ModelBase):
             List[int]: The IDs of the primary teams.
         &#34;&#34;&#34;
         return self.__primary_team_ids
-    
+
     @property
     def secondary_team_ids(self):
         &#34;&#34;&#34;
@@ -102,7 +102,7 @@ class Admin(ModelBase):
         api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__type: str  = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__type = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__id: str = kwargs.get(&#39;id&#39;, &#39;&#39;)
         self.__name = kwargs.get(&#39;name&#39;, &#39;&#39;)
         self.__email = kwargs.get(&#39;email&#39;, &#39;&#39;)
@@ -118,7 +118,7 @@ class Admin(ModelBase):
     def api_client(self) -&gt; &#39;AdminsAPI&#39;:
         &#34;&#34;&#34; Get the API Client Instance. &#34;&#34;&#34;
         return self._api_client
-    
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34;
@@ -128,7 +128,7 @@ class Admin(ModelBase):
             str: The type of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__type
-    
+
     @property
     def id(self) -&gt; str:
         &#34;&#34;&#34;
@@ -138,7 +138,7 @@ class Admin(ModelBase):
             str: The ID of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__id
-    
+
     @property
     def name(self) -&gt; str:
         &#34;&#34;&#34;
@@ -148,7 +148,7 @@ class Admin(ModelBase):
             str: The name of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__name
-    
+
     @property
     def email(self) -&gt; str:
         &#34;&#34;&#34;
@@ -158,7 +158,7 @@ class Admin(ModelBase):
             str: The email of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__email
-    
+
     @property
     def job_title(self) -&gt; str:
         &#34;&#34;&#34;
@@ -168,7 +168,7 @@ class Admin(ModelBase):
             str: The job title of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__job_title
-    
+
     @property
     def has_inbox_seat(self) -&gt; Union[bool, None]:
         &#34;&#34;&#34;
@@ -178,7 +178,7 @@ class Admin(ModelBase):
             bool: True if the admin has an inbox seat. None if unset.
         &#34;&#34;&#34;
         return self.__has_inbox_seat
-    
+
     @property
     def team_ids(self):
         &#34;&#34;&#34;
@@ -188,7 +188,7 @@ class Admin(ModelBase):
             List[str]: The IDs of the teams the admin belongs to. Empty list if unset.
         &#34;&#34;&#34;
         return self.__team_ids
-    
+
     @property
     def avatar(self) -&gt; dict:
         &#34;&#34;&#34;
@@ -200,7 +200,7 @@ class Admin(ModelBase):
                 - image_url (str): The URL of the avatar image.
         &#34;&#34;&#34;
         return self.__avatar
-    
+
     @property
     def team_priority_level(self) -&gt; Union[TeamPriorityLevel, None]:
         &#34;&#34;&#34;
@@ -211,7 +211,7 @@ class Admin(ModelBase):
             See `TeamPriorityLevel` in `apis/admins/models.py` for details.
         &#34;&#34;&#34;
         return self.__team_priority_level
-    
+
     @property
     def away_mode_enabled(self) -&gt; Union[bool, None]:
         &#34;&#34;&#34;
@@ -221,7 +221,7 @@ class Admin(ModelBase):
             bool: True if the admin&#39;s away mode is enabled. None if unset.
         &#34;&#34;&#34;
         return self.__away_mode_enabled
-    
+
     @property
     def away_mode_reassign(self) -&gt; Union[bool, None]:
         &#34;&#34;&#34;
@@ -230,8 +230,9 @@ class Admin(ModelBase):
         Returns:
             bool: True if the admin&#39;s away mode reassign is enabled. None if unset.
         &#34;&#34;&#34;
-    
+
     # Property Setters
+
     @api_client.setter
     def api_client(self, api_client: &#39;AdminsAPI&#39;):
         self._api_client = api_client
@@ -283,11 +284,12 @@ class Admin(ModelBase):
         Away enabled setting kept as its current value. If it cannot be obtained, it will default to True.
 
         Args:
-            enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled. Defaults to True.
+            enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled.
+                Defaults to True.
         &#34;&#34;&#34;
         enabled = self.away_mode_enabled or True
         self.api_client.set_away_by_id(self.id, away=enabled, reassign=enabled)
-        
+
 
 class AdminList(ModelBase):
     &#34;&#34;&#34;
@@ -299,7 +301,6 @@ class AdminList(ModelBase):
     Model-Specific Attributes:
         api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
     &#34;&#34;&#34;
-    
     def __init__(self, *args, **kwargs):
         self.__admins: List[Admin] = kwargs.get(&#39;admins&#39;, [])
         self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
@@ -313,7 +314,7 @@ class AdminList(ModelBase):
             List[Admin]: The admins.
         &#34;&#34;&#34;
         return self.__admins
-    
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34;
@@ -323,10 +324,10 @@ class AdminList(ModelBase):
             str: The type of the admin list.
         &#34;&#34;&#34;
         return self.__type
-    
+
     def __iter__(self):
         return iter(self.admins)
-    
+
     def __len__(self):
         return len(self.admins)</code></pre>
 </details>
@@ -365,7 +366,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
         api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__type: str  = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__type = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__id: str = kwargs.get(&#39;id&#39;, &#39;&#39;)
         self.__name = kwargs.get(&#39;name&#39;, &#39;&#39;)
         self.__email = kwargs.get(&#39;email&#39;, &#39;&#39;)
@@ -381,7 +382,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
     def api_client(self) -&gt; &#39;AdminsAPI&#39;:
         &#34;&#34;&#34; Get the API Client Instance. &#34;&#34;&#34;
         return self._api_client
-    
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34;
@@ -391,7 +392,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             str: The type of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__type
-    
+
     @property
     def id(self) -&gt; str:
         &#34;&#34;&#34;
@@ -401,7 +402,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             str: The ID of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__id
-    
+
     @property
     def name(self) -&gt; str:
         &#34;&#34;&#34;
@@ -411,7 +412,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             str: The name of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__name
-    
+
     @property
     def email(self) -&gt; str:
         &#34;&#34;&#34;
@@ -421,7 +422,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             str: The email of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__email
-    
+
     @property
     def job_title(self) -&gt; str:
         &#34;&#34;&#34;
@@ -431,7 +432,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             str: The job title of the admin. Empty if unset.
         &#34;&#34;&#34;
         return self.__job_title
-    
+
     @property
     def has_inbox_seat(self) -&gt; Union[bool, None]:
         &#34;&#34;&#34;
@@ -441,7 +442,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             bool: True if the admin has an inbox seat. None if unset.
         &#34;&#34;&#34;
         return self.__has_inbox_seat
-    
+
     @property
     def team_ids(self):
         &#34;&#34;&#34;
@@ -451,7 +452,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             List[str]: The IDs of the teams the admin belongs to. Empty list if unset.
         &#34;&#34;&#34;
         return self.__team_ids
-    
+
     @property
     def avatar(self) -&gt; dict:
         &#34;&#34;&#34;
@@ -463,7 +464,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
                 - image_url (str): The URL of the avatar image.
         &#34;&#34;&#34;
         return self.__avatar
-    
+
     @property
     def team_priority_level(self) -&gt; Union[TeamPriorityLevel, None]:
         &#34;&#34;&#34;
@@ -474,7 +475,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             See `TeamPriorityLevel` in `apis/admins/models.py` for details.
         &#34;&#34;&#34;
         return self.__team_priority_level
-    
+
     @property
     def away_mode_enabled(self) -&gt; Union[bool, None]:
         &#34;&#34;&#34;
@@ -484,7 +485,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             bool: True if the admin&#39;s away mode is enabled. None if unset.
         &#34;&#34;&#34;
         return self.__away_mode_enabled
-    
+
     @property
     def away_mode_reassign(self) -&gt; Union[bool, None]:
         &#34;&#34;&#34;
@@ -493,8 +494,9 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
         Returns:
             bool: True if the admin&#39;s away mode reassign is enabled. None if unset.
         &#34;&#34;&#34;
-    
+
     # Property Setters
+
     @api_client.setter
     def api_client(self, api_client: &#39;AdminsAPI&#39;):
         self._api_client = api_client
@@ -546,7 +548,8 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
         Away enabled setting kept as its current value. If it cannot be obtained, it will default to True.
 
         Args:
-            enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled. Defaults to True.
+            enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled.
+                Defaults to True.
         &#34;&#34;&#34;
         enabled = self.away_mode_enabled or True
         self.api_client.set_away_by_id(self.id, away=enabled, reassign=enabled)</code></pre>
@@ -882,7 +885,8 @@ def type(self) -&gt; str:
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>enabled</code></strong> :&ensp;<code>bool</code>, optional</dt>
-<dd>Whether the admin's away mode reassign should be enabled or disabled. Defaults to True.</dd>
+<dd>Whether the admin's away mode reassign should be enabled or disabled.
+Defaults to True.</dd>
 </dl></div>
 <details class="source">
 <summary>
@@ -895,7 +899,8 @@ def type(self) -&gt; str:
     Away enabled setting kept as its current value. If it cannot be obtained, it will default to True.
 
     Args:
-        enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled. Defaults to True.
+        enabled (bool, optional): Whether the admin&#39;s away mode reassign should be enabled or disabled.
+            Defaults to True.
     &#34;&#34;&#34;
     enabled = self.away_mode_enabled or True
     self.api_client.set_away_by_id(self.id, away=enabled, reassign=enabled)</code></pre>
@@ -927,7 +932,6 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
     Model-Specific Attributes:
         api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface
     &#34;&#34;&#34;
-    
     def __init__(self, *args, **kwargs):
         self.__admins: List[Admin] = kwargs.get(&#39;admins&#39;, [])
         self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
@@ -941,7 +945,7 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             List[Admin]: The admins.
         &#34;&#34;&#34;
         return self.__admins
-    
+
     @property
     def type(self) -&gt; str:
         &#34;&#34;&#34;
@@ -951,10 +955,10 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
             str: The type of the admin list.
         &#34;&#34;&#34;
         return self.__type
-    
+
     def __iter__(self):
         return iter(self.admins)
-    
+
     def __len__(self):
         return len(self.admins)</code></pre>
 </details>
@@ -1031,11 +1035,11 @@ def type(self) -&gt; str:
     Attributes:
         See the `TeamPriorityLevelSchema` definition in `apis/admins/schemas.py` for details.
     &#34;&#34;&#34;
-    
+
     def __init__(self, *args, **kwargs):
         self.__primary_team_ids = kwargs.get(&#39;primary_team_ids&#39;)
         self.__secondary_team_ids = kwargs.get(&#39;secondary_team_ids&#39;)
-    
+
     @property
     def primary_team_ids(self):
         &#34;&#34;&#34;
@@ -1045,7 +1049,7 @@ def type(self) -&gt; str:
             List[int]: The IDs of the primary teams.
         &#34;&#34;&#34;
         return self.__primary_team_ids
-    
+
     @property
     def secondary_team_ids(self):
         &#34;&#34;&#34;

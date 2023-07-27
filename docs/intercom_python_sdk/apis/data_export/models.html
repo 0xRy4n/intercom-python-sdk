@@ -50,19 +50,15 @@ These models provide object oriented interfaces for the schemas defined in `apis
 import time
 import requests
 from typing import (
-    Any, Union, List,
     TYPE_CHECKING,
 )
-
-# From Current API
-from . import schemas as dexport_schemas
-from . import models as dexport_models
 
 # From Current Package
 from ...core.model_base import ModelBase
 
 if TYPE_CHECKING:
     from .api import DataExportAPI
+
 
 class DataExportJob(ModelBase):
     &#34;&#34;&#34; A data export job. &#34;&#34;&#34;
@@ -71,21 +67,21 @@ class DataExportJob(ModelBase):
         self.__status = kwargs.get(&#34;status&#34;, &#34;&#34;)
         self.__download_expires_at = kwargs.get(&#34;download_expires_at&#34;, &#34;&#34;)
         self.__download_url = kwargs.get(&#34;download_url&#34;, &#34;&#34;)
-        self._api_client: DataExportAPI = kwargs.get(&#34;api_client&#34;) # type: ignore
+        self._api_client: DataExportAPI = kwargs.get(&#34;api_client&#34;)  # type: ignore
 
     @property
     def api_client(self) -&gt; &#39;DataExportAPI&#39;:
         return self._api_client
-    
+
     @api_client.setter
     def api_client(self, value: &#39;DataExportAPI&#39;):
         self._api_client = value
-    
+
     @property
     def job_identifier(self) -&gt; str:
         &#34;&#34;&#34; The unique identifier for this data export job. &#34;&#34;&#34;
         return self.__job_identifier
-    
+
     @property
     def status(self) -&gt; str:
         &#34;&#34;&#34; Status of this data export job.
@@ -99,41 +95,34 @@ class DataExportJob(ModelBase):
             - cancelled
         &#34;&#34;&#34;
         return self.__status
-    
+
     @property
     def download_expires_at(self) -&gt; str:
         &#34;&#34;&#34; Time after which the download will be unavailable. &#34;&#34;&#34;
         return self.__download_expires_at
-    
+
     @property
     def download_url(self) -&gt; str:
         &#34;&#34;&#34; URL to download the data export. &#34;&#34;&#34;
         return self.__download_url
-    
-    
+
     def update(self, **kwargs) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Update this data export job to fetch it&#39;s current status and values. &#34;&#34;&#34;
         job = self.api_client.get_export_job(job_identifier=self.job_identifier)
+        self.__update_self(job)
 
-        self.__status = job.status
-        self.__download_expires_at = job.download_expires_at
-        self.__download_url = job.download_url
-        
         return self
-    
+
     def cancel(self) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Cancel this data export job. &#34;&#34;&#34;
         job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
+        self.__update_self(job)
 
-        self.__status = job.status
-        self.__download_expires_at = job.download_expires_at
-        self.__download_url = job.download_url
-        
         return self
-    
+
     def wait_for_completion(self, timeout=120, frequency=5):
-        &#34;&#34;&#34; Wait for the data export job to complete. 
-        
+        &#34;&#34;&#34; Wait for the data export job to complete.
+
         Be aware that this method will block your thread until the job is completed.
         Using this method without a timeout is not recommended.
 
@@ -148,16 +137,19 @@ class DataExportJob(ModelBase):
         timeout_time = time.time() + timeout
         while self.status == &#34;pending&#34;:
             if time.time() &gt; timeout_time:
-                raise TimeoutError(f&#34;Data export job {self.job_identifier} failed to complete within {timeout} seconds.&#34;)
+                raise TimeoutError(
+                    f&#34;Data export job {self.job_identifier} \
+                    failed to complete within {timeout} seconds.&#34;
+                )
 
             time.sleep(frequency)
             self.update()
-        
+
         return True
 
     def download(self):
-        &#34;&#34;&#34; Download this data export job. 
-        
+        &#34;&#34;&#34; Download this data export job.
+
         Returns:
             bytes: The data export file. Generally a gzip compressed CSV file.
         &#34;&#34;&#34;
@@ -170,10 +162,11 @@ class DataExportJob(ModelBase):
             else:
                 raise ValueError(f&#34;Failed to download data export job {self.job_identifier} \
                                        with error: {response.text}&#34;)
-    
 
-
-            </code></pre>
+    def __update_self(self, job: &#39;DataExportJob&#39;):
+        self.__status = job.status
+        self.__download_expires_at = job.download_expires_at
+        self.__download_url = job.download_url</code></pre>
 </details>
 </section>
 <section>
@@ -202,21 +195,21 @@ class DataExportJob(ModelBase):
         self.__status = kwargs.get(&#34;status&#34;, &#34;&#34;)
         self.__download_expires_at = kwargs.get(&#34;download_expires_at&#34;, &#34;&#34;)
         self.__download_url = kwargs.get(&#34;download_url&#34;, &#34;&#34;)
-        self._api_client: DataExportAPI = kwargs.get(&#34;api_client&#34;) # type: ignore
+        self._api_client: DataExportAPI = kwargs.get(&#34;api_client&#34;)  # type: ignore
 
     @property
     def api_client(self) -&gt; &#39;DataExportAPI&#39;:
         return self._api_client
-    
+
     @api_client.setter
     def api_client(self, value: &#39;DataExportAPI&#39;):
         self._api_client = value
-    
+
     @property
     def job_identifier(self) -&gt; str:
         &#34;&#34;&#34; The unique identifier for this data export job. &#34;&#34;&#34;
         return self.__job_identifier
-    
+
     @property
     def status(self) -&gt; str:
         &#34;&#34;&#34; Status of this data export job.
@@ -230,41 +223,34 @@ class DataExportJob(ModelBase):
             - cancelled
         &#34;&#34;&#34;
         return self.__status
-    
+
     @property
     def download_expires_at(self) -&gt; str:
         &#34;&#34;&#34; Time after which the download will be unavailable. &#34;&#34;&#34;
         return self.__download_expires_at
-    
+
     @property
     def download_url(self) -&gt; str:
         &#34;&#34;&#34; URL to download the data export. &#34;&#34;&#34;
         return self.__download_url
-    
-    
+
     def update(self, **kwargs) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Update this data export job to fetch it&#39;s current status and values. &#34;&#34;&#34;
         job = self.api_client.get_export_job(job_identifier=self.job_identifier)
+        self.__update_self(job)
 
-        self.__status = job.status
-        self.__download_expires_at = job.download_expires_at
-        self.__download_url = job.download_url
-        
         return self
-    
+
     def cancel(self) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Cancel this data export job. &#34;&#34;&#34;
         job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
+        self.__update_self(job)
 
-        self.__status = job.status
-        self.__download_expires_at = job.download_expires_at
-        self.__download_url = job.download_url
-        
         return self
-    
+
     def wait_for_completion(self, timeout=120, frequency=5):
-        &#34;&#34;&#34; Wait for the data export job to complete. 
-        
+        &#34;&#34;&#34; Wait for the data export job to complete.
+
         Be aware that this method will block your thread until the job is completed.
         Using this method without a timeout is not recommended.
 
@@ -279,16 +265,19 @@ class DataExportJob(ModelBase):
         timeout_time = time.time() + timeout
         while self.status == &#34;pending&#34;:
             if time.time() &gt; timeout_time:
-                raise TimeoutError(f&#34;Data export job {self.job_identifier} failed to complete within {timeout} seconds.&#34;)
+                raise TimeoutError(
+                    f&#34;Data export job {self.job_identifier} \
+                    failed to complete within {timeout} seconds.&#34;
+                )
 
             time.sleep(frequency)
             self.update()
-        
+
         return True
 
     def download(self):
-        &#34;&#34;&#34; Download this data export job. 
-        
+        &#34;&#34;&#34; Download this data export job.
+
         Returns:
             bytes: The data export file. Generally a gzip compressed CSV file.
         &#34;&#34;&#34;
@@ -300,7 +289,12 @@ class DataExportJob(ModelBase):
                 return response.content
             else:
                 raise ValueError(f&#34;Failed to download data export job {self.job_identifier} \
-                                       with error: {response.text}&#34;)</code></pre>
+                                       with error: {response.text}&#34;)
+
+    def __update_self(self, job: &#39;DataExportJob&#39;):
+        self.__status = job.status
+        self.__download_expires_at = job.download_expires_at
+        self.__download_url = job.download_url</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -403,11 +397,8 @@ def status(self) -&gt; str:
 <pre><code class="python">def cancel(self) -&gt; &#39;DataExportJob&#39;:
     &#34;&#34;&#34; Cancel this data export job. &#34;&#34;&#34;
     job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
+    self.__update_self(job)
 
-    self.__status = job.status
-    self.__download_expires_at = job.download_expires_at
-    self.__download_url = job.download_url
-    
     return self</code></pre>
 </details>
 </dd>
@@ -415,7 +406,7 @@ def status(self) -&gt; str:
 <span>def <span class="ident">download</span></span>(<span>self)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Download this data export job. </p>
+<div class="desc"><p>Download this data export job.</p>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>bytes</code></dt>
@@ -426,8 +417,8 @@ def status(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def download(self):
-    &#34;&#34;&#34; Download this data export job. 
-    
+    &#34;&#34;&#34; Download this data export job.
+
     Returns:
         bytes: The data export file. Generally a gzip compressed CSV file.
     &#34;&#34;&#34;
@@ -454,11 +445,8 @@ def status(self) -&gt; str:
 <pre><code class="python">def update(self, **kwargs) -&gt; &#39;DataExportJob&#39;:
     &#34;&#34;&#34; Update this data export job to fetch it&#39;s current status and values. &#34;&#34;&#34;
     job = self.api_client.get_export_job(job_identifier=self.job_identifier)
+    self.__update_self(job)
 
-    self.__status = job.status
-    self.__download_expires_at = job.download_expires_at
-    self.__download_url = job.download_url
-    
     return self</code></pre>
 </details>
 </dd>
@@ -466,7 +454,7 @@ def status(self) -&gt; str:
 <span>def <span class="ident">wait_for_completion</span></span>(<span>self, timeout=120, frequency=5)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Wait for the data export job to complete. </p>
+<div class="desc"><p>Wait for the data export job to complete.</p>
 <p>Be aware that this method will block your thread until the job is completed.
 Using this method without a timeout is not recommended.</p>
 <h2 id="params">Params</h2>
@@ -487,8 +475,8 @@ frequency (int): The number of seconds to wait between checking the job status.<
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def wait_for_completion(self, timeout=120, frequency=5):
-    &#34;&#34;&#34; Wait for the data export job to complete. 
-    
+    &#34;&#34;&#34; Wait for the data export job to complete.
+
     Be aware that this method will block your thread until the job is completed.
     Using this method without a timeout is not recommended.
 
@@ -503,11 +491,14 @@ frequency (int): The number of seconds to wait between checking the job status.<
     timeout_time = time.time() + timeout
     while self.status == &#34;pending&#34;:
         if time.time() &gt; timeout_time:
-            raise TimeoutError(f&#34;Data export job {self.job_identifier} failed to complete within {timeout} seconds.&#34;)
+            raise TimeoutError(
+                f&#34;Data export job {self.job_identifier} \
+                failed to complete within {timeout} seconds.&#34;
+            )
 
         time.sleep(frequency)
         self.update()
-    
+
     return True</code></pre>
 </details>
 </dd>

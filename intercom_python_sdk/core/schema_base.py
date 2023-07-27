@@ -21,3 +21,6 @@ class SchemaBase(marshmallow.Schema):
         See https://marshmallow.readthedocs.io/en/stable/marshmallow.schema.html#marshmallow.schema.Schema.Meta
         """
         unknown = marshmallow.EXCLUDE  # Exclude unknown fields from deserialization
+
+    def to_dict(self):
+        return {name: type(field).__name__ for name, field in self.fields.items()}

@@ -33,7 +33,7 @@ It is used to interact with the Intercom Articles API [1] as defined in the Inte
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34; 
+<pre><code class="python">&#34;&#34;&#34;
 # Articles API
 
 `apis/articles/api.py`
@@ -47,15 +47,14 @@ It is used to interact with the Intercom Articles API [1] as defined in the Inte
 &#34;&#34;&#34;
 
 # Built-ins
-import functools
-from typing import Union, cast
+from typing import Union
 
 # External
 from uplink import (
     get, put, post,
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query,delete
+    delete, returns,
+    response_handler,
+    Body, json, Query
 )
 
 # From Current API
@@ -63,17 +62,18 @@ from .schemas import (
     ArticleSchema,
     ArticleListSchema
 )
-from .models import Article, ArticleStatistics, ArticleList
+from .models import ArticleList
 
 # From Current Package
 from ...core.api_base import APIBase
 from ...core.errors import catch_api_error
 
+
 @response_handler(catch_api_error)
 class ArticlesAPI(APIBase):
     URI = &#34;/articles/&#34;
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @get(&#34;{article_id}&#34;)
     def get_by_id(self, article_id: Union[str, int]):
         &#34;&#34;&#34; Get an Article by ID.
@@ -84,11 +84,11 @@ class ArticlesAPI(APIBase):
         Returns:
             Article: The Article with the given ID.
         &#34;&#34;&#34;
-    
-    @returns(ArticleSchema) # type: ignore
+
+    @returns(ArticleSchema)  # type: ignore
     @json
     @post(&#34;&#34;)
-    def create(self, data: Body(type=ArticleSchema)): # type: ignore
+    def create(self, data: Body(type=ArticleSchema)):  # type: ignore
 
         &#34;&#34;&#34; Create an Article.
 
@@ -99,7 +99,7 @@ class ArticlesAPI(APIBase):
             Article: The created Article.
         &#34;&#34;&#34;
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @delete(&#34;{article_id}&#34;)
     def delete_by_id(self, article_id: Union[str, int]):
         &#34;&#34;&#34; Delete an Article by ID.
@@ -111,9 +111,9 @@ class ArticlesAPI(APIBase):
             DeletedArticle: The deleted Article.
         &#34;&#34;&#34;
 
-    @returns(ArticleListSchema) # type: ignore
+    @returns(ArticleListSchema)  # type: ignore
     @get(&#34;&#34;)
-    def __list_all(self, page: Query(&#39;page&#39;), per_page: Query(&#39;per_page&#39;) = 50):
+    def __list_all(self, page: Query(&#39;page&#39;), per_page: Query(&#39;per_page&#39;) = 50):  # noqa # type: ignore
         &#34;&#34;&#34; List all Articles. &#34;&#34;&#34;
 
     def list_all(self, page: int = 1, per_page: int = 50) -&gt; ArticleList:
@@ -133,18 +133,18 @@ class ArticlesAPI(APIBase):
             new_page = self.__list_all(page=page, per_page=per_page)
             article_list.extend(new_page)
             article_list.pages = new_page.pages
-        
+
         return article_list
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @json
     @put(&#34;{article_id}&#34;)
-    def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
+    def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)):  # type: ignore
         &#34;&#34;&#34; Update an Article by ID.
 
         Args:
             article_id (Union[str, int]): The ID of the Article.
-            data (ArticleSchema): An article schema object to update via. 
+            data (ArticleSchema): An article schema object to update via.
         &#34;&#34;&#34;</code></pre>
 </details>
 </section>
@@ -179,7 +179,7 @@ configure the Consumer instance using a Configuration object.</p>
 class ArticlesAPI(APIBase):
     URI = &#34;/articles/&#34;
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @get(&#34;{article_id}&#34;)
     def get_by_id(self, article_id: Union[str, int]):
         &#34;&#34;&#34; Get an Article by ID.
@@ -190,11 +190,11 @@ class ArticlesAPI(APIBase):
         Returns:
             Article: The Article with the given ID.
         &#34;&#34;&#34;
-    
-    @returns(ArticleSchema) # type: ignore
+
+    @returns(ArticleSchema)  # type: ignore
     @json
     @post(&#34;&#34;)
-    def create(self, data: Body(type=ArticleSchema)): # type: ignore
+    def create(self, data: Body(type=ArticleSchema)):  # type: ignore
 
         &#34;&#34;&#34; Create an Article.
 
@@ -205,7 +205,7 @@ class ArticlesAPI(APIBase):
             Article: The created Article.
         &#34;&#34;&#34;
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @delete(&#34;{article_id}&#34;)
     def delete_by_id(self, article_id: Union[str, int]):
         &#34;&#34;&#34; Delete an Article by ID.
@@ -217,9 +217,9 @@ class ArticlesAPI(APIBase):
             DeletedArticle: The deleted Article.
         &#34;&#34;&#34;
 
-    @returns(ArticleListSchema) # type: ignore
+    @returns(ArticleListSchema)  # type: ignore
     @get(&#34;&#34;)
-    def __list_all(self, page: Query(&#39;page&#39;), per_page: Query(&#39;per_page&#39;) = 50):
+    def __list_all(self, page: Query(&#39;page&#39;), per_page: Query(&#39;per_page&#39;) = 50):  # noqa # type: ignore
         &#34;&#34;&#34; List all Articles. &#34;&#34;&#34;
 
     def list_all(self, page: int = 1, per_page: int = 50) -&gt; ArticleList:
@@ -239,18 +239,18 @@ class ArticlesAPI(APIBase):
             new_page = self.__list_all(page=page, per_page=per_page)
             article_list.extend(new_page)
             article_list.pages = new_page.pages
-        
+
         return article_list
 
-    @returns(ArticleSchema) # type: ignore
+    @returns(ArticleSchema)  # type: ignore
     @json
     @put(&#34;{article_id}&#34;)
-    def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
+    def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)):  # type: ignore
         &#34;&#34;&#34; Update an Article by ID.
 
         Args:
             article_id (Union[str, int]): The ID of the Article.
-            data (ArticleSchema): An article schema object to update via. 
+            data (ArticleSchema): An article schema object to update via.
         &#34;&#34;&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -270,7 +270,7 @@ class ArticlesAPI(APIBase):
 <h3>Methods</h3>
 <dl>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.create"><code class="name flex">
-<span>def <span class="ident">create</span></span>(<span>self, data: <uplink.arguments.Body object at 0x1052cff10>)</span>
+<span>def <span class="ident">create</span></span>(<span>self, data: <uplink.arguments.Body object at 0x1027fb610>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create an Article.</p>
@@ -288,10 +288,10 @@ class ArticlesAPI(APIBase):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(ArticleSchema) # type: ignore
+<pre><code class="python">@returns(ArticleSchema)  # type: ignore
 @json
 @post(&#34;&#34;)
-def create(self, data: Body(type=ArticleSchema)): # type: ignore
+def create(self, data: Body(type=ArticleSchema)):  # type: ignore
 
     &#34;&#34;&#34; Create an Article.
 
@@ -322,7 +322,7 @@ def create(self, data: Body(type=ArticleSchema)): # type: ignore
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(ArticleSchema) # type: ignore
+<pre><code class="python">@returns(ArticleSchema)  # type: ignore
 @delete(&#34;{article_id}&#34;)
 def delete_by_id(self, article_id: Union[str, int]):
     &#34;&#34;&#34; Delete an Article by ID.
@@ -354,7 +354,7 @@ def delete_by_id(self, article_id: Union[str, int]):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(ArticleSchema) # type: ignore
+<pre><code class="python">@returns(ArticleSchema)  # type: ignore
 @get(&#34;{article_id}&#34;)
 def get_by_id(self, article_id: Union[str, int]):
     &#34;&#34;&#34; Get an Article by ID.
@@ -405,12 +405,12 @@ def get_by_id(self, article_id: Union[str, int]):
         new_page = self.__list_all(page=page, per_page=per_page)
         article_list.extend(new_page)
         article_list.pages = new_page.pages
-    
+
     return article_list</code></pre>
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.articles.api.ArticlesAPI.update_by_id"><code class="name flex">
-<span>def <span class="ident">update_by_id</span></span>(<span>self, article_id: Union[str, int], data: <uplink.arguments.Body object at 0x105354bd0>)</span>
+<span>def <span class="ident">update_by_id</span></span>(<span>self, article_id: Union[str, int], data: <uplink.arguments.Body object at 0x1027d6dd0>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update an Article by ID.</p>
@@ -425,15 +425,15 @@ def get_by_id(self, article_id: Union[str, int]):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(ArticleSchema) # type: ignore
+<pre><code class="python">@returns(ArticleSchema)  # type: ignore
 @json
 @put(&#34;{article_id}&#34;)
-def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)): # type: ignore
+def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)):  # type: ignore
     &#34;&#34;&#34; Update an Article by ID.
 
     Args:
         article_id (Union[str, int]): The ID of the Article.
-        data (ArticleSchema): An article schema object to update via. 
+        data (ArticleSchema): An article schema object to update via.
     &#34;&#34;&#34;</code></pre>
 </details>
 </dd>

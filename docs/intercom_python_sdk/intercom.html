@@ -36,13 +36,14 @@
 
 This module contains the Intercom class, which is used to interact with the Intercom API.
 &#34;&#34;&#34;
-
-import marshmallow 
-
+# Built-ins
 from typing import Optional as Opt
-from uplink.auth import BearerToken
 from warnings import warn
 
+# External
+from uplink.auth import BearerToken
+
+# Current package 
 from .apis import tags_to_api_dict
 from .core.configuration import Configuration
 from .core.api_base import create_api_client
@@ -62,7 +63,7 @@ class Intercom:
         if not api_key and not config:
             raise ValueError(&#34;Must provide either an API key or a Configuration object.&#34;)
         
-        if api_key and config: # type: ignore
+        if api_key and config:  # type: ignore
             warn(&#34;Both an API key and a Configuration object were provided. Using the Configuration object.&#34;)
         
         if not config:
@@ -76,7 +77,6 @@ class Intercom:
                 proxy = None
 
             config = Configuration(auth=auth, proxy=proxy)
-
         
         for tag, api_class in tags_to_api_dict.items():
             setattr(self, tag, create_api_client(api_class, config))</code></pre>
@@ -125,7 +125,7 @@ class Intercom:
         if not api_key and not config:
             raise ValueError(&#34;Must provide either an API key or a Configuration object.&#34;)
         
-        if api_key and config: # type: ignore
+        if api_key and config:  # type: ignore
             warn(&#34;Both an API key and a Configuration object were provided. Using the Configuration object.&#34;)
         
         if not config:
@@ -139,7 +139,6 @@ class Intercom:
                 proxy = None
 
             config = Configuration(auth=auth, proxy=proxy)
-
         
         for tag, api_class in tags_to_api_dict.items():
             setattr(self, tag, create_api_client(api_class, config))</code></pre>

@@ -26,6 +26,40 @@ from .models import (
 from ...core.schema_base import SchemaBase
 
 
+class AdminAppSchema(SchemaBase):
+    """
+    This schema represents the app the admin belongs to.
+
+    Attributes:
+        type (str): The type of the app.
+        id (str): The ID of the app.
+        name (str): The name of the app.
+        region (str): The region of the app.
+        timezone (str): The timezone of the app.
+        created_at (int): The creation time of the app.
+        identity_verification (bool): True if the app has identity verification enabled, False otherwise.
+    """
+    type = fields.Str()
+    id = fields.Str()
+    name = fields.Str()
+    region = fields.Str()
+    timezone = fields.Str()
+    created_at = fields.Int()
+    identity_verification = fields.Boolean()
+
+
+class AdminAvatarSchema(SchemaBase):
+    """
+    This schema represents an avatar of an admin user.
+
+    Attributes:
+        type (str): The type of the avatar.
+        image_url (str): The URL of the avatar image.
+    """
+    type = fields.Str(default='avatar')
+    image_url = fields.Str()
+
+
 class TeamPriorityLevelSchema(SchemaBase):
     """
     This schema represents a priority level of a team.
@@ -65,12 +99,12 @@ class AdminSchema(SchemaBase):
     email = fields.Str()
     email_verified = fields.Boolean()
     job_title = fields.Str()
-    away_mode_enabled = fields.Boolean()
-    away_mode_reassign = fields.Boolean()
+    away_mode_enabled = fields.Boolean(allow_none=True)
+    away_mode_reassign = fields.Boolean(allow_none=True)
     has_inbox_seat = fields.Boolean()
     team_ids = fields.List(fields.Int())
-    avatar = fields.Dict()
-    app = fields.Dict()
+    avatar = fields.Nested(AdminAvatarSchema)
+    app = fields.Nested(AdminAppSchema)
     team_priority_level = fields.Nested(TeamPriorityLevelSchema)
 
     @marshmallow.post_load

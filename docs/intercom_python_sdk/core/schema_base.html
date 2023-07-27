@@ -41,17 +41,20 @@ import marshmallow
 
 
 class SchemaBase(marshmallow.Schema):
-    &#34;&#34;&#34; 
+    &#34;&#34;&#34;
     Base schema for all API schemas.
     &#34;&#34;&#34;
 
     class Meta:
-        &#34;&#34;&#34; 
-        Defines Meta options for schemas. 
+        &#34;&#34;&#34;
+        Defines Meta options for schemas.
 
         See https://marshmallow.readthedocs.io/en/stable/marshmallow.schema.html#marshmallow.schema.Schema.Meta
         &#34;&#34;&#34;
-        unknown = marshmallow.EXCLUDE # Exclude unknown fields from deserialization</code></pre>
+        unknown = marshmallow.EXCLUDE  # Exclude unknown fields from deserialization
+
+    def to_dict(self):
+        return {name: type(field).__name__ for name, field in self.fields.items()}</code></pre>
 </details>
 </section>
 <section>
@@ -74,17 +77,20 @@ class SchemaBase(marshmallow.Schema):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class SchemaBase(marshmallow.Schema):
-    &#34;&#34;&#34; 
+    &#34;&#34;&#34;
     Base schema for all API schemas.
     &#34;&#34;&#34;
 
     class Meta:
-        &#34;&#34;&#34; 
-        Defines Meta options for schemas. 
+        &#34;&#34;&#34;
+        Defines Meta options for schemas.
 
         See https://marshmallow.readthedocs.io/en/stable/marshmallow.schema.html#marshmallow.schema.Schema.Meta
         &#34;&#34;&#34;
-        unknown = marshmallow.EXCLUDE # Exclude unknown fields from deserialization</code></pre>
+        unknown = marshmallow.EXCLUDE  # Exclude unknown fields from deserialization
+
+    def to_dict(self):
+        return {name: type(field).__name__ for name, field in self.fields.items()}</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -94,6 +100,8 @@ class SchemaBase(marshmallow.Schema):
 </ul>
 <h3>Subclasses</h3>
 <ul class="hlist">
+<li><a title="intercom_python_sdk.apis.admins.schemas.AdminAppSchema" href="../apis/admins/schemas.html#intercom_python_sdk.apis.admins.schemas.AdminAppSchema">AdminAppSchema</a></li>
+<li><a title="intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema" href="../apis/admins/schemas.html#intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema">AdminAvatarSchema</a></li>
 <li><a title="intercom_python_sdk.apis.admins.schemas.AdminListSchema" href="../apis/admins/schemas.html#intercom_python_sdk.apis.admins.schemas.AdminListSchema">AdminListSchema</a></li>
 <li><a title="intercom_python_sdk.apis.admins.schemas.AdminSchema" href="../apis/admins/schemas.html#intercom_python_sdk.apis.admins.schemas.AdminSchema">AdminSchema</a></li>
 <li><a title="intercom_python_sdk.apis.admins.schemas.TeamPriorityLevelSchema" href="../apis/admins/schemas.html#intercom_python_sdk.apis.admins.schemas.TeamPriorityLevelSchema">TeamPriorityLevelSchema</a></li>
@@ -113,12 +121,28 @@ class SchemaBase(marshmallow.Schema):
 <dl>
 <dt id="intercom_python_sdk.core.schema_base.SchemaBase.Meta"><code class="name">var <span class="ident">Meta</span></code></dt>
 <dd>
-<div class="desc"><p>Defines Meta options for schemas. </p>
+<div class="desc"><p>Defines Meta options for schemas.</p>
 <p>See <a href="https://marshmallow.readthedocs.io/en/stable/marshmallow.schema.html#marshmallow.schema.Schema.Meta">https://marshmallow.readthedocs.io/en/stable/marshmallow.schema.html#marshmallow.schema.Schema.Meta</a></p></div>
 </dd>
 <dt id="intercom_python_sdk.core.schema_base.SchemaBase.opts"><code class="name">var <span class="ident">opts</span></code></dt>
 <dd>
 <div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="intercom_python_sdk.core.schema_base.SchemaBase.to_dict"><code class="name flex">
+<span>def <span class="ident">to_dict</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def to_dict(self):
+    return {name: type(field).__name__ for name, field in self.fields.items()}</code></pre>
+</details>
 </dd>
 </dl>
 </dd>
@@ -145,6 +169,7 @@ class SchemaBase(marshmallow.Schema):
 <ul class="">
 <li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.Meta" href="#intercom_python_sdk.core.schema_base.SchemaBase.Meta">Meta</a></code></li>
 <li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.opts" href="#intercom_python_sdk.core.schema_base.SchemaBase.opts">opts</a></code></li>
+<li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.to_dict" href="#intercom_python_sdk.core.schema_base.SchemaBase.to_dict">to_dict</a></code></li>
 </ul>
 </li>
 </ul>

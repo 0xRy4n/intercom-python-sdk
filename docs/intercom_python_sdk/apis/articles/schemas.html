@@ -41,7 +41,7 @@ These schemas provide serialization/deserialization to and from the models defin
 `apis/articles/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the 
+These schemas provide serialization/deserialization to and from the models defined in the
 `apis/data_attributes/models.py` module.
 
 ---
@@ -95,8 +95,10 @@ class ArticleSchema(SchemaBase):
         created_at (int): The timestamp of when the Article was created.
         updated_at (int): The timestamp of when the Article was updated.
         url (str): The URL of the Article.can be null if the Article is not published.
-        parent_id (int): The ID of the parent of the Article. can be null if the Article is not a child of another Article.
-        parent_type (str): The type of the parent of the Article. can be null if the Article is not a child of another Article.
+        parent_id (int): The ID of the parent of the Article.
+            Can be null if the Article is not a child of another Article.
+        parent_type (str): The type of the parent of the Article.
+            Can be null if the Article is not a child of another Article.
         default_locale (str): The default locale of the Article.
         statistics (dict): The statistics of the Article.
     &#34;&#34;&#34;
@@ -117,10 +119,8 @@ class ArticleSchema(SchemaBase):
 
     parent_id = fields.Int(allow_none=True)
     parent_type = fields.Str(allow_none=True)
-    
 
     @marshmallow.post_load
-
     def make_article(self, data, **kwargs):
         return a_models.Article(**data)
 
@@ -257,9 +257,11 @@ def make_article_list(self, data, **kwargs):
 <dt><strong><code>url</code></strong> :&ensp;<code>str</code></dt>
 <dd>The URL of the Article.can be null if the Article is not published.</dd>
 <dt><strong><code>parent_id</code></strong> :&ensp;<code>int</code></dt>
-<dd>The ID of the parent of the Article. can be null if the Article is not a child of another Article.</dd>
+<dd>The ID of the parent of the Article.
+Can be null if the Article is not a child of another Article.</dd>
 <dt><strong><code>parent_type</code></strong> :&ensp;<code>str</code></dt>
-<dd>The type of the parent of the Article. can be null if the Article is not a child of another Article.</dd>
+<dd>The type of the parent of the Article.
+Can be null if the Article is not a child of another Article.</dd>
 <dt><strong><code>default_locale</code></strong> :&ensp;<code>str</code></dt>
 <dd>The default locale of the Article.</dd>
 <dt><strong><code>statistics</code></strong> :&ensp;<code>dict</code></dt>
@@ -285,8 +287,10 @@ def make_article_list(self, data, **kwargs):
         created_at (int): The timestamp of when the Article was created.
         updated_at (int): The timestamp of when the Article was updated.
         url (str): The URL of the Article.can be null if the Article is not published.
-        parent_id (int): The ID of the parent of the Article. can be null if the Article is not a child of another Article.
-        parent_type (str): The type of the parent of the Article. can be null if the Article is not a child of another Article.
+        parent_id (int): The ID of the parent of the Article.
+            Can be null if the Article is not a child of another Article.
+        parent_type (str): The type of the parent of the Article.
+            Can be null if the Article is not a child of another Article.
         default_locale (str): The default locale of the Article.
         statistics (dict): The statistics of the Article.
     &#34;&#34;&#34;
@@ -307,10 +311,8 @@ def make_article_list(self, data, **kwargs):
 
     parent_id = fields.Int(allow_none=True)
     parent_type = fields.Str(allow_none=True)
-    
 
     @marshmallow.post_load
-
     def make_article(self, data, **kwargs):
         return a_models.Article(**data)</code></pre>
 </details>
@@ -340,7 +342,6 @@ def make_article_list(self, data, **kwargs):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@marshmallow.post_load
-
 def make_article(self, data, **kwargs):
     return a_models.Article(**data)</code></pre>
 </details>

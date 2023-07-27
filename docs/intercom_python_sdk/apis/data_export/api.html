@@ -34,7 +34,7 @@ It is used to interact with the Intercom Data Events API [1] as defined in the I
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">&#34;&#34;&#34; 
+<pre><code class="python">&#34;&#34;&#34;
 # Data Export API
 
 `apis/data_export/api.py`
@@ -52,18 +52,15 @@ from datetime import datetime
 from validator_collection import validators
 
 # External
-import marshmallow
 from uplink import (
-    get, put, post, 
-    returns, args, headers,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query
+    get, post,
+    returns, headers,
+    response_handler,
+    json, Body, Path
 )
 
 # From Current API
 from . import schemas as dexport_schemas
-from . import models as dexport_models
-
 
 # From Current Package
 from ...core.api_base import APIBase
@@ -73,16 +70,16 @@ from ...core.errors import catch_api_error
 @response_handler(catch_api_error)
 class DataExportAPI(APIBase):
     URI = &#34;/export/&#34;
-    
+
     @json
-    @returns(dexport_schemas.DataExportJobSchema()) # type: ignore
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
     @post(&#34;content/data&#34;)
-    def __create_data_export(self, payload: Body(type=dict)): # type: ignore
+    def __create_data_export(self, payload: Body(type=dict)):  # type: ignore
         &#34;&#34;&#34; Create a new data export. &#34;&#34;&#34;
 
     def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
-        &#34;&#34;&#34; Create a new data export. 
-        
+        &#34;&#34;&#34; Create a new data export.
+
         Args:
             created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
             created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
@@ -95,12 +92,11 @@ class DataExportAPI(APIBase):
             created_before = int(created_before.timestamp())
         else:
             created_before = validators.integer(created_before, minimum=0)
-        
+
         if isinstance(created_after, datetime):
             created_after = int(created_after.timestamp())
         else:
             created_after = validators.integer(created_after, minimum=0)
-
 
         payload = {
             &#34;created_before&#34;: created_before,
@@ -108,21 +104,11 @@ class DataExportAPI(APIBase):
         }
 
         return self.__create_data_export(payload=payload)
-    
 
     @headers({&#34;Accept&#34;: &#34;application/octet-stream&#34;})
-    @get(&#34;/download/content/data/{job_identifier}&#34;) # Leading slash as we aren&#39;t using the base URI
-    def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)): # type: ignore
-        &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;
-
-
-    
-
-    
-
-
-
-    </code></pre>
+    @get(&#34;/download/content/data/{job_identifier}&#34;)  # Leading slash as we aren&#39;t using the base URI
+    def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
+        &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -155,16 +141,16 @@ configure the Consumer instance using a Configuration object.</p>
 <pre><code class="python">@response_handler(catch_api_error)
 class DataExportAPI(APIBase):
     URI = &#34;/export/&#34;
-    
+
     @json
-    @returns(dexport_schemas.DataExportJobSchema()) # type: ignore
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
     @post(&#34;content/data&#34;)
-    def __create_data_export(self, payload: Body(type=dict)): # type: ignore
+    def __create_data_export(self, payload: Body(type=dict)):  # type: ignore
         &#34;&#34;&#34; Create a new data export. &#34;&#34;&#34;
 
     def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
-        &#34;&#34;&#34; Create a new data export. 
-        
+        &#34;&#34;&#34; Create a new data export.
+
         Args:
             created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
             created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
@@ -177,12 +163,11 @@ class DataExportAPI(APIBase):
             created_before = int(created_before.timestamp())
         else:
             created_before = validators.integer(created_before, minimum=0)
-        
+
         if isinstance(created_after, datetime):
             created_after = int(created_after.timestamp())
         else:
             created_after = validators.integer(created_after, minimum=0)
-
 
         payload = {
             &#34;created_before&#34;: created_before,
@@ -190,11 +175,10 @@ class DataExportAPI(APIBase):
         }
 
         return self.__create_data_export(payload=payload)
-    
 
     @headers({&#34;Accept&#34;: &#34;application/octet-stream&#34;})
-    @get(&#34;/download/content/data/{job_identifier}&#34;) # Leading slash as we aren&#39;t using the base URI
-    def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)): # type: ignore
+    @get(&#34;/download/content/data/{job_identifier}&#34;)  # Leading slash as we aren&#39;t using the base URI
+    def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
         &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -214,7 +198,7 @@ class DataExportAPI(APIBase):
 <h3>Methods</h3>
 <dl>
 <dt id="intercom_python_sdk.apis.data_export.api.DataExportAPI.download"><code class="name flex">
-<span>def <span class="ident">download</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x10535ef50>)</span>
+<span>def <span class="ident">download</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x1026af5d0>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Download a data export.</p></div>
@@ -223,8 +207,8 @@ class DataExportAPI(APIBase):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@headers({&#34;Accept&#34;: &#34;application/octet-stream&#34;})
-@get(&#34;/download/content/data/{job_identifier}&#34;) # Leading slash as we aren&#39;t using the base URI
-def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)): # type: ignore
+@get(&#34;/download/content/data/{job_identifier}&#34;)  # Leading slash as we aren&#39;t using the base URI
+def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
     &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;</code></pre>
 </details>
 </dd>
@@ -232,7 +216,7 @@ def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)): # type:
 <span>def <span class="ident">export</span></span>(<span>self, created_before: Union[int, datetime.datetime], created_after: Union[int, datetime.datetime])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Create a new data export. </p>
+<div class="desc"><p>Create a new data export.</p>
 <h2 id="args">Args</h2>
 <dl>
 <dt><strong><code>created_before</code></strong> :&ensp;<code>Union[int, datetime]</code></dt>
@@ -250,8 +234,8 @@ def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)): # type:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">def export(self, created_before: Union[int, datetime], created_after: Union[int, datetime]):
-    &#34;&#34;&#34; Create a new data export. 
-    
+    &#34;&#34;&#34; Create a new data export.
+
     Args:
         created_before (Union[int, datetime]): Datetime or unix epoch to define the upper bound of the export.
         created_after (Union[int, datetime]): Datetime or unix epoch to define the lower bound of the export.
@@ -264,12 +248,11 @@ def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)): # type:
         created_before = int(created_before.timestamp())
     else:
         created_before = validators.integer(created_before, minimum=0)
-    
+
     if isinstance(created_after, datetime):
         created_after = int(created_after.timestamp())
     else:
         created_after = validators.integer(created_after, minimum=0)
-
 
     payload = {
         &#34;created_before&#34;: created_before,

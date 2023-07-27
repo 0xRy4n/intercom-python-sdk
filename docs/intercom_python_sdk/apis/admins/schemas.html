@@ -25,7 +25,8 @@
 <h1 id="admins-api-schemas">Admins API Schemas</h1>
 <p><code>apis/admins/schemas.py</code></p>
 <p>This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the <code>apis/admins/models.py</code> module.</p>
+These schemas provide serialization/deserialization to and from the models defined
+in the <code>apis/admins/models.py</code> module.</p>
 <hr>
 <ul>
 <li>[1] <a href="https://developers.intercom.com/intercom-api-reference/reference/the-admin-model">https://developers.intercom.com/intercom-api-reference/reference/the-admin-model</a></li>
@@ -40,7 +41,8 @@ These schemas provide serialization/deserialization to and from the models defin
 `apis/admins/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the `apis/admins/models.py` module.
+These schemas provide serialization/deserialization to and from the models defined
+in the `apis/admins/models.py` module.
 
 ---
 - [1] https://developers.intercom.com/intercom-api-reference/reference/the-admin-model
@@ -52,7 +54,7 @@ from marshmallow import fields
 
 # From Current API
 from .models import (
-    Admin, 
+    Admin,
     AdminList,
     TeamPriorityLevel
 )
@@ -61,10 +63,44 @@ from .models import (
 from ...core.schema_base import SchemaBase
 
 
+class AdminAppSchema(SchemaBase):
+    &#34;&#34;&#34;
+    This schema represents the app the admin belongs to.
+
+    Attributes:
+        type (str): The type of the app.
+        id (str): The ID of the app.
+        name (str): The name of the app.
+        region (str): The region of the app.
+        timezone (str): The timezone of the app.
+        created_at (int): The creation time of the app.
+        identity_verification (bool): True if the app has identity verification enabled, False otherwise.
+    &#34;&#34;&#34;
+    type = fields.Str()
+    id = fields.Str()
+    name = fields.Str()
+    region = fields.Str()
+    timezone = fields.Str()
+    created_at = fields.Int()
+    identity_verification = fields.Boolean()
+
+
+class AdminAvatarSchema(SchemaBase):
+    &#34;&#34;&#34;
+    This schema represents an avatar of an admin user.
+
+    Attributes:
+        type (str): The type of the avatar.
+        image_url (str): The URL of the avatar image.
+    &#34;&#34;&#34;
+    type = fields.Str(default=&#39;avatar&#39;)
+    image_url = fields.Str()
+
+
 class TeamPriorityLevelSchema(SchemaBase):
     &#34;&#34;&#34;
     This schema represents a priority level of a team.
-    
+
     Attributes:
         primary_team_ids (List[int]): The IDs of the primary teams.
         secondary_team_ids (List[int]): The IDs of the secondary teams.
@@ -75,12 +111,12 @@ class TeamPriorityLevelSchema(SchemaBase):
     @marshmallow.post_load
     def make_team_priority_level(self, data, **kwargs):
         return TeamPriorityLevel(**data)
-    
+
 
 class AdminSchema(SchemaBase):
     &#34;&#34;&#34;
     This schema represents an admin user on Intercom.
-    
+
     Attributes:
         type (str): The type of the admin user.
         id (str): The ID of the admin user.
@@ -100,18 +136,18 @@ class AdminSchema(SchemaBase):
     email = fields.Str()
     email_verified = fields.Boolean()
     job_title = fields.Str()
-    away_mode_enabled = fields.Boolean()
-    away_mode_reassign = fields.Boolean()
+    away_mode_enabled = fields.Boolean(allow_none=True)
+    away_mode_reassign = fields.Boolean(allow_none=True)
     has_inbox_seat = fields.Boolean()
     team_ids = fields.List(fields.Int())
-    avatar = fields.Dict()
-    app = fields.Dict()
+    avatar = fields.Nested(AdminAvatarSchema)
+    app = fields.Nested(AdminAppSchema)
     team_priority_level = fields.Nested(TeamPriorityLevelSchema)
 
     @marshmallow.post_load
     def make_admin(self, data, **kwargs):
         return Admin(**data)
-    
+
 
 class AdminListSchema(SchemaBase):
     type = fields.Str()
@@ -131,6 +167,128 @@ class AdminListSchema(SchemaBase):
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
+<dt id="intercom_python_sdk.apis.admins.schemas.AdminAppSchema"><code class="flex name class">
+<span>class <span class="ident">AdminAppSchema</span></span>
+<span>(</span><span>*, only: types.StrSequenceOrSet | None = None, exclude: types.StrSequenceOrSet = (), many: bool = False, context: dict | None = None, load_only: types.StrSequenceOrSet = (), dump_only: types.StrSequenceOrSet = (), partial: bool | types.StrSequenceOrSet | None = None, unknown: str | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This schema represents the app the admin belongs to.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of the app.</dd>
+<dt><strong><code>id</code></strong> :&ensp;<code>str</code></dt>
+<dd>The ID of the app.</dd>
+<dt><strong><code>name</code></strong> :&ensp;<code>str</code></dt>
+<dd>The name of the app.</dd>
+<dt><strong><code>region</code></strong> :&ensp;<code>str</code></dt>
+<dd>The region of the app.</dd>
+<dt><strong><code>timezone</code></strong> :&ensp;<code>str</code></dt>
+<dd>The timezone of the app.</dd>
+<dt><strong><code>created_at</code></strong> :&ensp;<code>int</code></dt>
+<dd>The creation time of the app.</dd>
+<dt><strong><code>identity_verification</code></strong> :&ensp;<code>bool</code></dt>
+<dd>True if the app has identity verification enabled, False otherwise.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AdminAppSchema(SchemaBase):
+    &#34;&#34;&#34;
+    This schema represents the app the admin belongs to.
+
+    Attributes:
+        type (str): The type of the app.
+        id (str): The ID of the app.
+        name (str): The name of the app.
+        region (str): The region of the app.
+        timezone (str): The timezone of the app.
+        created_at (int): The creation time of the app.
+        identity_verification (bool): True if the app has identity verification enabled, False otherwise.
+    &#34;&#34;&#34;
+    type = fields.Str()
+    id = fields.Str()
+    name = fields.Str()
+    region = fields.Str()
+    timezone = fields.Str()
+    created_at = fields.Int()
+    identity_verification = fields.Boolean()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></li>
+<li>marshmallow.schema.Schema</li>
+<li>marshmallow.base.SchemaABC</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.admins.schemas.AdminAppSchema.opts"><code class="name">var <span class="ident">opts</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></b></code>:
+<ul class="hlist">
+<li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.Meta" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase.Meta">Meta</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema"><code class="flex name class">
+<span>class <span class="ident">AdminAvatarSchema</span></span>
+<span>(</span><span>*, only: types.StrSequenceOrSet | None = None, exclude: types.StrSequenceOrSet = (), many: bool = False, context: dict | None = None, load_only: types.StrSequenceOrSet = (), dump_only: types.StrSequenceOrSet = (), partial: bool | types.StrSequenceOrSet | None = None, unknown: str | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This schema represents an avatar of an admin user.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>type</code></strong> :&ensp;<code>str</code></dt>
+<dd>The type of the avatar.</dd>
+<dt><strong><code>image_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL of the avatar image.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AdminAvatarSchema(SchemaBase):
+    &#34;&#34;&#34;
+    This schema represents an avatar of an admin user.
+
+    Attributes:
+        type (str): The type of the avatar.
+        image_url (str): The URL of the avatar image.
+    &#34;&#34;&#34;
+    type = fields.Str(default=&#39;avatar&#39;)
+    image_url = fields.Str()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></li>
+<li>marshmallow.schema.Schema</li>
+<li>marshmallow.base.SchemaABC</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema.opts"><code class="name">var <span class="ident">opts</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></b></code>:
+<ul class="hlist">
+<li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.Meta" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase.Meta">Meta</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
 <dt id="intercom_python_sdk.apis.admins.schemas.AdminListSchema"><code class="flex name class">
 <span>class <span class="ident">AdminListSchema</span></span>
 <span>(</span><span>*, only: types.StrSequenceOrSet | None = None, exclude: types.StrSequenceOrSet = (), many: bool = False, context: dict | None = None, load_only: types.StrSequenceOrSet = (), dump_only: types.StrSequenceOrSet = (), partial: bool | types.StrSequenceOrSet | None = None, unknown: str | None = None)</span>
@@ -227,7 +385,7 @@ def make_admin_list(self, data, **kwargs):
 <pre><code class="python">class AdminSchema(SchemaBase):
     &#34;&#34;&#34;
     This schema represents an admin user on Intercom.
-    
+
     Attributes:
         type (str): The type of the admin user.
         id (str): The ID of the admin user.
@@ -247,12 +405,12 @@ def make_admin_list(self, data, **kwargs):
     email = fields.Str()
     email_verified = fields.Boolean()
     job_title = fields.Str()
-    away_mode_enabled = fields.Boolean()
-    away_mode_reassign = fields.Boolean()
+    away_mode_enabled = fields.Boolean(allow_none=True)
+    away_mode_reassign = fields.Boolean(allow_none=True)
     has_inbox_seat = fields.Boolean()
     team_ids = fields.List(fields.Int())
-    avatar = fields.Dict()
-    app = fields.Dict()
+    avatar = fields.Nested(AdminAvatarSchema)
+    app = fields.Nested(AdminAppSchema)
     team_priority_level = fields.Nested(TeamPriorityLevelSchema)
 
     @marshmallow.post_load
@@ -319,7 +477,7 @@ def make_admin(self, data, **kwargs):
 <pre><code class="python">class TeamPriorityLevelSchema(SchemaBase):
     &#34;&#34;&#34;
     This schema represents a priority level of a team.
-    
+
     Attributes:
         primary_team_ids (List[int]): The IDs of the primary teams.
         secondary_team_ids (List[int]): The IDs of the secondary teams.
@@ -389,6 +547,18 @@ def make_team_priority_level(self, data, **kwargs):
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.admins.schemas.AdminAppSchema" href="#intercom_python_sdk.apis.admins.schemas.AdminAppSchema">AdminAppSchema</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.admins.schemas.AdminAppSchema.opts" href="#intercom_python_sdk.apis.admins.schemas.AdminAppSchema.opts">opts</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema" href="#intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema">AdminAvatarSchema</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema.opts" href="#intercom_python_sdk.apis.admins.schemas.AdminAvatarSchema.opts">opts</a></code></li>
+</ul>
+</li>
 <li>
 <h4><code><a title="intercom_python_sdk.apis.admins.schemas.AdminListSchema" href="#intercom_python_sdk.apis.admins.schemas.AdminListSchema">AdminListSchema</a></code></h4>
 <ul class="">

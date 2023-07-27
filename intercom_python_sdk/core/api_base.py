@@ -144,9 +144,7 @@ class APIBase(Consumer):
         self.config = config
 
         self.base_url = config.base_url + self.URI
-
-        print(f"[*] Loaded API Endpoint: {self.base_url}")
-
+        
         super().__init__(
             base_url=self.base_url,
             converters=config.converters,

@@ -41,7 +41,7 @@ These schemas provide serialization/deserialization to and from the models defin
 `apis/data_events/schemas.py`
 
 This module contains the schema definitions provided by the Intercom API Reference [1].
-These schemas provide serialization/deserialization to and from the models defined in the 
+These schemas provide serialization/deserialization to and from the models defined in the
 `apis/data_events/models.py` module.
 
 ---
@@ -59,8 +59,15 @@ from . import models as dexport_models
 from ...core.schema_base import SchemaBase
 
 
-
 class DataExportJobSchema(SchemaBase):
+    &#34;&#34;&#34; Schema for the DataExportJob model.
+
+    Attributes:
+        job_identifier (str): The identifier of the job.
+        status (str): The status of the job.
+        download_expires_at (str): The time at which the download expires.
+        download_url (str): The URL to download the job.
+    &#34;&#34;&#34;
     job_identifier = fields.Str()
     status = fields.Str()
     download_expires_at = fields.Str()
@@ -68,8 +75,7 @@ class DataExportJobSchema(SchemaBase):
 
     @marshmallow.post_load
     def make(self, data, **kwargs):
-        return dexport_models.DataExportJob(**data)
-    </code></pre>
+        return dexport_models.DataExportJob(**data)</code></pre>
 </details>
 </section>
 <section>
@@ -86,12 +92,31 @@ class DataExportJobSchema(SchemaBase):
 <span>(</span><span>*, only: types.StrSequenceOrSet | None = None, exclude: types.StrSequenceOrSet = (), many: bool = False, context: dict | None = None, load_only: types.StrSequenceOrSet = (), dump_only: types.StrSequenceOrSet = (), partial: bool | types.StrSequenceOrSet | None = None, unknown: str | None = None)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Base schema for all API schemas.</p></div>
+<div class="desc"><p>Schema for the DataExportJob model.</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>job_identifier</code></strong> :&ensp;<code>str</code></dt>
+<dd>The identifier of the job.</dd>
+<dt><strong><code>status</code></strong> :&ensp;<code>str</code></dt>
+<dd>The status of the job.</dd>
+<dt><strong><code>download_expires_at</code></strong> :&ensp;<code>str</code></dt>
+<dd>The time at which the download expires.</dd>
+<dt><strong><code>download_url</code></strong> :&ensp;<code>str</code></dt>
+<dd>The URL to download the job.</dd>
+</dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class DataExportJobSchema(SchemaBase):
+    &#34;&#34;&#34; Schema for the DataExportJob model.
+
+    Attributes:
+        job_identifier (str): The identifier of the job.
+        status (str): The status of the job.
+        download_expires_at (str): The time at which the download expires.
+        download_url (str): The URL to download the job.
+    &#34;&#34;&#34;
     job_identifier = fields.Str()
     status = fields.Str()
     download_expires_at = fields.Str()
