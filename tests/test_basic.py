@@ -1,22 +1,33 @@
+import importlib
+import inspect
+
 from unittest import TestCase
 
 
 class TestImports(TestCase):
-    def aaa_test_import_intercom(self):
+    def test_import_intercom(self):
         from intercom_python_sdk import Intercom
         assert Intercom
 
     def test_import_configuration(self):
         from intercom_python_sdk import Configuration
         assert Configuration
-    
+
     def test_import_models(self):
-        from intercom_python_sdk import models
-        assert models
-    
+        self._import_all_from('intercom_python_sdk.models')
+
     def test_import_apis(self):
-        from intercom_python_sdk import apis
-        assert apis
+        self._import_all_from('intercom_python_sdk.apis')
+
+    def _import_all_from(self, arg0):
+        models = importlib.import_module(arg0)
+        public_attrs = {
+            k: v
+            for k, v in models.__dict__.items()
+            if not k.startswith('_') and not inspect.ismodule(v)
+        }
+        locals().update(public_attrs)
+        assert models
 
 
 class TestCreateIntercom(TestCase):
@@ -48,8 +59,3 @@ class TestCreateIntercom(TestCase):
 
             assert isinstance(api_object, api), f"\
                 {api_name} is not an instance of {api}"
-
-
-
-
-
