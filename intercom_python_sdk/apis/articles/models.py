@@ -70,6 +70,7 @@ class Article(ModelBase):
         self.__default_locale = kwargs.get('default_locale', '')
         self.__statistics = kwargs.get('statistics', None)
         self.__id = kwargs.get('id', None)
+        self.__translated_content = kwargs.get('translated_content', {})
 
     # Properties
     @property
@@ -233,6 +234,16 @@ class Article(ModelBase):
         """
         return self.__id
 
+    @property
+    def translated_content(self) -> dict:
+        """
+        The translated content of the Article.
+
+        Returns:
+            dict: The translated content of the Article.
+        """
+        return self.__translated_content
+    
     @property
     def content(self) -> BeautifulSoup:
         """
@@ -404,6 +415,16 @@ class Article(ModelBase):
             id (int): The ID of the Article.
         """
         self.__id = id
+
+    @translated_content.setter
+    def translated_content(self, translated_content: dict):
+        """
+        The translated content of the Article.
+
+        Args:
+            translated_content (dict): The translated content of the Article.
+        """
+        self.__translated_content = translated_content
 
     # Methods
 

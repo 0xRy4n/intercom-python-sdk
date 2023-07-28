@@ -22,11 +22,11 @@ from uplink import (
 # From Current API
 from .schemas import (
     DataEventSchema,
-    DataEventsListSchema
+    DataEventListSchema
 )
 
 from .models import (
-    DataEventsList
+    DataEventList
 )
 
 # From Current Package
@@ -40,7 +40,7 @@ class DataEventsAPI(APIBase):
     URI = "/events/"
 
     # Internal method required here so we can implement custom query parameter logic
-    @returns(DataEventsListSchema())  # type: ignore
+    @returns(DataEventListSchema())  # type: ignore
     @get("")
     def __list_all(self,
                    user_id: Query("user_id", str) = None,  # noqa # type: ignore
@@ -55,7 +55,7 @@ class DataEventsAPI(APIBase):
                  user_id: str = "",
                  intercom_user_id: str = "",
                  email: str = "",
-                 summary: bool = False) -> DataEventsList:
+                 summary: bool = False) -> DataEventList:
 
         """ List all data events.
 

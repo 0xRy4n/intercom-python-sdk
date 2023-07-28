@@ -66,7 +66,7 @@ class DataEventSchema(SchemaBase):
         return da_models.DataEvent(**data)
 
 
-class DataEventsListSchema(SchemaBase):
+class DataEventListSchema(SchemaBase):
     """ Schema for a list of Data Events.
 
     Attributes:
@@ -78,4 +78,4 @@ class DataEventsListSchema(SchemaBase):
 
     @marshmallow.post_load
     def make(self, data, **kwargs):
-        return da_models.DataEventsList(**data)
+        return da_models.DataEventList(**data)

@@ -68,16 +68,16 @@ class ArticleSchema(SchemaBase):
     id = fields.Int(required=True)
     type = fields.Str(allow_none=True)
     workspace_id = fields.Str(allow_none=True)
-    title = fields.Str()
+    title = fields.Str(required=True)
     description = fields.Str(allow_none=True)
-    body = fields.Str()
-    author_id = fields.Int(allow_none=True)
+    body = fields.Str(required=True)
+    author_id = fields.Int(required=True)
     state = fields.Str(allow_none=True)
     created_at = fields.Int(allow_none=True)
     updated_at = fields.Int(allow_none=True)
     url = fields.Str(allow_none=True)
     default_locale = fields.Str(allow_none=True)
-    translated_content = fields.Dict(allow_none=True)
+    translated_content = fields.Dict(values=fields.Str(), default='', allow_none=True)
     statistics = fields.Nested(ArticleStatisticsSchema, allow_none=True)
 
     parent_id = fields.Int(allow_none=True)
@@ -88,6 +88,15 @@ class ArticleSchema(SchemaBase):
         return a_models.Article(**data)
 
 
+class ArticlePagesSchema(SchemaBase):
+    """ Paging information for a list of Articles on Intercom. """
+    type = fields.Str(default='pages')
+    page = fields.Int()
+    next = fields.Url(allow_none=True)
+    per_page = fields.Int(default=50)
+    total_pages = fields.Int()
+
+
 class ArticleListSchema(SchemaBase):
     """ This schema represents a list of Articles on Intercom.
 
@@ -96,7 +105,7 @@ class ArticleListSchema(SchemaBase):
         total_count (int): The total number of Articles.
         data (list): The list of Articles.
     """
-    pages = fields.Dict()
+    pages = fields.Nested(ArticlePagesSchema)
     total_count = fields.Int()
     data = fields.Nested(ArticleSchema, many=True)
 

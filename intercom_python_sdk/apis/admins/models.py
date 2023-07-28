@@ -295,3 +295,6 @@ class AdminList(ModelBase):
 
     def __len__(self):
         return len(self.admins)
+
+    def __getitem__(self, index):
+        return self.admins[index]

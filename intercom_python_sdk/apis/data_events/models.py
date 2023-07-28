@@ -106,7 +106,7 @@ class DataEvent(ModelBase):
         return self.__metadata__
 
 
-class DataEventsList(ModelBase):
+class DataEventList(ModelBase):
     """ List of Data Events.
 
     It is iterable and indexable like a list (will delegate to the `events` attribute).

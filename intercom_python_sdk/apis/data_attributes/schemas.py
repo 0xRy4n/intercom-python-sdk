@@ -48,7 +48,7 @@ class DataAttributeSchema(SchemaBase):
     name = fields.Str(required=True)
     model = fields.Str(required=True)
     data_type = fields.Str(required=True)
-    type = fields.Str()
+    type = fields.Str(default='data_attribute')
     id = fields.Int()
     full_name = fields.Str()
     label = fields.Str()
@@ -77,9 +77,8 @@ class DataAttributeListSchema(SchemaBase):
         pages (PagesSchema): The pagination information for the Data Attribute list.
     """
     type = fields.Str()
-    data = fields.List(fields.Nested(DataAttributeSchema(unknown=marshmallow.EXCLUDE)))
+    data = fields.Nested(DataAttributeSchema, many=True)
 
     @marshmallow.post_load
     def make_data_attribute_list(self, data, **kwargs):
-        print(data)
         return da_models.DataAttributeList(**data)
