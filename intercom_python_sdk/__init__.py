@@ -36,7 +36,7 @@ data = {
     'options': ['Option 1', 'Option 2'], # If your attribute has options, define theme (string only).
 }
 
-attribute_data = DataAttributeSchema().dump(data)
+attribute_data = DataAttributeSchema().dump(data) # You could also do .validate(data) here
 new_attribute = intercom.data_attributes.create(new_attribute) # Returns the new DataAttribute object.
 ```
 

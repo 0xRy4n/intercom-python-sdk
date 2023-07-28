@@ -1,3 +1,4 @@
+# flake8: noqa
 """
 # Models Import Interface
 
@@ -28,7 +29,7 @@ from ..apis.data_attributes.models import (
 
 from ..apis.data_events.models import (
     DataEvent, 
-    DataEventsList
+    DataEventList
 )
 
 from ..apis.data_export.models import DataExportJob

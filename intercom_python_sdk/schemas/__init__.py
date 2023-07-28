@@ -31,6 +31,10 @@ from ..apis.data_attributes.schemas import (
 
 from ..apis.data_events.schemas import (
     DataEventSchema,
-    DataEventsListSchema,
+    DataEventListSchema,
     DataEventSummarySchema
+)
+
+from ..apis.data_export.schemas import (
+    DataExportJobSchema,
 )
