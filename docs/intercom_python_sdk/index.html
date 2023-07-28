@@ -50,7 +50,7 @@ data = {
     'options': ['Option 1', 'Option 2'], # If your attribute has options, define theme (string only).
 }
 
-attribute_data = DataAttributeSchema().dump(data)
+attribute_data = DataAttributeSchema().dump(data) # You could also do .validate(data) here
 new_attribute = intercom.data_attributes.create(new_attribute) # Returns the new DataAttribute object.
 </code></pre>
 <p>Here, you can dump a standard dictionary of data into a Schema object, which can then be sent off to the API.</p>
@@ -102,7 +102,7 @@ data = {
     &#39;options&#39;: [&#39;Option 1&#39;, &#39;Option 2&#39;], # If your attribute has options, define theme (string only).
 }
 
-attribute_data = DataAttributeSchema().dump(data)
+attribute_data = DataAttributeSchema().dump(data) # You could also do .validate(data) here
 new_attribute = intercom.data_attributes.create(new_attribute) # Returns the new DataAttribute object.
 ```
 

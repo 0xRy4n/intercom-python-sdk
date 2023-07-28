@@ -142,7 +142,7 @@ class DataEvent(ModelBase):
         return self.__metadata__
 
 
-class DataEventsList(ModelBase):
+class DataEventList(ModelBase):
     &#34;&#34;&#34; List of Data Events.
 
     It is iterable and indexable like a list (will delegate to the `events` attribute).
@@ -366,6 +366,83 @@ def type(self) -&gt; str:
 </dd>
 </dl>
 </dd>
+<dt id="intercom_python_sdk.apis.data_events.models.DataEventList"><code class="flex name class">
+<span>class <span class="ident">DataEventList</span></span>
+<span>(</span><span>*args, **kwargs)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>List of Data Events.</p>
+<p>It is iterable and indexable like a list (will delegate to the <code>events</code> attribute).</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DataEventList(ModelBase):
+    &#34;&#34;&#34; List of Data Events.
+
+    It is iterable and indexable like a list (will delegate to the `events` attribute).
+    &#34;&#34;&#34;
+    def __init__(self, *args, **kwargs):
+        self.__type__ = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__events__ = kwargs.get(&#39;events&#39;, [])
+
+    # Properties
+
+    @property
+    def type(self) -&gt; str:
+        &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
+        return self.__type__
+
+    @property
+    def events(self) -&gt; List[DataEvent]:
+        &#34;&#34;&#34; A list of Data Event objects. &#34;&#34;&#34;
+        return self.__events__
+
+    # Dunder Overrides
+
+    def __iter__(self):
+        return iter(self.events)
+
+    def __getitem__(self, index):
+        return self.events[index]
+
+    def __len__(self):
+        return len(self.events)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
+</ul>
+<h3>Instance variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.data_events.models.DataEventList.events"><code class="name">var <span class="ident">events</span> : List[<a title="intercom_python_sdk.apis.data_events.models.DataEvent" href="#intercom_python_sdk.apis.data_events.models.DataEvent">DataEvent</a>]</code></dt>
+<dd>
+<div class="desc"><p>A list of Data Event objects.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def events(self) -&gt; List[DataEvent]:
+    &#34;&#34;&#34; A list of Data Event objects. &#34;&#34;&#34;
+    return self.__events__</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.data_events.models.DataEventList.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The type of the object.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def type(self) -&gt; str:
+    &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
+    return self.__type__</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
 <dt id="intercom_python_sdk.apis.data_events.models.DataEventSummary"><code class="flex name class">
 <span>class <span class="ident">DataEventSummary</span></span>
 <span>(</span><span>*args, **kwargs)</span>
@@ -462,83 +539,6 @@ def last(self) -&gt; str:
 </dd>
 </dl>
 </dd>
-<dt id="intercom_python_sdk.apis.data_events.models.DataEventsList"><code class="flex name class">
-<span>class <span class="ident">DataEventsList</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>List of Data Events.</p>
-<p>It is iterable and indexable like a list (will delegate to the <code>events</code> attribute).</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class DataEventsList(ModelBase):
-    &#34;&#34;&#34; List of Data Events.
-
-    It is iterable and indexable like a list (will delegate to the `events` attribute).
-    &#34;&#34;&#34;
-    def __init__(self, *args, **kwargs):
-        self.__type__ = kwargs.get(&#39;type&#39;, &#39;&#39;)
-        self.__events__ = kwargs.get(&#39;events&#39;, [])
-
-    # Properties
-
-    @property
-    def type(self) -&gt; str:
-        &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
-        return self.__type__
-
-    @property
-    def events(self) -&gt; List[DataEvent]:
-        &#34;&#34;&#34; A list of Data Event objects. &#34;&#34;&#34;
-        return self.__events__
-
-    # Dunder Overrides
-
-    def __iter__(self):
-        return iter(self.events)
-
-    def __getitem__(self, index):
-        return self.events[index]
-
-    def __len__(self):
-        return len(self.events)</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
-</ul>
-<h3>Instance variables</h3>
-<dl>
-<dt id="intercom_python_sdk.apis.data_events.models.DataEventsList.events"><code class="name">var <span class="ident">events</span> : List[<a title="intercom_python_sdk.apis.data_events.models.DataEvent" href="#intercom_python_sdk.apis.data_events.models.DataEvent">DataEvent</a>]</code></dt>
-<dd>
-<div class="desc"><p>A list of Data Event objects.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def events(self) -&gt; List[DataEvent]:
-    &#34;&#34;&#34; A list of Data Event objects. &#34;&#34;&#34;
-    return self.__events__</code></pre>
-</details>
-</dd>
-<dt id="intercom_python_sdk.apis.data_events.models.DataEventsList.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
-<dd>
-<div class="desc"><p>The type of the object.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">@property
-def type(self) -&gt; str:
-    &#34;&#34;&#34; The type of the object. &#34;&#34;&#34;
-    return self.__type__</code></pre>
-</details>
-</dd>
-</dl>
-</dd>
 </dl>
 </section>
 </article>
@@ -571,19 +571,19 @@ def type(self) -&gt; str:
 </ul>
 </li>
 <li>
+<h4><code><a title="intercom_python_sdk.apis.data_events.models.DataEventList" href="#intercom_python_sdk.apis.data_events.models.DataEventList">DataEventList</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventList.events" href="#intercom_python_sdk.apis.data_events.models.DataEventList.events">events</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventList.type" href="#intercom_python_sdk.apis.data_events.models.DataEventList.type">type</a></code></li>
+</ul>
+</li>
+<li>
 <h4><code><a title="intercom_python_sdk.apis.data_events.models.DataEventSummary" href="#intercom_python_sdk.apis.data_events.models.DataEventSummary">DataEventSummary</a></code></h4>
 <ul class="">
 <li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventSummary.count" href="#intercom_python_sdk.apis.data_events.models.DataEventSummary.count">count</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventSummary.event_name" href="#intercom_python_sdk.apis.data_events.models.DataEventSummary.event_name">event_name</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventSummary.first" href="#intercom_python_sdk.apis.data_events.models.DataEventSummary.first">first</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventSummary.last" href="#intercom_python_sdk.apis.data_events.models.DataEventSummary.last">last</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="intercom_python_sdk.apis.data_events.models.DataEventsList" href="#intercom_python_sdk.apis.data_events.models.DataEventsList">DataEventsList</a></code></h4>
-<ul class="">
-<li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventsList.events" href="#intercom_python_sdk.apis.data_events.models.DataEventsList.events">events</a></code></li>
-<li><code><a title="intercom_python_sdk.apis.data_events.models.DataEventsList.type" href="#intercom_python_sdk.apis.data_events.models.DataEventsList.type">type</a></code></li>
 </ul>
 </li>
 </ul>

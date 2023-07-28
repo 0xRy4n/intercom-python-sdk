@@ -86,7 +86,7 @@ class DataAttributeSchema(SchemaBase):
     name = fields.Str(required=True)
     model = fields.Str(required=True)
     data_type = fields.Str(required=True)
-    type = fields.Str()
+    type = fields.Str(default=&#39;data_attribute&#39;)
     id = fields.Int()
     full_name = fields.Str()
     label = fields.Str()
@@ -115,11 +115,10 @@ class DataAttributeListSchema(SchemaBase):
         pages (PagesSchema): The pagination information for the Data Attribute list.
     &#34;&#34;&#34;
     type = fields.Str()
-    data = fields.List(fields.Nested(DataAttributeSchema(unknown=marshmallow.EXCLUDE)))
+    data = fields.Nested(DataAttributeSchema, many=True)
 
     @marshmallow.post_load
     def make_data_attribute_list(self, data, **kwargs):
-        print(data)
         return da_models.DataAttributeList(**data)</code></pre>
 </details>
 </section>
@@ -161,11 +160,10 @@ class DataAttributeListSchema(SchemaBase):
         pages (PagesSchema): The pagination information for the Data Attribute list.
     &#34;&#34;&#34;
     type = fields.Str()
-    data = fields.List(fields.Nested(DataAttributeSchema(unknown=marshmallow.EXCLUDE)))
+    data = fields.Nested(DataAttributeSchema, many=True)
 
     @marshmallow.post_load
     def make_data_attribute_list(self, data, **kwargs):
-        print(data)
         return da_models.DataAttributeList(**data)</code></pre>
 </details>
 <h3>Ancestors</h3>
@@ -195,7 +193,6 @@ class DataAttributeListSchema(SchemaBase):
 </summary>
 <pre><code class="python">@marshmallow.post_load
 def make_data_attribute_list(self, data, **kwargs):
-    print(data)
     return da_models.DataAttributeList(**data)</code></pre>
 </details>
 </dd>
@@ -279,7 +276,7 @@ def make_data_attribute_list(self, data, **kwargs):
     name = fields.Str(required=True)
     model = fields.Str(required=True)
     data_type = fields.Str(required=True)
-    type = fields.Str()
+    type = fields.Str(default=&#39;data_attribute&#39;)
     id = fields.Int()
     full_name = fields.Str()
     label = fields.Str()

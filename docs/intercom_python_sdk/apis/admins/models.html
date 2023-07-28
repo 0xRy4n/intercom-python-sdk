@@ -329,7 +329,10 @@ class AdminList(ModelBase):
         return iter(self.admins)
 
     def __len__(self):
-        return len(self.admins)</code></pre>
+        return len(self.admins)
+
+    def __getitem__(self, index):
+        return self.admins[index]</code></pre>
 </details>
 </section>
 <section>
@@ -960,7 +963,10 @@ api_client (AdminsAPI): The API Client Instance. Injected via APIProxyInterface<
         return iter(self.admins)
 
     def __len__(self):
-        return len(self.admins)</code></pre>
+        return len(self.admins)
+
+    def __getitem__(self, index):
+        return self.admins[index]</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">

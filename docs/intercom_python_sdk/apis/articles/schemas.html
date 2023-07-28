@@ -105,16 +105,16 @@ class ArticleSchema(SchemaBase):
     id = fields.Int(required=True)
     type = fields.Str(allow_none=True)
     workspace_id = fields.Str(allow_none=True)
-    title = fields.Str()
+    title = fields.Str(required=True)
     description = fields.Str(allow_none=True)
-    body = fields.Str()
-    author_id = fields.Int(allow_none=True)
+    body = fields.Str(required=True)
+    author_id = fields.Int(required=True)
     state = fields.Str(allow_none=True)
     created_at = fields.Int(allow_none=True)
     updated_at = fields.Int(allow_none=True)
     url = fields.Str(allow_none=True)
     default_locale = fields.Str(allow_none=True)
-    translated_content = fields.Dict(allow_none=True)
+    translated_content = fields.Dict(values=fields.Str(), default=&#39;&#39;, allow_none=True)
     statistics = fields.Nested(ArticleStatisticsSchema, allow_none=True)
 
     parent_id = fields.Int(allow_none=True)
@@ -125,6 +125,15 @@ class ArticleSchema(SchemaBase):
         return a_models.Article(**data)
 
 
+class ArticlePagesSchema(SchemaBase):
+    &#34;&#34;&#34; Paging information for a list of Articles on Intercom. &#34;&#34;&#34;
+    type = fields.Str(default=&#39;pages&#39;)
+    page = fields.Int()
+    next = fields.Url(allow_none=True)
+    per_page = fields.Int(default=50)
+    total_pages = fields.Int()
+
+
 class ArticleListSchema(SchemaBase):
     &#34;&#34;&#34; This schema represents a list of Articles on Intercom.
 
@@ -133,7 +142,7 @@ class ArticleListSchema(SchemaBase):
         total_count (int): The total number of Articles.
         data (list): The list of Articles.
     &#34;&#34;&#34;
-    pages = fields.Dict()
+    pages = fields.Nested(ArticlePagesSchema)
     total_count = fields.Int()
     data = fields.Nested(ArticleSchema, many=True)
 
@@ -178,7 +187,7 @@ class ArticleListSchema(SchemaBase):
         total_count (int): The total number of Articles.
         data (list): The list of Articles.
     &#34;&#34;&#34;
-    pages = fields.Dict()
+    pages = fields.Nested(ArticlePagesSchema)
     total_count = fields.Int()
     data = fields.Nested(ArticleSchema, many=True)
 
@@ -215,6 +224,47 @@ class ArticleListSchema(SchemaBase):
 def make_article_list(self, data, **kwargs):
     return a_models.ArticleList(**data)</code></pre>
 </details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></b></code>:
+<ul class="hlist">
+<li><code><a title="intercom_python_sdk.core.schema_base.SchemaBase.Meta" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase.Meta">Meta</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="intercom_python_sdk.apis.articles.schemas.ArticlePagesSchema"><code class="flex name class">
+<span>class <span class="ident">ArticlePagesSchema</span></span>
+<span>(</span><span>*, only: types.StrSequenceOrSet | None = None, exclude: types.StrSequenceOrSet = (), many: bool = False, context: dict | None = None, load_only: types.StrSequenceOrSet = (), dump_only: types.StrSequenceOrSet = (), partial: bool | types.StrSequenceOrSet | None = None, unknown: str | None = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Paging information for a list of Articles on Intercom.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ArticlePagesSchema(SchemaBase):
+    &#34;&#34;&#34; Paging information for a list of Articles on Intercom. &#34;&#34;&#34;
+    type = fields.Str(default=&#39;pages&#39;)
+    page = fields.Int()
+    next = fields.Url(allow_none=True)
+    per_page = fields.Int(default=50)
+    total_pages = fields.Int()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="intercom_python_sdk.core.schema_base.SchemaBase" href="../../core/schema_base.html#intercom_python_sdk.core.schema_base.SchemaBase">SchemaBase</a></li>
+<li>marshmallow.schema.Schema</li>
+<li>marshmallow.base.SchemaABC</li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.articles.schemas.ArticlePagesSchema.opts"><code class="name">var <span class="ident">opts</span></code></dt>
+<dd>
+<div class="desc"></div>
 </dd>
 </dl>
 <h3>Inherited members</h3>
@@ -297,16 +347,16 @@ Can be null if the Article is not a child of another Article.</dd>
     id = fields.Int(required=True)
     type = fields.Str(allow_none=True)
     workspace_id = fields.Str(allow_none=True)
-    title = fields.Str()
+    title = fields.Str(required=True)
     description = fields.Str(allow_none=True)
-    body = fields.Str()
-    author_id = fields.Int(allow_none=True)
+    body = fields.Str(required=True)
+    author_id = fields.Int(required=True)
     state = fields.Str(allow_none=True)
     created_at = fields.Int(allow_none=True)
     updated_at = fields.Int(allow_none=True)
     url = fields.Str(allow_none=True)
     default_locale = fields.Str(allow_none=True)
-    translated_content = fields.Dict(allow_none=True)
+    translated_content = fields.Dict(values=fields.Str(), default=&#39;&#39;, allow_none=True)
     statistics = fields.Nested(ArticleStatisticsSchema, allow_none=True)
 
     parent_id = fields.Int(allow_none=True)
@@ -446,6 +496,12 @@ def make_article(self, data, **kwargs):
 <ul class="">
 <li><code><a title="intercom_python_sdk.apis.articles.schemas.ArticleListSchema.make_article_list" href="#intercom_python_sdk.apis.articles.schemas.ArticleListSchema.make_article_list">make_article_list</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.articles.schemas.ArticleListSchema.opts" href="#intercom_python_sdk.apis.articles.schemas.ArticleListSchema.opts">opts</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.apis.articles.schemas.ArticlePagesSchema" href="#intercom_python_sdk.apis.articles.schemas.ArticlePagesSchema">ArticlePagesSchema</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.apis.articles.schemas.ArticlePagesSchema.opts" href="#intercom_python_sdk.apis.articles.schemas.ArticlePagesSchema.opts">opts</a></code></li>
 </ul>
 </li>
 <li>

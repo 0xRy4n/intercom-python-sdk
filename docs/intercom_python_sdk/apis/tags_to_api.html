@@ -49,7 +49,7 @@ intercom.my_new_api
 `apis/tags_to_api.py`
 
 This module contains the TagsToAPI class which is a dictionary that maps
-tags (API names) to their respective API classes. It&#39;s used to control the name used to 
+tags (API names) to their respective API classes. It&#39;s used to control the name used to
 access the API classes from the Intercom object, as well as which API classes
 are enabled via the Intercom object.
 
@@ -85,10 +85,11 @@ from .data_export.api import DataExportAPI
 # From Current Package
 from ..core.api_base import APIBase
 
+
 class TagsToAPI(dict):
-    &#34;&#34;&#34; 
-    A dictionary that maps tags (API names) to their respective API classes. 
-    
+    &#34;&#34;&#34;
+    A dictionary that maps tags (API names) to their respective API classes.
+
     Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
     &#34;&#34;&#34;
     allowed_types = (APIBase, Consumer, ConsumerMeta)
@@ -122,16 +123,16 @@ tags_to_api_dict[&#34;data_export&#34;] = DataExportAPI</code></pre>
 <span>(</span><span>*args, **kwargs)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>A dictionary that maps tags (API names) to their respective API classes. </p>
+<div class="desc"><p>A dictionary that maps tags (API names) to their respective API classes.</p>
 <p>Only API-client type classes can be mapped to tags, as per the <code>allowed_types</code> attribute.</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class TagsToAPI(dict):
-    &#34;&#34;&#34; 
-    A dictionary that maps tags (API names) to their respective API classes. 
-    
+    &#34;&#34;&#34;
+    A dictionary that maps tags (API names) to their respective API classes.
+
     Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
     &#34;&#34;&#34;
     allowed_types = (APIBase, Consumer, ConsumerMeta)

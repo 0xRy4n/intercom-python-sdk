@@ -59,11 +59,11 @@ from uplink import (
 # From Current API
 from .schemas import (
     DataEventSchema,
-    DataEventsListSchema
+    DataEventListSchema
 )
 
 from .models import (
-    DataEventsList
+    DataEventList
 )
 
 # From Current Package
@@ -77,7 +77,7 @@ class DataEventsAPI(APIBase):
     URI = &#34;/events/&#34;
 
     # Internal method required here so we can implement custom query parameter logic
-    @returns(DataEventsListSchema())  # type: ignore
+    @returns(DataEventListSchema())  # type: ignore
     @get(&#34;&#34;)
     def __list_all(self,
                    user_id: Query(&#34;user_id&#34;, str) = None,  # noqa # type: ignore
@@ -92,7 +92,7 @@ class DataEventsAPI(APIBase):
                  user_id: str = &#34;&#34;,
                  intercom_user_id: str = &#34;&#34;,
                  email: str = &#34;&#34;,
-                 summary: bool = False) -&gt; DataEventsList:
+                 summary: bool = False) -&gt; DataEventList:
 
         &#34;&#34;&#34; List all data events.
 
@@ -161,7 +161,7 @@ class DataEventsAPI(APIBase):
     URI = &#34;/events/&#34;
 
     # Internal method required here so we can implement custom query parameter logic
-    @returns(DataEventsListSchema())  # type: ignore
+    @returns(DataEventListSchema())  # type: ignore
     @get(&#34;&#34;)
     def __list_all(self,
                    user_id: Query(&#34;user_id&#34;, str) = None,  # noqa # type: ignore
@@ -176,7 +176,7 @@ class DataEventsAPI(APIBase):
                  user_id: str = &#34;&#34;,
                  intercom_user_id: str = &#34;&#34;,
                  email: str = &#34;&#34;,
-                 summary: bool = False) -&gt; DataEventsList:
+                 summary: bool = False) -&gt; DataEventList:
 
         &#34;&#34;&#34; List all data events.
 
@@ -228,7 +228,7 @@ class DataEventsAPI(APIBase):
 <h3>Methods</h3>
 <dl>
 <dt id="intercom_python_sdk.apis.data_events.api.DataEventsAPI.list_all"><code class="name flex">
-<span>def <span class="ident">list_all</span></span>(<span>self, user_id: str = '', intercom_user_id: str = '', email: str = '', summary: bool = False) ‑> <a title="intercom_python_sdk.apis.data_events.models.DataEventsList" href="models.html#intercom_python_sdk.apis.data_events.models.DataEventsList">DataEventsList</a></span>
+<span>def <span class="ident">list_all</span></span>(<span>self, user_id: str = '', intercom_user_id: str = '', email: str = '', summary: bool = False) ‑> <a title="intercom_python_sdk.apis.data_events.models.DataEventList" href="models.html#intercom_python_sdk.apis.data_events.models.DataEventList">DataEventList</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>List all data events.</p>
@@ -257,7 +257,7 @@ class DataEventsAPI(APIBase):
              user_id: str = &#34;&#34;,
              intercom_user_id: str = &#34;&#34;,
              email: str = &#34;&#34;,
-             summary: bool = False) -&gt; DataEventsList:
+             summary: bool = False) -&gt; DataEventList:
 
     &#34;&#34;&#34; List all data events.
 
@@ -281,7 +281,7 @@ class DataEventsAPI(APIBase):
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.data_events.api.DataEventsAPI.submit"><code class="name flex">
-<span>def <span class="ident">submit</span></span>(<span>self, event: <uplink.arguments.Body object at 0x101dca050>)</span>
+<span>def <span class="ident">submit</span></span>(<span>self, event: <uplink.arguments.Body object at 0x105288150>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Submit a new data event.</p>
