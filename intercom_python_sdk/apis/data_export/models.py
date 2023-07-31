@@ -15,6 +15,7 @@ import time
 import requests
 from typing import (
     TYPE_CHECKING,
+    Optional
 )
 
 # From Current Package
@@ -72,15 +73,15 @@ class DataExportJob(ModelBase):
 
     def update(self, **kwargs) -> 'DataExportJob':
         """ Update this data export job to fetch it's current status and values. """
-        job = self.api_client.get_export_job(job_identifier=self.job_identifier)
-        self.__update_self(job)
+        job = self.api_client.get(job_identifier=self.job_identifier)
+        self.__update_self(job)  # type: ignore
 
         return self
 
     def cancel(self) -> 'DataExportJob':
         """ Cancel this data export job. """
-        job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
-        self.__update_self(job)
+        job = self.api_client.cancel(job_identifier=self.job_identifier)
+        self.__update_self(job)  # type: ignore
 
         return self
 

@@ -73,3 +73,13 @@ class DataExportAPI(APIBase):
     @get("/download/content/data/{job_identifier}")  # Leading slash as we aren't using the base URI
     def download(self, job_identifier: Path("job_identifier", str)):  # noqa # type: ignore
         """ Download a data export. """
+
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+    @post("cancel/{job_identifier}")
+    def cancel(self, job_identifier: Path("job_identifier", str)):  # noqa # type: ignore
+        """ Cancel a data export. """
+
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+    @post("content/data/{job_identifier}")
+    def get(self, job_identifier: Path("job_identifier", str)):  # noqa # type: ignore
+        """ Get a data export. """
