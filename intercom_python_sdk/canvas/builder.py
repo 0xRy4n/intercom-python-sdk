@@ -11,8 +11,10 @@ class CanvasBuilder:
     dictionary that can be returned to Intercom.
     """
 
+    _INITIAL_CANVAS = {"canvas": {"content": {"components": []}}}
+
     def __init__(self):
-        self._current_build = {"canvas": {"content": {"components": []}}}
+        self._current_build = self._INITIAL_CANVAS
 
     def build(self) -> Dict:
         """
@@ -31,6 +33,12 @@ class CanvasBuilder:
         current_build_copy["canvas"]["content"]["components"] = new_components
 
         return current_build_copy
+    
+    def reset(self):
+        """
+        Resets the canvas to its initial state.
+        """
+        self._current_build = self._INITIAL_CANVAS
 
     ### Wrappers around other methods/components ###
 
