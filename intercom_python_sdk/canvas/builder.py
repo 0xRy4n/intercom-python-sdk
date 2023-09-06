@@ -115,9 +115,7 @@ class CanvasBuilder:
         self._append_component(button)
         return self
 
-    def add_dropdown(
-        self, parameters: cmps.DropdownParameters, options: List[cmps.OptionParameters]
-    ) -> "CanvasBuilder":
+    def add_dropdown(self, parameters: cmps.DropdownParameters) -> "CanvasBuilder":
         """
         Adds a dropdown to the canvas.
 
@@ -132,7 +130,7 @@ class CanvasBuilder:
                 "id": option.id,
                 "disabled": option.disabled,
             }
-            for option in options
+            for option in parameters.options
         ]
 
         dropdown = {

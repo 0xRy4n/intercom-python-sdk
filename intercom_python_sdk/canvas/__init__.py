@@ -1,3 +1,3 @@
 from .builder import CanvasBuilder
 from .components import *
-from .response_parser import CanvasResponseParser
+from .response_parser import CanvasResponseParser, CanvasResponse
