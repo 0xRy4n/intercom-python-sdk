@@ -1,6 +1,6 @@
 import components as cmps
 
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 from copy import deepcopy
 
 
@@ -16,40 +16,45 @@ class CanvasBuilder:
 
     def build(self) -> Dict:
         """
-        The build method returns the canvas as a dictionary that can be returned to Intercom.
-        It returns a deepcopy of the canvas so that the builder can be reused.
+        Returns a deep copy of the canvas as a dictionary. Removes None values.
 
-        :return: The canvas as a dictionary that can be returned to Intercom.
+        :return: The final canvas as a dictionary
         """
-        components = self._current_build["canvas"]["content"]["components"]
-        for component in components:
-            for key, value in component.items():
-                if value is None:
-                    del component[key]
+        current_build_copy = deepcopy(self._current_build)
+        components = current_build_copy["canvas"]["content"]["components"]
+        new_components = []
 
-        return deepcopy(self._current_build)
+        for component in components:
+            new_component = {k: v for k, v in component.items() if v is not None}
+            new_components.append(new_component)
+        
+        current_build_copy["canvas"]["content"]["components"] = new_components
+
+        return current_build_copy
 
     ### Wrappers around other methods/components ###
 
     def add_header(
-        self, text: str, options: cmps.TextParameters = cmps.TextParameters()
+        self, text: str, options: Optional[cmps.TextParameters] = None
     ) -> "CanvasBuilder":
         """
-        Adds a header to the canvas. This is a wrapper around the add_text method with the style set to "header".
+        Adds a header to the canvas. This is a wrapper around the add_text method.
 
         :param text: The text to display in the header.
         :param options: The text options to use for the header. Its text and style parameters are ignored.
         :return: The CanvasBuilder instance.
         """
-        options.text = text
-        options.style = cmps.TextStyle.HEADER
-        self.add_text(options)
+        options_copy = deepcopy(options) if options else cmps.TextParameters()
+        options_copy.text = text
+        options_copy.style = cmps.TextStyle.HEADER
+        self.add_text(options_copy)
         return self
 
-    def add_submit_button(self, text="Submit") -> "CanvasBuilder":
+    def add_submit_button(
+        self, text: str = cmps.DEFAULT_SUBMIT_TEXT
+    ) -> "CanvasBuilder":
         """
-        Adds a submit button to the canvas. The button will submit the canvas to the /submit endpoint.
-        It's a normal button with the action set to "submit".
+        Adds a submit button to the canvas. This is a wrapper around the add_button method.
 
         :param text: The text to display on the button.
         :return: The CanvasBuilder instance.
@@ -63,13 +68,13 @@ class CanvasBuilder:
 
     def add_error_message(self, text: str) -> "CanvasBuilder":
         """
-        Adds an error message to the canvas. The error message is a text component with the style set to "error".
+        Adds an error message to the canvas. This is a wrapper around the add_text method.
 
         :param text: The text to display in the error message.
         :return: The CanvasBuilder instance.
         """
-        text = "*Error:* " + text
-        self.add_text(cmps.TextParameters(text=text, style=cmps.TextStyle.ERROR))
+        err_text = f"*Error:* {text}"
+        self.add_text(cmps.TextParameters(text=err_text, style=cmps.TextStyle.ERROR))
         return self
 
     ### Components ###
@@ -84,9 +89,12 @@ class CanvasBuilder:
         action_type = parameters.action.type
         action_obj = {
             "type": action_type.value,
+            **(
+                {"url": parameters.action.url}
+                if action_type != cmps.ActionType.SUBMIT
+                else {}
+            ),
         }
-        if action_type != cmps.ActionType.SUBMIT:
-            action_obj["url"] = parameters.action.url
 
         button = {
             "type": "button",
@@ -109,16 +117,15 @@ class CanvasBuilder:
         :param options: The options to display in the dropdown.
         :return: The CanvasBuilder instance.
         """
-        final_options = []
-        for option in options:
-            final_options.append(
-                {
-                    "type": "option",
-                    "text": option.text,
-                    "id": option.id,
-                    "disabled": option.disabled,
-                }
-            )
+        final_options = [
+            {
+                "type": "option",
+                "text": option.text,
+                "id": option.id,
+                "disabled": option.disabled,
+            }
+            for option in options
+        ]
 
         dropdown = {
             "id": parameters.id,
@@ -169,7 +176,7 @@ class CanvasBuilder:
         :param parameters: The input parameters to add to the canvas.
         :return: The CanvasBuilder instance.
         """
-        input = {
+        text_input = {
             "type": "input",
             "id": parameters.id,
             "label": parameters.label,
@@ -177,7 +184,7 @@ class CanvasBuilder:
             "disabled": parameters.disabled,
             "value": parameters.value,
         }
-        self._append_component(input)
+        self._append_component(text_input)
         return self
 
     def set_stored_data(self, key: str, value: Any) -> "CanvasBuilder":
@@ -188,11 +195,13 @@ class CanvasBuilder:
         :param value: The value of the stored data.
         :return: The CanvasBuilder instance.
         """
-        canvas = self._current_build["canvas"]
-        stored_data = canvas.get("stored_data", {})
-        stored_data[key] = value
-        canvas["stored_data"] = stored_data
+        self._current_build["canvas"].setdefault("stored_data", {})[key] = value
         return self
 
     def _append_component(self, component: Dict):
+        """
+        Appends a component to the canvas.
+
+        :param component: The component to append to the canvas.
+        """
         self._current_build["canvas"]["content"]["components"].append(component)

@@ -3,6 +3,9 @@ from dataclasses import dataclass
 from enum import Enum
 
 
+DEFAULT_SUBMIT_TEXT = "Submit"
+
+
 class ActionType(Enum):
     SUBMIT = "submit"
     URL = "url"
