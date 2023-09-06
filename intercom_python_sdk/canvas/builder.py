@@ -1,4 +1,4 @@
-import components as cmps
+from . import components as cmps
 
 from typing import Dict, List, Any, Optional
 from copy import deepcopy
