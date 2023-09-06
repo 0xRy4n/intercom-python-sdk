@@ -5,7 +5,7 @@ from copy import deepcopy
 
 @dataclass
 class CanvasResponse:
-    stored_data: Dict = {}
+    stored_data: Dict = None
 
 
 class CanvasResponseParser:

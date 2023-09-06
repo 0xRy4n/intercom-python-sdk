@@ -86,8 +86,8 @@ class DropdownParameters:
     """
 
     id: str
-    label: str = "label"
     options: List[OptionParameters]
+    label: str = "label"
     value: str = None
     disabled: bool = False
 
