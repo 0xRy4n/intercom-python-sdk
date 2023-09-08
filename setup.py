@@ -38,6 +38,7 @@ setup(
     python_requires=">=3.7",
     install_requires=REQUIRES,
     packages=find_packages(exclude=["test", "tests"]),
+    package_data={"": ["py.typed", "*.pyi"]},
     include_package_data=True,
     license="MIT",
     long_description="""\

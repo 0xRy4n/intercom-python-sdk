@@ -1,17 +1,15 @@
-from . import components as cmps
-
 from typing import Dict, Any, Optional
 from copy import deepcopy
+from . import components as cmps
 
 
 class CanvasBuilder:
     """
-    This class is used to build a Canvas for Intercom Canvas Kit (https://developers.intercom.com/docs/canvas-kit/).
-    You can add components to the canvas using the methods in this class. The build() method returns the canvas as a
-    dictionary that can be returned to Intercom.
+    This class is used to build a Canvas for Intercom Canvas Kit.
+    Reference: https://developers.intercom.com/docs/canvas-kit/
     """
 
-    _INITIAL_CANVAS = {"canvas": {"content": {"components": []}}}
+    _INITIAL_CANVAS: Dict = {"canvas": {"content": {"components": []}}}
 
     def __init__(self):
         self._current_build = deepcopy(self._INITIAL_CANVAS)
@@ -49,7 +47,7 @@ class CanvasBuilder:
         Adds a header to the canvas. This is a wrapper around the add_text method.
 
         :param text: The text to display in the header.
-        :param options: The text options to use for the header. Its text and style parameters are ignored.
+        :param options: The text options for the header. Text and style parameters are ignored.
         :return: The CanvasBuilder instance.
         """
         options_copy = deepcopy(options) if options else cmps.TextParameters()

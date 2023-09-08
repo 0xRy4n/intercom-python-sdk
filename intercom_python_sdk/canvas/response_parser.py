@@ -1,13 +1,13 @@
-from typing import Dict
+from typing import Dict, Optional
 from dataclasses import dataclass
 from copy import deepcopy
 
 
 @dataclass
 class CanvasResponse:
-    stored_data: Dict = None
-    component_id: str = None
-    input_values: Dict = None
+    stored_data: Optional[Dict] = None
+    component_id: Optional[str] = None
+    input_values: Optional[Dict] = None
 
 
 class CanvasResponseParser:
