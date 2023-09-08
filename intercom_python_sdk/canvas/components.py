@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional
 from dataclasses import dataclass
 from enum import Enum
 
@@ -43,13 +43,15 @@ class ButtonStyle(Enum):
 class InputParameters:
     """
     This class is used to configure an input component.
-    Reference: https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/input/#parameters
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/input/#parameters
     """
 
     id: str
     label: str = "label"
-    placeholder: str = None
-    value: str = None
+    placeholder: Optional[str] = None
+    value: Optional[str] = None
     disabled: bool = False
 
 
@@ -57,10 +59,12 @@ class InputParameters:
 class TextParameters:
     """
     This class is used to configure a text component.
-    Reference: https://developers.intercom.com/docs/references/canvas-kit/presentationcomponents/text/#parameters
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/presentationcomponents/text/#parameters
     """
 
-    id: str = None
+    id: Optional[str] = None
     text: str = "text"
     style: TextStyle = TextStyle.PARAGRAPH
     align: TextAlign = TextAlign.LEFT
@@ -70,10 +74,12 @@ class TextParameters:
 class OptionParameters:
     """
     This class is used to configure an option component.
-    Reference: https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
     """
 
-    id: str
+    id: Optional[str]
     text: str = "text"
     disabled: bool = False
 
@@ -82,13 +88,15 @@ class OptionParameters:
 class DropdownParameters:
     """
     This class is used to configure a dropdown component.
-    Reference: https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
     """
 
     id: str
     options: List[OptionParameters]
     label: str = "label"
-    value: str = None
+    value: Optional[str] = None
     disabled: bool = False
 
 
@@ -97,20 +105,23 @@ class ActionParameters:
     """
     This class is used to configure an action component. It has three types: submit, url, and sheet.
 
-    Reference for submit: https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/submit-action/#parameters
-    Reference for url: https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/url-action/#parameters
-    Reference for sheets: https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/sheets-action/
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/submit-action/#parameters
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/url-action/#parameters
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/sheets-action/
     """
 
     type: ActionType = ActionType.SUBMIT
-    url: str = None
+    url: Optional[str] = None
 
 
 @dataclass
 class ButtonParameters:
     """
     This class is used to configure a button component.
-    Reference: https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/button/#parameters
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/button/#parameters
     """
 
     id: str
@@ -122,5 +133,5 @@ class ButtonParameters:
 
 @dataclass
 class SpacerParameters:
-    id: str = None
+    id: Optional[str] = None
     size: SpacerSize = SpacerSize.MEDIUM
