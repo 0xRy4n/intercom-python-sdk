@@ -1,5 +1,5 @@
 from typing import List, Optional
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 
 
@@ -128,7 +128,7 @@ class ButtonParameters:
     label: str = "label"
     disabled: bool = False
     style: ButtonStyle = ButtonStyle.PRIMARY
-    action: ActionParameters = ActionParameters()
+    action: ActionParameters = field(default_factory=lambda: ActionParameters())
 
 
 @dataclass
