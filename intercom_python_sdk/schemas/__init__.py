@@ -22,7 +22,6 @@ from ..apis.articles.schemas import (
     ArticleSchema, 
     ArticleListSchema, 
     ArticleStatisticsSchema, 
-    ArticleTranslationSchema
 )
 
 from ..apis.data_attributes.schemas import (

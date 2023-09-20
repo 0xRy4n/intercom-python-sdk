@@ -34,17 +34,6 @@ if TYPE_CHECKING:
     from .api import ArticlesAPI
 
 
-class ArticleTranslation(ModelBase):
-    type: str
-
-    def __init__(self, *args, **kwargs):
-        self.type = kwargs.get('type', 'article_translated_content')
-
-        for language in ArticleLanguages:
-            locale_code = language.value
-            setattr(self, locale_code, kwargs.get(locale_code, None))
-
-
 class ArticleStatistics(ModelBase):
     """
     This model represents the statistics of an Article on Intercom.

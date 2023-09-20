@@ -92,24 +92,6 @@ class ArticleSchema(SchemaBase):
         return a_models.Article(**data)
 
 
-class ArticleTranslationSchema(SchemaBase):
-    """
-    This schema represents the translation of an Article on Intercom.
-    """
-    type = fields.Str(default="article_translated_content")
-
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        for language in ArticleLanguages:
-            locale_code = language.value
-            self.fields[locale_code] = fields.Str(allow_none=True, required=False)
-
-    @marshmallow.post_load
-    def make_article_translation(self, data, **kwargs):
-        return a_models.ArticleTranslation(**data)
-
-
-
 class ArticlePagesSchema(SchemaBase):
     """ Paging information for a list of Articles on Intercom. """
     type = fields.Str(default='pages')
