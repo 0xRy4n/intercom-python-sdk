@@ -1,4 +1,4 @@
-""" 
+"""
 # Help Center API
 
 `apis/help_center/api.py`
@@ -12,15 +12,13 @@ It is used to interact with the Intercom Help Center API [1] as defined in the I
 """
 
 # Built-ins
-import functools
-from typing import Union, cast
+from typing import Union
 
 # External
 from uplink import (
-    get, put, post,
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query,delete
+    get,
+    returns,
+    response_handler,
 )
 
 # From Current API
@@ -31,22 +29,17 @@ from .schemas import (
     SectionListSchema,
 )
 
-from .models import (
-    Collection,
-    CollectionList,
-    
-
-)
 
 # From Current Package
 from ...core.api_base import APIBase
 from ...core.errors import catch_api_error
 
+
 @response_handler(catch_api_error)
 class HelpCenterAPI(APIBase):
     URI = "/help_center/"
 
-    @returns(CollectionSchema(many=False)) # type: ignore
+    @returns(CollectionSchema(many=False))  # type: ignore
     @get("collections/{collection_id}")
     def get_collection_by_id(self, collection_id: Union[str, int]):
         """ Get a Collection by ID.
@@ -58,7 +51,7 @@ class HelpCenterAPI(APIBase):
             Collection: The Collection with the given ID.
         """
 
-    @returns(CollectionListSchema(many=False)) # type: ignore
+    @returns(CollectionListSchema(many=False))  # type: ignore
     @get("collections")
     def list_all_collections(self):
         """ List all Collections.
@@ -67,8 +60,7 @@ class HelpCenterAPI(APIBase):
             CollectionList: A list of all Collections.
         """
 
-
-    @returns(SectionSchema(many=False)) # type: ignore
+    @returns(SectionSchema(many=False))  # type: ignore
     @get("sections/{section_id}")
     def get_section_by_id(self, section_id: Union[str, int]):
         """ Get a Section by ID.
@@ -80,7 +72,7 @@ class HelpCenterAPI(APIBase):
             Section: The Section with the given ID.
         """
 
-    @returns(SectionListSchema(many=False)) # type: ignore
+    @returns(SectionListSchema(many=False))  # type: ignore
     @get("sections")
     def list_all_sections(self):
         """ List all Sections.
@@ -88,4 +80,3 @@ class HelpCenterAPI(APIBase):
         Returns:
             SectionList: A list of all Sections.
         """
-        

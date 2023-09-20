@@ -26,8 +26,6 @@ from . import schemas as a_schemas
 # From Current Package
 from ...core.model_base import ModelBase
 
-from .languages import ArticleLanguages
-
 # Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
 if TYPE_CHECKING:
@@ -245,7 +243,7 @@ class Article(ModelBase):
             dict: The translated content of the Article.
         """
         return self.__translated_content
-    
+
     @property
     def content(self) -> BeautifulSoup:
         """

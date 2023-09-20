@@ -12,6 +12,7 @@ from intercom_python_sdk.models import (
     DataEventList
 )
 
+
 class TestDataEventSchemaAndModel(TestCase):
 
     def test_data_event_schema(self):

@@ -54,7 +54,8 @@ class TestDataAttributeListSchemasAndModel(TestCase):
         data_attribute_list, data = fake_factory.fake_schema(DataAttributeListSchema)
         data_attribute_list = DataAttributeListSchema().load(data)
         data_attribute_list = DataAttributeListSchema().dump(data_attribute_list)
-        assert not DataAttributeListSchema().validate(data_attribute_list), DataAttributeListSchema().validate(data_attribute_list)
+        assert not DataAttributeListSchema().validate(data_attribute_list), \
+            DataAttributeListSchema().validate(data_attribute_list)
 
     def test_data_attribute_list_iteration(self):
         _, data = fake_factory.fake_schema(DataAttributeListSchema)

@@ -28,17 +28,17 @@ class FakedSchemaFactory:
         }
 
     def _fake_list(self, field: fields.List):
-            def fake_list():
-                inner = field.inner
+        def fake_list():
+            inner = field.inner
 
-                if isinstance(inner, fields.Nested):
-                    list_val = lambda: self.fake_schema(inner.nested)[1]  # noqa # type: ignore
-                else:
-                    list_val = self.schema_map[inner.__class__]  # noqa # type: ignore
+            if isinstance(inner, fields.Nested):
+                list_val = lambda: self.fake_schema(inner.nested)[1]  # noqa # type: ignore
+            else:
+                list_val = self.schema_map[inner.__class__]  # noqa # type: ignore
 
-                return [list_val() for _ in range(self.fake.random_int(min=1, max=10))]
+            return [list_val() for _ in range(self.fake.random_int(min=1, max=10))]
 
-            return fake_list
+        return fake_list
 
     def _fake_tuple(self, field: fields.Tuple):
         def fake_tuple():

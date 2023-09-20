@@ -1,7 +1,7 @@
 from tests import fake_factory
 
 from intercom_python_sdk.schemas import (
-    ArticleSchema, 
+    ArticleSchema,
     ArticleStatisticsSchema,
     ArticleListSchema
 )
@@ -76,7 +76,7 @@ class TestArticleListSchema(unittest.TestCase):
         article_list = ArticleListSchema().load(data)
         for article in article_list:
             assert isinstance(article, Article)
-    
+
     def test_article_list_index(self):
         _, data = fake_factory.fake_schema(ArticleListSchema)
         article_list = ArticleListSchema().load(data)

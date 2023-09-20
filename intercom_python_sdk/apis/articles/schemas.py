@@ -10,17 +10,12 @@ These schemas provide serialization/deserialization to and from the models defin
 ---
 - [1] https://developers.intercom.com/intercom-api-reference/reference/the-article-model
 """
-
-# Built-in
-from enum import Enum
-
-# External
+# Third-party
 import marshmallow
 from marshmallow import fields
 
 # From Current API
 from . import models as a_models
-from .languages import ArticleLanguages
 
 # From Current Package
 from ...core.schema_base import SchemaBase
@@ -116,5 +111,3 @@ class ArticleListSchema(SchemaBase):
     @marshmallow.post_load
     def make_article_list(self, data, **kwargs):
         return a_models.ArticleList(**data)
-
-

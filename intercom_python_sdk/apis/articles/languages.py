@@ -1,4 +1,6 @@
 from enum import Enum
+
+
 class ArticleLanguages(Enum):
     ARABIC = "ar"
     BULGARIAN = "bg"
