@@ -26,10 +26,23 @@ from . import schemas as a_schemas
 # From Current Package
 from ...core.model_base import ModelBase
 
+from .languages import ArticleLanguages
+
 # Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
 if TYPE_CHECKING:
     from .api import ArticlesAPI
+
+
+class ArticleTranslation(ModelBase):
+    type: str
+
+    def __init__(self, *args, **kwargs):
+        self.type = kwargs.get('type', 'article_translated_content')
+
+        for language in ArticleLanguages:
+            locale_code = language.value
+            setattr(self, locale_code, kwargs.get(locale_code, None))
 
 
 class ArticleStatistics(ModelBase):
@@ -428,7 +441,7 @@ class Article(ModelBase):
 
     # Methods
 
-    def update(self):
+    def update(self) -> 'Article':
         """
         Update the Article.
         """

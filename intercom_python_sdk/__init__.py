@@ -58,3 +58,4 @@ from .intercom import Intercom
 from .core.configuration import Configuration
 from .core.api_base import create_api_client
 from .apis.tags_to_api import tags_to_api_dict as API_TAGS
+from .core.errors import IntercomErrorList

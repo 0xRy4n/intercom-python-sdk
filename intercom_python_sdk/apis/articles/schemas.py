@@ -11,12 +11,16 @@ These schemas provide serialization/deserialization to and from the models defin
 - [1] https://developers.intercom.com/intercom-api-reference/reference/the-article-model
 """
 
+# Built-in
+from enum import Enum
+
 # External
 import marshmallow
 from marshmallow import fields
 
 # From Current API
 from . import models as a_models
+from .languages import ArticleLanguages
 
 # From Current Package
 from ...core.schema_base import SchemaBase
@@ -65,34 +69,52 @@ class ArticleSchema(SchemaBase):
         default_locale (str): The default locale of the Article.
         statistics (dict): The statistics of the Article.
     """
-    id = fields.Int(required=True)
-    type = fields.Str(allow_none=True)
-    workspace_id = fields.Str(allow_none=True)
+    id = fields.Int(required=False)
+    type = fields.Str(allow_none=True, required=False)
+    workspace_id = fields.Str(allow_none=True, required=False)
     title = fields.Str(required=True)
-    description = fields.Str(allow_none=True)
-    body = fields.Str(required=True)
-    author_id = fields.Int(required=True)
-    state = fields.Str(allow_none=True)
-    created_at = fields.Int(allow_none=True)
-    updated_at = fields.Int(allow_none=True)
-    url = fields.Str(allow_none=True)
-    default_locale = fields.Str(allow_none=True)
-    translated_content = fields.Dict(values=fields.Str(), default='', allow_none=True)
-    statistics = fields.Nested(ArticleStatisticsSchema, allow_none=True)
+    description = fields.Str(allow_none=True, required=False)
+    body = fields.Str(required=False)
+    author_id = fields.Int(required=False)
+    state = fields.Str(allow_none=True, required=False)
+    created_at = fields.Int(allow_none=True, required=False)
+    updated_at = fields.Int(allow_none=True, required=False)
+    url = fields.Str(allow_none=True, required=False)
+    default_locale = fields.Str(allow_none=True, required=False)
+    translated_content = fields.Raw(allow_none=True, required=False)
+    statistics = fields.Nested(ArticleStatisticsSchema, allow_none=True, required=False)
 
-    parent_id = fields.Int(allow_none=True)
-    parent_type = fields.Str(allow_none=True)
+    parent_id = fields.Int(allow_none=True, required=False)
+    parent_type = fields.Str(allow_none=True, required=False)
 
     @marshmallow.post_load
     def make_article(self, data, **kwargs):
         return a_models.Article(**data)
 
 
+class ArticleTranslationSchema(SchemaBase):
+    """
+    This schema represents the translation of an Article on Intercom.
+    """
+    type = fields.Str(default="article_translated_content")
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        for language in ArticleLanguages:
+            locale_code = language.value
+            self.fields[locale_code] = fields.Str(allow_none=True, required=False)
+
+    @marshmallow.post_load
+    def make_article_translation(self, data, **kwargs):
+        return a_models.ArticleTranslation(**data)
+
+
+
 class ArticlePagesSchema(SchemaBase):
     """ Paging information for a list of Articles on Intercom. """
     type = fields.Str(default='pages')
     page = fields.Int()
-    next = fields.Url(allow_none=True)
+    next = fields.Url(allow_none=True, required=False)
     per_page = fields.Int(default=50)
     total_pages = fields.Int()
 
@@ -112,3 +134,5 @@ class ArticleListSchema(SchemaBase):
     @marshmallow.post_load
     def make_article_list(self, data, **kwargs):
         return a_models.ArticleList(**data)
+
+
