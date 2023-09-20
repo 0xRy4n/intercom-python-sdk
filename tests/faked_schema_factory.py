@@ -25,6 +25,7 @@ class FakedSchemaFactory:
             fields.Email: self.fake.email,
             fields.URL: self.fake.url,
             fields.UUID: self.fake.uuid4,
+            fields.Raw: self.fake.pydict,
         }
 
     def _fake_list(self, field: fields.List):
