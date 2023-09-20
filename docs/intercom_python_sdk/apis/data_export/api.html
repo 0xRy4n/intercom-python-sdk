@@ -108,7 +108,17 @@ class DataExportAPI(APIBase):
     @headers({&#34;Accept&#34;: &#34;application/octet-stream&#34;})
     @get(&#34;/download/content/data/{job_identifier}&#34;)  # Leading slash as we aren&#39;t using the base URI
     def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
-        &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;</code></pre>
+        &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;
+
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+    @post(&#34;cancel/{job_identifier}&#34;)
+    def cancel(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
+        &#34;&#34;&#34; Cancel a data export. &#34;&#34;&#34;
+
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+    @post(&#34;content/data/{job_identifier}&#34;)
+    def get(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
+        &#34;&#34;&#34; Get a data export. &#34;&#34;&#34;</code></pre>
 </details>
 </section>
 <section>
@@ -179,7 +189,17 @@ class DataExportAPI(APIBase):
     @headers({&#34;Accept&#34;: &#34;application/octet-stream&#34;})
     @get(&#34;/download/content/data/{job_identifier}&#34;)  # Leading slash as we aren&#39;t using the base URI
     def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
-        &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;</code></pre>
+        &#34;&#34;&#34; Download a data export. &#34;&#34;&#34;
+
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+    @post(&#34;cancel/{job_identifier}&#34;)
+    def cancel(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
+        &#34;&#34;&#34; Cancel a data export. &#34;&#34;&#34;
+
+    @returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+    @post(&#34;content/data/{job_identifier}&#34;)
+    def get(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
+        &#34;&#34;&#34; Get a data export. &#34;&#34;&#34;</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -197,8 +217,23 @@ class DataExportAPI(APIBase):
 </dl>
 <h3>Methods</h3>
 <dl>
+<dt id="intercom_python_sdk.apis.data_export.api.DataExportAPI.cancel"><code class="name flex">
+<span>def <span class="ident">cancel</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x7fae1b214580>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Cancel a data export.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+@post(&#34;cancel/{job_identifier}&#34;)
+def cancel(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
+    &#34;&#34;&#34; Cancel a data export. &#34;&#34;&#34;</code></pre>
+</details>
+</dd>
 <dt id="intercom_python_sdk.apis.data_export.api.DataExportAPI.download"><code class="name flex">
-<span>def <span class="ident">download</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x105c70810>)</span>
+<span>def <span class="ident">download</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x7fae1b2142b0>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Download a data export.</p></div>
@@ -262,6 +297,21 @@ def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa
     return self.__create_data_export(payload=payload)</code></pre>
 </details>
 </dd>
+<dt id="intercom_python_sdk.apis.data_export.api.DataExportAPI.get"><code class="name flex">
+<span>def <span class="ident">get</span></span>(<span>self, job_identifier: <uplink.arguments.Path object at 0x7fae1b2148b0>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a data export.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@returns(dexport_schemas.DataExportJobSchema())  # type: ignore
+@post(&#34;content/data/{job_identifier}&#34;)
+def get(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa # type: ignore
+    &#34;&#34;&#34; Get a data export. &#34;&#34;&#34;</code></pre>
+</details>
+</dd>
 </dl>
 </dd>
 </dl>
@@ -286,8 +336,10 @@ def download(self, job_identifier: Path(&#34;job_identifier&#34;, str)):  # noqa
 <h4><code><a title="intercom_python_sdk.apis.data_export.api.DataExportAPI" href="#intercom_python_sdk.apis.data_export.api.DataExportAPI">DataExportAPI</a></code></h4>
 <ul class="">
 <li><code><a title="intercom_python_sdk.apis.data_export.api.DataExportAPI.URI" href="#intercom_python_sdk.apis.data_export.api.DataExportAPI.URI">URI</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.data_export.api.DataExportAPI.cancel" href="#intercom_python_sdk.apis.data_export.api.DataExportAPI.cancel">cancel</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.data_export.api.DataExportAPI.download" href="#intercom_python_sdk.apis.data_export.api.DataExportAPI.download">download</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.data_export.api.DataExportAPI.export" href="#intercom_python_sdk.apis.data_export.api.DataExportAPI.export">export</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.data_export.api.DataExportAPI.get" href="#intercom_python_sdk.apis.data_export.api.DataExportAPI.get">get</a></code></li>
 </ul>
 </li>
 </ul>

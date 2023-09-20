@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>intercom_python_sdk.canvas.components API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>intercom_python_sdk.canvas.components</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from typing import List, Optional
+from dataclasses import dataclass, field
+from enum import Enum
+
+
+DEFAULT_SUBMIT_TEXT = &#34;Submit&#34;
+
+
+class ActionType(Enum):
+    SUBMIT = &#34;submit&#34;
+    URL = &#34;url&#34;
+    SHEET = &#34;sheet&#34;
+
+
+class SpacerSize(Enum):
+    EXTRA_SMALL = &#34;xs&#34;
+    SMALL = &#34;s&#34;
+    MEDIUM = &#34;m&#34;
+    LARGE = &#34;l&#34;
+    EXTRA_LARGE = &#34;xl&#34;
+
+
+class TextStyle(Enum):
+    HEADER = &#34;header&#34;
+    MUTED = &#34;muted&#34;
+    PARAGRAPH = &#34;paragraph&#34;
+    ERROR = &#34;error&#34;
+
+
+class TextAlign(Enum):
+    LEFT = &#34;left&#34;
+    CENTER = &#34;center&#34;
+    RIGHT = &#34;right&#34;
+
+
+class ButtonStyle(Enum):
+    PRIMARY = &#34;primary&#34;
+    SECONDARY = &#34;secondary&#34;
+    LINK = &#34;link&#34;
+
+
+@dataclass
+class InputParameters:
+    &#34;&#34;&#34;
+    This class is used to configure an input component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/input/#parameters
+    &#34;&#34;&#34;
+
+    id: str
+    label: str = &#34;label&#34;
+    placeholder: Optional[str] = None
+    value: Optional[str] = None
+    disabled: bool = False
+
+
+@dataclass
+class TextParameters:
+    &#34;&#34;&#34;
+    This class is used to configure a text component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/presentationcomponents/text/#parameters
+    &#34;&#34;&#34;
+
+    id: Optional[str] = None
+    text: str = &#34;text&#34;
+    style: TextStyle = TextStyle.PARAGRAPH
+    align: TextAlign = TextAlign.LEFT
+
+
+@dataclass
+class OptionParameters:
+    &#34;&#34;&#34;
+    This class is used to configure an option component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
+    &#34;&#34;&#34;
+
+    id: Optional[str]
+    text: str = &#34;text&#34;
+    disabled: bool = False
+
+
+@dataclass
+class DropdownParameters:
+    &#34;&#34;&#34;
+    This class is used to configure a dropdown component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
+    &#34;&#34;&#34;
+
+    id: str
+    options: List[OptionParameters]
+    label: str = &#34;label&#34;
+    value: Optional[str] = None
+    disabled: bool = False
+
+
+@dataclass
+class ActionParameters:
+    &#34;&#34;&#34;
+    This class is used to configure an action component. It has three types: submit, url, and sheet.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/submit-action/#parameters
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/url-action/#parameters
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/sheets-action/
+    &#34;&#34;&#34;
+
+    type: ActionType = ActionType.SUBMIT
+    url: Optional[str] = None
+
+
+@dataclass
+class ButtonParameters:
+    &#34;&#34;&#34;
+    This class is used to configure a button component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/button/#parameters
+    &#34;&#34;&#34;
+
+    id: str
+    label: str = &#34;label&#34;
+    disabled: bool = False
+    style: ButtonStyle = ButtonStyle.PRIMARY
+    action: ActionParameters = field(default_factory=lambda: ActionParameters())
+
+
+@dataclass
+class SpacerParameters:
+    id: Optional[str] = None
+    size: SpacerSize = SpacerSize.MEDIUM</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.ActionParameters"><code class="flex name class">
+<span>class <span class="ident">ActionParameters</span></span>
+<span>(</span><span>type: <a title="intercom_python_sdk.canvas.components.ActionType" href="#intercom_python_sdk.canvas.components.ActionType">ActionType</a> = ActionType.SUBMIT, url: Optional[str] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This class is used to configure an action component. It has three types: submit, url, and sheet.</p>
+<p>References:
+<a href="https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/submit-action/#parameters">https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/submit-action/#parameters</a>
+<a href="https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/url-action/#parameters">https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/url-action/#parameters</a>
+<a href="https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/sheets-action/">https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/sheets-action/</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class ActionParameters:
+    &#34;&#34;&#34;
+    This class is used to configure an action component. It has three types: submit, url, and sheet.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/submit-action/#parameters
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/url-action/#parameters
+    https://developers.intercom.com/docs/references/canvas-kit/actioncomponents/sheets-action/
+    &#34;&#34;&#34;
+
+    type: ActionType = ActionType.SUBMIT
+    url: Optional[str] = None</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.ActionParameters.type"><code class="name">var <span class="ident">type</span> : <a title="intercom_python_sdk.canvas.components.ActionType" href="#intercom_python_sdk.canvas.components.ActionType">ActionType</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ActionParameters.url"><code class="name">var <span class="ident">url</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ActionType"><code class="flex name class">
+<span>class <span class="ident">ActionType</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An enumeration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ActionType(Enum):
+    SUBMIT = &#34;submit&#34;
+    URL = &#34;url&#34;
+    SHEET = &#34;sheet&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.ActionType.SHEET"><code class="name">var <span class="ident">SHEET</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ActionType.SUBMIT"><code class="name">var <span class="ident">SUBMIT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ActionType.URL"><code class="name">var <span class="ident">URL</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonParameters"><code class="flex name class">
+<span>class <span class="ident">ButtonParameters</span></span>
+<span>(</span><span>id: str, label: str = 'label', disabled: bool = False, style: <a title="intercom_python_sdk.canvas.components.ButtonStyle" href="#intercom_python_sdk.canvas.components.ButtonStyle">ButtonStyle</a> = ButtonStyle.PRIMARY, action: <a title="intercom_python_sdk.canvas.components.ActionParameters" href="#intercom_python_sdk.canvas.components.ActionParameters">ActionParameters</a> = &lt;factory&gt;)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This class is used to configure a button component.</p>
+<p>References:
+<a href="https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/button/#parameters">https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/button/#parameters</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class ButtonParameters:
+    &#34;&#34;&#34;
+    This class is used to configure a button component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/button/#parameters
+    &#34;&#34;&#34;
+
+    id: str
+    label: str = &#34;label&#34;
+    disabled: bool = False
+    style: ButtonStyle = ButtonStyle.PRIMARY
+    action: ActionParameters = field(default_factory=lambda: ActionParameters())</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.ButtonParameters.action"><code class="name">var <span class="ident">action</span> : <a title="intercom_python_sdk.canvas.components.ActionParameters" href="#intercom_python_sdk.canvas.components.ActionParameters">ActionParameters</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonParameters.disabled"><code class="name">var <span class="ident">disabled</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonParameters.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonParameters.label"><code class="name">var <span class="ident">label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonParameters.style"><code class="name">var <span class="ident">style</span> : <a title="intercom_python_sdk.canvas.components.ButtonStyle" href="#intercom_python_sdk.canvas.components.ButtonStyle">ButtonStyle</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonStyle"><code class="flex name class">
+<span>class <span class="ident">ButtonStyle</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An enumeration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class ButtonStyle(Enum):
+    PRIMARY = &#34;primary&#34;
+    SECONDARY = &#34;secondary&#34;
+    LINK = &#34;link&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.ButtonStyle.LINK"><code class="name">var <span class="ident">LINK</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonStyle.PRIMARY"><code class="name">var <span class="ident">PRIMARY</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.ButtonStyle.SECONDARY"><code class="name">var <span class="ident">SECONDARY</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.DropdownParameters"><code class="flex name class">
+<span>class <span class="ident">DropdownParameters</span></span>
+<span>(</span><span>id: str, options: List[<a title="intercom_python_sdk.canvas.components.OptionParameters" href="#intercom_python_sdk.canvas.components.OptionParameters">OptionParameters</a>], label: str = 'label', value: Optional[str] = None, disabled: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This class is used to configure a dropdown component.</p>
+<p>References:
+<a href="https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters">https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class DropdownParameters:
+    &#34;&#34;&#34;
+    This class is used to configure a dropdown component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
+    &#34;&#34;&#34;
+
+    id: str
+    options: List[OptionParameters]
+    label: str = &#34;label&#34;
+    value: Optional[str] = None
+    disabled: bool = False</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.DropdownParameters.disabled"><code class="name">var <span class="ident">disabled</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.DropdownParameters.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.DropdownParameters.label"><code class="name">var <span class="ident">label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.DropdownParameters.options"><code class="name">var <span class="ident">options</span> : List[<a title="intercom_python_sdk.canvas.components.OptionParameters" href="#intercom_python_sdk.canvas.components.OptionParameters">OptionParameters</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.DropdownParameters.value"><code class="name">var <span class="ident">value</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.InputParameters"><code class="flex name class">
+<span>class <span class="ident">InputParameters</span></span>
+<span>(</span><span>id: str, label: str = 'label', placeholder: Optional[str] = None, value: Optional[str] = None, disabled: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This class is used to configure an input component.</p>
+<p>References:
+<a href="https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/input/#parameters">https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/input/#parameters</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class InputParameters:
+    &#34;&#34;&#34;
+    This class is used to configure an input component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/input/#parameters
+    &#34;&#34;&#34;
+
+    id: str
+    label: str = &#34;label&#34;
+    placeholder: Optional[str] = None
+    value: Optional[str] = None
+    disabled: bool = False</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.InputParameters.disabled"><code class="name">var <span class="ident">disabled</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.InputParameters.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.InputParameters.label"><code class="name">var <span class="ident">label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.InputParameters.placeholder"><code class="name">var <span class="ident">placeholder</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.InputParameters.value"><code class="name">var <span class="ident">value</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.OptionParameters"><code class="flex name class">
+<span>class <span class="ident">OptionParameters</span></span>
+<span>(</span><span>id: Optional[str], text: str = 'text', disabled: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This class is used to configure an option component.</p>
+<p>References:
+<a href="https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters">https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class OptionParameters:
+    &#34;&#34;&#34;
+    This class is used to configure an option component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/interactivecomponents/dropdown/#dropdown-parameters
+    &#34;&#34;&#34;
+
+    id: Optional[str]
+    text: str = &#34;text&#34;
+    disabled: bool = False</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.OptionParameters.disabled"><code class="name">var <span class="ident">disabled</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.OptionParameters.id"><code class="name">var <span class="ident">id</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.OptionParameters.text"><code class="name">var <span class="ident">text</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.SpacerParameters"><code class="flex name class">
+<span>class <span class="ident">SpacerParameters</span></span>
+<span>(</span><span>id: Optional[str] = None, size: <a title="intercom_python_sdk.canvas.components.SpacerSize" href="#intercom_python_sdk.canvas.components.SpacerSize">SpacerSize</a> = SpacerSize.MEDIUM)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>SpacerParameters(id: Optional[str] = None, size: intercom_python_sdk.canvas.components.SpacerSize = <SpacerSize.MEDIUM: 'm'>)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class SpacerParameters:
+    id: Optional[str] = None
+    size: SpacerSize = SpacerSize.MEDIUM</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.SpacerParameters.id"><code class="name">var <span class="ident">id</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.SpacerParameters.size"><code class="name">var <span class="ident">size</span> : <a title="intercom_python_sdk.canvas.components.SpacerSize" href="#intercom_python_sdk.canvas.components.SpacerSize">SpacerSize</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.SpacerSize"><code class="flex name class">
+<span>class <span class="ident">SpacerSize</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An enumeration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class SpacerSize(Enum):
+    EXTRA_SMALL = &#34;xs&#34;
+    SMALL = &#34;s&#34;
+    MEDIUM = &#34;m&#34;
+    LARGE = &#34;l&#34;
+    EXTRA_LARGE = &#34;xl&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.SpacerSize.EXTRA_LARGE"><code class="name">var <span class="ident">EXTRA_LARGE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.SpacerSize.EXTRA_SMALL"><code class="name">var <span class="ident">EXTRA_SMALL</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.SpacerSize.LARGE"><code class="name">var <span class="ident">LARGE</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.SpacerSize.MEDIUM"><code class="name">var <span class="ident">MEDIUM</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.SpacerSize.SMALL"><code class="name">var <span class="ident">SMALL</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextAlign"><code class="flex name class">
+<span>class <span class="ident">TextAlign</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An enumeration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextAlign(Enum):
+    LEFT = &#34;left&#34;
+    CENTER = &#34;center&#34;
+    RIGHT = &#34;right&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.TextAlign.CENTER"><code class="name">var <span class="ident">CENTER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextAlign.LEFT"><code class="name">var <span class="ident">LEFT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextAlign.RIGHT"><code class="name">var <span class="ident">RIGHT</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextParameters"><code class="flex name class">
+<span>class <span class="ident">TextParameters</span></span>
+<span>(</span><span>id: Optional[str] = None, text: str = 'text', style: <a title="intercom_python_sdk.canvas.components.TextStyle" href="#intercom_python_sdk.canvas.components.TextStyle">TextStyle</a> = TextStyle.PARAGRAPH, align: <a title="intercom_python_sdk.canvas.components.TextAlign" href="#intercom_python_sdk.canvas.components.TextAlign">TextAlign</a> = TextAlign.LEFT)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>This class is used to configure a text component.</p>
+<p>References:
+<a href="https://developers.intercom.com/docs/references/canvas-kit/presentationcomponents/text/#parameters">https://developers.intercom.com/docs/references/canvas-kit/presentationcomponents/text/#parameters</a></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class TextParameters:
+    &#34;&#34;&#34;
+    This class is used to configure a text component.
+
+    References:
+    https://developers.intercom.com/docs/references/canvas-kit/presentationcomponents/text/#parameters
+    &#34;&#34;&#34;
+
+    id: Optional[str] = None
+    text: str = &#34;text&#34;
+    style: TextStyle = TextStyle.PARAGRAPH
+    align: TextAlign = TextAlign.LEFT</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.TextParameters.align"><code class="name">var <span class="ident">align</span> : <a title="intercom_python_sdk.canvas.components.TextAlign" href="#intercom_python_sdk.canvas.components.TextAlign">TextAlign</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextParameters.id"><code class="name">var <span class="ident">id</span> : Optional[str]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextParameters.style"><code class="name">var <span class="ident">style</span> : <a title="intercom_python_sdk.canvas.components.TextStyle" href="#intercom_python_sdk.canvas.components.TextStyle">TextStyle</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextParameters.text"><code class="name">var <span class="ident">text</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextStyle"><code class="flex name class">
+<span>class <span class="ident">TextStyle</span></span>
+<span>(</span><span>value, names=None, *, module=None, qualname=None, type=None, start=1)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An enumeration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TextStyle(Enum):
+    HEADER = &#34;header&#34;
+    MUTED = &#34;muted&#34;
+    PARAGRAPH = &#34;paragraph&#34;
+    ERROR = &#34;error&#34;</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="intercom_python_sdk.canvas.components.TextStyle.ERROR"><code class="name">var <span class="ident">ERROR</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextStyle.HEADER"><code class="name">var <span class="ident">HEADER</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextStyle.MUTED"><code class="name">var <span class="ident">MUTED</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="intercom_python_sdk.canvas.components.TextStyle.PARAGRAPH"><code class="name">var <span class="ident">PARAGRAPH</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="intercom_python_sdk.canvas" href="index.html">intercom_python_sdk.canvas</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.ActionParameters" href="#intercom_python_sdk.canvas.components.ActionParameters">ActionParameters</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.ActionParameters.type" href="#intercom_python_sdk.canvas.components.ActionParameters.type">type</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ActionParameters.url" href="#intercom_python_sdk.canvas.components.ActionParameters.url">url</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.ActionType" href="#intercom_python_sdk.canvas.components.ActionType">ActionType</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.ActionType.SHEET" href="#intercom_python_sdk.canvas.components.ActionType.SHEET">SHEET</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ActionType.SUBMIT" href="#intercom_python_sdk.canvas.components.ActionType.SUBMIT">SUBMIT</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ActionType.URL" href="#intercom_python_sdk.canvas.components.ActionType.URL">URL</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.ButtonParameters" href="#intercom_python_sdk.canvas.components.ButtonParameters">ButtonParameters</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonParameters.action" href="#intercom_python_sdk.canvas.components.ButtonParameters.action">action</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonParameters.disabled" href="#intercom_python_sdk.canvas.components.ButtonParameters.disabled">disabled</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonParameters.id" href="#intercom_python_sdk.canvas.components.ButtonParameters.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonParameters.label" href="#intercom_python_sdk.canvas.components.ButtonParameters.label">label</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonParameters.style" href="#intercom_python_sdk.canvas.components.ButtonParameters.style">style</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.ButtonStyle" href="#intercom_python_sdk.canvas.components.ButtonStyle">ButtonStyle</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonStyle.LINK" href="#intercom_python_sdk.canvas.components.ButtonStyle.LINK">LINK</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonStyle.PRIMARY" href="#intercom_python_sdk.canvas.components.ButtonStyle.PRIMARY">PRIMARY</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.ButtonStyle.SECONDARY" href="#intercom_python_sdk.canvas.components.ButtonStyle.SECONDARY">SECONDARY</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.DropdownParameters" href="#intercom_python_sdk.canvas.components.DropdownParameters">DropdownParameters</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.DropdownParameters.disabled" href="#intercom_python_sdk.canvas.components.DropdownParameters.disabled">disabled</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.DropdownParameters.id" href="#intercom_python_sdk.canvas.components.DropdownParameters.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.DropdownParameters.label" href="#intercom_python_sdk.canvas.components.DropdownParameters.label">label</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.DropdownParameters.options" href="#intercom_python_sdk.canvas.components.DropdownParameters.options">options</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.DropdownParameters.value" href="#intercom_python_sdk.canvas.components.DropdownParameters.value">value</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.InputParameters" href="#intercom_python_sdk.canvas.components.InputParameters">InputParameters</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.InputParameters.disabled" href="#intercom_python_sdk.canvas.components.InputParameters.disabled">disabled</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.InputParameters.id" href="#intercom_python_sdk.canvas.components.InputParameters.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.InputParameters.label" href="#intercom_python_sdk.canvas.components.InputParameters.label">label</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.InputParameters.placeholder" href="#intercom_python_sdk.canvas.components.InputParameters.placeholder">placeholder</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.InputParameters.value" href="#intercom_python_sdk.canvas.components.InputParameters.value">value</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.OptionParameters" href="#intercom_python_sdk.canvas.components.OptionParameters">OptionParameters</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.OptionParameters.disabled" href="#intercom_python_sdk.canvas.components.OptionParameters.disabled">disabled</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.OptionParameters.id" href="#intercom_python_sdk.canvas.components.OptionParameters.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.OptionParameters.text" href="#intercom_python_sdk.canvas.components.OptionParameters.text">text</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.SpacerParameters" href="#intercom_python_sdk.canvas.components.SpacerParameters">SpacerParameters</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.SpacerParameters.id" href="#intercom_python_sdk.canvas.components.SpacerParameters.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.SpacerParameters.size" href="#intercom_python_sdk.canvas.components.SpacerParameters.size">size</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.SpacerSize" href="#intercom_python_sdk.canvas.components.SpacerSize">SpacerSize</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.SpacerSize.EXTRA_LARGE" href="#intercom_python_sdk.canvas.components.SpacerSize.EXTRA_LARGE">EXTRA_LARGE</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.SpacerSize.EXTRA_SMALL" href="#intercom_python_sdk.canvas.components.SpacerSize.EXTRA_SMALL">EXTRA_SMALL</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.SpacerSize.LARGE" href="#intercom_python_sdk.canvas.components.SpacerSize.LARGE">LARGE</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.SpacerSize.MEDIUM" href="#intercom_python_sdk.canvas.components.SpacerSize.MEDIUM">MEDIUM</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.SpacerSize.SMALL" href="#intercom_python_sdk.canvas.components.SpacerSize.SMALL">SMALL</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.TextAlign" href="#intercom_python_sdk.canvas.components.TextAlign">TextAlign</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.TextAlign.CENTER" href="#intercom_python_sdk.canvas.components.TextAlign.CENTER">CENTER</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextAlign.LEFT" href="#intercom_python_sdk.canvas.components.TextAlign.LEFT">LEFT</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextAlign.RIGHT" href="#intercom_python_sdk.canvas.components.TextAlign.RIGHT">RIGHT</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.TextParameters" href="#intercom_python_sdk.canvas.components.TextParameters">TextParameters</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.TextParameters.align" href="#intercom_python_sdk.canvas.components.TextParameters.align">align</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextParameters.id" href="#intercom_python_sdk.canvas.components.TextParameters.id">id</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextParameters.style" href="#intercom_python_sdk.canvas.components.TextParameters.style">style</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextParameters.text" href="#intercom_python_sdk.canvas.components.TextParameters.text">text</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="intercom_python_sdk.canvas.components.TextStyle" href="#intercom_python_sdk.canvas.components.TextStyle">TextStyle</a></code></h4>
+<ul class="">
+<li><code><a title="intercom_python_sdk.canvas.components.TextStyle.ERROR" href="#intercom_python_sdk.canvas.components.TextStyle.ERROR">ERROR</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextStyle.HEADER" href="#intercom_python_sdk.canvas.components.TextStyle.HEADER">HEADER</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextStyle.MUTED" href="#intercom_python_sdk.canvas.components.TextStyle.MUTED">MUTED</a></code></li>
+<li><code><a title="intercom_python_sdk.canvas.components.TextStyle.PARAGRAPH" href="#intercom_python_sdk.canvas.components.TextStyle.PARAGRAPH">PARAGRAPH</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

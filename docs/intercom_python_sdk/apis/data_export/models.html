@@ -51,6 +51,7 @@ import time
 import requests
 from typing import (
     TYPE_CHECKING,
+    Optional
 )
 
 # From Current Package
@@ -108,15 +109,15 @@ class DataExportJob(ModelBase):
 
     def update(self, **kwargs) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Update this data export job to fetch it&#39;s current status and values. &#34;&#34;&#34;
-        job = self.api_client.get_export_job(job_identifier=self.job_identifier)
-        self.__update_self(job)
+        job = self.api_client.get(job_identifier=self.job_identifier)
+        self.__update_self(job)  # type: ignore
 
         return self
 
     def cancel(self) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Cancel this data export job. &#34;&#34;&#34;
-        job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
-        self.__update_self(job)
+        job = self.api_client.cancel(job_identifier=self.job_identifier)
+        self.__update_self(job)  # type: ignore
 
         return self
 
@@ -236,15 +237,15 @@ class DataExportJob(ModelBase):
 
     def update(self, **kwargs) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Update this data export job to fetch it&#39;s current status and values. &#34;&#34;&#34;
-        job = self.api_client.get_export_job(job_identifier=self.job_identifier)
-        self.__update_self(job)
+        job = self.api_client.get(job_identifier=self.job_identifier)
+        self.__update_self(job)  # type: ignore
 
         return self
 
     def cancel(self) -&gt; &#39;DataExportJob&#39;:
         &#34;&#34;&#34; Cancel this data export job. &#34;&#34;&#34;
-        job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
-        self.__update_self(job)
+        job = self.api_client.cancel(job_identifier=self.job_identifier)
+        self.__update_self(job)  # type: ignore
 
         return self
 
@@ -396,8 +397,8 @@ def status(self) -&gt; str:
 </summary>
 <pre><code class="python">def cancel(self) -&gt; &#39;DataExportJob&#39;:
     &#34;&#34;&#34; Cancel this data export job. &#34;&#34;&#34;
-    job = self.api_client.cancel_export_job(job_identifier=self.job_identifier)
-    self.__update_self(job)
+    job = self.api_client.cancel(job_identifier=self.job_identifier)
+    self.__update_self(job)  # type: ignore
 
     return self</code></pre>
 </details>
@@ -444,8 +445,8 @@ def status(self) -&gt; str:
 </summary>
 <pre><code class="python">def update(self, **kwargs) -&gt; &#39;DataExportJob&#39;:
     &#34;&#34;&#34; Update this data export job to fetch it&#39;s current status and values. &#34;&#34;&#34;
-    job = self.api_client.get_export_job(job_identifier=self.job_identifier)
-    self.__update_self(job)
+    job = self.api_client.get(job_identifier=self.job_identifier)
+    self.__update_self(job)  # type: ignore
 
     return self</code></pre>
 </details>
