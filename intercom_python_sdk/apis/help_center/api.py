@@ -36,7 +36,7 @@ from ...core.errors import catch_api_error
 
 
 @response_handler(catch_api_error)
-class HelpCenterAPI(APIBase):
+class HelpCenterAPI(APIBase):  # type: ignore
     URI = "/help_center/"
 
     @returns(CollectionSchema(many=False))  # type: ignore

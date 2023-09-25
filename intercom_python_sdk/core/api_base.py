@@ -125,7 +125,7 @@ class APIProxyInterface:
                 inject(attr)
 
 
-@json
+@json  # type: ignore
 class APIBase(Consumer):
     """
     The base class for all API classes in the Intercom Python SDK.
@@ -168,7 +168,7 @@ class APIBase(Consumer):
 
 
 # Functions
-def create_api_client(api_class: 'APIBase', config: Configuration) -> APIProxyInterface:
+def create_api_client(api_class: 'APIBase', config: Configuration) -> APIProxyInterface:  # type: ignore
     """
     Creates a proxy interface for an API client for the provided API class.
 

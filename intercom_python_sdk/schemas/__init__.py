@@ -38,3 +38,15 @@ from ..apis.data_events.schemas import (
 from ..apis.data_export.schemas import (
     DataExportJobSchema,
 )
+
+from ..apis.help_center.schemas import (
+    CollectionSchema,
+    CollectionListSchema,
+    SectionSchema,
+    SectionListSchema,
+)
+
+from ..apis.teams.schemas import (
+    TeamSchema,
+    TeamListSchema,
+)

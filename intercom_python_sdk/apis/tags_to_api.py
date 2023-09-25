@@ -49,11 +49,11 @@ class TagsToAPI(dict):
 
     Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
     """
-    allowed_types = (APIBase, Consumer, ConsumerMeta)
+    allowed_types: set = (APIBase, Consumer, ConsumerMeta)  # type: ignore
 
     # Validation of assigned values to ensure only API classes are mapped.
     def __setitem__(self, key, value):
-        if not isinstance(value, self.allowed_types):
+        if not isinstance(value, self.allowed_types):  # type: ignore
             raise TypeError(f"Invalid type. Value must be one of types {TagsToAPI.allowed_types}. Got {type(value)}.")
         super().__setitem__(key, value)
 

@@ -22,6 +22,8 @@ from ..apis.articles.models import (
     ArticleList
 )
 
+from ..apis.articles.languages import ArticleLanguages
+
 from ..apis.data_attributes.models import (
     DataAttribute, 
     DataAttributeList
@@ -33,3 +35,15 @@ from ..apis.data_events.models import (
 )
 
 from ..apis.data_export.models import DataExportJob
+
+from ..apis.help_center.models import (
+    Collection, 
+    CollectionList, 
+    Section, 
+    SectionList
+)
+
+from ..apis.teams.models import (
+    Team, 
+    TeamList
+)

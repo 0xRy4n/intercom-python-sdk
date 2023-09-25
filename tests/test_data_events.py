@@ -65,4 +65,4 @@ class TestDataEventListSchemasAndModel(TestCase):
     def test_data_event_list_indexing(self):
         _, data = fake_factory.fake_schema(DataEventListSchema)
         data_event_list = DataEventListSchema().load(data)
-        assert isinstance(data_event_list[0], DataEvent)
+        assert isinstance(data_event_list[0], DataEvent)  # noqa # type: ignore

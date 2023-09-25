@@ -32,16 +32,15 @@ class CollectionSchema(SchemaBase):
     created_at = fields.Int()
     updated_at = fields.Int()
     url = fields.Str(allow_none=True)
-    icon = fields.Str()
+    icon = fields.Str(allow_none=True)
     order = fields.Int()
     default_locale = fields.Str(allow_none=True)
     translated_content = fields.Dict(allow_none=True)
+    parent_id = fields.Int(allow_none=True)
 
     @marshmallow.post_load
     def make(self, data, **kwargs):
         return help_center_models.Collection(**data)
-    
-
 
 
 class CollectionListSchema(SchemaBase):
@@ -56,7 +55,6 @@ class CollectionListSchema(SchemaBase):
         return help_center_models.CollectionList(**data)
 
 
-
 class SectionSchema(SchemaBase):
     id = fields.Str()
     type = fields.Str()
@@ -66,7 +64,7 @@ class SectionSchema(SchemaBase):
     created_at = fields.Int()
     updated_at = fields.Int()
     url = fields.Str()
-    icon = fields.Str()
+    icon = fields.Str(allow_none=True)
     order = fields.Int()
     collection_id = fields.Str()
     default_locale = fields.Str(allow_none=True)
@@ -75,7 +73,7 @@ class SectionSchema(SchemaBase):
     @marshmallow.post_load
     def make(self, data, **kwargs):
         return help_center_models.Section(**data)
-    
+
 
 class SectionListSchema(SchemaBase):
     

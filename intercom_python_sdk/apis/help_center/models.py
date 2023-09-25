@@ -1,5 +1,5 @@
 """
-# Articles API Models
+# Help Center API Models
 
 `apis/help_center/models.py`
 
@@ -13,7 +13,7 @@ These models provide object oriented interfaces for the schemas defined in `apis
 # External
 import marshmallow
 from marshmallow import fields
-from typing import List, Optional, Union , TYPE_CHECKING
+from typing import Union, TYPE_CHECKING, Optional as Opt
 
 # From Current API
 from . import schemas as hc_schemas
@@ -25,9 +25,6 @@ from ...core.model_base import ModelBase
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
 if TYPE_CHECKING:
     from .api import HelpCenterAPI
-
-
-
 
 
 class Collection(ModelBase):
@@ -48,21 +45,20 @@ class Collection(ModelBase):
         translated_content (dict): The translated content of the Collection.
     """
     def __init__(self, *args, **kwargs):
-        self.__id = kwargs.get('id')
-        self.__type = kwargs.get('type')
-        self.__workspace_id = kwargs.get('workspace_id')
-        self.__name = kwargs.get('name')
-        self.__description = kwargs.get('description')
-        self.__created_at = kwargs.get('created_at')
-        self.__updated_at = kwargs.get('updated_at')
-        self.__url = kwargs.get('url')
-        self.__icon = kwargs.get('icon')
-        self.__order = kwargs.get('order')
-        self.__default_locale = kwargs.get('default_locale',None)
-        self.__translated_content = kwargs.get('translated_content',None)
+        self.__id: int = kwargs.get('id', None)
+        self.__type: str = kwargs.get('type', str())
+        self.__workspace_id: str = kwargs.get('workspace_id', None)
+        self.__name: str = kwargs.get('name', '')
+        self.__description = kwargs.get('description', '')
+        self.__created_at: int = kwargs.get('created_at', None)
+        self.__updated_at: int = kwargs.get('updated_at', None)
+        self.__url: str = kwargs.get('url', '')
+        self.__icon: str = kwargs.get('icon', '')
+        self.__order: int = kwargs.get('order', 0)
+        self.__default_locale: str = kwargs.get('default_locale', 0)
+        self.__translated_content: dict = kwargs.get('translated_content', {})
+        self.__parent_id: int = kwargs.get('parent_id', None)
         
-
-
      # Properties
     @property
     def api_client(self) -> 'HelpCenterAPI':
@@ -75,15 +71,15 @@ class Collection(ModelBase):
         return self._api_client
     
     @property
-    def id(self) -> str:
+    def type(self) -> str:
+        return self.__type
+
+    @property
+    def id(self) -> Opt[int]:
         return self.__id
     
     @property
-    def type(self) -> str:
-        return self.__type
-    
-    @property
-    def workspace_id(self) -> str:
+    def workspace_id(self) -> Opt[str]:
         return self.__workspace_id
     
     @property
@@ -95,11 +91,11 @@ class Collection(ModelBase):
         return self.__description
     
     @property
-    def created_at(self) -> int:
+    def created_at(self) -> Opt[int]:
         return self.__created_at
     
     @property
-    def updated_at(self) -> int:
+    def updated_at(self) -> Opt[int]:
         return self.__updated_at
     
     @property
@@ -111,7 +107,7 @@ class Collection(ModelBase):
         return self.__icon
     
     @property
-    def order(self) -> int:
+    def order(self) -> Opt[int]:
         return self.__order
     
     @property
@@ -122,7 +118,10 @@ class Collection(ModelBase):
     def translated_content(self) -> dict:
         return self.__translated_content
     
-
+    @property
+    def parent_id(self) -> int:
+        return self.__parent_id
+    
     # Property Setters
     @api_client.setter
     def api_client(self, api_client: 'HelpCenterAPI'):
@@ -136,8 +135,8 @@ class Collection(ModelBase):
 
 
     @id.setter
-    def id(self, id: str):
-        self.__id = id
+    def id(self, id: Union[int, str]):
+        self.__id = int(id)
 
     @type.setter
     def type(self, type: str):
@@ -156,11 +155,11 @@ class Collection(ModelBase):
         self.__description = description
 
     @created_at.setter
-    def created_at(self, created_at: str):
+    def created_at(self, created_at: int):
         self.__created_at = created_at
 
     @updated_at.setter
-    def updated_at(self, updated_at: str):
+    def updated_at(self, updated_at: int):
         self.__updated_at = updated_at
 
     @url.setter
@@ -172,7 +171,7 @@ class Collection(ModelBase):
         self.__icon = icon
 
     @order.setter
-    def order(self, order: str):
+    def order(self, order: int):
         self.__order = order
     
     @default_locale.setter
@@ -183,19 +182,17 @@ class Collection(ModelBase):
     def translated_content(self, translated_content: dict):
         self.__translated_content = translated_content
 
-    
-    
+    @parent_id.setter
+    def parent_id(self, parent_id: int):
+        self.__parent_id = parent_id
+
 
 class CollectionList(ModelBase):
-    
-
     def __init__(self, *args, **kwargs):
-        self.__type = kwargs.get('type')
-        self.__data = kwargs.get('data')
-        self.__total_count = kwargs.get('total_count')
-        self.__pages = kwargs.get('pages')
-        
-
+        self.__type: str = kwargs.get('type', '')
+        self.__data: list = kwargs.get('data', [])
+        self.__total_count: int = kwargs.get('total_count', 0)
+        self.__pages: dict = kwargs.get('pages', dict())
 
      # Properties
     @property
@@ -217,13 +214,17 @@ class CollectionList(ModelBase):
         return self.__data
     
     @property
+    def collections(self) -> list:
+        """ Alias for data """
+        return self.__data
+    
+    @property
     def total_count(self) -> int:
         return self.__total_count
     
     @property
     def pages(self) -> dict:
         return self.__pages
-    
 
     # Property Setters
     @api_client.setter
@@ -236,7 +237,6 @@ class CollectionList(ModelBase):
         """
         self._api_client = api_client
 
-
     @type.setter
     def type(self, type: str):
         self.__type = type
@@ -244,6 +244,11 @@ class CollectionList(ModelBase):
     @data.setter
     def data(self, data: list):
         self.__data = data
+
+    @collections.setter
+    def collections(self, collections: list):
+        """ Alias for data """
+        self.__data = collections
 
     @total_count.setter
     def total_count(self, total_count: int):
@@ -253,42 +258,49 @@ class CollectionList(ModelBase):
     def pages(self, pages: dict):
         self.__pages = pages
 
+    def get_by_id(self, id: Union[str, int]):
+        """ Get a Collection by ID.
 
+        Args:
+            id (Union[str, int]): The ID of the Collection.
 
-"""
-    id = fields.Str()
-    type = fields.Str()
-    parent_id = fields.Int()
-    workspace_id = fields.Str()
-    name = fields.Str()
-    created_at = fields.Int()
-    updated_at = fields.Int()
-    url = fields.Str()
-    icon = fields.Str()
-    order = fields.Int()
-    collection_id = fields.Str()
-    default_locale = fields.Str(allow_none=True)
-    translated_content = fields.Dict(allow_none=True)
-"""
+        Returns:
+            Collection: The Collection with the given ID.
+        """
+        for collection in self.data:
+            if collection.id == id:
+                return collection
+        return None
+    
+    def __iter__(self):
+        return iter(self.data)
+
+    def __getitem__(self, index):
+        return self.data[index]
+    
+    def __setitem__(self, index, value: 'Collection'):
+        self.data[index] = value
+
+    def __len__(self):
+        return len(self.data)
+
 
 class Section(ModelBase):
-
     def __init__(self, *args, **kwargs):
-        self.__id = kwargs.get('id')
-        self.__type = kwargs.get('type')
-        self.__workspace_id = kwargs.get('workspace_id')
-        self.__name = kwargs.get('name')
-        self.__created_at = kwargs.get('created_at')
-        self.__updated_at = kwargs.get('updated_at')
-        self.__url = kwargs.get('url')
-        self.__icon = kwargs.get('icon')
-        self.__order = kwargs.get('order')
-        self.__collection_id = kwargs.get('collection_id')
-        self.__default_locale = kwargs.get('default_locale',None)
-        self.__translated_content = kwargs.get('translated_content',None)
+        self.__id: int = kwargs.get('id', int())
+        self.__type: str = kwargs.get('type', '')
+        self.__workspace_id: str = kwargs.get('workspace_id', '')
+        self.__name: str = kwargs.get('name', '')
+        self.__created_at: int = kwargs.get('created_at', int())
+        self.__updated_at: int = kwargs.get('updated_at', int())
+        self.__url: str = kwargs.get('url', '')
+        self.__icon: str = kwargs.get('icon', '')
+        self.__order: int = kwargs.get('order', '')
+        self.__collection_id: int = kwargs.get('collection_id', int())
+        self.__default_locale: str = kwargs.get('default_locale', '')
+        self.__translated_content: dict = kwargs.get('translated_content', dict())
 
-
-        # Properties
+    # Properties
     @property
     def api_client(self) -> 'HelpCenterAPI':
         """
@@ -300,7 +312,7 @@ class Section(ModelBase):
         return self._api_client
     
     @property
-    def id(self) -> str:
+    def id(self) -> int:
         return self.__id
     
     @property
@@ -336,7 +348,7 @@ class Section(ModelBase):
         return self.__order
     
     @property
-    def collection_id(self) -> str:
+    def collection_id(self) -> int:
         return self.__collection_id
     
     @property
@@ -346,8 +358,6 @@ class Section(ModelBase):
     @property
     def translated_content(self) -> dict:
         return self.__translated_content
-    
-
 
     # Property Setters
     @api_client.setter
@@ -360,10 +370,9 @@ class Section(ModelBase):
         """
         self._api_client = api_client
 
-
     @id.setter
-    def id(self, id: str):
-        self.__id = id
+    def id(self, id: Union[str, int]):
+        self.__id = int(id)
 
     @type.setter
     def type(self, type: str):
@@ -378,11 +387,11 @@ class Section(ModelBase):
         self.__name = name
 
     @created_at.setter
-    def created_at(self, created_at: str):
+    def created_at(self, created_at: int):
         self.__created_at = created_at
 
     @updated_at.setter
-    def updated_at(self, updated_at: str):
+    def updated_at(self, updated_at: int):
 
         self.__updated_at = updated_at
 
@@ -395,11 +404,11 @@ class Section(ModelBase):
         self.__icon = icon
 
     @order.setter
-    def order(self, order: str):
+    def order(self, order: int):
         self.__order = order
 
     @collection_id.setter
-    def collection_id(self, collection_id: str):
+    def collection_id(self, collection_id: int):
         self.__collection_id = collection_id
     
     @default_locale.setter
@@ -412,15 +421,12 @@ class Section(ModelBase):
 
 
 class SectionList(ModelBase):
-    
         def __init__(self, *args, **kwargs):
-            self.__type = kwargs.get('type')
-            self.__data = kwargs.get('data')
-            self.__total_count = kwargs.get('total_count')
-            self.__pages = kwargs.get('pages')
-            
-    
-    
+            self.__type: str = kwargs.get('type', '')
+            self.__data: list = kwargs.get('data', [])
+            self.__total_count = kwargs.get('total_count', int())
+            self.__pages = kwargs.get('pages', int())
+
         # Properties
         @property
         def api_client(self) -> 'HelpCenterAPI':
@@ -447,8 +453,7 @@ class SectionList(ModelBase):
         @property
         def pages(self) -> dict:
             return self.__pages
-        
-    
+
         # Property Setters
         @api_client.setter
         def api_client(self, api_client: 'HelpCenterAPI'):
@@ -459,8 +464,7 @@ class SectionList(ModelBase):
                 api_client (HelpCenterAPI): The API client used by the model instance.
             """
             self._api_client = api_client
-    
-    
+
         @type.setter
         def type(self, type: str):
             self.__type = type
@@ -476,14 +480,3 @@ class SectionList(ModelBase):
         @pages.setter
         def pages(self, pages: dict):
             self.__pages = pages
-
-
-
-
-
-
-
-    
-
-
-    
