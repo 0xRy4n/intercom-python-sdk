@@ -45,43 +45,32 @@ It is used to interact with the Intercom Help Center API [1] as defined in the I
 [1] https://developers.intercom.com/intercom-api-reference/reference/listallteams
 [2] https://github.com/intercom/Intercom-OpenAPI
 &#34;&#34;&#34;
-
-
 # Built-ins
-import functools
-from typing import Union, cast
+from typing import Union
 
 # External
 from uplink import (
-    get, put, post,
-    returns, args,
-    error_handler, response_handler,
-    Field, Body, json, Url, Path, Query,delete
+    get,
+    returns,
+    response_handler,
 )
 
 # From Current API
 from .schemas import (
     TeamSchema,
-    AdminPriorityLevelSchema,
     TeamListSchema,
-)
-
-from .models import (
-    Team,
-    AdminPriorityLevel,
-    TeamList,
-    
 )
 
 # From Current Package
 from ...core.api_base import APIBase
 from ...core.errors import catch_api_error
 
+
 @response_handler(catch_api_error)
 class TeamsAPI(APIBase):
     URI = &#34;/teams/&#34;
 
-    @returns(TeamListSchema(many=False)) # type: ignore 
+    @returns(TeamListSchema(many=False))  # type: ignore
     @get(&#34;&#34;)
     def get_all_teams(self):
         &#34;&#34;&#34; Get all Teams.
@@ -91,8 +80,7 @@ class TeamsAPI(APIBase):
         &#34;&#34;&#34;
         pass
 
-    
-    @returns(TeamSchema(many=False)) # type: ignore
+    @returns(TeamSchema(many=False))  # type: ignore
     @get(&#34;{team_id}&#34;)
     def get_team_by_id(self, team_id: Union[str, int]):
         &#34;&#34;&#34; Get a Team by ID.
@@ -103,10 +91,7 @@ class TeamsAPI(APIBase):
         Returns:
             Team: The Team with the given ID.
         &#34;&#34;&#34;
-        pass
-    
-
-    </code></pre>
+        pass</code></pre>
 </details>
 </section>
 <section>
@@ -140,7 +125,7 @@ configure the Consumer instance using a Configuration object.</p>
 class TeamsAPI(APIBase):
     URI = &#34;/teams/&#34;
 
-    @returns(TeamListSchema(many=False)) # type: ignore 
+    @returns(TeamListSchema(many=False))  # type: ignore
     @get(&#34;&#34;)
     def get_all_teams(self):
         &#34;&#34;&#34; Get all Teams.
@@ -150,8 +135,7 @@ class TeamsAPI(APIBase):
         &#34;&#34;&#34;
         pass
 
-    
-    @returns(TeamSchema(many=False)) # type: ignore
+    @returns(TeamSchema(many=False))  # type: ignore
     @get(&#34;{team_id}&#34;)
     def get_team_by_id(self, team_id: Union[str, int]):
         &#34;&#34;&#34; Get a Team by ID.
@@ -194,7 +178,7 @@ class TeamsAPI(APIBase):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(TeamListSchema(many=False)) # type: ignore 
+<pre><code class="python">@returns(TeamListSchema(many=False))  # type: ignore
 @get(&#34;&#34;)
 def get_all_teams(self):
     &#34;&#34;&#34; Get all Teams.
@@ -224,7 +208,7 @@ def get_all_teams(self):
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(TeamSchema(many=False)) # type: ignore
+<pre><code class="python">@returns(TeamSchema(many=False))  # type: ignore
 @get(&#34;{team_id}&#34;)
 def get_team_by_id(self, team_id: Union[str, int]):
     &#34;&#34;&#34; Get a Team by ID.

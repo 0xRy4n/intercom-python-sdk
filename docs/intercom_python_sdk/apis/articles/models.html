@@ -62,23 +62,10 @@ from . import schemas as a_schemas
 # From Current Package
 from ...core.model_base import ModelBase
 
-from .languages import ArticleLanguages
-
 # Type Check Imports - TYPE_CHECKING is assumed True by type-checkers but is False at runtime.
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
 if TYPE_CHECKING:
     from .api import ArticlesAPI
-
-
-class ArticleTranslation(ModelBase):
-    type: str
-
-    def __init__(self, *args, **kwargs):
-        self.type = kwargs.get(&#39;type&#39;, &#39;article_translated_content&#39;)
-
-        for language in ArticleLanguages:
-            locale_code = language.value
-            setattr(self, locale_code, kwargs.get(locale_code, None))
 
 
 class ArticleStatistics(ModelBase):
@@ -292,7 +279,7 @@ class Article(ModelBase):
             dict: The translated content of the Article.
         &#34;&#34;&#34;
         return self.__translated_content
-    
+
     @property
     def content(self) -&gt; BeautifulSoup:
         &#34;&#34;&#34;
@@ -867,7 +854,7 @@ class ArticleList(ModelBase):
             dict: The translated content of the Article.
         &#34;&#34;&#34;
         return self.__translated_content
-    
+
     @property
     def content(self) -&gt; BeautifulSoup:
         &#34;&#34;&#34;
@@ -1924,43 +1911,6 @@ def type(self) -&gt; str:
 </dd>
 </dl>
 </dd>
-<dt id="intercom_python_sdk.apis.articles.models.ArticleTranslation"><code class="flex name class">
-<span>class <span class="ident">ArticleTranslation</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
-<dd>
-<div class="desc"><p>Base model for all API models.</p>
-<h2 id="raises">Raises</h2>
-<dl>
-<dt><code>NotImplementedError</code></dt>
-<dd>When setting a property with no setter.</dd>
-</dl></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class ArticleTranslation(ModelBase):
-    type: str
-
-    def __init__(self, *args, **kwargs):
-        self.type = kwargs.get(&#39;type&#39;, &#39;article_translated_content&#39;)
-
-        for language in ArticleLanguages:
-            locale_code = language.value
-            setattr(self, locale_code, kwargs.get(locale_code, None))</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li><a title="intercom_python_sdk.core.model_base.ModelBase" href="../../core/model_base.html#intercom_python_sdk.core.model_base.ModelBase">ModelBase</a></li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="intercom_python_sdk.apis.articles.models.ArticleTranslation.type"><code class="name">var <span class="ident">type</span> : str</code></dt>
-<dd>
-<div class="desc"></div>
-</dd>
-</dl>
-</dd>
 </dl>
 </section>
 </article>
@@ -2024,12 +1974,6 @@ def type(self) -&gt; str:
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.reactions" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.reactions">reactions</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.sad_reaction_percentage" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.sad_reaction_percentage">sad_reaction_percentage</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.articles.models.ArticleStatistics.views" href="#intercom_python_sdk.apis.articles.models.ArticleStatistics.views">views</a></code></li>
-</ul>
-</li>
-<li>
-<h4><code><a title="intercom_python_sdk.apis.articles.models.ArticleTranslation" href="#intercom_python_sdk.apis.articles.models.ArticleTranslation">ArticleTranslation</a></code></h4>
-<ul class="">
-<li><code><a title="intercom_python_sdk.apis.articles.models.ArticleTranslation.type" href="#intercom_python_sdk.apis.articles.models.ArticleTranslation.type">type</a></code></li>
 </ul>
 </li>
 </ul>

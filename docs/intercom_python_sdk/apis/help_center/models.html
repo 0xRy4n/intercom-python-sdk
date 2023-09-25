@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
 <title>intercom_python_sdk.apis.help_center.models API documentation</title>
-<meta name="description" content="Articles API Models …" />
+<meta name="description" content="Help Center API Models …" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -22,7 +22,7 @@
 <h1 class="title">Module <code>intercom_python_sdk.apis.help_center.models</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="articles-api-models">Articles API Models</h1>
+<h1 id="help-center-api-models">Help Center API Models</h1>
 <p><code>apis/help_center/models.py</code></p>
 <p>This module contains models used to interact with the Intercom Help Center API [1].
 These models provide object oriented interfaces for the schemas defined in <code>apis/help_center/schemas.py</code>.</p>
@@ -35,7 +35,7 @@ These models provide object oriented interfaces for the schemas defined in <code
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-# Articles API Models
+# Help Center API Models
 
 `apis/help_center/models.py`
 
@@ -49,7 +49,7 @@ These models provide object oriented interfaces for the schemas defined in `apis
 # External
 import marshmallow
 from marshmallow import fields
-from typing import List, Optional, Union , TYPE_CHECKING
+from typing import Union, TYPE_CHECKING, Optional as Opt
 
 # From Current API
 from . import schemas as hc_schemas
@@ -61,9 +61,6 @@ from ...core.model_base import ModelBase
 # See: https://docs.python.org/3/library/typing.html#typing.TYPE_CHECKING
 if TYPE_CHECKING:
     from .api import HelpCenterAPI
-
-
-
 
 
 class Collection(ModelBase):
@@ -84,21 +81,20 @@ class Collection(ModelBase):
         translated_content (dict): The translated content of the Collection.
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__id = kwargs.get(&#39;id&#39;)
-        self.__type = kwargs.get(&#39;type&#39;)
-        self.__workspace_id = kwargs.get(&#39;workspace_id&#39;)
-        self.__name = kwargs.get(&#39;name&#39;)
-        self.__description = kwargs.get(&#39;description&#39;)
-        self.__created_at = kwargs.get(&#39;created_at&#39;)
-        self.__updated_at = kwargs.get(&#39;updated_at&#39;)
-        self.__url = kwargs.get(&#39;url&#39;)
-        self.__icon = kwargs.get(&#39;icon&#39;)
-        self.__order = kwargs.get(&#39;order&#39;)
-        self.__default_locale = kwargs.get(&#39;default_locale&#39;,None)
-        self.__translated_content = kwargs.get(&#39;translated_content&#39;,None)
+        self.__id: int = kwargs.get(&#39;id&#39;, None)
+        self.__type: str = kwargs.get(&#39;type&#39;, str())
+        self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, None)
+        self.__name: str = kwargs.get(&#39;name&#39;, &#39;&#39;)
+        self.__description = kwargs.get(&#39;description&#39;, &#39;&#39;)
+        self.__created_at: int = kwargs.get(&#39;created_at&#39;, None)
+        self.__updated_at: int = kwargs.get(&#39;updated_at&#39;, None)
+        self.__url: str = kwargs.get(&#39;url&#39;, &#39;&#39;)
+        self.__icon: str = kwargs.get(&#39;icon&#39;, &#39;&#39;)
+        self.__order: int = kwargs.get(&#39;order&#39;, 0)
+        self.__default_locale: str = kwargs.get(&#39;default_locale&#39;, 0)
+        self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, {})
+        self.__parent_id: int = kwargs.get(&#39;parent_id&#39;, None)
         
-
-
      # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
@@ -111,15 +107,15 @@ class Collection(ModelBase):
         return self._api_client
     
     @property
-    def id(self) -&gt; str:
+    def type(self) -&gt; str:
+        return self.__type
+
+    @property
+    def id(self) -&gt; Opt[int]:
         return self.__id
     
     @property
-    def type(self) -&gt; str:
-        return self.__type
-    
-    @property
-    def workspace_id(self) -&gt; str:
+    def workspace_id(self) -&gt; Opt[str]:
         return self.__workspace_id
     
     @property
@@ -131,11 +127,11 @@ class Collection(ModelBase):
         return self.__description
     
     @property
-    def created_at(self) -&gt; int:
+    def created_at(self) -&gt; Opt[int]:
         return self.__created_at
     
     @property
-    def updated_at(self) -&gt; int:
+    def updated_at(self) -&gt; Opt[int]:
         return self.__updated_at
     
     @property
@@ -147,7 +143,7 @@ class Collection(ModelBase):
         return self.__icon
     
     @property
-    def order(self) -&gt; int:
+    def order(self) -&gt; Opt[int]:
         return self.__order
     
     @property
@@ -158,7 +154,10 @@ class Collection(ModelBase):
     def translated_content(self) -&gt; dict:
         return self.__translated_content
     
-
+    @property
+    def parent_id(self) -&gt; int:
+        return self.__parent_id
+    
     # Property Setters
     @api_client.setter
     def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
@@ -172,8 +171,8 @@ class Collection(ModelBase):
 
 
     @id.setter
-    def id(self, id: str):
-        self.__id = id
+    def id(self, id: Union[int, str]):
+        self.__id = int(id)
 
     @type.setter
     def type(self, type: str):
@@ -192,11 +191,11 @@ class Collection(ModelBase):
         self.__description = description
 
     @created_at.setter
-    def created_at(self, created_at: str):
+    def created_at(self, created_at: int):
         self.__created_at = created_at
 
     @updated_at.setter
-    def updated_at(self, updated_at: str):
+    def updated_at(self, updated_at: int):
         self.__updated_at = updated_at
 
     @url.setter
@@ -208,7 +207,7 @@ class Collection(ModelBase):
         self.__icon = icon
 
     @order.setter
-    def order(self, order: str):
+    def order(self, order: int):
         self.__order = order
     
     @default_locale.setter
@@ -219,19 +218,17 @@ class Collection(ModelBase):
     def translated_content(self, translated_content: dict):
         self.__translated_content = translated_content
 
-    
-    
+    @parent_id.setter
+    def parent_id(self, parent_id: int):
+        self.__parent_id = parent_id
+
 
 class CollectionList(ModelBase):
-    
-
     def __init__(self, *args, **kwargs):
-        self.__type = kwargs.get(&#39;type&#39;)
-        self.__data = kwargs.get(&#39;data&#39;)
-        self.__total_count = kwargs.get(&#39;total_count&#39;)
-        self.__pages = kwargs.get(&#39;pages&#39;)
-        
-
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__data: list = kwargs.get(&#39;data&#39;, [])
+        self.__total_count: int = kwargs.get(&#39;total_count&#39;, 0)
+        self.__pages: dict = kwargs.get(&#39;pages&#39;, dict())
 
      # Properties
     @property
@@ -253,13 +250,17 @@ class CollectionList(ModelBase):
         return self.__data
     
     @property
+    def collections(self) -&gt; list:
+        &#34;&#34;&#34; Alias for data &#34;&#34;&#34;
+        return self.__data
+    
+    @property
     def total_count(self) -&gt; int:
         return self.__total_count
     
     @property
     def pages(self) -&gt; dict:
         return self.__pages
-    
 
     # Property Setters
     @api_client.setter
@@ -272,7 +273,6 @@ class CollectionList(ModelBase):
         &#34;&#34;&#34;
         self._api_client = api_client
 
-
     @type.setter
     def type(self, type: str):
         self.__type = type
@@ -280,6 +280,11 @@ class CollectionList(ModelBase):
     @data.setter
     def data(self, data: list):
         self.__data = data
+
+    @collections.setter
+    def collections(self, collections: list):
+        &#34;&#34;&#34; Alias for data &#34;&#34;&#34;
+        self.__data = collections
 
     @total_count.setter
     def total_count(self, total_count: int):
@@ -289,42 +294,49 @@ class CollectionList(ModelBase):
     def pages(self, pages: dict):
         self.__pages = pages
 
+    def get_by_id(self, id: Union[str, int]):
+        &#34;&#34;&#34; Get a Collection by ID.
 
+        Args:
+            id (Union[str, int]): The ID of the Collection.
 
-&#34;&#34;&#34;
-    id = fields.Str()
-    type = fields.Str()
-    parent_id = fields.Int()
-    workspace_id = fields.Str()
-    name = fields.Str()
-    created_at = fields.Int()
-    updated_at = fields.Int()
-    url = fields.Str()
-    icon = fields.Str()
-    order = fields.Int()
-    collection_id = fields.Str()
-    default_locale = fields.Str(allow_none=True)
-    translated_content = fields.Dict(allow_none=True)
-&#34;&#34;&#34;
+        Returns:
+            Collection: The Collection with the given ID.
+        &#34;&#34;&#34;
+        for collection in self.data:
+            if collection.id == id:
+                return collection
+        return None
+    
+    def __iter__(self):
+        return iter(self.data)
+
+    def __getitem__(self, index):
+        return self.data[index]
+    
+    def __setitem__(self, index, value: &#39;Collection&#39;):
+        self.data[index] = value
+
+    def __len__(self):
+        return len(self.data)
+
 
 class Section(ModelBase):
-
     def __init__(self, *args, **kwargs):
-        self.__id = kwargs.get(&#39;id&#39;)
-        self.__type = kwargs.get(&#39;type&#39;)
-        self.__workspace_id = kwargs.get(&#39;workspace_id&#39;)
-        self.__name = kwargs.get(&#39;name&#39;)
-        self.__created_at = kwargs.get(&#39;created_at&#39;)
-        self.__updated_at = kwargs.get(&#39;updated_at&#39;)
-        self.__url = kwargs.get(&#39;url&#39;)
-        self.__icon = kwargs.get(&#39;icon&#39;)
-        self.__order = kwargs.get(&#39;order&#39;)
-        self.__collection_id = kwargs.get(&#39;collection_id&#39;)
-        self.__default_locale = kwargs.get(&#39;default_locale&#39;,None)
-        self.__translated_content = kwargs.get(&#39;translated_content&#39;,None)
+        self.__id: int = kwargs.get(&#39;id&#39;, int())
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, &#39;&#39;)
+        self.__name: str = kwargs.get(&#39;name&#39;, &#39;&#39;)
+        self.__created_at: int = kwargs.get(&#39;created_at&#39;, int())
+        self.__updated_at: int = kwargs.get(&#39;updated_at&#39;, int())
+        self.__url: str = kwargs.get(&#39;url&#39;, &#39;&#39;)
+        self.__icon: str = kwargs.get(&#39;icon&#39;, &#39;&#39;)
+        self.__order: int = kwargs.get(&#39;order&#39;, &#39;&#39;)
+        self.__collection_id: int = kwargs.get(&#39;collection_id&#39;, int())
+        self.__default_locale: str = kwargs.get(&#39;default_locale&#39;, &#39;&#39;)
+        self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, dict())
 
-
-        # Properties
+    # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
         &#34;&#34;&#34;
@@ -336,7 +348,7 @@ class Section(ModelBase):
         return self._api_client
     
     @property
-    def id(self) -&gt; str:
+    def id(self) -&gt; int:
         return self.__id
     
     @property
@@ -372,7 +384,7 @@ class Section(ModelBase):
         return self.__order
     
     @property
-    def collection_id(self) -&gt; str:
+    def collection_id(self) -&gt; int:
         return self.__collection_id
     
     @property
@@ -382,8 +394,6 @@ class Section(ModelBase):
     @property
     def translated_content(self) -&gt; dict:
         return self.__translated_content
-    
-
 
     # Property Setters
     @api_client.setter
@@ -396,10 +406,9 @@ class Section(ModelBase):
         &#34;&#34;&#34;
         self._api_client = api_client
 
-
     @id.setter
-    def id(self, id: str):
-        self.__id = id
+    def id(self, id: Union[str, int]):
+        self.__id = int(id)
 
     @type.setter
     def type(self, type: str):
@@ -414,11 +423,11 @@ class Section(ModelBase):
         self.__name = name
 
     @created_at.setter
-    def created_at(self, created_at: str):
+    def created_at(self, created_at: int):
         self.__created_at = created_at
 
     @updated_at.setter
-    def updated_at(self, updated_at: str):
+    def updated_at(self, updated_at: int):
 
         self.__updated_at = updated_at
 
@@ -431,11 +440,11 @@ class Section(ModelBase):
         self.__icon = icon
 
     @order.setter
-    def order(self, order: str):
+    def order(self, order: int):
         self.__order = order
 
     @collection_id.setter
-    def collection_id(self, collection_id: str):
+    def collection_id(self, collection_id: int):
         self.__collection_id = collection_id
     
     @default_locale.setter
@@ -448,15 +457,12 @@ class Section(ModelBase):
 
 
 class SectionList(ModelBase):
-    
         def __init__(self, *args, **kwargs):
-            self.__type = kwargs.get(&#39;type&#39;)
-            self.__data = kwargs.get(&#39;data&#39;)
-            self.__total_count = kwargs.get(&#39;total_count&#39;)
-            self.__pages = kwargs.get(&#39;pages&#39;)
-            
-    
-    
+            self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+            self.__data: list = kwargs.get(&#39;data&#39;, [])
+            self.__total_count = kwargs.get(&#39;total_count&#39;, int())
+            self.__pages = kwargs.get(&#39;pages&#39;, int())
+
         # Properties
         @property
         def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
@@ -483,8 +489,7 @@ class SectionList(ModelBase):
         @property
         def pages(self) -&gt; dict:
             return self.__pages
-        
-    
+
         # Property Setters
         @api_client.setter
         def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
@@ -495,8 +500,7 @@ class SectionList(ModelBase):
                 api_client (HelpCenterAPI): The API client used by the model instance.
             &#34;&#34;&#34;
             self._api_client = api_client
-    
-    
+
         @type.setter
         def type(self, type: str):
             self.__type = type
@@ -511,18 +515,7 @@ class SectionList(ModelBase):
     
         @pages.setter
         def pages(self, pages: dict):
-            self.__pages = pages
-
-
-
-
-
-
-
-    
-
-
-    </code></pre>
+            self.__pages = pages</code></pre>
 </details>
 </section>
 <section>
@@ -575,21 +568,20 @@ translated_content (dict): The translated content of the Collection.</p></div>
         translated_content (dict): The translated content of the Collection.
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__id = kwargs.get(&#39;id&#39;)
-        self.__type = kwargs.get(&#39;type&#39;)
-        self.__workspace_id = kwargs.get(&#39;workspace_id&#39;)
-        self.__name = kwargs.get(&#39;name&#39;)
-        self.__description = kwargs.get(&#39;description&#39;)
-        self.__created_at = kwargs.get(&#39;created_at&#39;)
-        self.__updated_at = kwargs.get(&#39;updated_at&#39;)
-        self.__url = kwargs.get(&#39;url&#39;)
-        self.__icon = kwargs.get(&#39;icon&#39;)
-        self.__order = kwargs.get(&#39;order&#39;)
-        self.__default_locale = kwargs.get(&#39;default_locale&#39;,None)
-        self.__translated_content = kwargs.get(&#39;translated_content&#39;,None)
+        self.__id: int = kwargs.get(&#39;id&#39;, None)
+        self.__type: str = kwargs.get(&#39;type&#39;, str())
+        self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, None)
+        self.__name: str = kwargs.get(&#39;name&#39;, &#39;&#39;)
+        self.__description = kwargs.get(&#39;description&#39;, &#39;&#39;)
+        self.__created_at: int = kwargs.get(&#39;created_at&#39;, None)
+        self.__updated_at: int = kwargs.get(&#39;updated_at&#39;, None)
+        self.__url: str = kwargs.get(&#39;url&#39;, &#39;&#39;)
+        self.__icon: str = kwargs.get(&#39;icon&#39;, &#39;&#39;)
+        self.__order: int = kwargs.get(&#39;order&#39;, 0)
+        self.__default_locale: str = kwargs.get(&#39;default_locale&#39;, 0)
+        self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, {})
+        self.__parent_id: int = kwargs.get(&#39;parent_id&#39;, None)
         
-
-
      # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
@@ -602,15 +594,15 @@ translated_content (dict): The translated content of the Collection.</p></div>
         return self._api_client
     
     @property
-    def id(self) -&gt; str:
+    def type(self) -&gt; str:
+        return self.__type
+
+    @property
+    def id(self) -&gt; Opt[int]:
         return self.__id
     
     @property
-    def type(self) -&gt; str:
-        return self.__type
-    
-    @property
-    def workspace_id(self) -&gt; str:
+    def workspace_id(self) -&gt; Opt[str]:
         return self.__workspace_id
     
     @property
@@ -622,11 +614,11 @@ translated_content (dict): The translated content of the Collection.</p></div>
         return self.__description
     
     @property
-    def created_at(self) -&gt; int:
+    def created_at(self) -&gt; Opt[int]:
         return self.__created_at
     
     @property
-    def updated_at(self) -&gt; int:
+    def updated_at(self) -&gt; Opt[int]:
         return self.__updated_at
     
     @property
@@ -638,7 +630,7 @@ translated_content (dict): The translated content of the Collection.</p></div>
         return self.__icon
     
     @property
-    def order(self) -&gt; int:
+    def order(self) -&gt; Opt[int]:
         return self.__order
     
     @property
@@ -649,7 +641,10 @@ translated_content (dict): The translated content of the Collection.</p></div>
     def translated_content(self) -&gt; dict:
         return self.__translated_content
     
-
+    @property
+    def parent_id(self) -&gt; int:
+        return self.__parent_id
+    
     # Property Setters
     @api_client.setter
     def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
@@ -663,8 +658,8 @@ translated_content (dict): The translated content of the Collection.</p></div>
 
 
     @id.setter
-    def id(self, id: str):
-        self.__id = id
+    def id(self, id: Union[int, str]):
+        self.__id = int(id)
 
     @type.setter
     def type(self, type: str):
@@ -683,11 +678,11 @@ translated_content (dict): The translated content of the Collection.</p></div>
         self.__description = description
 
     @created_at.setter
-    def created_at(self, created_at: str):
+    def created_at(self, created_at: int):
         self.__created_at = created_at
 
     @updated_at.setter
-    def updated_at(self, updated_at: str):
+    def updated_at(self, updated_at: int):
         self.__updated_at = updated_at
 
     @url.setter
@@ -699,7 +694,7 @@ translated_content (dict): The translated content of the Collection.</p></div>
         self.__icon = icon
 
     @order.setter
-    def order(self, order: str):
+    def order(self, order: int):
         self.__order = order
     
     @default_locale.setter
@@ -708,7 +703,11 @@ translated_content (dict): The translated content of the Collection.</p></div>
 
     @translated_content.setter
     def translated_content(self, translated_content: dict):
-        self.__translated_content = translated_content</code></pre>
+        self.__translated_content = translated_content
+
+    @parent_id.setter
+    def parent_id(self, parent_id: int):
+        self.__parent_id = parent_id</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -739,7 +738,7 @@ def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
     return self._api_client</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Collection.created_at"><code class="name">var <span class="ident">created_at</span> : int</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.created_at"><code class="name">var <span class="ident">created_at</span> : Optional[int]</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -747,7 +746,7 @@ def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def created_at(self) -&gt; int:
+def created_at(self) -&gt; Opt[int]:
     return self.__created_at</code></pre>
 </details>
 </dd>
@@ -787,7 +786,7 @@ def icon(self) -&gt; str:
     return self.__icon</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Collection.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.id"><code class="name">var <span class="ident">id</span> : Optional[int]</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -795,7 +794,7 @@ def icon(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def id(self) -&gt; str:
+def id(self) -&gt; Opt[int]:
     return self.__id</code></pre>
 </details>
 </dd>
@@ -811,7 +810,7 @@ def name(self) -&gt; str:
     return self.__name</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Collection.order"><code class="name">var <span class="ident">order</span> : int</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.order"><code class="name">var <span class="ident">order</span> : Optional[int]</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -819,8 +818,20 @@ def name(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def order(self) -&gt; int:
+def order(self) -&gt; Opt[int]:
     return self.__order</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.parent_id"><code class="name">var <span class="ident">parent_id</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def parent_id(self) -&gt; int:
+    return self.__parent_id</code></pre>
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.help_center.models.Collection.translated_content"><code class="name">var <span class="ident">translated_content</span> : dict</code></dt>
@@ -847,7 +858,7 @@ def type(self) -&gt; str:
     return self.__type</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Collection.updated_at"><code class="name">var <span class="ident">updated_at</span> : int</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.updated_at"><code class="name">var <span class="ident">updated_at</span> : Optional[int]</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -855,7 +866,7 @@ def type(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def updated_at(self) -&gt; int:
+def updated_at(self) -&gt; Opt[int]:
     return self.__updated_at</code></pre>
 </details>
 </dd>
@@ -871,7 +882,7 @@ def url(self) -&gt; str:
     return self.__url</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Collection.workspace_id"><code class="name">var <span class="ident">workspace_id</span> : str</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.workspace_id"><code class="name">var <span class="ident">workspace_id</span> : Optional[str]</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -879,7 +890,7 @@ def url(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def workspace_id(self) -&gt; str:
+def workspace_id(self) -&gt; Opt[str]:
     return self.__workspace_id</code></pre>
 </details>
 </dd>
@@ -901,15 +912,11 @@ def workspace_id(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class CollectionList(ModelBase):
-    
-
     def __init__(self, *args, **kwargs):
-        self.__type = kwargs.get(&#39;type&#39;)
-        self.__data = kwargs.get(&#39;data&#39;)
-        self.__total_count = kwargs.get(&#39;total_count&#39;)
-        self.__pages = kwargs.get(&#39;pages&#39;)
-        
-
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__data: list = kwargs.get(&#39;data&#39;, [])
+        self.__total_count: int = kwargs.get(&#39;total_count&#39;, 0)
+        self.__pages: dict = kwargs.get(&#39;pages&#39;, dict())
 
      # Properties
     @property
@@ -931,13 +938,17 @@ def workspace_id(self) -&gt; str:
         return self.__data
     
     @property
+    def collections(self) -&gt; list:
+        &#34;&#34;&#34; Alias for data &#34;&#34;&#34;
+        return self.__data
+    
+    @property
     def total_count(self) -&gt; int:
         return self.__total_count
     
     @property
     def pages(self) -&gt; dict:
         return self.__pages
-    
 
     # Property Setters
     @api_client.setter
@@ -950,7 +961,6 @@ def workspace_id(self) -&gt; str:
         &#34;&#34;&#34;
         self._api_client = api_client
 
-
     @type.setter
     def type(self, type: str):
         self.__type = type
@@ -959,13 +969,44 @@ def workspace_id(self) -&gt; str:
     def data(self, data: list):
         self.__data = data
 
+    @collections.setter
+    def collections(self, collections: list):
+        &#34;&#34;&#34; Alias for data &#34;&#34;&#34;
+        self.__data = collections
+
     @total_count.setter
     def total_count(self, total_count: int):
         self.__total_count = total_count
 
     @pages.setter
     def pages(self, pages: dict):
-        self.__pages = pages</code></pre>
+        self.__pages = pages
+
+    def get_by_id(self, id: Union[str, int]):
+        &#34;&#34;&#34; Get a Collection by ID.
+
+        Args:
+            id (Union[str, int]): The ID of the Collection.
+
+        Returns:
+            Collection: The Collection with the given ID.
+        &#34;&#34;&#34;
+        for collection in self.data:
+            if collection.id == id:
+                return collection
+        return None
+    
+    def __iter__(self):
+        return iter(self.data)
+
+    def __getitem__(self, index):
+        return self.data[index]
+    
+    def __setitem__(self, index, value: &#39;Collection&#39;):
+        self.data[index] = value
+
+    def __len__(self):
+        return len(self.data)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -994,6 +1035,19 @@ def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
         ArticlesAPI: The API client used by the model instance.
     &#34;&#34;&#34;
     return self._api_client</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.help_center.models.CollectionList.collections"><code class="name">var <span class="ident">collections</span> : list</code></dt>
+<dd>
+<div class="desc"><p>Alias for data</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def collections(self) -&gt; list:
+    &#34;&#34;&#34; Alias for data &#34;&#34;&#34;
+    return self.__data</code></pre>
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.help_center.models.CollectionList.data"><code class="name">var <span class="ident">data</span> : list</code></dt>
@@ -1045,6 +1099,43 @@ def type(self) -&gt; str:
 </details>
 </dd>
 </dl>
+<h3>Methods</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.help_center.models.CollectionList.get_by_id"><code class="name flex">
+<span>def <span class="ident">get_by_id</span></span>(<span>self, id: Union[str, int])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Get a Collection by ID.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>id</code></strong> :&ensp;<code>Union[str, int]</code></dt>
+<dd>The ID of the Collection.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code><a title="intercom_python_sdk.apis.help_center.models.Collection" href="#intercom_python_sdk.apis.help_center.models.Collection">Collection</a></code></dt>
+<dd>The Collection with the given ID.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_by_id(self, id: Union[str, int]):
+    &#34;&#34;&#34; Get a Collection by ID.
+
+    Args:
+        id (Union[str, int]): The ID of the Collection.
+
+    Returns:
+        Collection: The Collection with the given ID.
+    &#34;&#34;&#34;
+    for collection in self.data:
+        if collection.id == id:
+            return collection
+    return None</code></pre>
+</details>
+</dd>
+</dl>
 </dd>
 <dt id="intercom_python_sdk.apis.help_center.models.Section"><code class="flex name class">
 <span>class <span class="ident">Section</span></span>
@@ -1062,23 +1153,21 @@ def type(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Section(ModelBase):
-
     def __init__(self, *args, **kwargs):
-        self.__id = kwargs.get(&#39;id&#39;)
-        self.__type = kwargs.get(&#39;type&#39;)
-        self.__workspace_id = kwargs.get(&#39;workspace_id&#39;)
-        self.__name = kwargs.get(&#39;name&#39;)
-        self.__created_at = kwargs.get(&#39;created_at&#39;)
-        self.__updated_at = kwargs.get(&#39;updated_at&#39;)
-        self.__url = kwargs.get(&#39;url&#39;)
-        self.__icon = kwargs.get(&#39;icon&#39;)
-        self.__order = kwargs.get(&#39;order&#39;)
-        self.__collection_id = kwargs.get(&#39;collection_id&#39;)
-        self.__default_locale = kwargs.get(&#39;default_locale&#39;,None)
-        self.__translated_content = kwargs.get(&#39;translated_content&#39;,None)
+        self.__id: int = kwargs.get(&#39;id&#39;, int())
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, &#39;&#39;)
+        self.__name: str = kwargs.get(&#39;name&#39;, &#39;&#39;)
+        self.__created_at: int = kwargs.get(&#39;created_at&#39;, int())
+        self.__updated_at: int = kwargs.get(&#39;updated_at&#39;, int())
+        self.__url: str = kwargs.get(&#39;url&#39;, &#39;&#39;)
+        self.__icon: str = kwargs.get(&#39;icon&#39;, &#39;&#39;)
+        self.__order: int = kwargs.get(&#39;order&#39;, &#39;&#39;)
+        self.__collection_id: int = kwargs.get(&#39;collection_id&#39;, int())
+        self.__default_locale: str = kwargs.get(&#39;default_locale&#39;, &#39;&#39;)
+        self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, dict())
 
-
-        # Properties
+    # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
         &#34;&#34;&#34;
@@ -1090,7 +1179,7 @@ def type(self) -&gt; str:
         return self._api_client
     
     @property
-    def id(self) -&gt; str:
+    def id(self) -&gt; int:
         return self.__id
     
     @property
@@ -1126,7 +1215,7 @@ def type(self) -&gt; str:
         return self.__order
     
     @property
-    def collection_id(self) -&gt; str:
+    def collection_id(self) -&gt; int:
         return self.__collection_id
     
     @property
@@ -1136,8 +1225,6 @@ def type(self) -&gt; str:
     @property
     def translated_content(self) -&gt; dict:
         return self.__translated_content
-    
-
 
     # Property Setters
     @api_client.setter
@@ -1150,10 +1237,9 @@ def type(self) -&gt; str:
         &#34;&#34;&#34;
         self._api_client = api_client
 
-
     @id.setter
-    def id(self, id: str):
-        self.__id = id
+    def id(self, id: Union[str, int]):
+        self.__id = int(id)
 
     @type.setter
     def type(self, type: str):
@@ -1168,11 +1254,11 @@ def type(self) -&gt; str:
         self.__name = name
 
     @created_at.setter
-    def created_at(self, created_at: str):
+    def created_at(self, created_at: int):
         self.__created_at = created_at
 
     @updated_at.setter
-    def updated_at(self, updated_at: str):
+    def updated_at(self, updated_at: int):
 
         self.__updated_at = updated_at
 
@@ -1185,11 +1271,11 @@ def type(self) -&gt; str:
         self.__icon = icon
 
     @order.setter
-    def order(self, order: str):
+    def order(self, order: int):
         self.__order = order
 
     @collection_id.setter
-    def collection_id(self, collection_id: str):
+    def collection_id(self, collection_id: int):
         self.__collection_id = collection_id
     
     @default_locale.setter
@@ -1229,7 +1315,7 @@ def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
     return self._api_client</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Section.collection_id"><code class="name">var <span class="ident">collection_id</span> : str</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Section.collection_id"><code class="name">var <span class="ident">collection_id</span> : int</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -1237,7 +1323,7 @@ def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def collection_id(self) -&gt; str:
+def collection_id(self) -&gt; int:
     return self.__collection_id</code></pre>
 </details>
 </dd>
@@ -1277,7 +1363,7 @@ def icon(self) -&gt; str:
     return self.__icon</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Section.id"><code class="name">var <span class="ident">id</span> : str</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Section.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -1285,7 +1371,7 @@ def icon(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def id(self) -&gt; str:
+def id(self) -&gt; int:
     return self.__id</code></pre>
 </details>
 </dd>
@@ -1391,15 +1477,12 @@ def workspace_id(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class SectionList(ModelBase):
-    
         def __init__(self, *args, **kwargs):
-            self.__type = kwargs.get(&#39;type&#39;)
-            self.__data = kwargs.get(&#39;data&#39;)
-            self.__total_count = kwargs.get(&#39;total_count&#39;)
-            self.__pages = kwargs.get(&#39;pages&#39;)
-            
-    
-    
+            self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+            self.__data: list = kwargs.get(&#39;data&#39;, [])
+            self.__total_count = kwargs.get(&#39;total_count&#39;, int())
+            self.__pages = kwargs.get(&#39;pages&#39;, int())
+
         # Properties
         @property
         def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
@@ -1426,8 +1509,7 @@ def workspace_id(self) -&gt; str:
         @property
         def pages(self) -&gt; dict:
             return self.__pages
-        
-    
+
         # Property Setters
         @api_client.setter
         def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
@@ -1438,8 +1520,7 @@ def workspace_id(self) -&gt; str:
                 api_client (HelpCenterAPI): The API client used by the model instance.
             &#34;&#34;&#34;
             self._api_client = api_client
-    
-    
+
         @type.setter
         def type(self, type: str):
             self.__type = type
@@ -1542,7 +1623,7 @@ def type(self) -&gt; str:
 <h1>Index</h1>
 <div class="toc">
 <ul>
-<li><a href="#articles-api-models">Articles API Models</a></li>
+<li><a href="#help-center-api-models">Help Center API Models</a></li>
 </ul>
 </div>
 <ul id="index">
@@ -1564,6 +1645,7 @@ def type(self) -&gt; str:
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.id" href="#intercom_python_sdk.apis.help_center.models.Collection.id">id</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.name" href="#intercom_python_sdk.apis.help_center.models.Collection.name">name</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.order" href="#intercom_python_sdk.apis.help_center.models.Collection.order">order</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.parent_id" href="#intercom_python_sdk.apis.help_center.models.Collection.parent_id">parent_id</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.translated_content" href="#intercom_python_sdk.apis.help_center.models.Collection.translated_content">translated_content</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.type" href="#intercom_python_sdk.apis.help_center.models.Collection.type">type</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.updated_at" href="#intercom_python_sdk.apis.help_center.models.Collection.updated_at">updated_at</a></code></li>
@@ -1573,9 +1655,11 @@ def type(self) -&gt; str:
 </li>
 <li>
 <h4><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList" href="#intercom_python_sdk.apis.help_center.models.CollectionList">CollectionList</a></code></h4>
-<ul class="">
+<ul class="two-column">
 <li><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList.api_client" href="#intercom_python_sdk.apis.help_center.models.CollectionList.api_client">api_client</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList.collections" href="#intercom_python_sdk.apis.help_center.models.CollectionList.collections">collections</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList.data" href="#intercom_python_sdk.apis.help_center.models.CollectionList.data">data</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList.get_by_id" href="#intercom_python_sdk.apis.help_center.models.CollectionList.get_by_id">get_by_id</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList.pages" href="#intercom_python_sdk.apis.help_center.models.CollectionList.pages">pages</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList.total_count" href="#intercom_python_sdk.apis.help_center.models.CollectionList.total_count">total_count</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.CollectionList.type" href="#intercom_python_sdk.apis.help_center.models.CollectionList.type">type</a></code></li>

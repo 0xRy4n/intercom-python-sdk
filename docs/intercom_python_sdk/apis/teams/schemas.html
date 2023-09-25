@@ -48,36 +48,13 @@ These schemas provide serialization/deserialization to and from the models defin
 - [1] https://developers.intercom.com/intercom-api-reference/reference/listteams
 &#34;&#34;&#34;
 
-
 # External
-import marshmallow
 from marshmallow import fields
-
-# From Current API
-from . import models as t_models
 
 # From Current Package
 from ...core.schema_base import SchemaBase
 
-&#39;&#39;&#39;
-{
-    &#34;type&#34;: &#34;team&#34;,
-    &#34;id&#34;: &#34;814865&#34;,
-    &#34;name&#34;: &#34;Example Team&#34;,
-    &#34;admin_ids&#34;: [
-        493881
-        814860
-    ]
-   &#34;admin_priority_level&#34;: {
-     &#34;primary_admin_ids&#34;: [
-        493881
-      ],
-      &#34;secondary_admin_ids&#34;: [
-        814860
-      ]
-    },
-}
-&#39;&#39;&#39;
+
 class AdminPriorityLevelSchema(SchemaBase):
     &#34;&#34;&#34;
     This schema represents a AdminPriorityLevel on Intercom.
@@ -88,6 +65,7 @@ class AdminPriorityLevelSchema(SchemaBase):
     &#34;&#34;&#34;
     primary_admin_ids = fields.List(fields.Int())
     secondary_admin_ids = fields.List(fields.Int())
+
 
 class TeamSchema(SchemaBase):
     &#34;&#34;&#34;
@@ -105,8 +83,6 @@ class TeamSchema(SchemaBase):
     name = fields.Str()
     admin_ids = fields.List(fields.Int())
     admin_priority_level = fields.Nested(AdminPriorityLevelSchema)
-    
-
 
 
 class TeamListSchema(SchemaBase):
