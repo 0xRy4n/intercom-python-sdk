@@ -11,8 +11,6 @@ These models provide object oriented interfaces for the schemas defined in `apis
 """
 
 # External
-import marshmallow
-from marshmallow import fields
 from typing import Union, TYPE_CHECKING, Optional as Opt
 
 # From Current API
@@ -28,7 +26,7 @@ if TYPE_CHECKING:
 
 
 class Collection(ModelBase):
-    """  
+    """
     This model represents a Collection on Intercom.
     Attributes
         id (str): The ID of the Collection.
@@ -45,8 +43,8 @@ class Collection(ModelBase):
         translated_content (dict): The translated content of the Collection.
     """
     def __init__(self, *args, **kwargs):
-        self.__id: int = kwargs.get('id', None)
-        self.__type: str = kwargs.get('type', str())
+        self.__id: int = kwargs.get('id', int())
+        self.__type: str = kwargs.get('type', '')
         self.__workspace_id: str = kwargs.get('workspace_id', None)
         self.__name: str = kwargs.get('name', '')
         self.__description = kwargs.get('description', '')
@@ -59,7 +57,7 @@ class Collection(ModelBase):
         self.__translated_content: dict = kwargs.get('translated_content', {})
         self.__parent_id: int = kwargs.get('parent_id', None)
         
-     # Properties
+    # Properties
     @property
     def api_client(self) -> 'HelpCenterAPI':
         """
@@ -75,7 +73,7 @@ class Collection(ModelBase):
         return self.__type
 
     @property
-    def id(self) -> Opt[int]:
+    def id(self) -> int:
         return self.__id
     
     @property
@@ -186,15 +184,21 @@ class Collection(ModelBase):
     def parent_id(self, parent_id: int):
         self.__parent_id = parent_id
 
+    def update(self):
+        """ Update the Collection. """
+        data = hc_schemas.CollectionSchema().dump(self)
+        schema = hc_schemas.CollectionSchema().load(data)
+        self.api_client.update_collection_by_id(self.id, schema)
+
 
 class CollectionList(ModelBase):
     def __init__(self, *args, **kwargs):
         self.__type: str = kwargs.get('type', '')
         self.__data: list = kwargs.get('data', [])
         self.__total_count: int = kwargs.get('total_count', 0)
-        self.__pages: dict = kwargs.get('pages', dict())
+        self.__pages: dict = kwargs.get('pages', {})
 
-     # Properties
+    # Properties
     @property
     def api_client(self) -> 'HelpCenterAPI':
         """
@@ -267,17 +271,16 @@ class CollectionList(ModelBase):
         Returns:
             Collection: The Collection with the given ID.
         """
-        for collection in self.data:
-            if collection.id == id:
-                return collection
-        return None
-    
+        return next(
+            (collection for collection in self.data if collection.id == id), None
+        )
+
     def __iter__(self):
         return iter(self.data)
 
     def __getitem__(self, index):
         return self.data[index]
-    
+
     def __setitem__(self, index, value: 'Collection'):
         self.data[index] = value
 
@@ -310,51 +313,51 @@ class Section(ModelBase):
             ArticlesAPI: The API client used by the model instance.
         """
         return self._api_client
-    
+
     @property
     def id(self) -> int:
         return self.__id
-    
+
     @property
     def type(self) -> str:
         return self.__type
-    
+
     @property
     def workspace_id(self) -> str:
         return self.__workspace_id
-    
+
     @property
     def name(self) -> str:
         return self.__name
-    
+
     @property
     def created_at(self) -> int:
         return self.__created_at
-    
+
     @property
     def updated_at(self) -> int:
         return self.__updated_at
-    
+
     @property
     def url(self) -> str:
         return self.__url
-    
+
     @property
     def icon(self) -> str:
         return self.__icon
-    
+
     @property
     def order(self) -> int:
         return self.__order
-    
+
     @property
     def collection_id(self) -> int:
         return self.__collection_id
-    
+
     @property
     def default_locale(self) -> str:
         return self.__default_locale
-    
+
     @property
     def translated_content(self) -> dict:
         return self.__translated_content
@@ -410,7 +413,7 @@ class Section(ModelBase):
     @collection_id.setter
     def collection_id(self, collection_id: int):
         self.__collection_id = collection_id
-    
+
     @default_locale.setter
     def default_locale(self, default_locale: str):
         self.__default_locale = default_locale
@@ -421,62 +424,62 @@ class Section(ModelBase):
 
 
 class SectionList(ModelBase):
-        def __init__(self, *args, **kwargs):
-            self.__type: str = kwargs.get('type', '')
-            self.__data: list = kwargs.get('data', [])
-            self.__total_count = kwargs.get('total_count', int())
-            self.__pages = kwargs.get('pages', int())
+    def __init__(self, *args, **kwargs):
+        self.__type: str = kwargs.get('type', '')
+        self.__data: list = kwargs.get('data', [])
+        self.__total_count = kwargs.get('total_count', int())
+        self.__pages = kwargs.get('pages', int())
 
-        # Properties
-        @property
-        def api_client(self) -> 'HelpCenterAPI':
-            """
-            The API client used by the model instance.
-    
-            Returns:
-                ArticlesAPI: The API client used by the model instance.
-            """
-            return self._api_client
-        
-        @property
-        def type(self) -> str:
-            return self.__type
-        
-        @property
-        def data(self) -> list:
-            return self.__data
-        
-        @property
-        def total_count(self) -> int:
-            return self.__total_count
-        
-        @property
-        def pages(self) -> dict:
-            return self.__pages
+    # Properties
+    @property
+    def api_client(self) -> 'HelpCenterAPI':
+        """
+        The API client used by the model instance.
 
-        # Property Setters
-        @api_client.setter
-        def api_client(self, api_client: 'HelpCenterAPI'):
-            """
-            The API client used by the model instance.
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        """
+        return self._api_client
     
-            Args:
-                api_client (HelpCenterAPI): The API client used by the model instance.
-            """
-            self._api_client = api_client
+    @property
+    def type(self) -> str:
+        return self.__type
+    
+    @property
+    def data(self) -> list:
+        return self.__data
+    
+    @property
+    def total_count(self) -> int:
+        return self.__total_count
+    
+    @property
+    def pages(self) -> dict:
+        return self.__pages
 
-        @type.setter
-        def type(self, type: str):
-            self.__type = type
-    
-        @data.setter
-        def data(self, data: list):
-            self.__data = data
-    
-        @total_count.setter
-        def total_count(self, total_count: int):
-            self.__total_count = total_count
-    
-        @pages.setter
-        def pages(self, pages: dict):
-            self.__pages = pages
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: 'HelpCenterAPI'):
+        """
+        The API client used by the model instance.
+
+        Args:
+            api_client (HelpCenterAPI): The API client used by the model instance.
+        """
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        self.__type = type
+
+    @data.setter
+    def data(self, data: list):
+        self.__data = data
+
+    @total_count.setter
+    def total_count(self, total_count: int):
+        self.__total_count = total_count
+
+    @pages.setter
+    def pages(self, pages: dict):
+        self.__pages = pages
