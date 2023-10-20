@@ -47,13 +47,14 @@ It is used to interact with the Intercom Help Center API [1] as defined in the I
 &#34;&#34;&#34;
 
 # Built-ins
-from typing import Union
+from typing import Union, TYPE_CHECKING
 
 # External
 from uplink import (
-    get,
-    returns,
-    response_handler,
+    get, put,
+    post, delete,
+    Query, Body,
+    returns, response_handler,
 )
 
 # From Current API
@@ -64,8 +65,10 @@ from .schemas import (
     SectionListSchema,
 )
 
+if TYPE_CHECKING:
+    from .models import CollectionList
 
-# From Current Package
+# Intercom Python SDK
 from ...core.api_base import APIBase
 from ...core.errors import catch_api_error
 
@@ -88,12 +91,78 @@ class HelpCenterAPI(APIBase):  # type: ignore
 
     @returns(CollectionListSchema(many=False))  # type: ignore
     @get(&#34;collections&#34;)
-    def list_all_collections(self):
+    def __list_all_collections(self, page: Query(&#39;page&#39;) = 1, per_page: Query(&#39;per_page&#39;) = 50):  # type: ignore
         &#34;&#34;&#34; List all Collections.
 
         Returns:
             CollectionList: A list of all Collections.
         &#34;&#34;&#34;
+
+    def list_all_collections(self):
+        &#34;&#34;&#34; List all Collections.
+
+        Returns:
+            CollectionList: A list of  all Collections.
+        &#34;&#34;&#34;
+        resp: &#39;CollectionList&#39; = self.__list_all_collections()  # type: ignore
+        page = resp.pages[&#39;page&#39;]
+        total = resp.pages[&#39;total_pages&#39;]
+
+        if page == total:
+            return resp
+        
+        for page in range(page + 1, total + 1):
+            resp.collections.extend(self.__list_all_collections(page=page).collections)
+            resp.pages[&#39;page&#39;] = page
+
+        return resp
+
+    @returns(CollectionSchema(many=False))  # type: ignore
+    @post(&#34;collections&#34;)
+    def create_collection(self, data: Body(CollectionSchema)):  # type: ignore
+        &#34;&#34;&#34; Create a Collection.
+
+        Args:
+            data (dict): The data to create the Collection with.
+
+        Returns:
+            Collection: The created Collection.
+        &#34;&#34;&#34;
+
+    @returns(CollectionSchema(many=False))  # type: ignore
+    @put(&#34;collections/{collection_id}&#34;)
+    def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
+        &#34;&#34;&#34; Update a Collection.
+
+        Args:
+            collection_id (Union[str, int]): The ID of the Collection.
+            data (CollectionSchema): The data to update the Collection with.
+
+        Returns:
+            Collection: The updated Collection.
+        &#34;&#34;&#34;
+    
+    @returns(CollectionSchema(many=False))  # type: ignore
+    @post(&#34;collections&#34;)
+    def create_collection(self, data: Body(type=CollectionSchema)):  # type: ignore
+        &#34;&#34;&#34; Create a Collection.
+
+        Args:
+            data (CollectionSchema): The data to create the Collection with.
+
+        Returns:
+            Collection: The created Collection.
+        &#34;&#34;&#34;
+
+    @delete(&#34;collections/{collection_id}&#34;)
+    def delete_collection_by_id(self, collection_id: Union[str, int]):
+        &#34;&#34;&#34; Delete a Collection by ID.
+
+        Args:
+            collection_id (Union[str, int]): The ID of the Collection.
+        &#34;&#34;&#34;
+
+    # Sections
 
     @returns(SectionSchema(many=False))  # type: ignore
     @get(&#34;sections/{section_id}&#34;)
@@ -162,12 +231,78 @@ class HelpCenterAPI(APIBase):  # type: ignore
 
     @returns(CollectionListSchema(many=False))  # type: ignore
     @get(&#34;collections&#34;)
-    def list_all_collections(self):
+    def __list_all_collections(self, page: Query(&#39;page&#39;) = 1, per_page: Query(&#39;per_page&#39;) = 50):  # type: ignore
         &#34;&#34;&#34; List all Collections.
 
         Returns:
             CollectionList: A list of all Collections.
         &#34;&#34;&#34;
+
+    def list_all_collections(self):
+        &#34;&#34;&#34; List all Collections.
+
+        Returns:
+            CollectionList: A list of  all Collections.
+        &#34;&#34;&#34;
+        resp: &#39;CollectionList&#39; = self.__list_all_collections()  # type: ignore
+        page = resp.pages[&#39;page&#39;]
+        total = resp.pages[&#39;total_pages&#39;]
+
+        if page == total:
+            return resp
+        
+        for page in range(page + 1, total + 1):
+            resp.collections.extend(self.__list_all_collections(page=page).collections)
+            resp.pages[&#39;page&#39;] = page
+
+        return resp
+
+    @returns(CollectionSchema(many=False))  # type: ignore
+    @post(&#34;collections&#34;)
+    def create_collection(self, data: Body(CollectionSchema)):  # type: ignore
+        &#34;&#34;&#34; Create a Collection.
+
+        Args:
+            data (dict): The data to create the Collection with.
+
+        Returns:
+            Collection: The created Collection.
+        &#34;&#34;&#34;
+
+    @returns(CollectionSchema(many=False))  # type: ignore
+    @put(&#34;collections/{collection_id}&#34;)
+    def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
+        &#34;&#34;&#34; Update a Collection.
+
+        Args:
+            collection_id (Union[str, int]): The ID of the Collection.
+            data (CollectionSchema): The data to update the Collection with.
+
+        Returns:
+            Collection: The updated Collection.
+        &#34;&#34;&#34;
+    
+    @returns(CollectionSchema(many=False))  # type: ignore
+    @post(&#34;collections&#34;)
+    def create_collection(self, data: Body(type=CollectionSchema)):  # type: ignore
+        &#34;&#34;&#34; Create a Collection.
+
+        Args:
+            data (CollectionSchema): The data to create the Collection with.
+
+        Returns:
+            Collection: The created Collection.
+        &#34;&#34;&#34;
+
+    @delete(&#34;collections/{collection_id}&#34;)
+    def delete_collection_by_id(self, collection_id: Union[str, int]):
+        &#34;&#34;&#34; Delete a Collection by ID.
+
+        Args:
+            collection_id (Union[str, int]): The ID of the Collection.
+        &#34;&#34;&#34;
+
+    # Sections
 
     @returns(SectionSchema(many=False))  # type: ignore
     @get(&#34;sections/{section_id}&#34;)
@@ -206,6 +341,61 @@ class HelpCenterAPI(APIBase):  # type: ignore
 </dl>
 <h3>Methods</h3>
 <dl>
+<dt id="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.create_collection"><code class="name flex">
+<span>def <span class="ident">create_collection</span></span>(<span>self, data: <uplink.arguments.Body object at 0x10b80b790>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a Collection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>data</code></strong> :&ensp;<code>CollectionSchema</code></dt>
+<dd>The data to create the Collection with.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Collection</code></dt>
+<dd>The created Collection.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@returns(CollectionSchema(many=False))  # type: ignore
+@post(&#34;collections&#34;)
+def create_collection(self, data: Body(type=CollectionSchema)):  # type: ignore
+    &#34;&#34;&#34; Create a Collection.
+
+    Args:
+        data (CollectionSchema): The data to create the Collection with.
+
+    Returns:
+        Collection: The created Collection.
+    &#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.delete_collection_by_id"><code class="name flex">
+<span>def <span class="ident">delete_collection_by_id</span></span>(<span>self, collection_id: Union[str, int])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Delete a Collection by ID.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>collection_id</code></strong> :&ensp;<code>Union[str, int]</code></dt>
+<dd>The ID of the Collection.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@delete(&#34;collections/{collection_id}&#34;)
+def delete_collection_by_id(self, collection_id: Union[str, int]):
+    &#34;&#34;&#34; Delete a Collection by ID.
+
+    Args:
+        collection_id (Union[str, int]): The ID of the Collection.
+    &#34;&#34;&#34;</code></pre>
+</details>
+</dd>
 <dt id="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.get_collection_by_id"><code class="name flex">
 <span>def <span class="ident">get_collection_by_id</span></span>(<span>self, collection_id: Union[str, int])</span>
 </code></dt>
@@ -278,20 +468,31 @@ def get_section_by_id(self, section_id: Union[str, int]):
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>CollectionList</code></dt>
-<dd>A list of all Collections.</dd>
+<dd>A list of
+all Collections.</dd>
 </dl></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">@returns(CollectionListSchema(many=False))  # type: ignore
-@get(&#34;collections&#34;)
-def list_all_collections(self):
+<pre><code class="python">def list_all_collections(self):
     &#34;&#34;&#34; List all Collections.
 
     Returns:
-        CollectionList: A list of all Collections.
-    &#34;&#34;&#34;</code></pre>
+        CollectionList: A list of  all Collections.
+    &#34;&#34;&#34;
+    resp: &#39;CollectionList&#39; = self.__list_all_collections()  # type: ignore
+    page = resp.pages[&#39;page&#39;]
+    total = resp.pages[&#39;total_pages&#39;]
+
+    if page == total:
+        return resp
+    
+    for page in range(page + 1, total + 1):
+        resp.collections.extend(self.__list_all_collections(page=page).collections)
+        resp.pages[&#39;page&#39;] = page
+
+    return resp</code></pre>
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.list_all_sections"><code class="name flex">
@@ -315,6 +516,41 @@ def list_all_sections(self):
 
     Returns:
         SectionList: A list of all Sections.
+    &#34;&#34;&#34;</code></pre>
+</details>
+</dd>
+<dt id="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.update_collection_by_id"><code class="name flex">
+<span>def <span class="ident">update_collection_by_id</span></span>(<span>self, collection_id: Union[str, int], data: <uplink.arguments.Body object at 0x10b80a7d0>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update a Collection.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>collection_id</code></strong> :&ensp;<code>Union[str, int]</code></dt>
+<dd>The ID of the Collection.</dd>
+<dt><strong><code>data</code></strong> :&ensp;<code>CollectionSchema</code></dt>
+<dd>The data to update the Collection with.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>Collection</code></dt>
+<dd>The updated Collection.</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@returns(CollectionSchema(many=False))  # type: ignore
+@put(&#34;collections/{collection_id}&#34;)
+def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
+    &#34;&#34;&#34; Update a Collection.
+
+    Args:
+        collection_id (Union[str, int]): The ID of the Collection.
+        data (CollectionSchema): The data to update the Collection with.
+
+    Returns:
+        Collection: The updated Collection.
     &#34;&#34;&#34;</code></pre>
 </details>
 </dd>
@@ -342,10 +578,13 @@ def list_all_sections(self):
 <h4><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI">HelpCenterAPI</a></code></h4>
 <ul class="">
 <li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.URI" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.URI">URI</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.create_collection" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.create_collection">create_collection</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.delete_collection_by_id" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.delete_collection_by_id">delete_collection_by_id</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.get_collection_by_id" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.get_collection_by_id">get_collection_by_id</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.get_section_by_id" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.get_section_by_id">get_section_by_id</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.list_all_collections" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.list_all_collections">list_all_collections</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.list_all_sections" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.list_all_sections">list_all_sections</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.update_collection_by_id" href="#intercom_python_sdk.apis.help_center.api.HelpCenterAPI.update_collection_by_id">update_collection_by_id</a></code></li>
 </ul>
 </li>
 </ul>

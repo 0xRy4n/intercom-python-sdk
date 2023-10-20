@@ -47,8 +47,6 @@ These models provide object oriented interfaces for the schemas defined in `apis
 &#34;&#34;&#34;
 
 # External
-import marshmallow
-from marshmallow import fields
 from typing import Union, TYPE_CHECKING, Optional as Opt
 
 # From Current API
@@ -64,7 +62,7 @@ if TYPE_CHECKING:
 
 
 class Collection(ModelBase):
-    &#34;&#34;&#34;  
+    &#34;&#34;&#34;
     This model represents a Collection on Intercom.
     Attributes
         id (str): The ID of the Collection.
@@ -81,8 +79,8 @@ class Collection(ModelBase):
         translated_content (dict): The translated content of the Collection.
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__id: int = kwargs.get(&#39;id&#39;, None)
-        self.__type: str = kwargs.get(&#39;type&#39;, str())
+        self.__id: int = kwargs.get(&#39;id&#39;, int())
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, None)
         self.__name: str = kwargs.get(&#39;name&#39;, &#39;&#39;)
         self.__description = kwargs.get(&#39;description&#39;, &#39;&#39;)
@@ -95,7 +93,7 @@ class Collection(ModelBase):
         self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, {})
         self.__parent_id: int = kwargs.get(&#39;parent_id&#39;, None)
         
-     # Properties
+    # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
         &#34;&#34;&#34;
@@ -111,7 +109,7 @@ class Collection(ModelBase):
         return self.__type
 
     @property
-    def id(self) -&gt; Opt[int]:
+    def id(self) -&gt; int:
         return self.__id
     
     @property
@@ -222,15 +220,21 @@ class Collection(ModelBase):
     def parent_id(self, parent_id: int):
         self.__parent_id = parent_id
 
+    def update(self):
+        &#34;&#34;&#34; Update the Collection. &#34;&#34;&#34;
+        data = hc_schemas.CollectionSchema().dump(self)
+        schema = hc_schemas.CollectionSchema().load(data)
+        self.api_client.update_collection_by_id(self.id, schema)
+
 
 class CollectionList(ModelBase):
     def __init__(self, *args, **kwargs):
         self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__data: list = kwargs.get(&#39;data&#39;, [])
         self.__total_count: int = kwargs.get(&#39;total_count&#39;, 0)
-        self.__pages: dict = kwargs.get(&#39;pages&#39;, dict())
+        self.__pages: dict = kwargs.get(&#39;pages&#39;, {})
 
-     # Properties
+    # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
         &#34;&#34;&#34;
@@ -303,17 +307,16 @@ class CollectionList(ModelBase):
         Returns:
             Collection: The Collection with the given ID.
         &#34;&#34;&#34;
-        for collection in self.data:
-            if collection.id == id:
-                return collection
-        return None
-    
+        return next(
+            (collection for collection in self.data if collection.id == id), None
+        )
+
     def __iter__(self):
         return iter(self.data)
 
     def __getitem__(self, index):
         return self.data[index]
-    
+
     def __setitem__(self, index, value: &#39;Collection&#39;):
         self.data[index] = value
 
@@ -346,51 +349,51 @@ class Section(ModelBase):
             ArticlesAPI: The API client used by the model instance.
         &#34;&#34;&#34;
         return self._api_client
-    
+
     @property
     def id(self) -&gt; int:
         return self.__id
-    
+
     @property
     def type(self) -&gt; str:
         return self.__type
-    
+
     @property
     def workspace_id(self) -&gt; str:
         return self.__workspace_id
-    
+
     @property
     def name(self) -&gt; str:
         return self.__name
-    
+
     @property
     def created_at(self) -&gt; int:
         return self.__created_at
-    
+
     @property
     def updated_at(self) -&gt; int:
         return self.__updated_at
-    
+
     @property
     def url(self) -&gt; str:
         return self.__url
-    
+
     @property
     def icon(self) -&gt; str:
         return self.__icon
-    
+
     @property
     def order(self) -&gt; int:
         return self.__order
-    
+
     @property
     def collection_id(self) -&gt; int:
         return self.__collection_id
-    
+
     @property
     def default_locale(self) -&gt; str:
         return self.__default_locale
-    
+
     @property
     def translated_content(self) -&gt; dict:
         return self.__translated_content
@@ -446,7 +449,7 @@ class Section(ModelBase):
     @collection_id.setter
     def collection_id(self, collection_id: int):
         self.__collection_id = collection_id
-    
+
     @default_locale.setter
     def default_locale(self, default_locale: str):
         self.__default_locale = default_locale
@@ -457,65 +460,65 @@ class Section(ModelBase):
 
 
 class SectionList(ModelBase):
-        def __init__(self, *args, **kwargs):
-            self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
-            self.__data: list = kwargs.get(&#39;data&#39;, [])
-            self.__total_count = kwargs.get(&#39;total_count&#39;, int())
-            self.__pages = kwargs.get(&#39;pages&#39;, int())
+    def __init__(self, *args, **kwargs):
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__data: list = kwargs.get(&#39;data&#39;, [])
+        self.__total_count = kwargs.get(&#39;total_count&#39;, int())
+        self.__pages = kwargs.get(&#39;pages&#39;, int())
 
-        # Properties
-        @property
-        def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
-            &#34;&#34;&#34;
-            The API client used by the model instance.
-    
-            Returns:
-                ArticlesAPI: The API client used by the model instance.
-            &#34;&#34;&#34;
-            return self._api_client
-        
-        @property
-        def type(self) -&gt; str:
-            return self.__type
-        
-        @property
-        def data(self) -&gt; list:
-            return self.__data
-        
-        @property
-        def total_count(self) -&gt; int:
-            return self.__total_count
-        
-        @property
-        def pages(self) -&gt; dict:
-            return self.__pages
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
 
-        # Property Setters
-        @api_client.setter
-        def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
-            &#34;&#34;&#34;
-            The API client used by the model instance.
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
     
-            Args:
-                api_client (HelpCenterAPI): The API client used by the model instance.
-            &#34;&#34;&#34;
-            self._api_client = api_client
+    @property
+    def type(self) -&gt; str:
+        return self.__type
+    
+    @property
+    def data(self) -&gt; list:
+        return self.__data
+    
+    @property
+    def total_count(self) -&gt; int:
+        return self.__total_count
+    
+    @property
+    def pages(self) -&gt; dict:
+        return self.__pages
 
-        @type.setter
-        def type(self, type: str):
-            self.__type = type
-    
-        @data.setter
-        def data(self, data: list):
-            self.__data = data
-    
-        @total_count.setter
-        def total_count(self, total_count: int):
-            self.__total_count = total_count
-    
-        @pages.setter
-        def pages(self, pages: dict):
-            self.__pages = pages</code></pre>
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (HelpCenterAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        self.__type = type
+
+    @data.setter
+    def data(self, data: list):
+        self.__data = data
+
+    @total_count.setter
+    def total_count(self, total_count: int):
+        self.__total_count = total_count
+
+    @pages.setter
+    def pages(self, pages: dict):
+        self.__pages = pages</code></pre>
 </details>
 </section>
 <section>
@@ -551,7 +554,7 @@ translated_content (dict): The translated content of the Collection.</p></div>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Collection(ModelBase):
-    &#34;&#34;&#34;  
+    &#34;&#34;&#34;
     This model represents a Collection on Intercom.
     Attributes
         id (str): The ID of the Collection.
@@ -568,8 +571,8 @@ translated_content (dict): The translated content of the Collection.</p></div>
         translated_content (dict): The translated content of the Collection.
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__id: int = kwargs.get(&#39;id&#39;, None)
-        self.__type: str = kwargs.get(&#39;type&#39;, str())
+        self.__id: int = kwargs.get(&#39;id&#39;, int())
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, None)
         self.__name: str = kwargs.get(&#39;name&#39;, &#39;&#39;)
         self.__description = kwargs.get(&#39;description&#39;, &#39;&#39;)
@@ -582,7 +585,7 @@ translated_content (dict): The translated content of the Collection.</p></div>
         self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, {})
         self.__parent_id: int = kwargs.get(&#39;parent_id&#39;, None)
         
-     # Properties
+    # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
         &#34;&#34;&#34;
@@ -598,7 +601,7 @@ translated_content (dict): The translated content of the Collection.</p></div>
         return self.__type
 
     @property
-    def id(self) -&gt; Opt[int]:
+    def id(self) -&gt; int:
         return self.__id
     
     @property
@@ -707,7 +710,13 @@ translated_content (dict): The translated content of the Collection.</p></div>
 
     @parent_id.setter
     def parent_id(self, parent_id: int):
-        self.__parent_id = parent_id</code></pre>
+        self.__parent_id = parent_id
+
+    def update(self):
+        &#34;&#34;&#34; Update the Collection. &#34;&#34;&#34;
+        data = hc_schemas.CollectionSchema().dump(self)
+        schema = hc_schemas.CollectionSchema().load(data)
+        self.api_client.update_collection_by_id(self.id, schema)</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -786,7 +795,7 @@ def icon(self) -&gt; str:
     return self.__icon</code></pre>
 </details>
 </dd>
-<dt id="intercom_python_sdk.apis.help_center.models.Collection.id"><code class="name">var <span class="ident">id</span> : Optional[int]</code></dt>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.id"><code class="name">var <span class="ident">id</span> : int</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -794,7 +803,7 @@ def icon(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@property
-def id(self) -&gt; Opt[int]:
+def id(self) -&gt; int:
     return self.__id</code></pre>
 </details>
 </dd>
@@ -895,6 +904,25 @@ def workspace_id(self) -&gt; Opt[str]:
 </details>
 </dd>
 </dl>
+<h3>Methods</h3>
+<dl>
+<dt id="intercom_python_sdk.apis.help_center.models.Collection.update"><code class="name flex">
+<span>def <span class="ident">update</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Update the Collection.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update(self):
+    &#34;&#34;&#34; Update the Collection. &#34;&#34;&#34;
+    data = hc_schemas.CollectionSchema().dump(self)
+    schema = hc_schemas.CollectionSchema().load(data)
+    self.api_client.update_collection_by_id(self.id, schema)</code></pre>
+</details>
+</dd>
+</dl>
 </dd>
 <dt id="intercom_python_sdk.apis.help_center.models.CollectionList"><code class="flex name class">
 <span>class <span class="ident">CollectionList</span></span>
@@ -916,9 +944,9 @@ def workspace_id(self) -&gt; Opt[str]:
         self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
         self.__data: list = kwargs.get(&#39;data&#39;, [])
         self.__total_count: int = kwargs.get(&#39;total_count&#39;, 0)
-        self.__pages: dict = kwargs.get(&#39;pages&#39;, dict())
+        self.__pages: dict = kwargs.get(&#39;pages&#39;, {})
 
-     # Properties
+    # Properties
     @property
     def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
         &#34;&#34;&#34;
@@ -991,17 +1019,16 @@ def workspace_id(self) -&gt; Opt[str]:
         Returns:
             Collection: The Collection with the given ID.
         &#34;&#34;&#34;
-        for collection in self.data:
-            if collection.id == id:
-                return collection
-        return None
-    
+        return next(
+            (collection for collection in self.data if collection.id == id), None
+        )
+
     def __iter__(self):
         return iter(self.data)
 
     def __getitem__(self, index):
         return self.data[index]
-    
+
     def __setitem__(self, index, value: &#39;Collection&#39;):
         self.data[index] = value
 
@@ -1129,10 +1156,9 @@ def type(self) -&gt; str:
     Returns:
         Collection: The Collection with the given ID.
     &#34;&#34;&#34;
-    for collection in self.data:
-        if collection.id == id:
-            return collection
-    return None</code></pre>
+    return next(
+        (collection for collection in self.data if collection.id == id), None
+    )</code></pre>
 </details>
 </dd>
 </dl>
@@ -1177,51 +1203,51 @@ def type(self) -&gt; str:
             ArticlesAPI: The API client used by the model instance.
         &#34;&#34;&#34;
         return self._api_client
-    
+
     @property
     def id(self) -&gt; int:
         return self.__id
-    
+
     @property
     def type(self) -&gt; str:
         return self.__type
-    
+
     @property
     def workspace_id(self) -&gt; str:
         return self.__workspace_id
-    
+
     @property
     def name(self) -&gt; str:
         return self.__name
-    
+
     @property
     def created_at(self) -&gt; int:
         return self.__created_at
-    
+
     @property
     def updated_at(self) -&gt; int:
         return self.__updated_at
-    
+
     @property
     def url(self) -&gt; str:
         return self.__url
-    
+
     @property
     def icon(self) -&gt; str:
         return self.__icon
-    
+
     @property
     def order(self) -&gt; int:
         return self.__order
-    
+
     @property
     def collection_id(self) -&gt; int:
         return self.__collection_id
-    
+
     @property
     def default_locale(self) -&gt; str:
         return self.__default_locale
-    
+
     @property
     def translated_content(self) -&gt; dict:
         return self.__translated_content
@@ -1277,7 +1303,7 @@ def type(self) -&gt; str:
     @collection_id.setter
     def collection_id(self, collection_id: int):
         self.__collection_id = collection_id
-    
+
     @default_locale.setter
     def default_locale(self, default_locale: str):
         self.__default_locale = default_locale
@@ -1477,65 +1503,65 @@ def workspace_id(self) -&gt; str:
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class SectionList(ModelBase):
-        def __init__(self, *args, **kwargs):
-            self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
-            self.__data: list = kwargs.get(&#39;data&#39;, [])
-            self.__total_count = kwargs.get(&#39;total_count&#39;, int())
-            self.__pages = kwargs.get(&#39;pages&#39;, int())
+    def __init__(self, *args, **kwargs):
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;&#39;)
+        self.__data: list = kwargs.get(&#39;data&#39;, [])
+        self.__total_count = kwargs.get(&#39;total_count&#39;, int())
+        self.__pages = kwargs.get(&#39;pages&#39;, int())
 
-        # Properties
-        @property
-        def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
-            &#34;&#34;&#34;
-            The API client used by the model instance.
-    
-            Returns:
-                ArticlesAPI: The API client used by the model instance.
-            &#34;&#34;&#34;
-            return self._api_client
-        
-        @property
-        def type(self) -&gt; str:
-            return self.__type
-        
-        @property
-        def data(self) -&gt; list:
-            return self.__data
-        
-        @property
-        def total_count(self) -&gt; int:
-            return self.__total_count
-        
-        @property
-        def pages(self) -&gt; dict:
-            return self.__pages
+    # Properties
+    @property
+    def api_client(self) -&gt; &#39;HelpCenterAPI&#39;:
+        &#34;&#34;&#34;
+        The API client used by the model instance.
 
-        # Property Setters
-        @api_client.setter
-        def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
-            &#34;&#34;&#34;
-            The API client used by the model instance.
+        Returns:
+            ArticlesAPI: The API client used by the model instance.
+        &#34;&#34;&#34;
+        return self._api_client
     
-            Args:
-                api_client (HelpCenterAPI): The API client used by the model instance.
-            &#34;&#34;&#34;
-            self._api_client = api_client
+    @property
+    def type(self) -&gt; str:
+        return self.__type
+    
+    @property
+    def data(self) -&gt; list:
+        return self.__data
+    
+    @property
+    def total_count(self) -&gt; int:
+        return self.__total_count
+    
+    @property
+    def pages(self) -&gt; dict:
+        return self.__pages
 
-        @type.setter
-        def type(self, type: str):
-            self.__type = type
-    
-        @data.setter
-        def data(self, data: list):
-            self.__data = data
-    
-        @total_count.setter
-        def total_count(self, total_count: int):
-            self.__total_count = total_count
-    
-        @pages.setter
-        def pages(self, pages: dict):
-            self.__pages = pages</code></pre>
+    # Property Setters
+    @api_client.setter
+    def api_client(self, api_client: &#39;HelpCenterAPI&#39;):
+        &#34;&#34;&#34;
+        The API client used by the model instance.
+
+        Args:
+            api_client (HelpCenterAPI): The API client used by the model instance.
+        &#34;&#34;&#34;
+        self._api_client = api_client
+
+    @type.setter
+    def type(self, type: str):
+        self.__type = type
+
+    @data.setter
+    def data(self, data: list):
+        self.__data = data
+
+    @total_count.setter
+    def total_count(self, total_count: int):
+        self.__total_count = total_count
+
+    @pages.setter
+    def pages(self, pages: dict):
+        self.__pages = pages</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1648,6 +1674,7 @@ def type(self) -&gt; str:
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.parent_id" href="#intercom_python_sdk.apis.help_center.models.Collection.parent_id">parent_id</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.translated_content" href="#intercom_python_sdk.apis.help_center.models.Collection.translated_content">translated_content</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.type" href="#intercom_python_sdk.apis.help_center.models.Collection.type">type</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.update" href="#intercom_python_sdk.apis.help_center.models.Collection.update">update</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.updated_at" href="#intercom_python_sdk.apis.help_center.models.Collection.updated_at">updated_at</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.url" href="#intercom_python_sdk.apis.help_center.models.Collection.url">url</a></code></li>
 <li><code><a title="intercom_python_sdk.apis.help_center.models.Collection.workspace_id" href="#intercom_python_sdk.apis.help_center.models.Collection.workspace_id">workspace_id</a></code></li>
