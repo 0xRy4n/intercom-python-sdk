@@ -190,6 +190,8 @@ class Collection(ModelBase):
         schema = hc_schemas.CollectionSchema().load(data)
         self.api_client.update_collection_by_id(self.id, schema)
 
+        return self
+
 
 class CollectionList(ModelBase):
     def __init__(self, *args, **kwargs):
