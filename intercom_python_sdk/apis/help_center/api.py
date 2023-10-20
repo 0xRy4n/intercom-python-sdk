@@ -16,7 +16,7 @@ from typing import Union, TYPE_CHECKING
 
 # External
 from uplink import (
-    json,
+    json, headers,
     get, put,
     post, delete,
     Query, Body,
@@ -85,6 +85,7 @@ class HelpCenterAPI(APIBase):  # type: ignore
 
     @returns(CollectionSchema(many=False))  # type: ignore
     @json()
+    @headers({"Content-Type": "application/x-www-form-urlencoded"})
     @put("collections/{collection_id}")
     def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
         """ Update a Collection.
