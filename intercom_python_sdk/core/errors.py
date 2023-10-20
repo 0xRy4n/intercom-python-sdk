@@ -98,4 +98,6 @@ def catch_api_error(response):  # type: ignore
     data = response.json()
     error = IntercomErrorListSchema().load(data)
 
+    print(response.content)
+
     raise error  # type: ignore

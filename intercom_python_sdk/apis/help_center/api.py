@@ -16,6 +16,7 @@ from typing import Union, TYPE_CHECKING
 
 # External
 from uplink import (
+    json,
     get, put,
     post, delete,
     Query, Body,
@@ -83,18 +84,7 @@ class HelpCenterAPI(APIBase):  # type: ignore
         return resp
 
     @returns(CollectionSchema(many=False))  # type: ignore
-    @post("collections")
-    def create_collection(self, data: Body(CollectionSchema)):  # type: ignore
-        """ Create a Collection.
-
-        Args:
-            data (dict): The data to create the Collection with.
-
-        Returns:
-            Collection: The created Collection.
-        """
-
-    @returns(CollectionSchema(many=False))  # type: ignore
+    @json()
     @put("collections/{collection_id}")
     def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
         """ Update a Collection.
@@ -108,6 +98,7 @@ class HelpCenterAPI(APIBase):  # type: ignore
         """
     
     @returns(CollectionSchema(many=False))  # type: ignore
+    @json()
     @post("collections")
     def create_collection(self, data: Body(type=CollectionSchema)):  # type: ignore
         """ Create a Collection.
