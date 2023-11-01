@@ -29,7 +29,7 @@ You can then access all sub-APIs through this object, like so:
 ```python
 
 cur_admin = intercom.admins.me()
-all_admins = intercom.admins.list_all()
+all_admins = intercom.admins.list_admins()
 
 all_data_events = intercom.data_events.list_all()
 ```
