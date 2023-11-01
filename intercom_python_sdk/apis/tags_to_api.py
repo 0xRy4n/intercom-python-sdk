@@ -38,6 +38,7 @@ from .data_events.api import DataEventsAPI
 from .data_export.api import DataExportAPI
 from .help_center.api import HelpCenterAPI
 from .teams.api import TeamsAPI
+from .conversation.api import ConversationAPI
 
 # From Current Package
 from ..core.api_base import APIBase
@@ -66,4 +67,4 @@ tags_to_api_dict["data_events"] = DataEventsAPI
 tags_to_api_dict["data_export"] = DataExportAPI
 tags_to_api_dict["help_center"] = HelpCenterAPI
 tags_to_api_dict["teams"] = TeamsAPI
-
+tags_to_api_dict["conversation"] = ConversationAPI
