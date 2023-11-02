@@ -21,20 +21,16 @@ from uplink import (
 
 # From Current API
 
-
-
-
 # Intercom Python SDK
 from ...core.api_base import APIBase
 from ...core.errors import catch_api_error
 
 
 @response_handler(catch_api_error)
-class ConversationAPI(APIBase):
+class ConversationAPI(APIBase):  # type: ignore
     URI = "/conversations/"
 
-
-    @json
+    @json  # type: ignore
     @post("{conversation_id}/reply")
     def reply_to_conversation(self, conversation_id: str, payload: Body): #type: ignore
         """ Reply to a Conversation.
@@ -46,29 +42,4 @@ class ConversationAPI(APIBase):
         Returns:
             Conversation: The Conversation with the given ID.
         """
-
-  
-
-
-
-
-
-
-"""
-USAGE
- intercom.conversation.reply_to_conversation(
-        ConversationID,{
-            "message_type": "comment",
-            "type": "admin",
-            "admin_id": ID,
-            "body": "MESSAGE"
-        }
-    )
-"""
-    
-
-
-  
-
-
 

@@ -35,7 +35,7 @@ from ...core.errors import catch_api_error
 
 
 @response_handler(catch_api_error)
-class ArticlesAPI(APIBase):
+class ArticlesAPI(APIBase):  # type: ignore
     URI = "/articles/"
 
     @returns(ArticleSchema)  # type: ignore
@@ -51,7 +51,7 @@ class ArticlesAPI(APIBase):
         """
 
     @returns(ArticleSchema)  # type: ignore
-    @json
+    @json  # type: ignore
     @post("")
     def create(self, data: Body(type=ArticleSchema)):  # type: ignore
 
@@ -78,7 +78,7 @@ class ArticlesAPI(APIBase):
 
     @returns(ArticleListSchema)  # type: ignore
     @get("")
-    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50):  # noqa # type: ignore
+    def __list_all(self, page: Query('page'), per_page: Query('per_page') = 50) -> ArticleList:  # noqa # type: ignore
         """ List all Articles. """
 
     def list_all(self, page: int = 1, per_page: int = 50) -> ArticleList:
@@ -92,7 +92,7 @@ class ArticlesAPI(APIBase):
             ArticleList: A list of Articles.
         """
 
-        article_list = self.__list_all(page=page, per_page=per_page)
+        article_list: ArticleList = self.__list_all(page=page, per_page=per_page)
         while page < article_list.pages['total_pages']:
             page += 1
             new_page = self.__list_all(page=page, per_page=per_page)
@@ -102,7 +102,7 @@ class ArticlesAPI(APIBase):
         return article_list
 
     @returns(ArticleSchema)  # type: ignore
-    @json
+    @json  # type: ignore
     @put("{article_id}")
     def update_by_id(self, article_id: Union[str, int], data: Body(type=ArticleSchema)):  # type: ignore
         """ Update an Article by ID.

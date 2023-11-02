@@ -9,7 +9,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "intercom-python-sdk"
-VERSION = "0.2.1-dev"
+VERSION = "0.3.0-dev"
 # To install the library, run the following
 #
 # python setup.py install
