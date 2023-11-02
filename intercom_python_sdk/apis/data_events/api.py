@@ -14,7 +14,7 @@ It is used to interact with the Intercom Data Events API [1] as defined in the I
 # External
 from uplink import (
     get, post,
-    returns,
+    returns, json,
     response_handler,
     Body, Query
 )
@@ -76,8 +76,8 @@ class DataEventsAPI(APIBase):
             raise ValueError("At least one of `user_id`, `intercom_user_id`, or `email` must be provided.")
 
         return self.__list_all(user_id=user_id, intercom_user_id=intercom_user_id, email=email, summary=summary)
-
-    @returns(DataEventSchema())  # type: ignore
+    
+    @json()  # type: ignore
     @post("")
     def submit(self, event: Body(type=DataEventSchema)):  # type: ignore
         """ Submit a new data event.
