@@ -51,6 +51,7 @@ from typing import Union, TYPE_CHECKING
 
 # External
 from uplink import (
+    json, headers,
     get, put,
     post, delete,
     Query, Body,
@@ -118,18 +119,8 @@ class HelpCenterAPI(APIBase):  # type: ignore
         return resp
 
     @returns(CollectionSchema(many=False))  # type: ignore
-    @post(&#34;collections&#34;)
-    def create_collection(self, data: Body(CollectionSchema)):  # type: ignore
-        &#34;&#34;&#34; Create a Collection.
-
-        Args:
-            data (dict): The data to create the Collection with.
-
-        Returns:
-            Collection: The created Collection.
-        &#34;&#34;&#34;
-
-    @returns(CollectionSchema(many=False))  # type: ignore
+    @json()
+    @headers({&#34;Content-Type&#34;: &#34;application/x-www-form-urlencoded&#34;})
     @put(&#34;collections/{collection_id}&#34;)
     def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
         &#34;&#34;&#34; Update a Collection.
@@ -143,6 +134,7 @@ class HelpCenterAPI(APIBase):  # type: ignore
         &#34;&#34;&#34;
     
     @returns(CollectionSchema(many=False))  # type: ignore
+    @json()
     @post(&#34;collections&#34;)
     def create_collection(self, data: Body(type=CollectionSchema)):  # type: ignore
         &#34;&#34;&#34; Create a Collection.
@@ -258,18 +250,8 @@ class HelpCenterAPI(APIBase):  # type: ignore
         return resp
 
     @returns(CollectionSchema(many=False))  # type: ignore
-    @post(&#34;collections&#34;)
-    def create_collection(self, data: Body(CollectionSchema)):  # type: ignore
-        &#34;&#34;&#34; Create a Collection.
-
-        Args:
-            data (dict): The data to create the Collection with.
-
-        Returns:
-            Collection: The created Collection.
-        &#34;&#34;&#34;
-
-    @returns(CollectionSchema(many=False))  # type: ignore
+    @json()
+    @headers({&#34;Content-Type&#34;: &#34;application/x-www-form-urlencoded&#34;})
     @put(&#34;collections/{collection_id}&#34;)
     def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
         &#34;&#34;&#34; Update a Collection.
@@ -283,6 +265,7 @@ class HelpCenterAPI(APIBase):  # type: ignore
         &#34;&#34;&#34;
     
     @returns(CollectionSchema(many=False))  # type: ignore
+    @json()
     @post(&#34;collections&#34;)
     def create_collection(self, data: Body(type=CollectionSchema)):  # type: ignore
         &#34;&#34;&#34; Create a Collection.
@@ -342,7 +325,7 @@ class HelpCenterAPI(APIBase):  # type: ignore
 <h3>Methods</h3>
 <dl>
 <dt id="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.create_collection"><code class="name flex">
-<span>def <span class="ident">create_collection</span></span>(<span>self, data: <uplink.arguments.Body object at 0x10b80b790>)</span>
+<span>def <span class="ident">create_collection</span></span>(<span>self, data: <uplink.arguments.Body object at 0x7ff252de3b50>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Create a Collection.</p>
@@ -361,6 +344,7 @@ class HelpCenterAPI(APIBase):  # type: ignore
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@returns(CollectionSchema(many=False))  # type: ignore
+@json()
 @post(&#34;collections&#34;)
 def create_collection(self, data: Body(type=CollectionSchema)):  # type: ignore
     &#34;&#34;&#34; Create a Collection.
@@ -520,7 +504,7 @@ def list_all_sections(self):
 </details>
 </dd>
 <dt id="intercom_python_sdk.apis.help_center.api.HelpCenterAPI.update_collection_by_id"><code class="name flex">
-<span>def <span class="ident">update_collection_by_id</span></span>(<span>self, collection_id: Union[str, int], data: <uplink.arguments.Body object at 0x10b80a7d0>)</span>
+<span>def <span class="ident">update_collection_by_id</span></span>(<span>self, collection_id: Union[str, int], data: <uplink.arguments.Body object at 0x7ff252de3640>)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Update a Collection.</p>
@@ -541,6 +525,8 @@ def list_all_sections(self):
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">@returns(CollectionSchema(many=False))  # type: ignore
+@json()
+@headers({&#34;Content-Type&#34;: &#34;application/x-www-form-urlencoded&#34;})
 @put(&#34;collections/{collection_id}&#34;)
 def update_collection_by_id(self, collection_id: Union[str, int], data: Body(type=CollectionSchema)):  # type: ignore
     &#34;&#34;&#34; Update a Collection.
