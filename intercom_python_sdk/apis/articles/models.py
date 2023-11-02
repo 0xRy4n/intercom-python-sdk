@@ -55,22 +55,22 @@ class Article(ModelBase):
         See the `ArticleSchema` class.
     """
     def __init__(self, *args, **kwargs):
-        self.__type = kwargs.get('type', 'article')
-        self.__workspace_id = kwargs.get('workspace_id', '')
-        self.__title = kwargs.get('title', '')
-        self.__description = kwargs.get('description', '')
-        self.__body = kwargs.get('body', '')
-        self.__author_id = kwargs.get('author_id', None)
-        self.__state = kwargs.get('state', '')
-        self.__created_at = kwargs.get('created_at', None)
-        self.__updated_at = kwargs.get('updated_at', None)
-        self.__url = kwargs.get('url', '')
-        self.__parent_id = kwargs.get('parent_id', None)
-        self.__parent_type = kwargs.get('parent_type', '')
-        self.__default_locale = kwargs.get('default_locale', '')
+        self.__type: str = kwargs.get('type', 'article')
+        self.__workspace_id: str = kwargs.get('workspace_id', '')
+        self.__title: str = kwargs.get('title', '')
+        self.__description: str = kwargs.get('description', '')
+        self.__body: str = kwargs.get('body', '')
+        self.__author_id: int = kwargs.get('author_id', int())
+        self.__state: str = kwargs.get('state', '')
+        self.__created_at: int = kwargs.get('created_at', int())
+        self.__updated_at: int = kwargs.get('updated_at', int())
+        self.__url: str = kwargs.get('url', '')
+        self.__parent_id: int = kwargs.get('parent_id', int())
+        self.__parent_type: str = kwargs.get('parent_type', '')
+        self.__default_locale: str = kwargs.get('default_locale', '')
         self.__statistics = kwargs.get('statistics', None)
-        self.__id = kwargs.get('id', None)
-        self.__translated_content = kwargs.get('translated_content', {})
+        self.__id: int = kwargs.get('id', int())
+        self.__translated_content: dict = kwargs.get('translated_content', {})
 
     # Properties
     @property
@@ -434,7 +434,9 @@ class Article(ModelBase):
         """
         data = a_schemas.ArticleSchema().dump(self)
         schema = a_schemas.ArticleSchema().load(data)
-        self.api_client.update_by_id(self.id, schema)
+        self.api_client.update_by_id(self.id, schema)  # type: ignore
+
+        return self
 
 
 class ArticleList(ModelBase):
