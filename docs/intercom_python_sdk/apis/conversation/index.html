@@ -4,8 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>intercom_python_sdk.apis.tags_to_api API documentation</title>
-<meta name="description" content="Tags To API …" />
+<title>intercom_python_sdk.apis.conversation API documentation</title>
+<meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
 <link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
@@ -19,175 +19,62 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>intercom_python_sdk.apis.tags_to_api</code></h1>
+<h1 class="title">Module <code>intercom_python_sdk.apis.conversation</code></h1>
 </header>
 <section id="section-intro">
-<h1 id="tags-to-api">Tags To API</h1>
-<p><code>apis/tags_to_api.py</code></p>
-<p>This module contains the TagsToAPI class which is a dictionary that maps
-tags (API names) to their respective API classes. It's used to control the name used to
-access the API classes from the Intercom object, as well as which API classes
-are enabled via the Intercom object.</p>
-<h2 id="example-usage">Example Usage</h2>
-<p>To enable a new API, first import it like so:</p>
-<pre><code class="language-python">from .my_new_api.api import MyNewAPI
-</code></pre>
-<p>Then add it to the <code>tags_to_api_dict</code> like so:</p>
-<pre><code class="language-python">tags_to_api_dict[&quot;my_new_api&quot;] = MyNewAPI
-</code></pre>
-<p>You can then access the API via the Intercom object like so:</p>
-<pre><code class="language-python">intercom = Intercom('my_api_key')
-intercom.my_new_api
-</code></pre>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">&#34;&#34;&#34;
-# Tags To API
 
-`apis/tags_to_api.py`
-
-This module contains the TagsToAPI class which is a dictionary that maps
-tags (API names) to their respective API classes. It&#39;s used to control the name used to
-access the API classes from the Intercom object, as well as which API classes
-are enabled via the Intercom object.
-
-## Example Usage
-
-To enable a new API, first import it like so:
-
-```python
-from .my_new_api.api import MyNewAPI
-```
-
-Then add it to the `tags_to_api_dict` like so:
-```python
-tags_to_api_dict[&#34;my_new_api&#34;] = MyNewAPI
-```
-
-You can then access the API via the Intercom object like so:
-```python
-intercom = Intercom(&#39;my_api_key&#39;)
-intercom.my_new_api
-```
 &#34;&#34;&#34;
-# External
-from uplink.builder import Consumer, ConsumerMeta
 
-# From Current API
-from .admins.api import AdminsAPI
-from .data_attributes.api import DataAttributesAPI
-from .articles.api import ArticlesAPI
-from .data_events.api import DataEventsAPI
-from .data_export.api import DataExportAPI
-from .help_center.api import HelpCenterAPI
-from .teams.api import TeamsAPI
-from .conversation.api import ConversationAPI
-
-# From Current Package
-from ..core.api_base import APIBase
-
-
-class TagsToAPI(dict):
-    &#34;&#34;&#34;
-    A dictionary that maps tags (API names) to their respective API classes.
-
-    Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
-    &#34;&#34;&#34;
-    allowed_types: set = (APIBase, Consumer, ConsumerMeta)  # type: ignore
-
-    # Validation of assigned values to ensure only API classes are mapped.
-    def __setitem__(self, key, value):
-        if not isinstance(value, self.allowed_types):  # type: ignore
-            raise TypeError(f&#34;Invalid type. Value must be one of types {TagsToAPI.allowed_types}. Got {type(value)}.&#34;)
-        super().__setitem__(key, value)
-
-
-tags_to_api_dict = TagsToAPI()
-tags_to_api_dict[&#34;admins&#34;] = AdminsAPI
-tags_to_api_dict[&#34;articles&#34;] = ArticlesAPI
-tags_to_api_dict[&#34;data_attributes&#34;] = DataAttributesAPI
-tags_to_api_dict[&#34;data_events&#34;] = DataEventsAPI
-tags_to_api_dict[&#34;data_export&#34;] = DataExportAPI
-tags_to_api_dict[&#34;help_center&#34;] = HelpCenterAPI
-tags_to_api_dict[&#34;teams&#34;] = TeamsAPI
-tags_to_api_dict[&#34;conversation&#34;] = ConversationAPI</code></pre>
+from . import api
+from . import models
+from . import schemas</code></pre>
 </details>
 </section>
 <section>
-</section>
-<section>
-</section>
-<section>
-</section>
-<section>
-<h2 class="section-title" id="header-classes">Classes</h2>
+<h2 class="section-title" id="header-submodules">Sub-modules</h2>
 <dl>
-<dt id="intercom_python_sdk.apis.tags_to_api.TagsToAPI"><code class="flex name class">
-<span>class <span class="ident">TagsToAPI</span></span>
-<span>(</span><span>*args, **kwargs)</span>
-</code></dt>
+<dt><code class="name"><a title="intercom_python_sdk.apis.conversation.api" href="api.html">intercom_python_sdk.apis.conversation.api</a></code></dt>
 <dd>
-<div class="desc"><p>A dictionary that maps tags (API names) to their respective API classes.</p>
-<p>Only API-client type classes can be mapped to tags, as per the <code>allowed_types</code> attribute.</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">class TagsToAPI(dict):
-    &#34;&#34;&#34;
-    A dictionary that maps tags (API names) to their respective API classes.
-
-    Only API-client type classes can be mapped to tags, as per the `allowed_types` attribute.
-    &#34;&#34;&#34;
-    allowed_types: set = (APIBase, Consumer, ConsumerMeta)  # type: ignore
-
-    # Validation of assigned values to ensure only API classes are mapped.
-    def __setitem__(self, key, value):
-        if not isinstance(value, self.allowed_types):  # type: ignore
-            raise TypeError(f&#34;Invalid type. Value must be one of types {TagsToAPI.allowed_types}. Got {type(value)}.&#34;)
-        super().__setitem__(key, value)</code></pre>
-</details>
-<h3>Ancestors</h3>
-<ul class="hlist">
-<li>builtins.dict</li>
-</ul>
-<h3>Class variables</h3>
-<dl>
-<dt id="intercom_python_sdk.apis.tags_to_api.TagsToAPI.allowed_types"><code class="name">var <span class="ident">allowed_types</span> : set</code></dt>
+<div class="desc"><p>Conversation API …</p></div>
+</dd>
+<dt><code class="name"><a title="intercom_python_sdk.apis.conversation.models" href="models.html">intercom_python_sdk.apis.conversation.models</a></code></dt>
 <dd>
-<div class="desc"></div>
+<div class="desc"><p>Conversation API Models …</p></div>
+</dd>
+<dt><code class="name"><a title="intercom_python_sdk.apis.conversation.schemas" href="schemas.html">intercom_python_sdk.apis.conversation.schemas</a></code></dt>
+<dd>
+<div class="desc"><p>Conversation API Schemas …</p></div>
 </dd>
 </dl>
-</dd>
-</dl>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
 </section>
 </article>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul>
-<li><a href="#tags-to-api">Tags To API</a><ul>
-<li><a href="#example-usage">Example Usage</a></li>
-</ul>
-</li>
-</ul>
+<ul></ul>
 </div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="intercom_python_sdk.apis" href="index.html">intercom_python_sdk.apis</a></code></li>
+<li><code><a title="intercom_python_sdk.apis" href="../index.html">intercom_python_sdk.apis</a></code></li>
 </ul>
 </li>
-<li><h3><a href="#header-classes">Classes</a></h3>
+<li><h3><a href="#header-submodules">Sub-modules</a></h3>
 <ul>
-<li>
-<h4><code><a title="intercom_python_sdk.apis.tags_to_api.TagsToAPI" href="#intercom_python_sdk.apis.tags_to_api.TagsToAPI">TagsToAPI</a></code></h4>
-<ul class="">
-<li><code><a title="intercom_python_sdk.apis.tags_to_api.TagsToAPI.allowed_types" href="#intercom_python_sdk.apis.tags_to_api.TagsToAPI.allowed_types">allowed_types</a></code></li>
-</ul>
-</li>
+<li><code><a title="intercom_python_sdk.apis.conversation.api" href="api.html">intercom_python_sdk.apis.conversation.api</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.conversation.models" href="models.html">intercom_python_sdk.apis.conversation.models</a></code></li>
+<li><code><a title="intercom_python_sdk.apis.conversation.schemas" href="schemas.html">intercom_python_sdk.apis.conversation.schemas</a></code></li>
 </ul>
 </li>
 </ul>

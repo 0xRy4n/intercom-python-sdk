@@ -91,22 +91,22 @@ class Article(ModelBase):
         See the `ArticleSchema` class.
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__type = kwargs.get(&#39;type&#39;, &#39;article&#39;)
-        self.__workspace_id = kwargs.get(&#39;workspace_id&#39;, &#39;&#39;)
-        self.__title = kwargs.get(&#39;title&#39;, &#39;&#39;)
-        self.__description = kwargs.get(&#39;description&#39;, &#39;&#39;)
-        self.__body = kwargs.get(&#39;body&#39;, &#39;&#39;)
-        self.__author_id = kwargs.get(&#39;author_id&#39;, None)
-        self.__state = kwargs.get(&#39;state&#39;, &#39;&#39;)
-        self.__created_at = kwargs.get(&#39;created_at&#39;, None)
-        self.__updated_at = kwargs.get(&#39;updated_at&#39;, None)
-        self.__url = kwargs.get(&#39;url&#39;, &#39;&#39;)
-        self.__parent_id = kwargs.get(&#39;parent_id&#39;, None)
-        self.__parent_type = kwargs.get(&#39;parent_type&#39;, &#39;&#39;)
-        self.__default_locale = kwargs.get(&#39;default_locale&#39;, &#39;&#39;)
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;article&#39;)
+        self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, &#39;&#39;)
+        self.__title: str = kwargs.get(&#39;title&#39;, &#39;&#39;)
+        self.__description: str = kwargs.get(&#39;description&#39;, &#39;&#39;)
+        self.__body: str = kwargs.get(&#39;body&#39;, &#39;&#39;)
+        self.__author_id: int = kwargs.get(&#39;author_id&#39;, int())
+        self.__state: str = kwargs.get(&#39;state&#39;, &#39;&#39;)
+        self.__created_at: int = kwargs.get(&#39;created_at&#39;, int())
+        self.__updated_at: int = kwargs.get(&#39;updated_at&#39;, int())
+        self.__url: str = kwargs.get(&#39;url&#39;, &#39;&#39;)
+        self.__parent_id: int = kwargs.get(&#39;parent_id&#39;, int())
+        self.__parent_type: str = kwargs.get(&#39;parent_type&#39;, &#39;&#39;)
+        self.__default_locale: str = kwargs.get(&#39;default_locale&#39;, &#39;&#39;)
         self.__statistics = kwargs.get(&#39;statistics&#39;, None)
-        self.__id = kwargs.get(&#39;id&#39;, None)
-        self.__translated_content = kwargs.get(&#39;translated_content&#39;, {})
+        self.__id: int = kwargs.get(&#39;id&#39;, int())
+        self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, {})
 
     # Properties
     @property
@@ -470,7 +470,9 @@ class Article(ModelBase):
         &#34;&#34;&#34;
         data = a_schemas.ArticleSchema().dump(self)
         schema = a_schemas.ArticleSchema().load(data)
-        self.api_client.update_by_id(self.id, schema)
+        self.api_client.update_by_id(self.id, schema)  # type: ignore
+
+        return self
 
 
 class ArticleList(ModelBase):
@@ -666,22 +668,22 @@ class ArticleList(ModelBase):
         See the `ArticleSchema` class.
     &#34;&#34;&#34;
     def __init__(self, *args, **kwargs):
-        self.__type = kwargs.get(&#39;type&#39;, &#39;article&#39;)
-        self.__workspace_id = kwargs.get(&#39;workspace_id&#39;, &#39;&#39;)
-        self.__title = kwargs.get(&#39;title&#39;, &#39;&#39;)
-        self.__description = kwargs.get(&#39;description&#39;, &#39;&#39;)
-        self.__body = kwargs.get(&#39;body&#39;, &#39;&#39;)
-        self.__author_id = kwargs.get(&#39;author_id&#39;, None)
-        self.__state = kwargs.get(&#39;state&#39;, &#39;&#39;)
-        self.__created_at = kwargs.get(&#39;created_at&#39;, None)
-        self.__updated_at = kwargs.get(&#39;updated_at&#39;, None)
-        self.__url = kwargs.get(&#39;url&#39;, &#39;&#39;)
-        self.__parent_id = kwargs.get(&#39;parent_id&#39;, None)
-        self.__parent_type = kwargs.get(&#39;parent_type&#39;, &#39;&#39;)
-        self.__default_locale = kwargs.get(&#39;default_locale&#39;, &#39;&#39;)
+        self.__type: str = kwargs.get(&#39;type&#39;, &#39;article&#39;)
+        self.__workspace_id: str = kwargs.get(&#39;workspace_id&#39;, &#39;&#39;)
+        self.__title: str = kwargs.get(&#39;title&#39;, &#39;&#39;)
+        self.__description: str = kwargs.get(&#39;description&#39;, &#39;&#39;)
+        self.__body: str = kwargs.get(&#39;body&#39;, &#39;&#39;)
+        self.__author_id: int = kwargs.get(&#39;author_id&#39;, int())
+        self.__state: str = kwargs.get(&#39;state&#39;, &#39;&#39;)
+        self.__created_at: int = kwargs.get(&#39;created_at&#39;, int())
+        self.__updated_at: int = kwargs.get(&#39;updated_at&#39;, int())
+        self.__url: str = kwargs.get(&#39;url&#39;, &#39;&#39;)
+        self.__parent_id: int = kwargs.get(&#39;parent_id&#39;, int())
+        self.__parent_type: str = kwargs.get(&#39;parent_type&#39;, &#39;&#39;)
+        self.__default_locale: str = kwargs.get(&#39;default_locale&#39;, &#39;&#39;)
         self.__statistics = kwargs.get(&#39;statistics&#39;, None)
-        self.__id = kwargs.get(&#39;id&#39;, None)
-        self.__translated_content = kwargs.get(&#39;translated_content&#39;, {})
+        self.__id: int = kwargs.get(&#39;id&#39;, int())
+        self.__translated_content: dict = kwargs.get(&#39;translated_content&#39;, {})
 
     # Properties
     @property
@@ -1045,7 +1047,9 @@ class ArticleList(ModelBase):
         &#34;&#34;&#34;
         data = a_schemas.ArticleSchema().dump(self)
         schema = a_schemas.ArticleSchema().load(data)
-        self.api_client.update_by_id(self.id, schema)</code></pre>
+        self.api_client.update_by_id(self.id, schema)  # type: ignore
+
+        return self</code></pre>
 </details>
 <h3>Ancestors</h3>
 <ul class="hlist">
@@ -1486,7 +1490,9 @@ def workspace_id(self) -&gt; str:
     &#34;&#34;&#34;
     data = a_schemas.ArticleSchema().dump(self)
     schema = a_schemas.ArticleSchema().load(data)
-    self.api_client.update_by_id(self.id, schema)</code></pre>
+    self.api_client.update_by_id(self.id, schema)  # type: ignore
+
+    return self</code></pre>
 </details>
 </dd>
 </dl>
