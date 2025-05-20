@@ -120,7 +120,7 @@ requires-dist = [
     { name = "faker", specifier = ">=37.3.0" },
     { name = "marshmallow", specifier = ">=4.0.0" },
     { name = "requests", specifier = ">=2.32.3" },
-    { name = "uplink", specifier = ">=0.9.7" },
+    { name = "uplink", specifier = "0.9.7" },
     { name = "validator-collection", specifier = ">=1.5.0" },
 ]
 
